@@ -1,0 +1,68 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="hrms_PakAsia.SiteMaster" %>
+
+<!DOCTYPE html>
+
+<html lang="en-US" dir="ltr" data-navigation-type="default" data-navbar-horizontal-shape="default">
+<head runat="server">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><%: Page.Title %> - PakAsia Foods</title>
+   <link rel="apple-touch-icon" sizes="180x180" href="~/assets/img/favicons/apple-touch-icon.png" runat="server" />
+    <link rel="icon" type="image/png" sizes="32x32" href="~/assets/img/favicons/favicon-32x32.png" runat="server" />
+    <link rel="icon" type="image/png" sizes="16x16" href="~/assets/img/favicons/favicon-16x16.png" runat="server" />
+    <link rel="shortcut icon" type="image/x-icon" href="~/assets/img/favicons/favicon.ico" runat="server" />
+    <link rel="manifest" href="~/assets/img/favicons/manifest.json" runat="server" />
+    <meta name="msapplication-TileImage" content="~/assets/img/favicons/mstile-150x150.png" />
+    <meta name="theme-color" content="#ffffff" />
+    <script src="<%= ResolveUrl("~/vendors/simplebar/simplebar.min.js") %>"></script>
+    <script src="<%= ResolveUrl("~/assets/js/config.js") %>"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com/" />
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="~/vendors/simplebar/simplebar.min.css" rel="stylesheet" runat="server" />
+    <link rel="stylesheet"  href="https://unicons.iconscout.com/release/v4.0.8/css/line.css" />
+     <link href="~/assets/css/theme-rtl.min.css" type="text/css" rel="stylesheet" id="Link1" runat="server" ClientIDMode="Static" />
+    <link href="~/assets/css/theme.min.css" type="text/css" rel="stylesheet" id="Link2" runat="server" ClientIDMode="Static" />
+    <link href="~/assets/css/user-rtl.min.css" type="text/css" rel="stylesheet" id="Link3" runat="server" ClientIDMode="Static" />
+    <link href="~/assets/css/user.min.css" type="text/css" rel="stylesheet" id="Link4" runat="server" ClientIDMode="Static" />
+
+ 
+
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+</head>
+<body>
+    <form runat="server">
+        <asp:ScriptManager runat="server">
+            <Scripts>
+              
+             
+            </Scripts>
+        </asp:ScriptManager>
+
+        
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+            <hr />
+            <footer>
+                <p>&copy; <%: DateTime.Now.Year %> - DEVNET SOLUTIONS</p>
+            </footer>
+              <asp:ContentPlaceHolder ID="ScriptsPlaceholder" runat="server">
+                <script src="<%= ResolveUrl("~/vendors/popper/popper.min.js") %>"></script>
+                <script src="<%= ResolveUrl("~/vendors/bootstrap/bootstrap.min.js") %>"></script>
+                <script src="<%= ResolveUrl("~/vendors/anchorjs/anchor.min.js") %>"></script>
+                <script src="<%= ResolveUrl("~/vendors/is/is.min.js") %>"></script>
+                <script src="<%= ResolveUrl("~/vendors/fontawesome/all.min.js") %>"></script>
+                <script src="<%= ResolveUrl("~/vendors/lodash/lodash.min.js") %>"></script>
+                <script src="<%= ResolveUrl("~/vendors/list.js/list.min.js") %>"></script>
+                <script src="<%= ResolveUrl("~/vendors/feather-icons/feather.min.js") %>"></script>
+                <script src="<%= ResolveUrl("~/vendors/dayjs/dayjs.min.js") %>"></script>
+                <script src="<%= ResolveUrl("~/assets/js/phoenix.js") %>"></script>
+            </asp:ContentPlaceHolder>
+
+
+    </form>
+</body>
+</html>
