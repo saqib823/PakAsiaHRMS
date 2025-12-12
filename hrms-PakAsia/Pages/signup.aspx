@@ -73,7 +73,7 @@
                     </div>
                     <div class="col-sm-3 mt-3">
                       <label class="form-label" for="customFile">Attach Image</label>
-    <asp:FileUpload ID="fuCustomFile" CssClass="form-control" runat="server" />
+                        <input class="form-control" id="customFile" type="file" runat="server" />
                     </div>
                 
                    
@@ -82,7 +82,7 @@
                 <!-- Buttons -->
                 <div class="text-end mt-4">
 
-                    <asp:Button ID="btnClear" runat="server"
+                    <asp:Button ID="btnClear" OnClick="btnClear_Click" runat="server"
                         Text="Clear" CssClass="btn btn-secondary me-2 mb-3" />
 
                     <asp:Button ID="btnSave" OnClick="btnSave_Click" runat="server"

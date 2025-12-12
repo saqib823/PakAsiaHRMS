@@ -15,13 +15,9 @@ namespace hrms_PakAsia.Pages
             if (!IsPostBack)
             {
                 BindDepartments();
+                BindRoles();
             }
-            if (fuCustomFile != null && fuCustomFile.HasFile)
-            {
-                string fileName = fuCustomFile.FileName;
-                string filePath = Server.MapPath("~/Uploads/") + fileName;
-                fuCustomFile.SaveAs(filePath);
-            }
+           
         }
         private void BindDepartments()
         {
@@ -35,6 +31,19 @@ namespace hrms_PakAsia.Pages
 
             // Add default item
             ddlDepartment.Items.Insert(0, new ListItem("Select Department", ""));
+        }
+        private void BindRoles()
+        {
+            CommonDAL dal = new CommonDAL();
+            DataTable dt = dal.GetRoles();
+
+            ddlRole.DataSource = dt;
+            ddlRole.DataTextField = "RoleName";
+            ddlRole.DataValueField = "RoleId";
+            ddlRole.DataBind();
+
+            // Add default item
+            ddlRole.Items.Insert(0, new ListItem("Select Role", ""));
         }
         protected void btnSave_Click(object sender, EventArgs e)
         {
@@ -51,7 +60,13 @@ namespace hrms_PakAsia.Pages
             // Get selected values from DropDownLists
             string departmentId = ddlDepartment.SelectedValue;
             string roleId = ddlRole.SelectedValue;
-          
+            if (customFile != null && customFile.PostedFile != null && customFile.PostedFile.ContentLength > 0)
+            {
+                string fileName = System.IO.Path.GetFileName(customFile.PostedFile.FileName);
+                string savePath = Server.MapPath("~/Uploads/") + fileName;
+                customFile.PostedFile.SaveAs(savePath);
+            }
+            
 
             // Other parameters required by SaveUserData
             string userID = "001";             // Empty for new user
@@ -96,5 +111,9 @@ namespace hrms_PakAsia.Pages
             ddlRole.SelectedIndex = 0;
         }
 
+        protected void btnClear_Click(object sender, EventArgs e)
+        {
+            ClearForm();
+        }
     }
 }

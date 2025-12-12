@@ -103,13 +103,13 @@ namespace hrms_PakAsia.Pages {
         protected global::System.Web.UI.WebControls.TextBox Password;
         
         /// <summary>
-        /// fuCustomFile control.
+        /// customFile control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload fuCustomFile;
+        protected global::System.Web.UI.HtmlControls.HtmlInputFile customFile;
         
         /// <summary>
         /// btnClear control.
