@@ -1083,6 +1083,7 @@
     <Content Include="assets\img\team\avatar-placeholder.webp" />
     <Content Include="assets\img\team\avatar.webp" />
     <Content Include="assets\img\team\r.webp" />
+    <Content Include="Pages\signup.aspx" />
     <Content Include="Site.Master" />
     <Content Include="unicons.iconscout.com\release\v4.0.8\css\line.css" />
     <Content Include="vendors\anchorjs\anchor.min.js" />
@@ -1165,6 +1166,13 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\signup.aspx.cs">
+      <DependentUpon>signup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\signup.aspx.designer.cs">
+      <DependentUpon>signup.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">

@@ -135,7 +135,6 @@ C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\bin\Newtonsoft.
 C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\bin\Antlr3.Runtime.pdb
 C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\bin\Microsoft.AspNet.FriendlyUrls.xml
 C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\obj\Debug\hrms-PakAsia.csprojAssemblyReference.cache
 C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\obj\Debug\hrms-PakAsia.csproj.CoreCompileInputs.cache
 C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\obj\Debug\hrms-PakAsia.csproj.CopyComplete
 C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\obj\Debug\hrms-PakAsia.dll
