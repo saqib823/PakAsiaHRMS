@@ -1,0 +1,8 @@
+C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\HRMSLib\bin\Debug\HRMSLib.dll
+C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\HRMSLib\bin\Debug\HRMSLib.pdb
+C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\HRMSLib\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.dll
+C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\HRMSLib\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
+C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\HRMSLib\obj\Debug\HRMSLib.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\HRMSLib\obj\Debug\HRMSLib.csproj.CopyComplete
+C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\HRMSLib\obj\Debug\HRMSLib.dll
+C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\HRMSLib\obj\Debug\HRMSLib.pdb

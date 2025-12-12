@@ -139,3 +139,8 @@ C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\obj\Debug\hrms-
 C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\obj\Debug\hrms-PakAsia.csproj.CopyComplete
 C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\obj\Debug\hrms-PakAsia.dll
 C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\obj\Debug\hrms-PakAsia.pdb
+C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\obj\Debug\hrms-PakAsia.csprojAssemblyReference.cache
+C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\bin\HRMSLib.dll
+C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\bin\Microsoft.Practices.EnterpriseLibrary.Data.dll
+C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\bin\Microsoft.Practices.EnterpriseLibrary.Common.dll
+C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\bin\HRMSLib.pdb

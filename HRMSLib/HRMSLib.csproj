@@ -45,7 +45,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessLogic\CallResult.cs" />
+    <Compile Include="DataLayer\CommonDAL.cs" />
     <Compile Include="DataLayer\EmployeeMaster.cs" />
+    <Compile Include="DataLayer\UserDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
