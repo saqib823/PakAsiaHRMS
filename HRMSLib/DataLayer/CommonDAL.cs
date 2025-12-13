@@ -24,33 +24,18 @@ namespace HRMSLib.DataLayer
                 throw new Exception(ex.Message);
             }
         }
-        public DataTable GetRoles()
+        public static DataSet GetRoles()
         {
-            DataTable dt = new DataTable();
             try
             {
-                // Create database object using Enterprise Library
                 Database db = new DatabaseProviderFactory().Create("defaultDB");
-
-                // SQL query
-                string query = "SELECT RoleId, RoleName FROM Roles WHERE Status = 1 ORDER BY RoleName";
-
-                // Create command
-                DbCommand cmd = db.GetSqlStringCommand(query);
-
-                // Execute and load into DataTable
-                using (IDataReader reader = db.ExecuteReader(cmd))
-                {
-                    dt.Load(reader);
-                }
+                string query = "SELECT RoleId ID, RoleName Name FROM Roles WHERE Status = 1 ORDER BY RoleName";
+                return db.ExecuteDataSet(CommandType.Text, query);
             }
             catch (Exception ex)
             {
-                // Optionally log
-                throw ex;
+                throw new Exception(ex.Message);
             }
-
-            return dt;
         }
     }
 }
