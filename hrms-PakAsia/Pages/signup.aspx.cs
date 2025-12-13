@@ -12,11 +12,28 @@ namespace hrms_PakAsia.Pages
 {
     public partial class signup : System.Web.UI.Page
     {
+        private int PageSize => 10;
+
+        private int CurrentPage
+        {
+            get { return ViewState["CurrentPage"] != null ? (int)ViewState["CurrentPage"] : 1; }
+            set { ViewState["CurrentPage"] = value; }
+        }
+
+        private int TotalRecords
+        {
+            get { return ViewState["TotalRecords"] != null ? (int)ViewState["TotalRecords"] : 0; }
+            set { ViewState["TotalRecords"] = value; }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
+
             if (!IsPostBack)
             {
                 InitialDataBindings();
+                CurrentPage = 1;
+                BindUsers();
             }
            
         }
@@ -39,70 +56,67 @@ namespace hrms_PakAsia.Pages
         }
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            // Get values from TextBoxes
-            string username = UserName.Text.Trim();
-            string email = EmailAddress.Text.Trim();
-            string firstName = FirstName.Text.Trim();
-            string lastName = LastName.Text.Trim();
-            string designation = Designation.Text.Trim();
-            string cnic = Cnic.Text.Trim();
-            string phone = PhoneNumber.Text.Trim();
-            string password = Password.Text; // if needed, otherwise ignore
+            int? userId = ViewState["EditUserID"] as int?;
 
-            // Get selected values from DropDownLists
-            string departmentId = ddlDepartment.SelectedValue;
-            string roleId = ddlRole.SelectedValue;
             byte[] fileBytes = null;
             string contentType = "";
-            if (customFile != null && customFile.PostedFile != null && customFile.PostedFile.ContentLength > 0)
+
+            if (customFile.PostedFile != null && customFile.PostedFile.ContentLength > 0)
             {
-                HttpPostedFile postedFile = customFile.PostedFile;
+                using (BinaryReader br = new BinaryReader(customFile.PostedFile.InputStream))
+                    fileBytes = br.ReadBytes(customFile.PostedFile.ContentLength);
 
-                
-                using (var binaryReader = new BinaryReader(postedFile.InputStream))
-                {
-                    fileBytes = binaryReader.ReadBytes(postedFile.ContentLength);
-                }
-
-                string fileName = Path.GetFileName(postedFile.FileName);
-                contentType = postedFile.ContentType;
-
-                // fileBytes now contains the uploaded file as byte[]
+                contentType = customFile.PostedFile.ContentType;
             }
 
-
-
-            // Other parameters required by SaveUserData
-            string userID = "001";             // Empty for new user
-            string createdBy = "Admin";     // You can replace with current logged-in user
-
-            try
+            UserDAL dal = new UserDAL();
+            bool IsSaved = false;
+            if (userId.HasValue)
             {
-                // Create instance of UserDAL
-                UserDAL dal = new UserDAL();
-
-                // Call the method
-                string result = dal.SaveUserData(
-                    username, password, firstName, lastName, email, cnic, phone, roleId, departmentId, createdBy, designation, fileBytes, contentType
+                // UPDATE
+                IsSaved = dal.UpdateUser(
+                    userId.Value,
+                    UserName.Text.Trim(),
+                    FirstName.Text.Trim(),
+                    LastName.Text.Trim(),
+                    EmailAddress.Text.Trim(),
+                    Cnic.Text.Trim(),
+                    PhoneNumber.Text.Trim(),
+                    ddlRole.SelectedValue,
+                    ddlDepartment.SelectedValue,
+                    Designation.Text.Trim(),
+                    Password.Text,
+                    fileBytes,
+                    contentType
                 );
 
-
-                // Optional: Show success message
-                phAlert.Controls.Clear();
-
-                phAlert.Controls.Add(new LiteralControl(@"
-                    <div class='alert alert-subtle-success alert-dismissible fade show' role='alert'>
-                        <strong>Success!</strong> User saved successfully.
-                        <button class='btn-close' type='button' data-bs-dismiss='alert'></button>
-                    </div>"));
-
-                ClearForm();
+                ViewState["EditUserID"] = null;
+                ShowAlert("User updated successfully", "success");
             }
-            catch (Exception ex)
+            else
             {
-                // Handle errors
-                ClientScript.RegisterStartupScript(this.GetType(), "alert", $"alert('Error: {ex.Message}');", true);
+                // INSERT
+                IsSaved = dal.SaveUserData(
+                    UserName.Text.Trim(),
+                    Password.Text,
+                    FirstName.Text.Trim(),
+                    LastName.Text.Trim(),
+                    EmailAddress.Text.Trim(),
+                    Cnic.Text.Trim(),
+                    PhoneNumber.Text.Trim(),
+                    ddlRole.SelectedValue,
+                    ddlDepartment.SelectedValue,
+                    "Admin",
+                    Designation.Text.Trim(),
+                    fileBytes,
+                    contentType
+                );
+
+                ShowAlert("User created successfully", "success");
             }
+
+            ClearForm();
+            BindUsers();
         }
 
         // Optional helper method to clear the form
@@ -123,6 +137,153 @@ namespace hrms_PakAsia.Pages
         protected void btnClear_Click(object sender, EventArgs e)
         {
             ClearForm();
+        }
+
+        private void BindUsers()
+        {
+            UserDAL dal = new UserDAL();
+
+            int total;
+            var dt = dal.GetUsersPaged(
+                CurrentPage,
+                PageSize,
+                txtSearch.Text.Trim(),
+                "UserName",
+                "ASC",
+                out total);
+
+            TotalRecords = total;
+
+            rptUsers.DataSource = dt;
+            rptUsers.DataBind();
+
+            int totalPages = (int)Math.Ceiling((double)TotalRecords / PageSize);
+
+            lblPageInfo.Text = $"Page {CurrentPage} of {totalPages} (Total: {TotalRecords})";
+
+            btnPrev.Enabled = CurrentPage > 1;
+            btnNext.Enabled = CurrentPage < totalPages;
+            BindPager();
+
+        }
+        private void BindPager()
+        {
+            int totalPages = (int)Math.Ceiling((double)TotalRecords / PageSize);
+
+            List<object> pages = new List<object>();
+
+            for (int i = 1; i <= totalPages; i++)
+            {
+                pages.Add(new
+                {
+                    PageNumber = i,
+                    IsCurrent = (i == CurrentPage)
+                });
+            }
+
+            rptPager.DataSource = pages;
+            rptPager.DataBind();
+
+            btnPrev.Enabled = CurrentPage > 1;
+            btnNext.Enabled = CurrentPage < totalPages;
+        }
+
+        protected void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            CurrentPage = 1;
+            BindUsers();
+        }
+        protected void rptPager_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            if (e.CommandName == "Page")
+            {
+                CurrentPage = Convert.ToInt32(e.CommandArgument);
+                BindUsers();
+            }
+        }
+
+        protected void btnPrev_Click(object sender, EventArgs e)
+        {
+            if (CurrentPage > 1)
+            {
+                CurrentPage--;
+                BindUsers();
+            }
+        }
+
+        protected void btnNext_Click(object sender, EventArgs e)
+        {
+            CurrentPage++;
+            BindUsers();
+        }
+        private void ShowAlert(string message, string css)
+        {
+            phAlert.Controls.Clear();
+
+            phAlert.Controls.Add(new Literal
+            {
+                Text = $@"
+        <div id='autoAlert' class='alert alert-{css} alert-dismissible fade show' role='alert'>
+            {message}
+        </div>
+
+        <script>
+            setTimeout(function () {{
+                var alert = document.getElementById('autoAlert');
+                if (alert) {{
+                    alert.classList.remove('show');
+                    alert.classList.add('hide');
+                }}
+            }}, 3000); // 3 seconds
+        </script>"
+            });
+        }
+
+        protected void rptUsers_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            int userId = Convert.ToInt32(e.CommandArgument);
+
+            if (e.CommandName == "EditUser")
+            {
+                LoadUserForEdit(userId);
+            }
+            else if (e.CommandName == "DeleteUser")
+            {
+                DeleteUser(userId);
+            }
+        }
+        private void LoadUserForEdit(int userId)
+        {
+            UserDAL dal = new UserDAL();
+            DataRow dr = dal.GetUserById(userId);
+
+            if (dr == null) return;
+
+            UserName.Text = dr["UserName"].ToString();
+            EmailAddress.Text = dr["EmailAddress"].ToString();
+            FirstName.Text = dr["FirstName"].ToString();
+            LastName.Text = dr["LastName"].ToString();
+            Designation.Text = dr["Designation"].ToString();
+            Cnic.Text = dr["CNIC"].ToString();
+            PhoneNumber.Text = dr["PhoneNumber"].ToString();
+           
+
+            ddlDepartment.SelectedValue = dr["PrimaryDepartmentId"].ToString();
+            ddlRole.SelectedValue = dr["RoleID"].ToString();
+
+            // Store UserID for update
+            ViewState["EditUserID"] = userId;
+
+            ShowAlert("User loaded for editing", "info");
+        }
+
+        private void DeleteUser(int userId)
+        {
+            UserDAL dal = new UserDAL();
+            dal.DeleteUser(userId);
+
+            ShowAlert("User deleted successfully", "warning");
+            BindUsers();
         }
     }
 }

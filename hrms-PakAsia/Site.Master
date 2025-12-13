@@ -17,7 +17,9 @@
     <meta name="theme-color" content="#ffffff" />
     <script src="<%= ResolveUrl("~/vendors/simplebar/simplebar.min.js") %>"></script>
     <script src="<%= ResolveUrl("~/assets/js/config.js") %>"></script>
-
+      <link href="~/vendors/choices/choices.min.css" runat="server" rel="stylesheet">
+    <link href="~/vendors/dhtmlx-gantt/dhtmlxgantt.css" runat="server" rel="stylesheet">
+    <link href="~/vendors/flatpickr/flatpickr.min.css" runat="server" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com/" />
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap" rel="stylesheet" />
@@ -73,19 +75,7 @@ var userDefault = document.getElementById('Link4');  // user.min.css
 
  
         <asp:ScriptManager ID="ScriptManager1" runat="server" />
-
- <asp:UpdatePanel ID="MainUpdatePanel" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="true">
-    <ContentTemplate>
-
-        <asp:ContentPlaceHolder ID="MainContent" runat="server">
-        </asp:ContentPlaceHolder>
-
-    </ContentTemplate>
-
-    <Triggers>
-        <asp:AsyncPostBackTrigger ControlID="MainContent" />
-    </Triggers>
-</asp:UpdatePanel>
+    <asp:ContentPlaceHolder ID="MainContent" runat="server" />
 
 
           
@@ -148,7 +138,12 @@ var userDefault = document.getElementById('Link4');  // user.min.css
                 <script src="<%= ResolveUrl("~/vendors/list.js/list.min.js") %>"></script>
                 <script src="<%= ResolveUrl("~/vendors/feather-icons/feather.min.js") %>"></script>
                 <script src="<%= ResolveUrl("~/vendors/dayjs/dayjs.min.js") %>"></script>
+                <script src="<%= ResolveUrl("~/vendors/choices/choices.min.js") %>"></script>
+                <script src="<%= ResolveUrl("~/vendors/echarts/echarts.min.js") %>"></script>
+                <script src="<%= ResolveUrl("~/vendors/dhtmlx-gantt/dhtmlxgantt.js") %>"></script>
+                <script src="<%= ResolveUrl("~/vendors/flatpickr/flatpickr.min.js") %>"></script>
                 <script src="<%= ResolveUrl("~/assets/js/phoenix.js") %>"></script>
+                <script src="<%= ResolveUrl("~/assets/js/dashboards/projectmanagement-dashboard.js") %>"></script>
             </asp:ContentPlaceHolder>
             <script type="text/javascript">
                 document.addEventListener("DOMContentLoaded", function() {

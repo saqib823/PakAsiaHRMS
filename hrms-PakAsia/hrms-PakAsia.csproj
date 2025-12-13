@@ -1102,6 +1102,7 @@
     <Content Include="assets\img\team\avatar-placeholder.webp" />
     <Content Include="assets\img\team\avatar.webp" />
     <Content Include="assets\img\team\r.webp" />
+    <Content Include="Pages\dashboard.aspx" />
     <Content Include="Pages\signup.aspx" />
     <Content Include="Site.Master" />
     <Content Include="unicons.iconscout.com\release\v4.0.8\css\line.css" />
@@ -1186,6 +1187,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Pages\dashboard.aspx.cs">
+      <DependentUpon>dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\dashboard.aspx.designer.cs">
+      <DependentUpon>dashboard.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\signup.aspx.cs">
       <DependentUpon>signup.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1203,10 +1211,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Uploads\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\DB_Backup\PakAsiaDB" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

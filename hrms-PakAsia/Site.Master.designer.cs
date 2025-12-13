@@ -58,15 +58,6 @@ namespace hrms_PakAsia {
         protected global::System.Web.UI.ScriptManager ScriptManager1;
         
         /// <summary>
-        /// MainUpdatePanel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel MainUpdatePanel;
-        
-        /// <summary>
         /// MainContent control.
         /// </summary>
         /// <remarks>
