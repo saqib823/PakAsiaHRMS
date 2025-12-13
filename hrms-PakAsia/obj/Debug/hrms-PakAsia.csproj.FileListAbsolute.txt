@@ -144,3 +144,13 @@ C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\bin\HRMSLib.dll
 C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\bin\Microsoft.Practices.EnterpriseLibrary.Data.dll
 C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\bin\Microsoft.Practices.EnterpriseLibrary.Common.dll
 C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\bin\HRMSLib.pdb
+C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\bin\BCrypt.Net-Next.dll
+C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\bin\System.Buffers.dll
+C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\bin\System.Memory.dll
+C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\bin\System.Numerics.Vectors.dll
+C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\bin\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\bin\BCrypt.Net-Next.xml
+C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\bin\System.Buffers.xml
+C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\bin\System.Memory.xml
+C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\bin\System.Numerics.Vectors.xml
+C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\bin\System.Runtime.CompilerServices.Unsafe.xml

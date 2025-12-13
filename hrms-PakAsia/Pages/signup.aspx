@@ -45,9 +45,7 @@
               
                     <div class="col-sm-3 mt-3">
                         <label class="form-label">Department</label>
-                        <asp:DropDownList CssClass="form-control" ID="ddlDepartment" runat="server">
-                            <asp:ListItem Text="Select Department" Value=""></asp:ListItem>
-                        </asp:DropDownList>
+                        <asp:DropDownList CssClass="form-control" ID="ddlDepartment" DataTextField="Name" DataValueField="ID" runat="server"></asp:DropDownList>
                     </div>
 
                    <div class="col-sm-3 mt-3">
@@ -90,6 +88,7 @@
 
                 </div>
                                     </div>
+                        <asp:PlaceHolder ID="phAlert" runat="server"></asp:PlaceHolder>
 
                 <!-- TABLE BELOW THE FORM -->
                 

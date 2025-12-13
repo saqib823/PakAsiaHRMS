@@ -12,8 +12,9 @@ namespace HRMSLib.DataLayer
     [Serializable]
     public class UserDAL
     {
-        public string SaveUserData(string username, string firstName, string lastName, string email, string cnic,
-            string phone, string roleId, string departmentId, string createdBy, string designation)
+        public string SaveUserData(string username, string password, string firstName, string lastName, string email, string cnic,
+            string phone, string roleId, string departmentId, string createdBy, string designation, byte[] fileBytes, 
+            string contentType)
         {
             try
             {
@@ -36,7 +37,9 @@ namespace HRMSLib.DataLayer
                 db.AddInParameter(cmd, "@DepartmentId", DbType.String, departmentId);
                 db.AddInParameter(cmd, "@Active", DbType.String, 1);
                 db.AddInParameter(cmd, "@CreatedBy", DbType.String, 001);
-
+                db.AddInParameter(cmd, "@fileBytes", DbType.Binary, (object)fileBytes ?? DBNull.Value);
+                db.AddInParameter(cmd, "@contentType", DbType.String, contentType);
+                db.AddInParameter(cmd, "@Password", DbType.String, BCrypt.Net.BCrypt.HashPassword(password));
                 // Execute
                 int result = db.ExecuteNonQuery(cmd);
 

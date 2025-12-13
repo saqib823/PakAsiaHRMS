@@ -11,33 +11,18 @@ namespace HRMSLib.DataLayer
 {
     public class CommonDAL
     {
-        public DataTable GetDepartments()
+        public static DataSet GetDepartments()
         {
-            DataTable dt = new DataTable();
             try
             {
-                // Create database object using Enterprise Library
                 Database db = new DatabaseProviderFactory().Create("defaultDB");
-
-                // SQL query
-                string query = "SELECT DepartmentID, DepartmentName FROM Departments WHERE Status = 1 ORDER BY DepartmentName";
-
-                // Create command
-                DbCommand cmd = db.GetSqlStringCommand(query);
-
-                // Execute and load into DataTable
-                using (IDataReader reader = db.ExecuteReader(cmd))
-                {
-                    dt.Load(reader);
-                }
+                string query = "SELECT DepartmentID ID, DepartmentName Name FROM Departments WHERE Status = 1 ORDER BY DepartmentName";
+                return db.ExecuteDataSet(CommandType.Text, query);
             }
             catch (Exception ex)
             {
-                // Optionally log
-                throw ex;
+                throw new Exception(ex.Message);
             }
-
-            return dt;
         }
         public DataTable GetRoles()
         {

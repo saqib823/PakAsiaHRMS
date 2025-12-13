@@ -6,3 +6,14 @@ C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\HRMSLib\obj\Debug\HRMSLib.cs
 C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\HRMSLib\obj\Debug\HRMSLib.csproj.CopyComplete
 C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\HRMSLib\obj\Debug\HRMSLib.dll
 C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\HRMSLib\obj\Debug\HRMSLib.pdb
+C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\HRMSLib\obj\Debug\HRMSLib.csprojAssemblyReference.cache
+C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\HRMSLib\bin\Debug\BCrypt.Net-Next.dll
+C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\HRMSLib\bin\Debug\System.Buffers.dll
+C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\HRMSLib\bin\Debug\System.Memory.dll
+C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\HRMSLib\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\HRMSLib\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\HRMSLib\bin\Debug\BCrypt.Net-Next.xml
+C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\HRMSLib\bin\Debug\System.Buffers.xml
+C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\HRMSLib\bin\Debug\System.Memory.xml
+C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\HRMSLib\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\HRMSLib\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml

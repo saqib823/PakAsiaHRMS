@@ -1,7 +1,9 @@
-﻿using HRMSLib.DataLayer;
+﻿using HRMSLib.BusinessLogic;
+using HRMSLib.DataLayer;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -21,16 +23,16 @@ namespace hrms_PakAsia.Pages
         }
         private void BindDepartments()
         {
-            CommonDAL dal = new CommonDAL();
-            DataTable dt = dal.GetDepartments();
-
-            ddlDepartment.DataSource = dt;
-            ddlDepartment.DataTextField = "DepartmentName";
-            ddlDepartment.DataValueField = "DepartmentID";
-            ddlDepartment.DataBind();
-
-            // Add default item
-            ddlDepartment.Items.Insert(0, new ListItem("Select Department", ""));
+            try
+            {
+                ddlDepartment.DataSource = CommonDAL.GetDepartments();
+                ddlDepartment.DataBind();
+                ddlDepartment.Items.Insert(0, new ListItem("Select One", "0"));
+            }
+            catch (Exception ex)
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "alert", $"alert('Error: {ex.Message}');", true);
+            }
         }
         private void BindRoles()
         {
@@ -60,13 +62,25 @@ namespace hrms_PakAsia.Pages
             // Get selected values from DropDownLists
             string departmentId = ddlDepartment.SelectedValue;
             string roleId = ddlRole.SelectedValue;
+            byte[] fileBytes = null;
+            string contentType = "";
             if (customFile != null && customFile.PostedFile != null && customFile.PostedFile.ContentLength > 0)
             {
-                string fileName = System.IO.Path.GetFileName(customFile.PostedFile.FileName);
-                string savePath = Server.MapPath("~/Uploads/") + fileName;
-                customFile.PostedFile.SaveAs(savePath);
+                HttpPostedFile postedFile = customFile.PostedFile;
+
+                
+                using (var binaryReader = new BinaryReader(postedFile.InputStream))
+                {
+                    fileBytes = binaryReader.ReadBytes(postedFile.ContentLength);
+                }
+
+                string fileName = Path.GetFileName(postedFile.FileName);
+                contentType = postedFile.ContentType;
+
+                // fileBytes now contains the uploaded file as byte[]
             }
-            
+
+
 
             // Other parameters required by SaveUserData
             string userID = "001";             // Empty for new user
@@ -79,14 +93,19 @@ namespace hrms_PakAsia.Pages
 
                 // Call the method
                 string result = dal.SaveUserData(
-                    username, firstName, lastName, email, cnic, phone, roleId, departmentId, createdBy, designation
+                    username, password, firstName, lastName, email, cnic, phone, roleId, departmentId, createdBy, designation, fileBytes, contentType
                 );
 
 
                 // Optional: Show success message
-                ClientScript.RegisterStartupScript(this.GetType(), "alert", $"alert('User saved successfully. Result: {result}');", true);
+                phAlert.Controls.Clear();
 
-                // Clear form
+                phAlert.Controls.Add(new LiteralControl(@"
+                    <div class='alert alert-subtle-success alert-dismissible fade show' role='alert'>
+                        <strong>Success!</strong> User saved successfully.
+                        <button class='btn-close' type='button' data-bs-dismiss='alert'></button>
+                    </div>"));
+
                 ClearForm();
             }
             catch (Exception ex)
