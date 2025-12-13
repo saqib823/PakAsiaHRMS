@@ -50,9 +50,7 @@
 
                    <div class="col-sm-3 mt-3">
                         <label class="form-label">Role</label>
-                        <asp:DropDownList CssClass="form-control" ID="ddlRole" runat="server">
-                            <asp:ListItem Text="Select Role" Value=""></asp:ListItem>
-                        </asp:DropDownList>
+                        <asp:DropDownList CssClass="form-control" ID="ddlRole" DataTextField="Name" DataValueField="ID" runat="server"></asp:DropDownList>
                     </div>
 
                     <div class="col-sm-3 mt-3">
