@@ -16,36 +16,26 @@ namespace hrms_PakAsia.Pages
         {
             if (!IsPostBack)
             {
-                BindDepartments();
-                BindRoles();
+                InitialDataBindings();
             }
            
         }
-        private void BindDepartments()
+        private void InitialDataBindings()
         {
             try
             {
                 ddlDepartment.DataSource = CommonDAL.GetDepartments();
                 ddlDepartment.DataBind();
                 ddlDepartment.Items.Insert(0, new ListItem("Select One", "0"));
+
+                ddlRole.DataSource = CommonDAL.GetRoles();
+                ddlRole.DataBind();
+                ddlRole.Items.Insert(0, new ListItem("Select One", "0"));
             }
             catch (Exception ex)
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "alert", $"alert('Error: {ex.Message}');", true);
             }
-        }
-        private void BindRoles()
-        {
-            CommonDAL dal = new CommonDAL();
-            DataTable dt = dal.GetRoles();
-
-            ddlRole.DataSource = dt;
-            ddlRole.DataTextField = "RoleName";
-            ddlRole.DataValueField = "RoleId";
-            ddlRole.DataBind();
-
-            // Add default item
-            ddlRole.Items.Insert(0, new ListItem("Select Role", ""));
         }
         protected void btnSave_Click(object sender, EventArgs e)
         {
