@@ -1103,6 +1103,8 @@
     <Content Include="assets\img\team\avatar.webp" />
     <Content Include="assets\img\team\r.webp" />
     <Content Include="Pages\dashboard.aspx" />
+    <Content Include="Pages\departments.aspx" />
+    <Content Include="Pages\roles.aspx" />
     <Content Include="Pages\signup.aspx" />
     <Content Include="Site.Master" />
     <Content Include="unicons.iconscout.com\release\v4.0.8\css\line.css" />
@@ -1161,6 +1163,13 @@
     <Content Include="Bundle.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App.Master.cs">
+      <DependentUpon>App.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App.Master.designer.cs">
+      <DependentUpon>App.Master</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="About.aspx.cs">
       <DependentUpon>About.aspx</DependentUpon>
@@ -1194,6 +1203,20 @@
     <Compile Include="Pages\dashboard.aspx.designer.cs">
       <DependentUpon>dashboard.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Pages\departments.aspx.cs">
+      <DependentUpon>departments.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\departments.aspx.designer.cs">
+      <DependentUpon>departments.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\roles.aspx.cs">
+      <DependentUpon>roles.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\roles.aspx.designer.cs">
+      <DependentUpon>roles.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\signup.aspx.cs">
       <DependentUpon>signup.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1215,6 +1238,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\DB_Backup\PakAsiaDB" />
+    <Content Include="App.Master" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

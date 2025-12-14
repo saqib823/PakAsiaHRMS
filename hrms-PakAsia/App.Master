@@ -1,0 +1,914 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="App.master.cs" Inherits="hrms_PakAsia.App" %>
+
+<!DOCTYPE html>
+
+<html lang="en-US" dir="ltr" data-navigation-type="default" data-navbar-horizontal-shape="default">
+<head runat="server">
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><%: Page.Title %> - PakAsia Foods</title>
+    <style type="text/css">
+        :host, :root {
+            --fa-font-solid: normal 900 1em/1 "Font Awesome 6 Free";
+            --fa-font-regular: normal 400 1em/1 "Font Awesome 6 Free";
+            --fa-font-light: normal 300 1em/1 "Font Awesome 6 Pro";
+            --fa-font-thin: normal 100 1em/1 "Font Awesome 6 Pro";
+            --fa-font-duotone: normal 900 1em/1 "Font Awesome 6 Duotone";
+            --fa-font-duotone-regular: normal 400 1em/1 "Font Awesome 6 Duotone";
+            --fa-font-duotone-light: normal 300 1em/1 "Font Awesome 6 Duotone";
+            --fa-font-duotone-thin: normal 100 1em/1 "Font Awesome 6 Duotone";
+            --fa-font-brands: normal 400 1em/1 "Font Awesome 6 Brands";
+            --fa-font-sharp-solid: normal 900 1em/1 "Font Awesome 6 Sharp";
+            --fa-font-sharp-regular: normal 400 1em/1 "Font Awesome 6 Sharp";
+            --fa-font-sharp-light: normal 300 1em/1 "Font Awesome 6 Sharp";
+            --fa-font-sharp-thin: normal 100 1em/1 "Font Awesome 6 Sharp";
+            --fa-font-sharp-duotone-solid: normal 900 1em/1 "Font Awesome 6 Sharp Duotone";
+            --fa-font-sharp-duotone-regular: normal 400 1em/1 "Font Awesome 6 Sharp Duotone";
+            --fa-font-sharp-duotone-light: normal 300 1em/1 "Font Awesome 6 Sharp Duotone";
+            --fa-font-sharp-duotone-thin: normal 100 1em/1 "Font Awesome 6 Sharp Duotone"
+        }
+
+        svg:not(:host).svg-inline--fa, svg:not(:root).svg-inline--fa {
+            overflow: visible;
+            box-sizing: content-box
+        }
+
+        .svg-inline--fa {
+            display: var(--fa-display,inline-block);
+            height: 1em;
+            overflow: visible;
+            vertical-align: -.125em
+        }
+
+            .svg-inline--fa.fa-2xs {
+                vertical-align: .1em
+            }
+
+            .svg-inline--fa.fa-xs {
+                vertical-align: 0
+            }
+
+            .svg-inline--fa.fa-sm {
+                vertical-align: -.0714285705em
+            }
+
+            .svg-inline--fa.fa-lg {
+                vertical-align: -.2em
+            }
+
+            .svg-inline--fa.fa-xl {
+                vertical-align: -.25em
+            }
+
+            .svg-inline--fa.fa-2xl {
+                vertical-align: -.3125em
+            }
+
+            .svg-inline--fa.fa-pull-left {
+                margin-right: var(--fa-pull-margin,.3em);
+                width: auto
+            }
+
+            .svg-inline--fa.fa-pull-right {
+                margin-left: var(--fa-pull-margin,.3em);
+                width: auto
+            }
+
+            .svg-inline--fa.fa-li {
+                width: var(--fa-li-width,2em);
+                top: .25em
+            }
+
+            .svg-inline--fa.fa-fw {
+                width: var(--fa-fw-width,1.25em)
+            }
+
+        .fa-layers svg.svg-inline--fa {
+            bottom: 0;
+            left: 0;
+            margin: auto;
+            position: absolute;
+            right: 0;
+            top: 0
+        }
+
+        .fa-layers-counter, .fa-layers-text {
+            display: inline-block;
+            position: absolute;
+            text-align: center
+        }
+
+        .fa-layers {
+            display: inline-block;
+            height: 1em;
+            position: relative;
+            text-align: center;
+            vertical-align: -.125em;
+            width: 1em
+        }
+
+            .fa-layers svg.svg-inline--fa {
+                transform-origin: center center
+            }
+
+        .fa-layers-text {
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+            transform-origin: center center
+        }
+
+        .fa-layers-counter {
+            background-color: var(--fa-counter-background-color,#ff253a);
+            border-radius: var(--fa-counter-border-radius,1em);
+            box-sizing: border-box;
+            color: var(--fa-inverse,#fff);
+            line-height: var(--fa-counter-line-height,1);
+            max-width: var(--fa-counter-max-width,5em);
+            min-width: var(--fa-counter-min-width,1.5em);
+            overflow: hidden;
+            padding: var(--fa-counter-padding,.25em .5em);
+            right: var(--fa-right,0);
+            text-overflow: ellipsis;
+            top: var(--fa-top,0);
+            transform: scale(var(--fa-counter-scale,.25));
+            transform-origin: top right
+        }
+
+        .fa-layers-bottom-right {
+            bottom: var(--fa-bottom,0);
+            right: var(--fa-right,0);
+            top: auto;
+            transform: scale(var(--fa-layers-scale,.25));
+            transform-origin: bottom right
+        }
+
+        .fa-layers-bottom-left {
+            bottom: var(--fa-bottom,0);
+            left: var(--fa-left,0);
+            right: auto;
+            top: auto;
+            transform: scale(var(--fa-layers-scale,.25));
+            transform-origin: bottom left
+        }
+
+        .fa-layers-top-right {
+            top: var(--fa-top,0);
+            right: var(--fa-right,0);
+            transform: scale(var(--fa-layers-scale,.25));
+            transform-origin: top right
+        }
+
+        .fa-layers-top-left {
+            left: var(--fa-left,0);
+            right: auto;
+            top: var(--fa-top,0);
+            transform: scale(var(--fa-layers-scale,.25));
+            transform-origin: top left
+        }
+
+        .fa-1x {
+            font-size: 1em
+        }
+
+        .fa-2x {
+            font-size: 2em
+        }
+
+        .fa-3x {
+            font-size: 3em
+        }
+
+        .fa-4x {
+            font-size: 4em
+        }
+
+        .fa-5x {
+            font-size: 5em
+        }
+
+        .fa-6x {
+            font-size: 6em
+        }
+
+        .fa-7x {
+            font-size: 7em
+        }
+
+        .fa-8x {
+            font-size: 8em
+        }
+
+        .fa-9x {
+            font-size: 9em
+        }
+
+        .fa-10x {
+            font-size: 10em
+        }
+
+        .fa-2xs {
+            font-size: .625em;
+            line-height: .1em;
+            vertical-align: .225em
+        }
+
+        .fa-xs {
+            font-size: .75em;
+            line-height: .0833333337em;
+            vertical-align: .125em
+        }
+
+        .fa-sm {
+            font-size: .875em;
+            line-height: .0714285718em;
+            vertical-align: .0535714295em
+        }
+
+        .fa-lg {
+            font-size: 1.25em;
+            line-height: .05em;
+            vertical-align: -.075em
+        }
+
+        .fa-xl {
+            font-size: 1.5em;
+            line-height: .0416666682em;
+            vertical-align: -.125em
+        }
+
+        .fa-2xl {
+            font-size: 2em;
+            line-height: .03125em;
+            vertical-align: -.1875em
+        }
+
+        .fa-fw {
+            text-align: center;
+            width: 1.25em
+        }
+
+        .fa-ul {
+            list-style-type: none;
+            margin-left: var(--fa-li-margin,2.5em);
+            padding-left: 0
+        }
+
+            .fa-ul > li {
+                position: relative
+            }
+
+        .fa-li {
+            left: calc(-1 * var(--fa-li-width,2em));
+            position: absolute;
+            text-align: center;
+            width: var(--fa-li-width,2em);
+            line-height: inherit
+        }
+
+        .fa-border {
+            border-color: var(--fa-border-color,#eee);
+            border-radius: var(--fa-border-radius,.1em);
+            border-style: var(--fa-border-style,solid);
+            border-width: var(--fa-border-width,.08em);
+            padding: var(--fa-border-padding,.2em .25em .15em)
+        }
+
+        .fa-pull-left {
+            float: left;
+            margin-right: var(--fa-pull-margin,.3em)
+        }
+
+        .fa-pull-right {
+            float: right;
+            margin-left: var(--fa-pull-margin,.3em)
+        }
+
+        .fa-beat {
+            animation-name: fa-beat;
+            animation-delay: var(--fa-animation-delay,0s);
+            animation-direction: var(--fa-animation-direction,normal);
+            animation-duration: var(--fa-animation-duration,1s);
+            animation-iteration-count: var(--fa-animation-iteration-count,infinite);
+            animation-timing-function: var(--fa-animation-timing,ease-in-out)
+        }
+
+        .fa-bounce {
+            animation-name: fa-bounce;
+            animation-delay: var(--fa-animation-delay,0s);
+            animation-direction: var(--fa-animation-direction,normal);
+            animation-duration: var(--fa-animation-duration,1s);
+            animation-iteration-count: var(--fa-animation-iteration-count,infinite);
+            animation-timing-function: var(--fa-animation-timing,cubic-bezier(.28,.84,.42,1))
+        }
+
+        .fa-fade {
+            animation-name: fa-fade;
+            animation-delay: var(--fa-animation-delay,0s);
+            animation-direction: var(--fa-animation-direction,normal);
+            animation-duration: var(--fa-animation-duration,1s);
+            animation-iteration-count: var(--fa-animation-iteration-count,infinite);
+            animation-timing-function: var(--fa-animation-timing,cubic-bezier(.4,0,.6,1))
+        }
+
+        .fa-beat-fade {
+            animation-name: fa-beat-fade;
+            animation-delay: var(--fa-animation-delay,0s);
+            animation-direction: var(--fa-animation-direction,normal);
+            animation-duration: var(--fa-animation-duration,1s);
+            animation-iteration-count: var(--fa-animation-iteration-count,infinite);
+            animation-timing-function: var(--fa-animation-timing,cubic-bezier(.4,0,.6,1))
+        }
+
+        .fa-flip {
+            animation-name: fa-flip;
+            animation-delay: var(--fa-animation-delay,0s);
+            animation-direction: var(--fa-animation-direction,normal);
+            animation-duration: var(--fa-animation-duration,1s);
+            animation-iteration-count: var(--fa-animation-iteration-count,infinite);
+            animation-timing-function: var(--fa-animation-timing,ease-in-out)
+        }
+
+        .fa-shake {
+            animation-name: fa-shake;
+            animation-delay: var(--fa-animation-delay,0s);
+            animation-direction: var(--fa-animation-direction,normal);
+            animation-duration: var(--fa-animation-duration,1s);
+            animation-iteration-count: var(--fa-animation-iteration-count,infinite);
+            animation-timing-function: var(--fa-animation-timing,linear)
+        }
+
+        .fa-spin {
+            animation-name: fa-spin;
+            animation-delay: var(--fa-animation-delay,0s);
+            animation-direction: var(--fa-animation-direction,normal);
+            animation-duration: var(--fa-animation-duration,2s);
+            animation-iteration-count: var(--fa-animation-iteration-count,infinite);
+            animation-timing-function: var(--fa-animation-timing,linear)
+        }
+
+        .fa-spin-reverse {
+            --fa-animation-direction: reverse
+        }
+
+        .fa-pulse, .fa-spin-pulse {
+            animation-name: fa-spin;
+            animation-direction: var(--fa-animation-direction,normal);
+            animation-duration: var(--fa-animation-duration,1s);
+            animation-iteration-count: var(--fa-animation-iteration-count,infinite);
+            animation-timing-function: var(--fa-animation-timing,steps(8))
+        }
+
+        @media (prefers-reduced-motion:reduce) {
+            .fa-beat, .fa-beat-fade, .fa-bounce, .fa-fade, .fa-flip, .fa-pulse, .fa-shake, .fa-spin, .fa-spin-pulse {
+                animation-delay: -1ms;
+                animation-duration: 1ms;
+                animation-iteration-count: 1;
+                transition-delay: 0s;
+                transition-duration: 0s
+            }
+        }
+
+        @keyframes fa-beat {
+            0%,90% {
+                transform: scale(1)
+            }
+
+            45% {
+                transform: scale(var(--fa-beat-scale,1.25))
+            }
+        }
+
+        @keyframes fa-bounce {
+            0% {
+                transform: scale(1,1) translateY(0)
+            }
+
+            10% {
+                transform: scale(var(--fa-bounce-start-scale-x,1.1),var(--fa-bounce-start-scale-y,.9)) translateY(0)
+            }
+
+            30% {
+                transform: scale(var(--fa-bounce-jump-scale-x,.9),var(--fa-bounce-jump-scale-y,1.1)) translateY(var(--fa-bounce-height,-.5em))
+            }
+
+            50% {
+                transform: scale(var(--fa-bounce-land-scale-x,1.05),var(--fa-bounce-land-scale-y,.95)) translateY(0)
+            }
+
+            57% {
+                transform: scale(1,1) translateY(var(--fa-bounce-rebound,-.125em))
+            }
+
+            64% {
+                transform: scale(1,1) translateY(0)
+            }
+
+            100% {
+                transform: scale(1,1) translateY(0)
+            }
+        }
+
+        @keyframes fa-fade {
+            50% {
+                opacity: var(--fa-fade-opacity,.4)
+            }
+        }
+
+        @keyframes fa-beat-fade {
+            0%,100% {
+                opacity: var(--fa-beat-fade-opacity,.4);
+                transform: scale(1)
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(var(--fa-beat-fade-scale,1.125))
+            }
+        }
+
+        @keyframes fa-flip {
+            50% {
+                transform: rotate3d(var(--fa-flip-x,0),var(--fa-flip-y,1),var(--fa-flip-z,0),var(--fa-flip-angle,-180deg))
+            }
+        }
+
+        @keyframes fa-shake {
+            0% {
+                transform: rotate(-15deg)
+            }
+
+            4% {
+                transform: rotate(15deg)
+            }
+
+            24%,8% {
+                transform: rotate(-18deg)
+            }
+
+            12%,28% {
+                transform: rotate(18deg)
+            }
+
+            16% {
+                transform: rotate(-22deg)
+            }
+
+            20% {
+                transform: rotate(22deg)
+            }
+
+            32% {
+                transform: rotate(-12deg)
+            }
+
+            36% {
+                transform: rotate(12deg)
+            }
+
+            100%,40% {
+                transform: rotate(0)
+            }
+        }
+
+        @keyframes fa-spin {
+            0% {
+                transform: rotate(0)
+            }
+
+            100% {
+                transform: rotate(360deg)
+            }
+        }
+
+        .fa-rotate-90 {
+            transform: rotate(90deg)
+        }
+
+        .fa-rotate-180 {
+            transform: rotate(180deg)
+        }
+
+        .fa-rotate-270 {
+            transform: rotate(270deg)
+        }
+
+        .fa-flip-horizontal {
+            transform: scale(-1,1)
+        }
+
+        .fa-flip-vertical {
+            transform: scale(1,-1)
+        }
+
+        .fa-flip-both, .fa-flip-horizontal.fa-flip-vertical {
+            transform: scale(-1,-1)
+        }
+
+        .fa-rotate-by {
+            transform: rotate(var(--fa-rotate-angle,0))
+        }
+
+        .fa-stack {
+            display: inline-block;
+            vertical-align: middle;
+            height: 2em;
+            position: relative;
+            width: 2.5em
+        }
+
+        .fa-stack-1x, .fa-stack-2x {
+            bottom: 0;
+            left: 0;
+            margin: auto;
+            position: absolute;
+            right: 0;
+            top: 0;
+            z-index: var(--fa-stack-z-index,auto)
+        }
+
+        .svg-inline--fa.fa-stack-1x {
+            height: 1em;
+            width: 1.25em
+        }
+
+        .svg-inline--fa.fa-stack-2x {
+            height: 2em;
+            width: 2.5em
+        }
+
+        .fa-inverse {
+            color: var(--fa-inverse,#fff)
+        }
+
+        .fa-sr-only, .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0,0,0,0);
+            white-space: nowrap;
+            border-width: 0
+        }
+
+        .fa-sr-only-focusable:not(:focus), .sr-only-focusable:not(:focus) {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0,0,0,0);
+            white-space: nowrap;
+            border-width: 0
+        }
+
+        .svg-inline--fa .fa-primary {
+            fill: var(--fa-primary-color,currentColor);
+            opacity: var(--fa-primary-opacity,1)
+        }
+
+        .svg-inline--fa .fa-secondary {
+            fill: var(--fa-secondary-color,currentColor);
+            opacity: var(--fa-secondary-opacity,.4)
+        }
+
+        .svg-inline--fa.fa-swap-opacity .fa-primary {
+            opacity: var(--fa-secondary-opacity,.4)
+        }
+
+        .svg-inline--fa.fa-swap-opacity .fa-secondary {
+            opacity: var(--fa-primary-opacity,1)
+        }
+
+        .svg-inline--fa mask .fa-primary, .svg-inline--fa mask .fa-secondary {
+            fill: #000
+        }
+    </style>
+    
+    <link rel="shortcut icon" type="image/x-icon" href="~/assets/img/favicons/favicon.ico" runat="server">
+    <link rel="manifest" href="~/assets/img/favicons/manifest.json" runat="server">
+    <meta name="msapplication-TileImage" content="~/assets/img/favicons/mstile-150x150.png" runat="server">
+    <meta name="theme-color" content="#ffffff">
+    <script src="<%=ResolveUrl("~/vendors/simplebar/simplebar.min.js") %>"></script>
+    <script src="<%= ResolveUrl("~/assets/js/config.js") %>"></script>
+
+    <!-- ===============================================-->
+    <!--    Stylesheets-->
+    <!-- ===============================================-->
+    <link rel="preconnect" href="https://fonts.googleapis.com/"  >
+    <link rel="preconnect" href="https://fonts.gstatic.com/"   crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&amp;display=swap"  rel="stylesheet">
+    <link href="~/vendors/simplebar/simplebar.min.css" rel="stylesheet"  runat="server">
+    <link rel="stylesheet" href="~/unicons.iconscout.com/release/v4.0.8/css/line.css"  runat="server">
+    <link href="~/assets/css/theme-rtl.min.css" type="text/css" rel="stylesheet" id="style_rtl" disabled="true"  runat="server">
+    <link href="~/assets/css/theme.min.css" type="text/css" rel="stylesheet" id="style_default"  runat="server">
+    <link href="~/assets/css/user-rtl.min.css" type="text/css" rel="stylesheet" id="user_style_rtl" disabled="true"  runat="server">
+    <link href="~/assets/css/user.min.css" type="text/css" rel="stylesheet" id="user_style_default"  runat="server">
+    <script>
+    var phoenixIsRTL = window.config.config.phoenixIsRTL;
+    if (phoenixIsRTL) {
+        var linkDefault = document.getElementById('style_default');
+        var userLinkDefault = document.getElementById('user_style_default');
+        linkDefault.setAttribute('disabled', true);
+        userLinkDefault.setAttribute('disabled', true);
+        document.querySelector('html').setAttribute('dir', 'rtl');
+    } else {
+        var linkRTL = document.getElementById('style_rtl');
+        var userLinkRTL = document.getElementById('user_style_rtl');
+        linkRTL.setAttribute('disabled', true);
+        userLinkRTL.setAttribute('disabled', true);
+    }
+</script>
+
+    <link href="~/vendors/leaflet/leaflet.css" rel="stylesheet"  runat="server">
+    <link href="~/vendors/leaflet.markercluster/MarkerCluster.css" rel="stylesheet"  runat="server">
+    <link href="~/vendors/leaflet.markercluster/MarkerCluster.Default.css" rel="stylesheet"  runat="server">
+</head>
+<body>
+    <!-- Loader overlay -->
+<div id="pageLoader" class="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center" style="background: rgba(255,255,255,0.8); backdrop-filter: blur(100px); z-index: 1050;">
+    <div class="spinner-border text-danger" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+
+    <form runat="server">
+        
+        <nav class="navbar navbar-top fixed-top navbar-expand-lg" id="navbarCombo" data-navbar-top="combo" data-move-target="#navbarVerticalNav" >
+        <div class="navbar-logo">
+          <button class="btn navbar-toggler navbar-toggler-humburger-icon hover-bg-transparent" type="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalCollapse" aria-controls="navbarVerticalCollapse" aria-expanded="false" aria-label="Toggle Navigation"><span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
+          <a class="navbar-brand me-1 me-sm-3" href="index.html">
+            <div class="d-flex align-items-center">
+              <div class="d-flex align-items-center"><img src="~/assets/img/icons/logo.png"  width="90" runat="server" />
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-top-collapse order-1 order-lg-0 justify-content-center" id="navbarTopCollapse">
+          <ul class="navbar-nav navbar-nav-top" data-dropdown-on-hover="data-dropdown-on-hover">
+
+  
+  <!-- ORGANIZATION -->
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle lh-1" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">
+      <span class="uil uil-building fs-8 me-2"></span>Organization
+    </a>
+    <ul class="dropdown-menu navbar-dropdown-caret">
+      <li><a class="dropdown-item" href="branches.aspx">Branches</a></li>
+      <li><a class="dropdown-item" href="departments.aspx">Departments</a></li>
+      <li><a class="dropdown-item" href="teams.aspx">Teams</a></li>
+      <li><a class="dropdown-item" href="designations.aspx">Designations</a></li>
+      <li><a class="dropdown-item" href="holidays.aspx">Holidays</a></li>
+      <li><a class="dropdown-item" href="weekly-offs.aspx">Weekly Offs</a></li>
+    </ul>
+  </li>
+
+  <!-- EMPLOYEES -->
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle lh-1" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">
+      <span class="uil uil-users-alt fs-8 me-2"></span>Employees
+    </a>
+    <ul class="dropdown-menu navbar-dropdown-caret">
+      <li><a class="dropdown-item" href="employees.aspx">Employee List</a></li>
+      <li><a class="dropdown-item" href="employee-add.aspx">Add Employee</a></li>
+      <li><a class="dropdown-item" href="documents.aspx">Documents</a></li>
+      <li><a class="dropdown-item" href="contracts.aspx">Contracts</a></li>
+    </ul>
+  </li>
+
+  <!-- ATTENDANCE -->
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle lh-1" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">
+      <span class="uil uil-clock fs-8 me-2"></span>Attendance
+    </a>
+    <ul class="dropdown-menu navbar-dropdown-caret">
+      <li><a class="dropdown-item" href="attendance-live.aspx">Live Attendance</a></li>
+      <li><a class="dropdown-item" href="attendance-daily.aspx">Daily Attendance</a></li>
+      <li><a class="dropdown-item" href="attendance-monthly.aspx">Monthly Attendance</a></li>
+      <li><a class="dropdown-item" href="missing-punch.aspx">Missing Punches</a></li>
+      <li><a class="dropdown-item" href="shifts.aspx">Shift Management</a></li>
+      <li><a class="dropdown-item" href="overtime.aspx">Overtime</a></li>
+    </ul>
+  </li>
+
+  <!-- BIOMETRIC -->
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle lh-1" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">
+      <span class="uil uil-fingerprint fs-8 me-2"></span>Biometric
+    </a>
+    <ul class="dropdown-menu navbar-dropdown-caret">
+      <li><a class="dropdown-item" href="devices.aspx">Devices</a></li>
+      <li><a class="dropdown-item" href="punch-logs.aspx">Punch Logs</a></li>
+      <li><a class="dropdown-item" href="device-sync.aspx">Sync Monitor</a></li>
+    </ul>
+  </li>
+
+  <!-- LEAVES -->
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle lh-1" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">
+      <span class="uil uil-plane-departure fs-8 me-2"></span>Leaves
+    </a>
+    <ul class="dropdown-menu navbar-dropdown-caret">
+      <li><a class="dropdown-item" href="leave-apply.aspx">Apply Leave</a></li>
+      <li><a class="dropdown-item" href="leave-requests.aspx">Leave Requests</a></li>
+      <li><a class="dropdown-item" href="leave-balance.aspx">Leave Balance</a></li>
+      <li><a class="dropdown-item" href="leave-policy.aspx">Leave Policy</a></li>
+    </ul>
+  </li>
+
+  <!-- PAYROLL -->
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle lh-1" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">
+      <span class="uil uil-money-bill fs-8 me-2"></span>Payroll
+    </a>
+    <ul class="dropdown-menu navbar-dropdown-caret">
+      <li><a class="dropdown-item" href="salary-structure.aspx">Salary Structure</a></li>
+      <li><a class="dropdown-item" href="payroll-process.aspx">Process Payroll</a></li>
+      <li><a class="dropdown-item" href="payslips.aspx">Payslips</a></li>
+      <li><a class="dropdown-item" href="bank-file.aspx">Bank File</a></li>
+    </ul>
+  </li>
+
+  <!-- ASSETS -->
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle lh-1" href="#" data-bs-toggle="dropdown">
+      <span class="uil uil-box fs-8 me-2"></span>Assets
+    </a>
+    <ul class="dropdown-menu navbar-dropdown-caret">
+      <li><a class="dropdown-item" href="assets.aspx">Asset Inventory</a></li>
+      <li><a class="dropdown-item" href="asset-issue.aspx">Issue / Return</a></li>
+    </ul>
+  </li>
+
+  <!-- PERFORMANCE -->
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle lh-1" href="#" data-bs-toggle="dropdown">
+      <span class="uil uil-graph-bar fs-8 me-2"></span>Performance
+    </a>
+    <ul class="dropdown-menu navbar-dropdown-caret">
+      <li><a class="dropdown-item" href="kpi.aspx">KPIs</a></li>
+      <li><a class="dropdown-item" href="appraisals.aspx">Appraisals</a></li>
+    </ul>
+  </li>
+
+  <!-- RECRUITMENT -->
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle lh-1" href="#" data-bs-toggle="dropdown">
+      <span class="uil uil-briefcase fs-8 me-2"></span>Recruitment
+    </a>
+    <ul class="dropdown-menu navbar-dropdown-caret">
+      <li><a class="dropdown-item" href="jobs.aspx">Job Posts</a></li>
+      <li><a class="dropdown-item" href="candidates.aspx">Candidates</a></li>
+      <li><a class="dropdown-item" href="onboarding.aspx">Onboarding</a></li>
+    </ul>
+  </li>
+
+</ul>
+
+        </div>
+        <ul class="navbar-nav navbar-nav-icons flex-row">
+          <li class="nav-item">
+            <div class="theme-control-toggle feather-icon-wait px-2"><input class="form-check-input ms-0 theme-control-toggle-input" type="checkbox" data-theme-control="phoenixTheme" value="dark" id="themeControlToggle" /><label class="mb-0 theme-control-toggle-label theme-control-toggle-light" for="themeControlToggle" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Switch theme" style="height:32px;width:32px;"><span class="icon" data-feather="moon"></span></label><label class="mb-0 theme-control-toggle-label theme-control-toggle-dark" for="themeControlToggle" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Switch theme" style="height:32px;width:32px;"><span class="icon" data-feather="sun"></span></label></div>
+          </li>
+         
+         
+          <li class="nav-item dropdown"><a class="nav-link lh-1 pe-0" id="navbarDropdownUser" href="#!" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false">
+              <div class="avatar avatar-l ">
+                <img class="rounded-circle " src="~/assets/img/team/40x40/57.webp" alt="" runat="server" />
+              </div>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end navbar-dropdown-caret py-0 dropdown-profile shadow border" aria-labelledby="navbarDropdownUser">
+              <div class="card position-relative border-0">
+                <div class="card-body p-0">
+                  <div class="text-center pt-4 pb-3">
+                    <div class="avatar avatar-xl ">
+                      <img class="rounded-circle " src="assets/img/team/72x72/57.webp" alt="" />
+                    </div>
+                    <h6 class="mt-2 text-body-emphasis">Jerry Seinfield</h6>
+                  </div>
+                  <div class="mb-3 mx-3"><input class="form-control form-control-sm" id="statusUpdateInput" type="text" placeholder="Update your status" /></div>
+                </div>
+                <div class="overflow-auto scrollbar" style="height: 10rem;">
+                  <ul class="nav d-flex flex-column mb-2 pb-1">
+                    <li class="nav-item"><a class="nav-link px-3 d-block" href="#!"> <span class="me-2 text-body align-bottom" data-feather="user"></span><span>Profile</span></a></li>
+                    <li class="nav-item"><a class="nav-link px-3 d-block" href="#!"><span class="me-2 text-body align-bottom" data-feather="pie-chart"></span>Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link px-3 d-block" href="#!"> <span class="me-2 text-body align-bottom" data-feather="lock"></span>Posts &amp; Activity</a></li>
+                    <li class="nav-item"><a class="nav-link px-3 d-block" href="#!"> <span class="me-2 text-body align-bottom" data-feather="settings"></span>Settings &amp; Privacy </a></li>
+                    <li class="nav-item"><a class="nav-link px-3 d-block" href="#!"> <span class="me-2 text-body align-bottom" data-feather="help-circle"></span>Help Center</a></li>
+                    <li class="nav-item"><a class="nav-link px-3 d-block" href="#!"> <span class="me-2 text-body align-bottom" data-feather="globe"></span>Language</a></li>
+                  </ul>
+                </div>
+                <div class="card-footer p-0 border-top border-translucent">
+                  <ul class="nav d-flex flex-column my-3">
+                    <li class="nav-item"><a class="nav-link px-3 d-block" href="#!"> <span class="me-2 text-body align-bottom" data-feather="user-plus"></span>Add another account</a></li>
+                  </ul>
+                  <hr />
+                  <div class="px-3"> <a class="btn btn-phoenix-secondary d-flex flex-center w-100" href="#!"> <span class="me-2" data-feather="log-out"> </span>Sign out</a></div>
+                  <div class="my-2 text-center fw-bold fs-10 text-body-quaternary"><a class="text-body-quaternary me-1" href="#!">Privacy policy</a>&bull;<a class="text-body-quaternary mx-1" href="#!">Terms</a>&bull;<a class="text-body-quaternary ms-1" href="#!">Cookies</a></div>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </nav>
+ 
+        <asp:ScriptManager ID="ScriptManager1" runat="server" />
+    <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+
+
+          
+        <div class="offcanvas offcanvas-end settings-panel border-0" id="settings-offcanvas" tabindex="-1" aria-labelledby="settings-offcanvas">
+            <div class="offcanvas-header align-items-start border-bottom flex-column border-translucent">
+                <div class="pt-1 w-100 mb-6 d-flex justify-content-between align-items-start">
+                    <div>
+                        <h5 class="mb-2 me-2 lh-sm"><span class="fas fa-palette me-2 fs-8"></span>Theme Customizer</h5>
+                        <p class="mb-0 fs-9">Explore different styles according to your preferences</p>
+                    </div>
+                    <button class="btn p-1 fw-bolder" type="button" data-bs-dismiss="offcanvas" aria-label="Close"><span class="fas fa-times fs-8"></span></button>
+                </div>
+                <button class="btn btn-phoenix-secondary w-100" data-theme-control="reset"><span class="fas fa-arrows-rotate me-2 fs-10"></span>Reset to default</button>
+            </div>
+            <div class="offcanvas-body scrollbar px-card" id="themeController">
+                <div class="setting-panel-item mt-0">
+                    <h5 class="setting-panel-item-title">Color Scheme</h5>
+                    <div class="row gx-2">
+                        <div class="col-4">
+                            <input class="btn-check" id="themeSwitcherLight" name="theme-color" type="radio" value="light" data-theme-control="phoenixTheme" /><label class="btn d-inline-block btn-navbar-style fs-9" for="themeSwitcherLight">
+                                <span class="mb-2 rounded d-block">
+                                    <img class="img-fluid img-prototype mb-0" src="../../../assets/img/generic/default-light.png" alt="" /></span><span class="label-text">Light</span></label>
+                        </div>
+                        <div class="col-4">
+                            <input class="btn-check" id="themeSwitcherDark" name="theme-color" type="radio" value="dark" data-theme-control="phoenixTheme" /><label class="btn d-inline-block btn-navbar-style fs-9" for="themeSwitcherDark">
+                                <span class="mb-2 rounded d-block">
+                                    <img class="img-fluid img-prototype mb-0" src="../../../assets/img/generic/default-dark.png" alt="" /></span><span class="label-text"> Dark</span></label>
+                        </div>
+                        <div class="col-4">
+                            <input class="btn-check" id="themeSwitcherAuto" name="theme-color" type="radio" value="auto" data-theme-control="phoenixTheme" /><label class="btn d-inline-block btn-navbar-style fs-9" for="themeSwitcherAuto">
+                                <span class="mb-2 rounded d-block">
+                                    <img class="img-fluid img-prototype mb-0" src="../../../assets/img/generic/auto.png" alt="" /></span><span class="label-text"> Auto</span></label>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    <a class="card setting-toggle" href="#settings-offcanvas" data-bs-toggle="offcanvas">
+        <div class="card-body d-flex align-items-center px-2 py-1">
+            <div class="position-relative rounded-start" style="height: 34px; width: 28px">
+                <div class="settings-popover"><span class="ripple"><span class="fa-spin position-absolute all-0 d-flex flex-center"><span class="icon-spin position-absolute all-0 d-flex flex-center">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="#ffffff" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19.7369 12.3941L19.1989 12.1065C18.4459 11.7041 18.0843 10.8487 18.0843 9.99495C18.0843 9.14118 18.4459 8.28582 19.1989 7.88336L19.7369 7.59581C19.9474 7.47484 20.0316 7.23291 19.9474 7.03131C19.4842 5.57973 18.6843 4.28943 17.6738 3.20075C17.5053 3.03946 17.2527 2.99914 17.0422 3.12011L16.393 3.46714C15.6883 3.84379 14.8377 3.74529 14.1476 3.3427C14.0988 3.31422 14.0496 3.28621 14.0002 3.25868C13.2568 2.84453 12.7055 2.10629 12.7055 1.25525V0.70081C12.7055 0.499202 12.5371 0.297594 12.2845 0.257272C10.7266 -0.105622 9.16879 -0.0653007 7.69516 0.257272C7.44254 0.297594 7.31623 0.499202 7.31623 0.70081V1.23474C7.31623 2.09575 6.74999 2.8362 5.99824 3.25599C5.95774 3.27861 5.91747 3.30159 5.87744 3.32493C5.15643 3.74527 4.26453 3.85902 3.53534 3.45302L2.93743 3.12011C2.72691 2.99914 2.47429 3.03946 2.30587 3.20075C1.29538 4.28943 0.495411 5.57973 0.0322686 7.03131C-0.051939 7.23291 0.0322686 7.47484 0.242788 7.59581L0.784376 7.8853C1.54166 8.29007 1.92694 9.13627 1.92694 9.99495C1.92694 10.8536 1.54166 11.6998 0.784375 12.1046L0.242788 12.3941C0.0322686 12.515 -0.051939 12.757 0.0322686 12.9586C0.495411 14.4102 1.29538 15.7005 2.30587 16.7891C2.47429 16.9504 2.72691 16.9907 2.93743 16.8698L3.58669 16.5227C4.29133 16.1461 5.14131 16.2457 5.8331 16.6455C5.88713 16.6767 5.94159 16.7074 5.99648 16.7375C6.75162 17.1511 7.31623 17.8941 7.31623 18.7552V19.2891C7.31623 19.4425 7.41373 19.5959 7.55309 19.696C7.64066 19.7589 7.74815 19.7843 7.85406 19.8046C9.35884 20.0925 10.8609 20.0456 12.2845 19.7729C12.5371 19.6923 12.7055 19.4907 12.7055 19.2891V18.7346C12.7055 17.8836 13.2568 17.1454 14.0002 16.7312C14.0496 16.7037 14.0988 16.6757 14.1476 16.6472C14.8377 16.2446 15.6883 16.1461 16.393 16.5227L17.0422 16.8698C17.2527 16.9907 17.5053 16.9504 17.6738 16.7891C18.7264 15.7005 19.4842 14.4102 19.9895 12.9586C20.0316 12.757 19.9474 12.515 19.7369 12.3941ZM10.0109 13.2005C8.1162 13.2005 6.64257 11.7893 6.64257 9.97478C6.64257 8.20063 8.1162 6.74905 10.0109 6.74905C11.8634 6.74905 13.3792 8.20063 13.3792 9.97478C13.3792 11.7893 11.8634 13.2005 10.0109 13.2005Z" fill="#2A7BE4"></path></svg></span></span></span></div>
+            </div>
+            <small class="text-uppercase text-body-tertiary fw-bold py-2 pe-2 ps-1 rounded-end">customize</small>
+        </div>
+    </a>
+            <hr />
+            <footer>
+                <p>&copy; <%: DateTime.Now.Year %> - DEVNET SOLUTIONS</p>
+            </footer>
+              <asp:ContentPlaceHolder ID="ScriptsPlaceholder" runat="server">
+                <script src="<%= ResolveUrl("~/vendors/popper/popper.min.js") %>"></script>
+                <script src="<%= ResolveUrl("~/vendors/bootstrap/bootstrap.min.js") %>"></script>
+                <script src="<%= ResolveUrl("~/vendors/anchorjs/anchor.min.js") %>"></script>
+                <script src="<%= ResolveUrl("~/vendors/is/is.min.js") %>"></script>
+                <script src="<%= ResolveUrl("~/vendors/fontawesome/all.min.js") %>"></script>
+                <script src="<%= ResolveUrl("~/vendors/lodash/lodash.min.js") %>"></script>
+                <script src="<%= ResolveUrl("~/vendors/list.js/list.min.js") %>"></script>
+                <script src="<%= ResolveUrl("~/vendors/feather-icons/feather.min.js") %>"></script>
+                <script src="<%= ResolveUrl("~/vendors/dayjs/dayjs.min.js") %>"></script>
+                <script src="<%= ResolveUrl("~/vendors/leaflet/leaflet.js") %>"></script>
+                <script src="<%= ResolveUrl("~/vendors/leaflet.markercluster/leaflet.markercluster.js") %>"></script>
+                <script src="<%= ResolveUrl("~/vendors/leaflet.tilelayer.colorfilter/leaflet-tilelayer-colorfilter.min.js") %>"></script>
+                                <script src="<%= ResolveUrl("~/assets/js/phoenix.js") %>"></script>
+
+                  <script src="<%= ResolveUrl("~/vendors/echarts/echarts.min.js") %>"></script>
+             
+                <script src="<%= ResolveUrl("~/assets/js/dashboards/projectmanagement-dashboard.js") %>"></script>
+            </asp:ContentPlaceHolder>
+            <script type="text/javascript">
+                document.addEventListener("DOMContentLoaded", function() {
+                    var loader = document.getElementById("pageLoader");
+                    if(loader) {
+                        // Add fade-out effect
+                        loader.style.transition = "opacity 0.5s ease";
+                        loader.style.opacity = 0;
+
+                        // Remove loader from DOM after fade-out
+                        setTimeout(function() {
+                            if(loader && loader.parentNode) {
+                                loader.parentNode.removeChild(loader);
+                            }
+                        }, 500); // match the transition duration
+                    }
+                });
+            </script>
+
+
+    </form>
+</body>
+</html>

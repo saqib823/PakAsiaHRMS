@@ -23,7 +23,6 @@ namespace hrms_PakAsia.Pages
             {
                 Response.Redirect("~/Default.aspx");
             }
-
         }
     }
 }
