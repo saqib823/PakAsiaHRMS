@@ -1,10 +1,10 @@
-﻿<%@ Page Title="Sign up" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="signup.aspx.cs" Inherits="hrms_PakAsia.Pages.signup" %>
+﻿<%@ Page Title="Sign up" Language="C#" MasterPageFile="~/App.Master" AutoEventWireup="true" CodeBehind="signup.aspx.cs" Inherits="hrms_PakAsia.Pages.signup" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <asp:UpdatePanel ID="upUser" runat="server" UpdateMode="Conditional">
     <ContentTemplate>
 
-    <main class="main" id="top">
+    <main class="main mt-10" id="top">
         <div class="container">
 
             <div class="row py-5">

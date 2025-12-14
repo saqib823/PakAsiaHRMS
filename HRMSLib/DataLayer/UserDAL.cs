@@ -52,6 +52,7 @@ namespace HRMSLib.DataLayer
                 throw ex;
             }
         }
+
         public DataTable GetUsersPaged(
             int pageNumber,
             int pageSize,

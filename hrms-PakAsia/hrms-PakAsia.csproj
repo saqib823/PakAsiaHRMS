@@ -1103,7 +1103,8 @@
     <Content Include="assets\img\team\avatar.webp" />
     <Content Include="assets\img\team\r.webp" />
     <Content Include="Pages\dashboard.aspx" />
-    <Content Include="Pages\departments.aspx" />
+    <Content Include="Pages\Organization\branches.aspx" />
+    <Content Include="Pages\Organization\departments.aspx" />
     <Content Include="Pages\roles.aspx" />
     <Content Include="Pages\signup.aspx" />
     <Content Include="Site.Master" />
@@ -1203,11 +1204,18 @@
     <Compile Include="Pages\dashboard.aspx.designer.cs">
       <DependentUpon>dashboard.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\departments.aspx.cs">
+    <Compile Include="Pages\Organization\branches.aspx.cs">
+      <DependentUpon>branches.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Organization\branches.aspx.designer.cs">
+      <DependentUpon>branches.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Organization\departments.aspx.cs">
       <DependentUpon>departments.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\departments.aspx.designer.cs">
+    <Compile Include="Pages\Organization\departments.aspx.designer.cs">
       <DependentUpon>departments.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\roles.aspx.cs">
@@ -1237,8 +1245,8 @@
     <Folder Include="Uploads\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\DB_Backup\PakAsiaDB" />
     <Content Include="App.Master" />
+    <Content Include="App_Data\DB_Backup\PakAsiaDB" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

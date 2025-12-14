@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using HRMSLib.BusinessLogic;
+using System;
 using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace hrms_PakAsia
 {
@@ -11,7 +8,28 @@ namespace hrms_PakAsia
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                LoggedInUser currentUser =
+                    HttpContext.Current.Session["LoggedInUser"] as LoggedInUser;
 
+                if (currentUser != null && currentUser.ImageData != null)
+                {
+                    string base64String =
+                        Convert.ToBase64String(currentUser.ImageData);
+
+                    imgProfile.Src =
+                        $"data:image/png;base64,{base64String}";
+                    imgNav.Src =
+                        $"data:image/png;base64,{base64String}";
+
+                    FullName.InnerHtml = currentUser.FirstName +" "+ currentUser.LastName;
+                }
+                else
+                {
+                    imgProfile.Src = "assets/img/team/default-user.png";
+                }
+            }
         }
     }
 }
