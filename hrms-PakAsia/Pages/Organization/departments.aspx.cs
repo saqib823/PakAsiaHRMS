@@ -1,4 +1,5 @@
-﻿using HRMSLib.DataLayer;
+﻿using HRMSLib.BusinessLogic;
+using HRMSLib.DataLayer;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -27,13 +28,21 @@ namespace hrms_PakAsia.Pages.Organization
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            CheckSession();
             if (!IsPostBack)
             {
                 CurrentPage = 1;
                 BindDepartments();
             }
         }
-
+        public void CheckSession()
+        {
+            LoggedInUser currentUser = HttpContext.Current.Session["LoggedInUser"] as LoggedInUser;
+            if (currentUser == null)
+            {
+                Response.Redirect("~/Default.aspx");
+            }
+        }
         protected void btnClear_Click(object sender, EventArgs e)
         {
             ClearForm();

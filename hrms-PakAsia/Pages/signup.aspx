@@ -49,6 +49,10 @@
                         <label class="form-label">Department</label>
                         <asp:DropDownList CssClass="form-control" ID="ddlDepartment" DataTextField="Name" DataValueField="ID" runat="server"></asp:DropDownList>
                     </div>
+                     <div class="col-sm-3 mt-3">
+                        <label class="form-label">Branch</label>
+                        <asp:DropDownList CssClass="form-control" ID="ddlBranch" DataTextField="Name" DataValueField="ID" runat="server"></asp:DropDownList>
+                    </div>
 
                    <div class="col-sm-3 mt-3">
                         <label class="form-label">Role</label>

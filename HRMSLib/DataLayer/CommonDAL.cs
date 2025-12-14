@@ -37,5 +37,18 @@ namespace HRMSLib.DataLayer
                 throw new Exception(ex.Message);
             }
         }
+        public static DataSet GetBranches()
+        {
+            try
+            {
+                Database db = new DatabaseProviderFactory().Create("defaultDB");
+                string query = "SELECT BranchID ID, BranchName Name FROM Branches WHERE Status = 1 ORDER BY BranchName";
+                return db.ExecuteDataSet(CommandType.Text, query);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

@@ -157,9 +157,9 @@
     </main>
           </ContentTemplate>
 
-    <Triggers>
+   <%-- <Triggers>
         <asp:PostBackTrigger ControlID="btnSave" />
-    </Triggers>
+    </Triggers>--%>
 </asp:UpdatePanel>
 </asp:Content>
 

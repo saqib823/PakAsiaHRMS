@@ -12,17 +12,16 @@ namespace hrms_PakAsia.Pages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            CheckSession();
+        }
+        public void CheckSession()
+        {
             LoggedInUser currentUser = HttpContext.Current.Session["LoggedInUser"] as LoggedInUser;
-            if (currentUser != null)
-            {
-                string name = currentUser.FirstName + " " + currentUser.LastName;
-                string email = currentUser.EmailAddress;
-                int roleId = currentUser.RoleId;
-            }
-            else
+            if (currentUser == null)
             {
                 Response.Redirect("~/Default.aspx");
             }
         }
+
     }
 }

@@ -659,6 +659,7 @@
       <span class="uil uil-building fs-8 me-2"></span>Organization
     </a>
     <ul class="dropdown-menu navbar-dropdown-caret">
+      <li><a class="dropdown-item" runat="server" href="~/Pages/signup.aspx">Users</a></li>
       <li><a class="dropdown-item" runat="server" href="~/Pages/Organization/branches.aspx">Branches</a></li>
       <li><a class="dropdown-item" runat="server" href="~/Pages/Organization/departments.aspx">Departments</a></li>
       <li><a class="dropdown-item" runat="server" href="~/Pages/Organization/teams.aspx">Teams</a></li>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HRMSLib.BusinessLogic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,16 @@ namespace hrms_PakAsia.Pages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            CheckSession();
         }
+        public void CheckSession()
+        {
+            LoggedInUser currentUser = HttpContext.Current.Session["LoggedInUser"] as LoggedInUser;
+            if (currentUser == null)
+            {
+                Response.Redirect("~/Default.aspx");
+            }
+        }
+
     }
 }

@@ -1105,6 +1105,7 @@
     <Content Include="Pages\dashboard.aspx" />
     <Content Include="Pages\Organization\branches.aspx" />
     <Content Include="Pages\Organization\departments.aspx" />
+    <Content Include="Pages\Organization\designation.aspx" />
     <Content Include="Pages\roles.aspx" />
     <Content Include="Pages\signup.aspx" />
     <Content Include="Site.Master" />
@@ -1217,6 +1218,13 @@
     </Compile>
     <Compile Include="Pages\Organization\departments.aspx.designer.cs">
       <DependentUpon>departments.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Organization\designation.aspx.cs">
+      <DependentUpon>designation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Organization\designation.aspx.designer.cs">
+      <DependentUpon>designation.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\roles.aspx.cs">
       <DependentUpon>roles.aspx</DependentUpon>

@@ -28,7 +28,7 @@ namespace hrms_PakAsia.Pages
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            CheckSession();
             if (!IsPostBack)
             {
                 InitialDataBindings();
@@ -37,6 +37,15 @@ namespace hrms_PakAsia.Pages
             }
            
         }
+        public void CheckSession()
+        {
+            LoggedInUser currentUser = HttpContext.Current.Session["LoggedInUser"] as LoggedInUser;
+            if (currentUser == null)
+            {
+                Response.Redirect("~/Default.aspx");
+            }
+        }
+
         private void InitialDataBindings()
         {
             try
@@ -48,6 +57,10 @@ namespace hrms_PakAsia.Pages
                 ddlRole.DataSource = CommonDAL.GetRoles();
                 ddlRole.DataBind();
                 ddlRole.Items.Insert(0, new ListItem("Select One", "0"));
+
+                ddlBranch.DataSource = CommonDAL.GetBranches();
+                ddlBranch.DataBind();
+                ddlBranch.Items.Insert(0, new ListItem("Select One", "0"));
             }
             catch (Exception ex)
             {
