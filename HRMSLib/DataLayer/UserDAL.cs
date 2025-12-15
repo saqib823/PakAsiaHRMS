@@ -14,9 +14,9 @@ namespace HRMSLib.DataLayer
     [Serializable]
     public class UserDAL
     {
-        public bool SaveUserData(string username, string password, string firstName, string lastName, string email, string cnic,
-            string phone, string roleId, string departmentId, string createdBy, string designation, byte[] fileBytes,
-            string contentType)
+        public bool SaveUserData(int mode, string username, string password, string firstName, string lastName, string email, string cnic,
+            string phone, string roleId, string departmentId, string createdBy, string designation,string filePath,
+            string contentType,int? UserID, string Branch)
         {
             try
             {
@@ -27,8 +27,8 @@ namespace HRMSLib.DataLayer
                 DbCommand cmd = db.GetStoredProcCommand("SP_SaveUserData");
 
                 // Add parameters
-                db.AddInParameter(cmd, "@Mode", DbType.String, 1);
-                db.AddInParameter(cmd, "@UserID", DbType.String, null);
+                db.AddInParameter(cmd, "@Mode", DbType.String, mode);
+                db.AddInParameter(cmd, "@UserID", DbType.Int32, UserID);
                 db.AddInParameter(cmd, "@UserName", DbType.String, username);
                 db.AddInParameter(cmd, "@FirstName", DbType.String, firstName);
                 db.AddInParameter(cmd, "@LastName", DbType.String, lastName);
@@ -39,9 +39,11 @@ namespace HRMSLib.DataLayer
                 db.AddInParameter(cmd, "@DepartmentId", DbType.String, departmentId);
                 db.AddInParameter(cmd, "@Active", DbType.String, 1);
                 db.AddInParameter(cmd, "@CreatedBy", DbType.String, 001);
-                db.AddInParameter(cmd, "@fileBytes", DbType.Binary, (object)fileBytes ?? DBNull.Value);
+                db.AddInParameter(cmd, "@filePath", DbType.String, filePath);
                 db.AddInParameter(cmd, "@contentType", DbType.String, contentType);
                 db.AddInParameter(cmd, "@Password", DbType.String, BCrypt.Net.BCrypt.HashPassword(password));
+                db.AddInParameter(cmd, "@Designation", DbType.String, designation);
+                db.AddInParameter(cmd, "@Branch", DbType.String, Branch);
                 // Execute
                 int rowsAffected = db.ExecuteNonQuery(cmd);
                 return rowsAffected > 0;
@@ -121,82 +123,7 @@ namespace HRMSLib.DataLayer
             }
         }
 
-        public bool UpdateUser(
-     int userId,
-     string userName,
-     string firstName,
-     string lastName,
-     string email,
-     string cnic,
-     string phone,
-     string roleId,
-     string departmentId,
-     string designation,
-     string password,
-     byte[] image,
-     string contentType)
-        {
-            try
-            {
-                Database db = new DatabaseProviderFactory().Create("defaultDB");
-
-                using (DbCommand cmd = db.GetStoredProcCommand("SP_SaveUserData"))
-                {
-                    // MODE: 2 = UPDATE
-                    db.AddInParameter(cmd, "@Mode", DbType.Int32, 2);
-                    db.AddInParameter(cmd, "@UserID", DbType.Int32, userId);
-
-                    db.AddInParameter(cmd, "@UserName", DbType.String, userName);
-                    db.AddInParameter(cmd, "@FirstName", DbType.String, firstName);
-                    db.AddInParameter(cmd, "@LastName", DbType.String, lastName);
-                    db.AddInParameter(cmd, "@EmailAddress", DbType.String, email);
-                    db.AddInParameter(cmd, "@cnic", DbType.String, cnic);
-                    db.AddInParameter(cmd, "@phonenumber", DbType.String, phone);
-                    db.AddInParameter(cmd, "@RoleId", DbType.Int32, Convert.ToInt32(roleId));
-                    db.AddInParameter(cmd, "@DepartmentId", DbType.Int32, Convert.ToInt32(departmentId));
-                    db.AddInParameter(cmd, "@Designation", DbType.String, designation);
-
-                    db.AddInParameter(cmd, "@Active", DbType.Boolean, true);
-                    db.AddInParameter(cmd, "@CreatedBy", DbType.Int32, 1);
-
-                    // 🔐 Password logic (bcrypt-safe)
-                    if (!string.IsNullOrWhiteSpace(password))
-                    {
-                        db.AddInParameter(
-                            cmd,
-                            "@Password",
-                            DbType.String,
-                            BCrypt.Net.BCrypt.HashPassword(password)
-                        );
-                    }
-                    else
-                    {
-                        db.AddInParameter(cmd, "@Password", DbType.String, DBNull.Value);
-                    }
-
-                    // 🖼️ Image (optional)
-                    if (image != null && image.Length > 0)
-                    {
-                        db.AddInParameter(cmd, "@fileBytes", DbType.Binary, image);
-                        db.AddInParameter(cmd, "@contentType", DbType.String, contentType);
-                    }
-                    else
-                    {
-                        db.AddInParameter(cmd, "@fileBytes", DbType.Binary, DBNull.Value);
-                        db.AddInParameter(cmd, "@contentType", DbType.String, DBNull.Value);
-                    }
-
-                    int rowsAffected = db.ExecuteNonQuery(cmd);
-                    return rowsAffected > 0;
-                }
-            }
-            catch (Exception)
-            {
-                // Let caller handle it (logging, alert, etc.)
-                throw;
-            }
-        }
-
+    
 
         public LoggedInUser LoginUser(string email, string password)
         {
@@ -236,7 +163,7 @@ namespace HRMSLib.DataLayer
                                 Cnic = dr["Cnic"].ToString(),
                                 PhoneNumber = dr["PhoneNumber"].ToString(),
                                 Designation = dr["Designation"].ToString(),
-                                ImageData = dr["ImageData"] != DBNull.Value ? (byte[])dr["ImageData"] : null,
+                                filePath = dr["ImageData"].ToString(),
                                 ImageType = dr["ImageType"].ToString()
                             };
 

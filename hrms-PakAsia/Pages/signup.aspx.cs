@@ -25,7 +25,7 @@ namespace hrms_PakAsia.Pages
             get { return ViewState["TotalRecords"] != null ? (int)ViewState["TotalRecords"] : 0; }
             set { ViewState["TotalRecords"] = value; }
         }
-
+        LoggedInUser currentUser = null;
         protected void Page_Load(object sender, EventArgs e)
         {
             CheckSession();
@@ -35,15 +35,23 @@ namespace hrms_PakAsia.Pages
                 CurrentPage = 1;
                 BindUsers();
             }
-           
+            currentUser = GetSessionData();
+
         }
         public void CheckSession()
         {
             LoggedInUser currentUser = HttpContext.Current.Session["LoggedInUser"] as LoggedInUser;
+
             if (currentUser == null)
             {
                 Response.Redirect("~/Default.aspx");
             }
+        }
+        public LoggedInUser GetSessionData()
+        {
+            LoggedInUser currentUser = HttpContext.Current.Session["LoggedInUser"] as LoggedInUser;
+
+            return currentUser;
         }
 
         private void InitialDataBindings()
@@ -75,14 +83,39 @@ namespace hrms_PakAsia.Pages
         {
             int? userId = ViewState["EditUserID"] as int?;
 
-            byte[] fileBytes = null;
+            string filePath = "";
             string contentType = "";
 
             if (customFile.PostedFile != null && customFile.PostedFile.ContentLength > 0)
             {
-                using (BinaryReader br = new BinaryReader(customFile.PostedFile.InputStream))
-                    fileBytes = br.ReadBytes(customFile.PostedFile.ContentLength);
+                // 1. Validate extension
+                string ext = Path.GetExtension(customFile.PostedFile.FileName).ToLower();
+                string[] allowedExt = { ".jpg", ".jpeg", ".png" };
 
+                if (!allowedExt.Contains(ext))
+                {
+                    ShowAlert("Only JPG and PNG images are allowed", "danger");
+                    return;
+                }
+
+                // 2. Create uploads folder if not exists
+                string uploadFolder = Server.MapPath("~/Uploads/UserImages/");
+                if (!Directory.Exists(uploadFolder))
+                    Directory.CreateDirectory(uploadFolder);
+
+                // 3. Generate unique filename
+                string fileName = Guid.NewGuid().ToString() + ext;
+
+                // 4. Full physical path
+                string fullPath = Path.Combine(uploadFolder, fileName);
+
+                // 5. Save file
+                customFile.PostedFile.SaveAs(fullPath);
+
+                // 6. Save relative path (for DB)
+                filePath = "~/Uploads/UserImages/" + fileName;
+
+                // 7. Content type (optional)
                 contentType = customFile.PostedFile.ContentType;
             }
 
@@ -91,21 +124,24 @@ namespace hrms_PakAsia.Pages
             if (userId.HasValue)
             {
                 // UPDATE
-                IsSaved = dal.UpdateUser(
-                    userId.Value,
-                    UserName.Text.Trim(),
-                    FirstName.Text.Trim(),
-                    LastName.Text.Trim(),
-                    EmailAddress.Text.Trim(),
-                    Cnic.Text.Trim(),
-                    PhoneNumber.Text.Trim(),
-                    ddlRole.SelectedValue,
-                    ddlDepartment.SelectedValue,
-                    Designation.SelectedValue.Trim(),
-                    Password.Text,
-                    fileBytes,
-                    contentType
-                );
+                IsSaved = dal.SaveUserData(
+                    2,
+                   UserName.Text.Trim(),
+                   Password.Text,
+                   FirstName.Text.Trim(),
+                   LastName.Text.Trim(),
+                   EmailAddress.Text.Trim(),
+                   Cnic.Text.Trim(),
+                   PhoneNumber.Text.Trim(),
+                   ddlRole.SelectedValue,
+                   ddlDepartment.SelectedValue,
+                   currentUser.UserID.ToString(),
+                   Designation.SelectedValue.Trim(),
+                   filePath,
+                   contentType,
+                   userId,
+                   ddlBranch.SelectedValue
+               );
 
                 ViewState["EditUserID"] = null;
                 ShowAlert("User updated successfully", "success");
@@ -114,6 +150,7 @@ namespace hrms_PakAsia.Pages
             {
                 // INSERT
                 IsSaved = dal.SaveUserData(
+                    1,
                     UserName.Text.Trim(),
                     Password.Text,
                     FirstName.Text.Trim(),
@@ -123,10 +160,12 @@ namespace hrms_PakAsia.Pages
                     PhoneNumber.Text.Trim(),
                     ddlRole.SelectedValue,
                     ddlDepartment.SelectedValue,
-                    "Admin",
+                   currentUser.UserID.ToString(),
                     Designation.SelectedValue.Trim(),
-                    fileBytes,
-                    contentType
+                    filePath,
+                    contentType,
+                    userId,
+                    ddlBranch.SelectedValue
                 );
 
                 ShowAlert("User created successfully", "success");
@@ -143,7 +182,7 @@ namespace hrms_PakAsia.Pages
             EmailAddress.Text = "";
             FirstName.Text = "";
             LastName.Text = "";
-            Designation.SelectedValue = "";
+            Designation.SelectedValue = "0";
             Cnic.Text = "";
             PhoneNumber.Text = "";
             Password.Text = "";
@@ -280,12 +319,34 @@ namespace hrms_PakAsia.Pages
             EmailAddress.Text = dr["EmailAddress"].ToString();
             FirstName.Text = dr["FirstName"].ToString();
             LastName.Text = dr["LastName"].ToString();
-            Designation.SelectedValue = dr["Designation"].ToString();
+            string designationId = dr["Designation"]?.ToString();
+
+            if (!string.IsNullOrEmpty(designationId) &&
+                Designation.Items.FindByValue(designationId) != null)
+            {
+                Designation.SelectedValue = designationId;
+            }
+            else
+            {
+                Designation.SelectedIndex = 0; // "Select One"
+            }
             Cnic.Text = dr["CNIC"].ToString();
             PhoneNumber.Text = dr["PhoneNumber"].ToString();
            
 
             ddlDepartment.SelectedValue = dr["PrimaryDepartmentId"].ToString();
+            Designation.SelectedValue = dr["Designation"].ToString();
+            string branchId = dr["Branch"]?.ToString();
+
+            if (!string.IsNullOrEmpty(branchId) &&
+                ddlBranch.Items.FindByValue(branchId) != null)
+            {
+                ddlBranch.SelectedValue = branchId;
+            }
+            else
+            {
+                ddlBranch.SelectedIndex = 0; // "Select One"
+            }
             ddlRole.SelectedValue = dr["RoleID"].ToString();
 
             // Store UserID for update

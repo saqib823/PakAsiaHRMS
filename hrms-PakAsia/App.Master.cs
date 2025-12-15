@@ -13,15 +13,11 @@ namespace hrms_PakAsia
                 LoggedInUser currentUser =
                     HttpContext.Current.Session["LoggedInUser"] as LoggedInUser;
 
-                if (currentUser != null && currentUser.ImageData != null)
+                if (currentUser != null && !string.IsNullOrWhiteSpace(currentUser.filePath))
                 {
-                    string base64String =
-                        Convert.ToBase64String(currentUser.ImageData);
+                    imgProfile.Src = $"{currentUser.filePath}";
+                    imgNav.Src = $"{currentUser.filePath}";
 
-                    imgProfile.Src =
-                        $"data:image/png;base64,{base64String}";
-                    imgNav.Src =
-                        $"data:image/png;base64,{base64String}";
 
                     FullName.InnerHtml = currentUser.FirstName +" "+ currentUser.LastName;
                 }
