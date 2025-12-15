@@ -332,8 +332,6 @@ namespace hrms_PakAsia.Pages
             }
             Cnic.Text = dr["CNIC"].ToString();
             PhoneNumber.Text = dr["PhoneNumber"].ToString();
-           
-
             ddlDepartment.SelectedValue = dr["PrimaryDepartmentId"].ToString();
             Designation.SelectedValue = dr["Designation"].ToString();
             string branchId = dr["Branch"]?.ToString();

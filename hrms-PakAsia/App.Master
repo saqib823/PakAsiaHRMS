@@ -589,7 +589,7 @@
             fill: #000
         }
     </style>
-    
+    <link href="~/vendors/flatpickr/flatpickr.min.css" runat="server" rel="stylesheet">
     <link rel="shortcut icon" type="image/x-icon" href="~/assets/img/favicons/favicon.ico" runat="server">
     <link rel="manifest" href="~/assets/img/favicons/manifest.json" runat="server">
     <meta name="msapplication-TileImage" content="~/assets/img/favicons/mstile-150x150.png" runat="server">
@@ -676,7 +676,7 @@
     </a>
     <ul class="dropdown-menu navbar-dropdown-caret">
       <li><a class="dropdown-item" href="employees.aspx">Employee List</a></li>
-      <li><a class="dropdown-item" href="employee-add.aspx">Add Employee</a></li>
+      <li><a class="dropdown-item" runat="server" href="~/Pages/Employees/employees.aspx">Add Employee</a></li>
       <li><a class="dropdown-item" href="documents.aspx">Documents</a></li>
       <li><a class="dropdown-item" href="contracts.aspx">Contracts</a></li>
     </ul>

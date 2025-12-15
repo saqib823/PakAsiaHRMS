@@ -1103,6 +1103,7 @@
     <Content Include="assets\img\team\avatar.webp" />
     <Content Include="assets\img\team\r.webp" />
     <Content Include="Pages\dashboard.aspx" />
+    <Content Include="Pages\Employees\employees.aspx" />
     <Content Include="Pages\Organization\branches.aspx" />
     <Content Include="Pages\Organization\departments.aspx" />
     <Content Include="Pages\Organization\designation.aspx" />
@@ -1204,6 +1205,13 @@
     </Compile>
     <Compile Include="Pages\dashboard.aspx.designer.cs">
       <DependentUpon>dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Employees\employees.aspx.cs">
+      <DependentUpon>employees.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Employees\employees.aspx.designer.cs">
+      <DependentUpon>employees.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Organization\branches.aspx.cs">
       <DependentUpon>branches.aspx</DependentUpon>
