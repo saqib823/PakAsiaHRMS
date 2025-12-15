@@ -40,7 +40,7 @@
                     
                     <div class="col-sm-3 mt-3">
                         <label class="form-label">Designation</label>
-                        <asp:TextBox CssClass="form-control" ID="Designation" runat="server" placeholder="Designation"></asp:TextBox>
+                        <asp:DropDownList CssClass="form-control" ID="Designation" DataTextField="Name" DataValueField="ID" runat="server"></asp:DropDownList>
                     </div>
 
 

@@ -663,7 +663,7 @@
       <li><a class="dropdown-item" runat="server" href="~/Pages/Organization/branches.aspx">Branches</a></li>
       <li><a class="dropdown-item" runat="server" href="~/Pages/Organization/departments.aspx">Departments</a></li>
       <li><a class="dropdown-item" runat="server" href="~/Pages/Organization/teams.aspx">Teams</a></li>
-      <li><a class="dropdown-item" runat="server" href="~/Pages/Organization/designations.aspx">Designations</a></li>
+      <li><a class="dropdown-item" runat="server" href="~/Pages/Organization/designation.aspx">Designations</a></li>
       <li><a class="dropdown-item" runat="server" href="~/Pages/Organization/holidays.aspx">Holidays</a></li>
       <li><a class="dropdown-item" runat="server" href="~/Pages/Organization/weekly-offs.aspx">Weekly Offs</a></li>
     </ul>

@@ -61,6 +61,10 @@ namespace hrms_PakAsia.Pages
                 ddlBranch.DataSource = CommonDAL.GetBranches();
                 ddlBranch.DataBind();
                 ddlBranch.Items.Insert(0, new ListItem("Select One", "0"));
+
+                Designation.DataSource = CommonDAL.GetDesignation();
+                Designation.DataBind();
+                Designation.Items.Insert(0, new ListItem("Select One", "0"));
             }
             catch (Exception ex)
             {
@@ -97,7 +101,7 @@ namespace hrms_PakAsia.Pages
                     PhoneNumber.Text.Trim(),
                     ddlRole.SelectedValue,
                     ddlDepartment.SelectedValue,
-                    Designation.Text.Trim(),
+                    Designation.SelectedValue.Trim(),
                     Password.Text,
                     fileBytes,
                     contentType
@@ -120,7 +124,7 @@ namespace hrms_PakAsia.Pages
                     ddlRole.SelectedValue,
                     ddlDepartment.SelectedValue,
                     "Admin",
-                    Designation.Text.Trim(),
+                    Designation.SelectedValue.Trim(),
                     fileBytes,
                     contentType
                 );
@@ -139,7 +143,7 @@ namespace hrms_PakAsia.Pages
             EmailAddress.Text = "";
             FirstName.Text = "";
             LastName.Text = "";
-            Designation.Text = "";
+            Designation.SelectedValue = "";
             Cnic.Text = "";
             PhoneNumber.Text = "";
             Password.Text = "";
@@ -276,7 +280,7 @@ namespace hrms_PakAsia.Pages
             EmailAddress.Text = dr["EmailAddress"].ToString();
             FirstName.Text = dr["FirstName"].ToString();
             LastName.Text = dr["LastName"].ToString();
-            Designation.Text = dr["Designation"].ToString();
+            Designation.SelectedValue = dr["Designation"].ToString();
             Cnic.Text = dr["CNIC"].ToString();
             PhoneNumber.Text = dr["PhoneNumber"].ToString();
            

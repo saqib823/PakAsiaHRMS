@@ -97,7 +97,7 @@ namespace hrms_PakAsia.Pages.Organization
             }
             else if (e.CommandName == "DeleteDepartment")
             {
-                DeleteUser(DepartmentID);
+                DeleteDepartment(DepartmentID);
             }
         }
 
@@ -187,13 +187,13 @@ namespace hrms_PakAsia.Pages.Organization
 
             Department.Text = dr["DepartmentName"].ToString();
             ddlActive.SelectedValue = dr["Status"].ToString();
-          
+
             // Store UserID for update
             ViewState["DepartmentID"] = DepartmentID;
 
             ShowAlert("Department loaded for editing", "info");
         }
-        private void DeleteUser(int DepartmentID)
+        private void DeleteDepartment(int DepartmentID)
         {
             DepartmentDAL dal = new DepartmentDAL();
             dal.DeleteDepartment(DepartmentID);
