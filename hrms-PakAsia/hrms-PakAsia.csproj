@@ -1262,7 +1262,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.Master" />
-    <Content Include="App_Data\DB_Backup\PakAsiaDB" />
+    <Content Include="App_Data\DB_Backup\PakAsia_HRMS" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
