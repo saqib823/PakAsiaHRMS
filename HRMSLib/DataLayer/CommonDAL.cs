@@ -63,5 +63,148 @@ namespace HRMSLib.DataLayer
                 throw new Exception(ex.Message);
             }
         }
+        public static DataSet GetEmployees()
+        {
+            try
+            {
+                Database db = new DatabaseProviderFactory().Create("defaultDB");
+                string query = "SELECT EmployeeID ID, FullName Name FROM Employees ORDER BY FullName";
+                return db.ExecuteDataSet(CommandType.Text, query);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public static DataSet GetTitles()
+        {
+            try
+            {
+                Database db = new DatabaseProviderFactory().Create("defaultDB");
+                string query = "SELECT ID, Name FROM Title ORDER BY Name";
+                return db.ExecuteDataSet(CommandType.Text, query);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public static DataSet GetGender()
+        {
+            try
+            {
+                Database db = new DatabaseProviderFactory().Create("defaultDB");
+                string query = "SELECT ID, Name FROM Gender ORDER BY Name";
+                return db.ExecuteDataSet(CommandType.Text, query);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public static DataSet GetMaritalStatus()
+        {
+            try
+            {
+                Database db = new DatabaseProviderFactory().Create("defaultDB");
+                string query = "SELECT ID, Name FROM MaritalStatus ORDER BY Name";
+                return db.ExecuteDataSet(CommandType.Text, query);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public static DataSet GetBloodGroup()
+        {
+            try
+            {
+                Database db = new DatabaseProviderFactory().Create("defaultDB");
+                string query = "SELECT ID, Name FROM BloodGroup ORDER BY Name";
+                return db.ExecuteDataSet(CommandType.Text, query);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public static DataSet GetShiftTiming()
+        {
+            try
+            {
+                Database db = new DatabaseProviderFactory().Create("defaultDB");
+                string query = "SELECT ID, Name FROM ShiftTiming ORDER BY Name";
+                return db.ExecuteDataSet(CommandType.Text, query);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public static DataSet GetWorkDays()
+        {
+            try
+            {
+                Database db = new DatabaseProviderFactory().Create("defaultDB");
+                string query = "SELECT ID, Name FROM WorkDays ORDER BY Name";
+                return db.ExecuteDataSet(CommandType.Text, query);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public static DataSet GetDays()
+        {
+            try
+            {
+                Database db = new DatabaseProviderFactory().Create("defaultDB");
+                string query = "SELECT ID, Name FROM Days ORDER BY Name";
+                return db.ExecuteDataSet(CommandType.Text, query);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public static DataSet GetAttendanceMethod()
+        {
+            try
+            {
+                Database db = new DatabaseProviderFactory().Create("defaultDB");
+                string query = "SELECT ID, Name FROM AttendanceMethod ORDER BY Name";
+                return db.ExecuteDataSet(CommandType.Text, query);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public static DataSet GetPayrollCycle()
+        {
+            try
+            {
+                Database db = new DatabaseProviderFactory().Create("defaultDB");
+                string query = "SELECT ID, Name FROM PayrollCycle ORDER BY Name";
+                return db.ExecuteDataSet(CommandType.Text, query);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public static DataSet GetPaymentMethod()
+        {
+            try
+            {
+                Database db = new DatabaseProviderFactory().Create("defaultDB");
+                string query = "SELECT ID, Name FROM PaymentMethod ORDER BY Name";
+                return db.ExecuteDataSet(CommandType.Text, query);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

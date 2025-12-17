@@ -1,0 +1,64 @@
+OVFC (Over Voltage Function) 
+
+critical_event_threshold_limit => 275
+critical_event_log_time => 10
+tripping_event_threshold_limit => 275
+tripping_event_log_time => 15
+
+OCFC (Over Current Function) 
+
+critical_event_threshold_limit => 6
+critical_event_log_time => 10
+tripping_event_threshold_limit => 6
+tripping_event_log_time => 15
+
+OLFC (Over Load Function) 
+
+critical_event_threshold_limit => 3
+critical_event_log_time => 10
+tripping_event_threshold_limit => 5
+tripping_event_log_time => 15
+
+VUFC (Voltage Unbalance Function) 
+
+critical_event_threshold_limit => 20
+critical_event_log_time => 10
+tripping_event_threshold_limit => 20 
+tripping_event_log_time => 15
+
+PFFC (Phase Failure Function) 
+
+critical_event_threshold_limit => 150
+critical_event_log_time => 10
+tripping_event_threshold_limit => 150 
+tripping_event_log_time => 15
+
+CUFC (Current Unbalance Function) 
+
+critical_event_threshold_limit => 20
+critical_event_log_time => 10,300
+tripping_event_threshold_limit => 20 
+tripping_event_log_time => 15,300
+
+
+HAPF (High Apparent Power Function) 
+
+critical_event_threshold_limit => 1
+critical_event_log_time => 10
+tripping_event_threshold_limit => 1 
+tripping_event_log_time => 15
+
+UVFC (Under Voltage Function) 
+
+critical_event_threshold_limit => 185
+critical_event_log_time => 300
+tripping_event_threshold_limit => 185 
+tripping_event_log_time => 300
+
+
+## apms_tripping_events_OVFC
+
+UVFC, HAPF, CUFC, PFFC, VUFC, OLFC, OCFC, OVFC
+
+AUXR, DVTM, SANC, LSCH, TIOU, IPPO, MDSM, OPPO, WSIM, MSIM, MTST, DMDT, MDI
+

@@ -73,6 +73,7 @@ namespace hrms_PakAsia.Pages
                 Designation.DataSource = CommonDAL.GetDesignation();
                 Designation.DataBind();
                 Designation.Items.Insert(0, new ListItem("Select One", "0"));
+
             }
             catch (Exception ex)
             {

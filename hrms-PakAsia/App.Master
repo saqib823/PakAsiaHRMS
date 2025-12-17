@@ -675,7 +675,7 @@
       <span class="uil uil-users-alt fs-8 me-2"></span>Employees
     </a>
     <ul class="dropdown-menu navbar-dropdown-caret">
-      <li><a class="dropdown-item" href="employees.aspx">Employee List</a></li>
+      <li><a class="dropdown-item" runat="server" href="~/Pages/Employees/employeelist.aspx">Employee List</a></li>
       <li><a class="dropdown-item" runat="server" href="~/Pages/Employees/employees.aspx">Add Employee</a></li>
       <li><a class="dropdown-item" href="documents.aspx">Documents</a></li>
       <li><a class="dropdown-item" href="contracts.aspx">Contracts</a></li>

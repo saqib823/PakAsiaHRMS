@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessLogic\CallResult.cs" />
+    <Compile Include="BusinessLogic\Employee.cs" />
     <Compile Include="BusinessLogic\LoggedInUser.cs" />
     <Compile Include="DataLayer\BranchDAL.cs" />
     <Compile Include="DataLayer\CommonDAL.cs" />

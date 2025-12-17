@@ -27,26 +27,22 @@
                                     <div class="accordion-body">
                                         <div class="row">
                                             <div class="col-md-3 mt-3">
-                                                <label class="form-label">Employee ID</label>
-                                                <asp:TextBox CssClass="form-control" ID="txtEmpID" runat="server" placeholder="EMP-001" ReadOnly="true"></asp:TextBox>
+                                                <label class="form-label">Employee No.</label>
+                                                <asp:TextBox CssClass="form-control" ID="txtEmpID" runat="server" placeholder="EMP-001" ></asp:TextBox>
                                             </div>
                                             <div class="col-md-3 mt-3">
                                                 <label class="form-label">Title</label>
-                                                <asp:DropDownList CssClass="form-control" ID="ddlTitle" runat="server">
-                                                    <asp:ListItem Value="">Select</asp:ListItem>
-                                                    <asp:ListItem>Mr.</asp:ListItem>
-                                                    <asp:ListItem>Ms.</asp:ListItem>
-                                                    <asp:ListItem>Mrs.</asp:ListItem>
-                                                    <asp:ListItem>Dr.</asp:ListItem>
+                                                <asp:DropDownList CssClass="form-control" ID="ddlTitle" DataTextField="Name" DataValueField="ID"  runat="server">
+                                                    
                                                 </asp:DropDownList>
                                             </div>
                                             <div class="col-md-3 mt-3">
                                                 <label class="form-label">Full Name *</label>
-                                                <asp:TextBox CssClass="form-control" ID="txtFirstName" runat="server" placeholder="First name" required="true"></asp:TextBox>
+                                                <asp:TextBox CssClass="form-control" ID="FullName" runat="server" placeholder="First name" required="true"></asp:TextBox>
                                             </div>
                                             <div class="col-md-3 mt-3">
                                                 <label class="form-label">Father or Spouse Name *</label>
-                                                <asp:TextBox CssClass="form-control" ID="txtLastName" runat="server" placeholder="Last name" required="true"></asp:TextBox>
+                                                <asp:TextBox CssClass="form-control" ID="GuardianName" runat="server" placeholder="Last name" required="true"></asp:TextBox>
                                             </div>
                                             <div class="col-md-3 mt-3">
                                                 <label class="form-label">Date of Birth</label>
@@ -54,11 +50,8 @@
                                             </div>
                                             <div class="col-md-3 mt-3">
                                                 <label class="form-label">Gender</label>
-                                                <asp:DropDownList CssClass="form-control" ID="ddlGender" runat="server">
-                                                    <asp:ListItem Value="">Select</asp:ListItem>
-                                                    <asp:ListItem>Male</asp:ListItem>
-                                                    <asp:ListItem>Female</asp:ListItem>
-                                                    <asp:ListItem>Other</asp:ListItem>
+                                                <asp:DropDownList CssClass="form-control" ID="ddlGender" DataTextField="Name" DataValueField="ID"  runat="server">
+                                                 
                                                 </asp:DropDownList>
                                             </div>
                                             <div class="col-md-3 mt-3">
@@ -67,16 +60,11 @@
                                             </div>
                                             <div class="col-md-3 mt-3">
                                                 <label class="form-label">CNIC Expiry *</label>
-                                                <asp:TextBox CssClass="form-control datetimepicker" ID="txtCnicExpiry" runat="server" MaxLength="15" required="true" TextMode="DateTimeLocal"></asp:TextBox>
+                                                <asp:TextBox CssClass="form-control datetimepicker" ID="txtCnicExpiry" runat="server" MaxLength="15" required="true" TextMode="Date"></asp:TextBox>
                                             </div>
                                             <div class="col-md-3 mt-3">
                                                 <label class="form-label">Marital Status</label>
-                                                <asp:DropDownList CssClass="form-control" ID="ddlMaritalStatus" runat="server">
-                                                    <asp:ListItem Value="">Select</asp:ListItem>
-                                                    <asp:ListItem>Single</asp:ListItem>
-                                                    <asp:ListItem>Married</asp:ListItem>
-                                                    <asp:ListItem>Divorced</asp:ListItem>
-                                                    <asp:ListItem>Widowed</asp:ListItem>
+                                                <asp:DropDownList CssClass="form-control" ID="ddlMaritalStatus" DataTextField="Name" DataValueField="ID"  runat="server">
                                                 </asp:DropDownList>
                                             </div>
                                             <div class="col-md-3 mt-3">
@@ -86,6 +74,12 @@
                                             <div class="col-md-3 mt-3">
                                                 <label class="form-label">Religion</label>
                                                 <asp:TextBox CssClass="form-control" ID="txtReligion" runat="server" placeholder="Religion"></asp:TextBox>
+                                            </div>
+                                            <div class="col-md-3 mt-3">
+                                                <label class="form-label">Blood Group</label>
+                                                <asp:DropDownList CssClass="form-control" ID="BloodGroup" DataTextField="Name" DataValueField="ID"  runat="server"  >
+
+                                                </asp:DropDownList>
                                             </div>
                                             <div class="col-md-3 mt-3">
                                                 <label class="form-label" for="fileProfilePic">Profile Picture</label>
@@ -283,53 +277,41 @@
                                         <div class="row">
                                             <div class="col-md-3 mt-3">
                                                 <label class="form-label">Shift Timing</label>
-                                                <asp:DropDownList CssClass="form-control" ID="ddlShift" runat="server">
-                                                    <asp:ListItem Value="">Select Shift</asp:ListItem>
-                                                    <asp:ListItem>Morning (9AM-5PM)</asp:ListItem>
-                                                    <asp:ListItem>Evening (2PM-10PM)</asp:ListItem>
-                                                    <asp:ListItem>Night (10PM-6AM)</asp:ListItem>
-                                                    <asp:ListItem>Flexible</asp:ListItem>
+                                                <asp:DropDownList CssClass="form-control" ID="ddlShift" DataTextField="Name" DataValueField="ID"  runat="server">
+                                                 
                                                 </asp:DropDownList>
                                             </div>
                                             <div class="col-md-3 mt-3">
                                                 <label class="form-label">Work Days</label>
-                                                <asp:DropDownList CssClass="form-control" ID="ddlWorkDays" runat="server">
-                                                    <asp:ListItem Value="5">5 Days (Mon-Fri)</asp:ListItem>
-                                                    <asp:ListItem Value="6">6 Days (Mon-Sat)</asp:ListItem>
-                                                    <asp:ListItem Value="7">7 Days (All week)</asp:ListItem>
+                                                <asp:DropDownList CssClass="form-control" ID="ddlWorkDays" DataTextField="Name" DataValueField="ID"  runat="server">
+                                                   
                                                 </asp:DropDownList>
                                             </div>
                                             <div class="col-md-3 mt-3">
                                                 <label class="form-label">Attendance Method</label>
-                                                <asp:DropDownList CssClass="form-control" ID="ddlAttendanceMethod" runat="server">
-                                                    <asp:ListItem Value="">Select Method</asp:ListItem>
-                                                    <asp:ListItem>Biometric</asp:ListItem>
-                                                    <asp:ListItem>Mobile App</asp:ListItem>
-                                                    <asp:ListItem>Manual</asp:ListItem>
-                                                    <asp:ListItem>RFID Card</asp:ListItem>
+                                                <asp:DropDownList CssClass="form-control" ID="ddlAttendanceMethod" DataTextField="Name" DataValueField="ID"  runat="server">
+                                               
                                                 </asp:DropDownList>
                                             </div>
                                             <div class="col-md-3 mt-3">
                                                 <label class="form-label">Biometric ID</label>
                                                 <asp:TextBox CssClass="form-control" ID="txtBiometricID" runat="server" placeholder="Biometric ID"></asp:TextBox>
                                             </div>
-                                            <div class="col-md-4 mt-3">
+                                            <div class="col-md-3 mt-3">
                                                 <label class="form-label">Weekly Off Days</label>
-                                                <asp:ListBox CssClass="form-control" ID="lbWeeklyOff" runat="server" SelectionMode="Multiple">
-                                                    <asp:ListItem>Monday</asp:ListItem>
-                                                    <asp:ListItem>Tuesday</asp:ListItem>
-                                                    <asp:ListItem>Wednesday</asp:ListItem>
-                                                    <asp:ListItem>Thursday</asp:ListItem>
-                                                    <asp:ListItem>Friday</asp:ListItem>
-                                                    <asp:ListItem>Saturday</asp:ListItem>
-                                                    <asp:ListItem>Sunday</asp:ListItem>
+                                                <asp:ListBox CssClass="form-control" ID="lbWeeklyOff" runat="server" DataTextField="Name" DataValueField="ID"  SelectionMode="Multiple">
+                                                  
                                                 </asp:ListBox>
                                             </div>
-                                            <div class="col-md-4 mt-3">
+                                            <div class="col-md-3 mt-3">
                                                 <label class="form-label">Allowed Late Minutes</label>
                                                 <asp:TextBox CssClass="form-control" ID="txtAllowedLate" runat="server" TextMode="Number" placeholder="15"></asp:TextBox>
                                             </div>
-                                            <div class="col-md-4 mt-3">
+                                            <div class="col-md-3 mt-3">
+                                                <label class="form-label">Allowed Early Leave Count</label>
+                                                <asp:TextBox CssClass="form-control" ID="txtAllowedEarlyLeaveCont" runat="server" TextMode="Number" placeholder="15"></asp:TextBox>
+                                            </div>
+                                            <div class="col-md-3 mt-3">
                                                 <label class="form-label">Half Day Hours</label>
                                                 <asp:TextBox CssClass="form-control" ID="txtHalfDayHours" runat="server" TextMode="Number" placeholder="4"></asp:TextBox>
                                             </div>
@@ -393,34 +375,51 @@
                                             </div>
                                             <div class="col-md-3 mt-3">
                                                 <label class="form-label">Payment Method</label>
-                                                <asp:DropDownList CssClass="form-control" ID="ddlPaymentMethod" runat="server">
-                                                    <asp:ListItem Value="">Select Method</asp:ListItem>
-                                                    <asp:ListItem>Bank Transfer</asp:ListItem>
-                                                    <asp:ListItem>Cash</asp:ListItem>
-                                                    <asp:ListItem>Cheque</asp:ListItem>
-                                                    <asp:ListItem>Mobile Wallet</asp:ListItem>
+                                                <asp:DropDownList CssClass="form-control" ID="ddlPaymentMethod" DataTextField="Name" DataValueField="ID" runat="server">
+                                                   
                                                 </asp:DropDownList>
                                             </div>
                                             <div class="col-md-3 mt-3">
-                                                <label class="form-label">Tax Deduction</label>
-                                                <asp:DropDownList CssClass="form-control" ID="ddlTaxDeduction" runat="server">
-                                                    <asp:ListItem Value="Yes">Yes</asp:ListItem>
-                                                    <asp:ListItem Value="No" Selected="True">No</asp:ListItem>
-                                                </asp:DropDownList>
+                                                <label class="form-label">Tax Status Or NTN</label>
+                                                <asp:TextBox CssClass="form-control" ID="TaxDeduction" runat="server">
+                                                    
+                                                </asp:TextBox>
                                             </div>
                                             <div class="col-md-3 mt-3">
-                                                <label class="form-label">EOBI Registered</label>
-                                                <asp:DropDownList CssClass="form-control" ID="ddlEOBIRegistered" runat="server">
-                                                    <asp:ListItem Value="Yes">Yes</asp:ListItem>
-                                                    <asp:ListItem Value="No" Selected="True">No</asp:ListItem>
-                                                </asp:DropDownList>
+                                                <label class="form-label">EOBI Number</label>
+                                                <asp:TextBox CssClass="form-control" ID="EOBIRegistered" runat="server">
+                                                    
+                                                </asp:TextBox>
                                             </div>
                                             <div class="col-md-3 mt-3">
                                                 <label class="form-label">Social Security</label>
-                                                <asp:DropDownList CssClass="form-control" ID="ddlSocialSecurity" runat="server">
-                                                    <asp:ListItem Value="Yes">Yes</asp:ListItem>
-                                                    <asp:ListItem Value="No" Selected="True">No</asp:ListItem>
+                                                <asp:TextBox CssClass="form-control" ID="SocialSecurity" runat="server">
+                                                    
+                                                </asp:TextBox>
+                                            </div>
+                                            <div class="col-md-3 mt-3">
+                                                <label class="form-label">Overtime Rate</label>
+                                                <asp:TextBox CssClass="form-control" ID="OvertimeRate" Text="Number" runat="server">
+                                                    
+                                                </asp:TextBox>
+                                            </div>
+                                            <div class="col-md-3 mt-3">
+                                                <label class="form-label">Payroll Cycle</label>
+                                                <asp:DropDownList CssClass="form-control" ID="PayrollCycle" DataTextField="Name" DataValueField="ID" runat="server" >
+                                                 
                                                 </asp:DropDownList>
+                                            </div>
+                                            <div class="col-md-3 mt-3">
+                                                <label class="form-label">Salary Type</label>
+                                                <asp:DropDownList CssClass="form-control" ID="ddlSalaryType" DataTextField="Name" DataValueField="ID" runat="server">
+                                                   
+                                                </asp:DropDownList>
+                                            </div>
+                                            <div class="col-md-3 mt-3">
+                                                <label class="form-label">Gross Salary</label>
+                                                <asp:TextBox CssClass="form-control" ID="txtGrossSalary" runat="server">
+                                                    
+                                                </asp:TextBox>
                                             </div>
                                         </div>
                                     </div>
@@ -437,30 +436,36 @@
                                 <div id="legal" class="accordion-collapse collapse" data-bs-parent="#employeeAccordion">
                                     <div class="accordion-body">
                                         <div class="row">
-                                            <div class="col-md-4 mt-3">
-                                                <label class="form-label">Contract File</label>
-                                                <input class="form-control" id="fileContract" type="file" runat="server" accept=".pdf,.doc,.docx" />
+                                           <div class="col-md-4 mt-3">
+                                            <label class="form-label">Contract File</label>
+                                                <asp:FileUpload ID="fileContract" runat="server" CssClass="form-control" />
                                             </div>
+
                                             <div class="col-md-4 mt-3">
                                                 <label class="form-label">CNIC Front</label>
-                                                <input class="form-control" id="fileCNICFront" type="file" runat="server" accept="image/*,.pdf" />
+                                                <asp:FileUpload ID="fileCNICFront" runat="server" CssClass="form-control" />
                                             </div>
+
                                             <div class="col-md-4 mt-3">
                                                 <label class="form-label">CNIC Back</label>
-                                                <input class="form-control" id="fileCNICBack" type="file" runat="server" accept="image/*,.pdf" />
+                                                <asp:FileUpload ID="fileCNICBack" runat="server" CssClass="form-control" />
                                             </div>
+
                                             <div class="col-md-4 mt-3">
                                                 <label class="form-label">Educational Certificates</label>
-                                                <input class="form-control" id="fileEducation" type="file" runat="server" accept=".pdf,.jpg,.jpeg,.png" multiple="multiple" />
+                                                <asp:FileUpload ID="fileEducation" runat="server" CssClass="form-control" AllowMultiple="true" />
                                             </div>
+
                                             <div class="col-md-4 mt-3">
                                                 <label class="form-label">Experience Letters</label>
-                                                <input class="form-control" id="fileExperience" type="file" runat="server" accept=".pdf,.jpg,.jpeg,.png" multiple="multiple" />
+                                                <asp:FileUpload ID="fileExperience" runat="server" CssClass="form-control" AllowMultiple="true" />
                                             </div>
+
                                             <div class="col-md-4 mt-3">
                                                 <label class="form-label">Other Documents</label>
-                                                <input class="form-control" id="fileOtherDocs" type="file" runat="server" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" multiple="multiple" />
+                                                <asp:FileUpload ID="fileOtherDocs" runat="server" CssClass="form-control" AllowMultiple="true" />
                                             </div>
+
                                             <div class="col-md-6 mt-3">
                                                 <label class="form-label">Non-Disclosure Agreement</label>
                                                 <asp:DropDownList CssClass="form-control" ID="ddlNDA" runat="server">
@@ -484,132 +489,7 @@
                                 </div>
                             </div>
 
-                            <!-- 7️⃣ System Access Section -->
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#systemAccess">
-                                        <i class="uil uil-lock-access me-2"></i>System Access
-                                    </button>
-                                </h2>
-                                <div id="systemAccess" class="accordion-collapse collapse" data-bs-parent="#employeeAccordion">
-                                    <div class="accordion-body">
-                                        <div class="row">
-                                            <div class="col-md-3 mt-3">
-                                                <label class="form-label">System Username</label>
-                                                <asp:TextBox CssClass="form-control" ID="txtSystemUsername" runat="server" placeholder="Username for login"></asp:TextBox>
-                                            </div>
-                                            <div class="col-md-3 mt-3">
-                                                <label class="form-label">Initial Password</label>
-                                                <asp:TextBox CssClass="form-control" ID="txtInitialPassword" runat="server" TextMode="Password" placeholder="Temporary password"></asp:TextBox>
-                                            </div>
-                                            <div class="col-md-3 mt-3">
-                                                <label class="form-label">User Role *</label>
-                                                <asp:DropDownList CssClass="form-control" ID="ddlUserRole" DataTextField="Name" DataValueField="ID" runat="server" required="true"></asp:DropDownList>
-                                            </div>
-                                            <div class="col-md-3 mt-3">
-                                                <label class="form-label">Access Level</label>
-                                                <asp:DropDownList CssClass="form-control" ID="ddlAccessLevel" runat="server">
-                                                    <asp:ListItem Value="Full">Full Access</asp:ListItem>
-                                                    <asp:ListItem Value="Limited">Limited Access</asp:ListItem>
-                                                    <asp:ListItem Value="ReadOnly">Read Only</asp:ListItem>
-                                                    <asp:ListItem Value="NoAccess">No Access</asp:ListItem>
-                                                </asp:DropDownList>
-                                            </div>
-                                            <div class="col-md-12 mt-3">
-                                                <label class="form-label">System Permissions</label>
-                                                <div class="form-check form-check-inline">
-                                                    <asp:CheckBox ID="cbHRModule" runat="server" CssClass="form-check-input" />
-                                                    <label class="form-check-label" for="<%= cbHRModule.ClientID %>">HR Module</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <asp:CheckBox ID="cbPayrollModule" runat="server" CssClass="form-check-input" />
-                                                    <label class="form-check-label" for="<%= cbPayrollModule.ClientID %>">Payroll Module</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <asp:CheckBox ID="cbAttendanceModule" runat="server" CssClass="form-check-input" />
-                                                    <label class="form-check-label" for="<%= cbAttendanceModule.ClientID %>">Attendance Module</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <asp:CheckBox ID="cbLeaveModule" runat="server" CssClass="form-check-input" />
-                                                    <label class="form-check-label" for="<%= cbLeaveModule.ClientID %>">Leave Module</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <asp:CheckBox ID="cbReportsModule" runat="server" CssClass="form-check-input" />
-                                                    <label class="form-check-label" for="<%= cbReportsModule.ClientID %>">Reports Module</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 mt-3">
-                                                <label class="form-label">Email Access</label>
-                                                <asp:DropDownList CssClass="form-control" ID="ddlEmailAccess" runat="server">
-                                                    <asp:ListItem Value="">Select Option</asp:ListItem>
-                                                    <asp:ListItem>Company Email Created</asp:ListItem>
-                                                    <asp:ListItem>Personal Email Only</asp:ListItem>
-                                                    <asp:ListItem>No Email Required</asp:ListItem>
-                                                </asp:DropDownList>
-                                            </div>
-                                            <div class="col-md-6 mt-3">
-                                                <label class="form-label">System Access Status</label>
-                                                <asp:DropDownList CssClass="form-control" ID="ddlSystemAccessStatus" runat="server">
-                                                    <asp:ListItem Value="Active" Selected="True">Active</asp:ListItem>
-                                                    <asp:ListItem Value="Inactive">Inactive</asp:ListItem>
-                                                    <asp:ListItem Value="Suspended">Suspended</asp:ListItem>
-                                                    <asp:ListItem Value="Pending">Pending Activation</asp:ListItem>
-                                                </asp:DropDownList>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- 8️⃣ Performance & Notes Section -->
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#performance">
-                                        <i class="uil uil-chart-line me-2"></i>Performance & Notes
-                                    </button>
-                                </h2>
-                                <div id="performance" class="accordion-collapse collapse" data-bs-parent="#employeeAccordion">
-                                    <div class="accordion-body">
-                                        <div class="row">
-                                            <div class="col-md-4 mt-3">
-                                                <label class="form-label">Key Performance Indicators</label>
-                                                <asp:TextBox CssClass="form-control" ID="txtKPI" runat="server" TextMode="MultiLine" Rows="3" placeholder="Main KPIs"></asp:TextBox>
-                                            </div>
-                                            <div class="col-md-4 mt-3">
-                                                <label class="form-label">Performance Rating</label>
-                                                <asp:DropDownList CssClass="form-control" ID="ddlPerformanceRating" runat="server">
-                                                    <asp:ListItem Value="">Select Rating</asp:ListItem>
-                                                    <asp:ListItem>Excellent (5)</asp:ListItem>
-                                                    <asp:ListItem>Good (4)</asp:ListItem>
-                                                    <asp:ListItem>Average (3)</asp:ListItem>
-                                                    <asp:ListItem>Below Average (2)</asp:ListItem>
-                                                    <asp:ListItem>Poor (1)</asp:ListItem>
-                                                </asp:DropDownList>
-                                            </div>
-                                            <div class="col-md-4 mt-3">
-                                                <label class="form-label">Last Appraisal Date</label>
-                                                <asp:TextBox CssClass="form-control" ID="txtLastAppraisal" runat="server" TextMode="Date"></asp:TextBox>
-                                            </div>
-                                            <div class="col-md-6 mt-3">
-                                                <label class="form-label">Strengths</label>
-                                                <asp:TextBox CssClass="form-control" ID="txtStrengths" runat="server" TextMode="MultiLine" Rows="2" placeholder="Employee strengths"></asp:TextBox>
-                                            </div>
-                                            <div class="col-md-6 mt-3">
-                                                <label class="form-label">Areas for Improvement</label>
-                                                <asp:TextBox CssClass="form-control" ID="txtImprovementAreas" runat="server" TextMode="MultiLine" Rows="2" placeholder="Areas needing improvement"></asp:TextBox>
-                                            </div>
-                                            <div class="col-md-12 mt-3">
-                                                <label class="form-label">Training & Development</label>
-                                                <asp:TextBox CssClass="form-control" ID="txtTraining" runat="server" TextMode="MultiLine" Rows="3" placeholder="Training attended/required"></asp:TextBox>
-                                            </div>
-                                            <div class="col-md-12 mt-3">
-                                                <label class="form-label">Notes & Remarks</label>
-                                                <asp:TextBox CssClass="form-control" ID="txtNotes" runat="server" TextMode="MultiLine" Rows="4" placeholder="Additional notes, remarks, or comments"></asp:TextBox>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                         
 
                         </div>
                         <!-- End Accordion -->
@@ -620,9 +500,7 @@
                                 Text="Cancel" CssClass="btn btn-secondary me-2 mb-3" 
                                 OnClick="btnCancel_Click" UseSubmitBehavior="false" />
 
-                            <asp:Button ID="btnSaveDraft" runat="server"
-                                Text="Save as Draft" CssClass="btn btn-warning me-2 mb-3"
-                                OnClick="btnSaveDraft_Click" />
+                            
 
                             <asp:Button ID="btnSubmit" runat="server"
                                 Text="Submit Employee" CssClass="btn btn-primary mb-3"
@@ -631,123 +509,7 @@
 
                         <asp:PlaceHolder ID="phAlert" runat="server"></asp:PlaceHolder>
 
-                        <!-- Employee List Table -->
-                        <div id="employeeTable" class="mt-5">
-                            <div class="search-box mb-3 mx-auto">
-                                <div class="position-relative">
-                                    <asp:TextBox ID="txtSearchEmployee" runat="server"
-                                        CssClass="form-control search-input search form-control-sm"
-                                        Placeholder="Search employees..."
-                                        AutoPostBack="true"
-                                        OnTextChanged="txtSearchEmployee_TextChanged" />              
-                                    <svg class="svg-inline--fa fa-magnifying-glass search-box-icon" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="magnifying-glass" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                        <path fill="currentColor" d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"></path>
-                                    </svg>
-                                </div>
-                            </div>
-                            
-                            <div class="table-responsive">
-                                <asp:Repeater ID="rptEmployees" runat="server" OnItemCommand="rptEmployees_ItemCommand">
-                                    <HeaderTemplate>
-                                        <table class="table table-striped table-sm fs-9 mb-0">
-                                            <thead>
-                                                <tr>
-                                                    <th>Emp ID</th>
-                                                    <th>Name</th>
-                                                    <th>Department</th>
-                                                    <th>Designation</th>
-                                                    <th>Joining Date</th>
-                                                    <th>Status</th>
-                                                    <th>Actions</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                    </HeaderTemplate>
-
-                                    <ItemTemplate>
-                                        <tr>
-                                            <td><%# Eval("EmployeeID") %></td>
-                                            <td><%# Eval("FullName") %></td>
-                                            <td><%# Eval("DepartmentName") %></td>
-                                            <td><%# Eval("DesignationName") %></td>
-                                            <td><%# Eval("JoiningDate", "{0:dd-MMM-yyyy}") %></td>
-                                            <td><%# Eval("Status") %></td>
-                                            <td class="text-center">
-                                                <asp:LinkButton
-                                                    ID="btnView"
-                                                    runat="server"
-                                                    CssClass="text-info me-2"
-                                                    CommandName="ViewEmployee"
-                                                    CommandArgument='<%# Eval("EmployeeID") %>'
-                                                    ToolTip="View Details">
-                                                    <i class="uil uil-eye"></i>
-                                                </asp:LinkButton>
-
-                                                <asp:LinkButton
-                                                    ID="btnEdit"
-                                                    runat="server"
-                                                    CssClass="text-primary me-2"
-                                                    CommandName="EditEmployee"
-                                                    CommandArgument='<%# Eval("EmployeeID") %>'
-                                                    ToolTip="Edit Employee">
-                                                    <i class="uil uil-edit"></i>
-                                                </asp:LinkButton>
-
-                                                <asp:LinkButton
-                                                    ID="btnDelete"
-                                                    runat="server"
-                                                    CssClass="text-danger"
-                                                    CommandName="DeleteEmployee"
-                                                    CommandArgument='<%# Eval("EmployeeID") %>'
-                                                    ToolTip="Delete Employee"
-                                                    OnClientClick="return confirm('Are you sure you want to delete this employee?');">
-                                                    <i class="uil uil-trash-alt"></i>
-                                                </asp:LinkButton>
-                                            </td>
-                                        </tr>
-                                    </ItemTemplate>
-
-                                    <FooterTemplate>
-                                            </tbody>
-                                        </table>
-                                    </FooterTemplate>
-                                </asp:Repeater>
-                            </div>
-                            
-                            <!-- Pagination -->
-                            <div class="d-flex justify-content-between mt-3">
-                                <span class="d-none d-sm-inline-block" data-list-info="data-list-info">
-                                    <asp:Label ID="lblPageInfo" runat="server" CssClass="text-muted"></asp:Label>
-                                </span>
-                                <div class="d-flex justify-content-center mt-3">
-                                    <asp:LinkButton ID="btnPrev" runat="server"
-                                        CssClass="btn btn-outline-secondary btn-sm me-1"
-                                        OnClick="btnPrev_Click">
-                                        «
-                                    </asp:LinkButton>
-
-                                    <asp:Repeater ID="rptPager" runat="server" OnItemCommand="rptPager_ItemCommand">
-                                        <ItemTemplate>
-                                            <asp:LinkButton runat="server"
-                                                CommandName="Page"
-                                                CommandArgument='<%# Eval("PageNumber") %>'
-                                                CssClass='<%# (bool)Eval("IsCurrent") 
-                                                            ? "btn btn-primary btn-sm me-1" 
-                                                            : "btn btn-outline-secondary btn-sm me-1" %>'>
-                                                <%# Eval("PageNumber") %>
-                                            </asp:LinkButton>
-                                        </ItemTemplate>
-                                    </asp:Repeater>
-
-                                    <asp:LinkButton ID="btnNext" runat="server"
-                                        CssClass="btn btn-outline-secondary btn-sm"
-                                        OnClick="btnNext_Click">
-                                        »
-                                    </asp:LinkButton>
-                                </div>
-                            </div>
-                        </div>
-
+                       
                     </div>
                 </div>
             </main>
@@ -755,7 +517,6 @@
         
         <Triggers>
             <asp:PostBackTrigger ControlID="btnSubmit" />
-            <asp:PostBackTrigger ControlID="btnSaveDraft" />
             <asp:AsyncPostBackTrigger ControlID="cbSameAsPermanent" EventName="CheckedChanged" />
         </Triggers>
     </asp:UpdatePanel>

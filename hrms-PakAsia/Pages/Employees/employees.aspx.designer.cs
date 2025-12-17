@@ -40,22 +40,22 @@ namespace hrms_PakAsia.Pages.Employees {
         protected global::System.Web.UI.WebControls.DropDownList ddlTitle;
         
         /// <summary>
-        /// txtFirstName control.
+        /// FullName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFirstName;
+        protected global::System.Web.UI.WebControls.TextBox FullName;
         
         /// <summary>
-        /// txtLastName control.
+        /// GuardianName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtLastName;
+        protected global::System.Web.UI.WebControls.TextBox GuardianName;
         
         /// <summary>
         /// txtDOB control.
@@ -119,6 +119,15 @@ namespace hrms_PakAsia.Pages.Employees {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtReligion;
+        
+        /// <summary>
+        /// BloodGroup control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList BloodGroup;
         
         /// <summary>
         /// fileProfilePic control.
@@ -454,6 +463,15 @@ namespace hrms_PakAsia.Pages.Employees {
         protected global::System.Web.UI.WebControls.TextBox txtAllowedLate;
         
         /// <summary>
+        /// txtAllowedEarlyLeaveCont control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAllowedEarlyLeaveCont;
+        
+        /// <summary>
         /// txtHalfDayHours control.
         /// </summary>
         /// <remarks>
@@ -535,31 +553,67 @@ namespace hrms_PakAsia.Pages.Employees {
         protected global::System.Web.UI.WebControls.DropDownList ddlPaymentMethod;
         
         /// <summary>
-        /// ddlTaxDeduction control.
+        /// TaxDeduction control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlTaxDeduction;
+        protected global::System.Web.UI.WebControls.TextBox TaxDeduction;
         
         /// <summary>
-        /// ddlEOBIRegistered control.
+        /// EOBIRegistered control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlEOBIRegistered;
+        protected global::System.Web.UI.WebControls.TextBox EOBIRegistered;
         
         /// <summary>
-        /// ddlSocialSecurity control.
+        /// SocialSecurity control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSocialSecurity;
+        protected global::System.Web.UI.WebControls.TextBox SocialSecurity;
+        
+        /// <summary>
+        /// OvertimeRate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox OvertimeRate;
+        
+        /// <summary>
+        /// PayrollCycle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList PayrollCycle;
+        
+        /// <summary>
+        /// ddlSalaryType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlSalaryType;
+        
+        /// <summary>
+        /// txtGrossSalary control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGrossSalary;
         
         /// <summary>
         /// fileContract control.
@@ -568,7 +622,7 @@ namespace hrms_PakAsia.Pages.Employees {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputFile fileContract;
+        protected global::System.Web.UI.WebControls.FileUpload fileContract;
         
         /// <summary>
         /// fileCNICFront control.
@@ -577,7 +631,7 @@ namespace hrms_PakAsia.Pages.Employees {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputFile fileCNICFront;
+        protected global::System.Web.UI.WebControls.FileUpload fileCNICFront;
         
         /// <summary>
         /// fileCNICBack control.
@@ -586,7 +640,7 @@ namespace hrms_PakAsia.Pages.Employees {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputFile fileCNICBack;
+        protected global::System.Web.UI.WebControls.FileUpload fileCNICBack;
         
         /// <summary>
         /// fileEducation control.
@@ -595,7 +649,7 @@ namespace hrms_PakAsia.Pages.Employees {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputFile fileEducation;
+        protected global::System.Web.UI.WebControls.FileUpload fileEducation;
         
         /// <summary>
         /// fileExperience control.
@@ -604,7 +658,7 @@ namespace hrms_PakAsia.Pages.Employees {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputFile fileExperience;
+        protected global::System.Web.UI.WebControls.FileUpload fileExperience;
         
         /// <summary>
         /// fileOtherDocs control.
@@ -613,7 +667,7 @@ namespace hrms_PakAsia.Pages.Employees {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputFile fileOtherDocs;
+        protected global::System.Web.UI.WebControls.FileUpload fileOtherDocs;
         
         /// <summary>
         /// ddlNDA control.
@@ -634,168 +688,6 @@ namespace hrms_PakAsia.Pages.Employees {
         protected global::System.Web.UI.WebControls.DropDownList ddlTerms;
         
         /// <summary>
-        /// txtSystemUsername control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSystemUsername;
-        
-        /// <summary>
-        /// txtInitialPassword control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtInitialPassword;
-        
-        /// <summary>
-        /// ddlUserRole control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlUserRole;
-        
-        /// <summary>
-        /// ddlAccessLevel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlAccessLevel;
-        
-        /// <summary>
-        /// cbHRModule control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox cbHRModule;
-        
-        /// <summary>
-        /// cbPayrollModule control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox cbPayrollModule;
-        
-        /// <summary>
-        /// cbAttendanceModule control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox cbAttendanceModule;
-        
-        /// <summary>
-        /// cbLeaveModule control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox cbLeaveModule;
-        
-        /// <summary>
-        /// cbReportsModule control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox cbReportsModule;
-        
-        /// <summary>
-        /// ddlEmailAccess control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlEmailAccess;
-        
-        /// <summary>
-        /// ddlSystemAccessStatus control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSystemAccessStatus;
-        
-        /// <summary>
-        /// txtKPI control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtKPI;
-        
-        /// <summary>
-        /// ddlPerformanceRating control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlPerformanceRating;
-        
-        /// <summary>
-        /// txtLastAppraisal control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtLastAppraisal;
-        
-        /// <summary>
-        /// txtStrengths control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtStrengths;
-        
-        /// <summary>
-        /// txtImprovementAreas control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtImprovementAreas;
-        
-        /// <summary>
-        /// txtTraining control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtTraining;
-        
-        /// <summary>
-        /// txtNotes control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNotes;
-        
-        /// <summary>
         /// btnCancel control.
         /// </summary>
         /// <remarks>
@@ -803,15 +695,6 @@ namespace hrms_PakAsia.Pages.Employees {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnCancel;
-        
-        /// <summary>
-        /// btnSaveDraft control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSaveDraft;
         
         /// <summary>
         /// btnSubmit control.
@@ -830,59 +713,5 @@ namespace hrms_PakAsia.Pages.Employees {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder phAlert;
-        
-        /// <summary>
-        /// txtSearchEmployee control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSearchEmployee;
-        
-        /// <summary>
-        /// rptEmployees control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptEmployees;
-        
-        /// <summary>
-        /// lblPageInfo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPageInfo;
-        
-        /// <summary>
-        /// btnPrev control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnPrev;
-        
-        /// <summary>
-        /// rptPager control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptPager;
-        
-        /// <summary>
-        /// btnNext control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnNext;
     }
 }

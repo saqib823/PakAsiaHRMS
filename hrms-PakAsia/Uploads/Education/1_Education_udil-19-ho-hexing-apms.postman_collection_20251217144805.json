@@ -1,0 +1,3930 @@
+{
+	"info": {
+		"_postman_id": "d5315d30-59ff-41fd-a70a-1fba87c781d9",
+		"name": "UDIL-19-HO-Hexing-APMS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23175749"
+	},
+	"item": [
+		{
+			"name": "Create Device",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					},
+					{
+						"key": "transactionid",
+						"value": "crd0561",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "6cd11dee21c8478e8c37d130e1e29577",
+						"type": "text"
+					},
+					{
+						"key": "username",
+						"value": "accurate",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "password",
+						"value": "Hello@123",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "code",
+						"value": "225",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "device_identity",
+							"value": "[{\"dsn\": \"2999250313\", \"global_device_id\": \"m99250313\"}]",
+							"type": "text"
+						},
+						{
+							"key": "request_datetime",
+							"value": "2024-12-24 17:08:00",
+							"type": "text"
+						},
+						{
+							"key": "device_type",
+							"value": "3",
+							"type": "text"
+						},
+						{
+							"key": "mdi_reset_date",
+							"value": "07",
+							"type": "text"
+						},
+						{
+							"key": "mdi_reset_time",
+							"value": "14:00:00",
+							"type": "text"
+						},
+						{
+							"key": "sim_number",
+							"value": "03173091784",
+							"type": "text"
+						},
+						{
+							"key": "sim_id",
+							"value": "899204401023071982",
+							"type": "text"
+						},
+						{
+							"key": "phase",
+							"value": "3",
+							"type": "text"
+						},
+						{
+							"key": "meter_type",
+							"value": "3",
+							"type": "text"
+						},
+						{
+							"key": "communication_mode",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "communication_type",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "initial_communication_time",
+							"value": "00:00:00",
+							"type": "text"
+						},
+						{
+							"key": "communication_interval",
+							"value": "00",
+							"type": "text"
+						},
+						{
+							"key": "bidirectional_device",
+							"value": "0",
+							"type": "text"
+						},
+						{
+							"key": "meter_mode",
+							"value": "01",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3215/UIP/device_creation",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"device_creation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update IP Port",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "updipport050",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "50df26b58c7f4166bdce49f1e266b2c8",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "[\"m99250313\"]",
+							"type": "text"
+						},
+						{
+							"key": "request_datetime",
+							"value": "2022-10-21 14:30:00",
+							"type": "text"
+						},
+						{
+							"key": "primary_ip_address",
+							"value": "103.177.241.19",
+							"type": "text"
+						},
+						{
+							"key": "secondary_ip_address",
+							"value": "103.177.241.19",
+							"type": "text"
+						},
+						{
+							"key": "primary_port",
+							"value": "3210",
+							"type": "text"
+						},
+						{
+							"key": "secondary_port",
+							"value": "3210",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3215/UIP/update_ip_port",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"update_ip_port"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Time Sync",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "tymsync040",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "656cd0aa17d042c48a61fb06683e9d93",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "[\"m99250313\"]",
+							"type": "text"
+						},
+						{
+							"key": "request_datetime",
+							"value": "2023-02-01 16:07:00",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3215/UIP/time_synchronization",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"time_synchronization"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AUX Relay Operation",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "wraux03",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "e9d854e5fe96404e967bd79b7f5ad3d5",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "[\"m97122310\"]",
+							"type": "text"
+						},
+						{
+							"key": "request_datetime",
+							"value": "2022-09-30 15:25:00",
+							"type": "text"
+						},
+						{
+							"key": "relay_operate",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3215/UIP/aux_relay_operations",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"aux_relay_operations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Load Shedding SCH",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "wlsch02",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "b8aecb0052a048fda56d0e05dee7a8d1",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "[\"m97122310\"]",
+							"type": "text"
+						},
+						{
+							"key": "request_datetime",
+							"value": "2023-04-08 15:00:00",
+							"type": "text"
+						},
+						{
+							"key": "start_datetime",
+							"value": "2025-09-05 17:45:00",
+							"type": "text"
+						},
+						{
+							"key": "end_datetime",
+							"value": "2025-09-05 18:45:00",
+							"type": "text"
+						},
+						{
+							"key": "load_shedding_slabs",
+							"value": "[{\"action_time\":\"17:50:00\",\"relay_operate\":\"0\"},{\"action_time\":\"18::05\",\"relay_operate\":\"1\"},{\"action_time\":\"18:20:00\",\"relay_operate\":\"0\"},{\"action_time\":\"18:25:00\",\"relay_operate\":\"1\"}]",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3215/UIP/load_shedding_scheduling",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"load_shedding_scheduling"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Meter Data Sampling (BILL)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "dbill0148",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "6cd11dee21c8478e8c37d130e1e29577",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "[\"m99250313\"]",
+							"type": "text"
+						},
+						{
+							"key": "request_datetime",
+							"value": "2022-05-17 11:10:00",
+							"type": "text"
+						},
+						{
+							"key": "activation_datetime",
+							"value": "2025-08-20 00:00:00",
+							"type": "text"
+						},
+						{
+							"key": "data_type",
+							"value": "BILL",
+							"type": "text"
+						},
+						{
+							"key": "sampling_interval",
+							"value": "30",
+							"type": "text"
+						},
+						{
+							"key": "sampling_initial_time",
+							"value": "00",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3215/UIP/meter_data_sampling",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"meter_data_sampling"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Meter Data Sampling (LPRO)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "wlpro0555",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "bb3f0315cbed49b0858e034e3f1a40b6",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "[\"m99250313\"]",
+							"type": "text"
+						},
+						{
+							"key": "request_datetime",
+							"value": "2022-05-26 14:00:00",
+							"type": "text"
+						},
+						{
+							"key": "activation_datetime",
+							"value": "2025-01-11 15:10:00",
+							"type": "text"
+						},
+						{
+							"key": "data_type",
+							"value": "LPRO",
+							"type": "text"
+						},
+						{
+							"key": "sampling_interval",
+							"value": "15",
+							"type": "text"
+						},
+						{
+							"key": "sampling_initial_time",
+							"value": "00",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3215/UIP/meter_data_sampling",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"meter_data_sampling"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Meter Data Sampling (INST)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "winst0748",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "4e8cca311569499f970ca1c19c88f7e5",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "[\"m99250313\"]",
+							"type": "text"
+						},
+						{
+							"key": "request_datetime",
+							"value": "2023-02-17 12:25:00",
+							"type": "text"
+						},
+						{
+							"key": "activation_datetime",
+							"value": "2025-01-11 15:10:00",
+							"type": "text"
+						},
+						{
+							"key": "data_type",
+							"value": "INST",
+							"type": "text"
+						},
+						{
+							"key": "sampling_interval",
+							"value": "15",
+							"type": "text"
+						},
+						{
+							"key": "sampling_initial_time",
+							"value": "00",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3215/UIP/meter_data_sampling",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"meter_data_sampling"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Activate Meter Optical Port",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					},
+					{
+						"key": "transactionid",
+						"value": "oppo021",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "998fd691da9c4100ba6f7eea9c3264ed",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "[\"m99250313\"]",
+							"type": "text"
+						},
+						{
+							"key": "request_datetime",
+							"value": "2021-08-25 13:42:00",
+							"type": "text"
+						},
+						{
+							"key": "optical_port_on_datetime",
+							"value": "2021-08-25 13:50:00",
+							"type": "text"
+						},
+						{
+							"key": "optical_port_off_datetime",
+							"value": "2050-09-19 13:50:00",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3215/UIP/activate_meter_optical_port",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"activate_meter_optical_port"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Device Metadata",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "dmdt0502",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "7f5aa8732cdf414d90bdd7d3d27f40a0",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "[\"m99250313\"]",
+							"type": "text"
+						},
+						{
+							"key": "request_datetime",
+							"value": "2024-08-31 14:30:00",
+							"type": "text"
+						},
+						{
+							"key": "communication_mode",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "bidirectional_device",
+							"value": "0",
+							"type": "text"
+						},
+						{
+							"key": "communication_type",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "initial_communication_time",
+							"value": "00:00:00",
+							"type": "text"
+						},
+						{
+							"key": "communication_interval",
+							"value": "00",
+							"type": "text"
+						},
+						{
+							"key": "meter_type",
+							"value": "3",
+							"type": "text"
+						},
+						{
+							"key": "phase",
+							"value": "3",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3215/UIP/update_device_metadata",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"update_device_metadata"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Transaction Status",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "updmdi804",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "496ca2f41c6341678a84225060cff182",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "[\"2999221012\"]",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "request_datetime",
+							"value": "2023-03-22 15:05:00",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "meter_activation_status",
+							"value": "0",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3215/UIP/transaction_status",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"transaction_status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Wake-up SIM Number",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "upwksim30",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "90b5782fdf794b57831607de308f13fd",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "[\"m99250313\"]",
+							"type": "text"
+						},
+						{
+							"key": "request_datetime",
+							"value": "2022-03-30 13:56:00",
+							"type": "text"
+						},
+						{
+							"key": "wakeup_number_1",
+							"value": "03464394600",
+							"type": "text"
+						},
+						{
+							"key": "wakeup_number_2",
+							"value": "03288813150",
+							"type": "text"
+						},
+						{
+							"key": "wakeup_number_3",
+							"value": "03171317899",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3215/UIP/update_wake_up_sim_number",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"update_wake_up_sim_number"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update MDI Reset Date",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "updmdi804",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "496ca2f41c6341678a84225060cff182",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "\"m98202408\"",
+							"type": "text"
+						},
+						{
+							"key": "request_datetime",
+							"value": "2023-04-26 11:20:00",
+							"type": "text"
+						},
+						{
+							"key": "mdi_reset_date",
+							"value": "07",
+							"type": "text"
+						},
+						{
+							"key": "mdi_reset_time",
+							"value": "21:35:00",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3215/UIP/update_mdi_reset_date",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"update_mdi_reset_date"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Meter Status",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "mtst040",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "df22ecf0f5874f408905fc6fc7915a62",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "[\"m99250313\"]",
+							"type": "text"
+						},
+						{
+							"key": "request_datetime",
+							"value": "2022-08-31 14:17:00",
+							"type": "text"
+						},
+						{
+							"key": "meter_activation_status",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3215/UIP/update_meter_status",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"update_meter_status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AUXR On Demand Param Read",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "odraux020",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "1b8a2f024da74c43a9a7299559576871",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "m97122310",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "AUXR",
+							"type": "text"
+						},
+						{
+							"key": "",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3215/UIP/on_demand_parameter_read",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"on_demand_parameter_read"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DVTM On Demand Param Read",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "dvtmodr010",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "8ff5f62c7580403392a4d3ba86ef4a7a",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "m99250313",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "DVTM",
+							"type": "text"
+						},
+						{
+							"key": "",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3215/UIP/on_demand_parameter_read",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"on_demand_parameter_read"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MSIM On Demand Param Read",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "odrmsim342",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "ec255b27bed94f73ad552eaf8b8e56e3",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "m99250313",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "MSIM",
+							"type": "text"
+						},
+						{
+							"key": "",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3215/UIP/on_demand_parameter_read",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"on_demand_parameter_read"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LSCH On Demand Param Read",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "odrlsch21",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "acf1505f516540e8b2e08e8008fa2a5c",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "m98202397",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "LSCH",
+							"type": "text"
+						},
+						{
+							"key": "",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3215/UIP/on_demand_parameter_read",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"on_demand_parameter_read"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TIOU On Demand Param Read",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "odrtiou03",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "ab2e2584358f459694b271fbb0b8d88a",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "m97122310",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "TIOU",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3215/UIP/on_demand_parameter_read",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"on_demand_parameter_read"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MDI On Demand Param Read",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "mdiodr050",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "560d8d3911014f90a5d1cd2961fae0f9",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "m99250313",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "MDI",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3215/UIP/on_demand_parameter_read",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"on_demand_parameter_read"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LSCH Param Meter Cancelation",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "canlsch01",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "5f519f3c18b4443e9f63e98ad57dafe1",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "m97122310",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "lsch",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3215/UIP/parameterization_cancellation",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"parameterization_cancellation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "IPPO On Demand Param Read",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "odrippo040",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "86a26f1f85d14008b692bc395b95ec62",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "m99250313",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "IPPO",
+							"type": "text"
+						},
+						{
+							"key": "",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3215/UIP/on_demand_parameter_read",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"on_demand_parameter_read"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MDSM On Demand Param Read",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "odrmdsm340",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "e9d3b274d0094d579b6193d83e5dfd5a",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "m99250313",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "MDSM",
+							"type": "text"
+						},
+						{
+							"key": "",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3215/UIP/on_demand_parameter_read",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"on_demand_parameter_read"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "OPPO On Demand Param Read",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "odroppo06",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "92186da1b9f8475f8f0d3a83da15c917",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "m99202420",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "OPPO",
+							"type": "text"
+						},
+						{
+							"key": "",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3215/UIP/on_demand_parameter_read",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"on_demand_parameter_read"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "WSIM On Demand Param Read",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "wkpsim320",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "6380ac22206447e3b2f4125c06b8fdd6",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "m99250313",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "WSIM",
+							"type": "text"
+						},
+						{
+							"key": "",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3215/UIP/on_demand_parameter_read",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"on_demand_parameter_read"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MTST On Demand Param Read",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "odrmtst17",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "7511dd69608c47c4a1024e83101e1f4c",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "m99250313",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "MTST",
+							"type": "text"
+						},
+						{
+							"key": "",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3215/UIP/on_demand_parameter_read",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"on_demand_parameter_read"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DMDT On Demand Param Read",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "odrdmdt081",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "5557c685a95e41ee8e0b1bc99da59923",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "m99250313",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "DMDT",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3215/UIP/on_demand_parameter_read",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"on_demand_parameter_read"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MDI On Demand Param Read",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "odrmdi1030",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "2bf152977fd444aea6c18cdb5f25250f",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "m99250313",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "MDI",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3215/UIP/on_demand_parameter_read",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"on_demand_parameter_read"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "OVFC On Demand Param Read",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "apmstrip052",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "1c911ff68a684ca9b35250a62d822b38",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "m99250313",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "OVFC",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3215/UIP/on_demand_parameter_read",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"on_demand_parameter_read"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UVFC On Demand Param Read",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "odrmdi1030",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "2bf152977fd444aea6c18cdb5f25250f",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "m99250313",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "UVFC",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3215/UIP/on_demand_parameter_read",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"on_demand_parameter_read"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "OCFC On Demand Param Read",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "odrmdi1030",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "2bf152977fd444aea6c18cdb5f25250f",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "m99250313",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "OCFC",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3215/UIP/on_demand_parameter_read",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"on_demand_parameter_read"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "OLFC On Demand Param Read",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "odrmdi1030",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "2bf152977fd444aea6c18cdb5f25250f",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "m99250313",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "OLFC",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3215/UIP/on_demand_parameter_read",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"on_demand_parameter_read"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VUFC On Demand Param Read",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "odrmdi1030",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "2bf152977fd444aea6c18cdb5f25250f",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "m99250313",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "VUFC",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3215/UIP/on_demand_parameter_read",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"on_demand_parameter_read"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PFFC On Demand Param Read",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "odrmdi1030",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "2bf152977fd444aea6c18cdb5f25250f",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "m99250313",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "PFFC",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3215/UIP/on_demand_parameter_read",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"on_demand_parameter_read"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CUFC On Demand Param Read",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "odrmdi1030",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "2bf152977fd444aea6c18cdb5f25250f",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "m99250313",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "CUFC",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3215/UIP/on_demand_parameter_read",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"on_demand_parameter_read"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "HAPF On Demand Param Read",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "odrmdi1030",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "2bf152977fd444aea6c18cdb5f25250f",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "m99250313",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "CUFC",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3215/UIP/on_demand_parameter_read",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"on_demand_parameter_read"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Transaction Cancel",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "dbill235",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "f3600e7a74624476af75885f3718e89f",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "m98202385",
+							"type": "text"
+						},
+						{
+							"key": "request_datetime",
+							"value": "2024-11-07 09:52:00",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3222/udil/transaction_cancel",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3222",
+					"path": [
+						"udil",
+						"transaction_cancel"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Auth Service",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					},
+					{
+						"key": "username",
+						"value": "accurate",
+						"type": "text"
+					},
+					{
+						"key": "password",
+						"value": "Hello@123",
+						"type": "text"
+					},
+					{
+						"key": "code",
+						"value": "235",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3215/UIP/authorization_service",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"authorization_service"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Meter Visuals",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "6d72cdf4c1c3431f95dd710363e64ed4",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "6d72cdf4c1c3431f95dd710363e64ed4",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "[\"2991112203\"]",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://172.16.3.24:3215/UIP/meter_visuals",
+					"protocol": "http",
+					"host": [
+						"172",
+						"16",
+						"3",
+						"24"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"meter_visuals"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Device Comm HIST",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "ATTvfg675d5hg85fhjjfved47f5d3aRi",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "7h6g5d4chyhdxg875576v5f5gv8b7bv",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "[\"00998888\"]",
+							"type": "text"
+						},
+						{
+							"key": "start_datetime",
+							"value": "2020-04-22 00:00:00",
+							"type": "text"
+						},
+						{
+							"key": "end_datetime",
+							"value": "2020-04-22 21:00:00",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://172.16.3.24:3215/UIP/device_communication_history",
+					"protocol": "http",
+					"host": [
+						"172",
+						"16",
+						"3",
+						"24"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"device_communication_history"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "INST On Demand Read",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "odrinst0230",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "a8e15b42418241c9987a0389340f1d8a",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "m99250313",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "INST",
+							"type": "text"
+						},
+						{
+							"key": "start_datetime",
+							"value": "2024-11-05 22:44:00",
+							"type": "text"
+						},
+						{
+							"key": "end_datetime",
+							"value": "2024-11-05 22:46:00",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3215/UIP/on_demand_data_read",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"on_demand_data_read"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BILL On Demand Read",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "dbillodr08",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "b742296002b04438a14c510259ac6ef8",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "[\"m99250313\"]",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "BILL",
+							"type": "text"
+						},
+						{
+							"key": "start_datetime",
+							"value": "2025-12-07 15:30:00",
+							"type": "text"
+						},
+						{
+							"key": "end_datetime",
+							"value": "2025-12-07 15:35:00",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3215/UIP/on_demand_data_read",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"on_demand_data_read"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MBIL On Demand Read",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "odrmbill330",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "29c6ae45e8ca4af9a2fde015dc329747",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "[\"m99250313\"]",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "MBIL",
+							"type": "text"
+						},
+						{
+							"key": "start_datetime",
+							"value": "2025-12-07 15:00:00",
+							"type": "text"
+						},
+						{
+							"key": "end_datetime",
+							"value": "2025-12-07 17:00:00",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3215/UIP/on_demand_data_read",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"on_demand_data_read"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LPRO On Demand Read",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "odrlpro890",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "9a17ffa4b2dd4c6ba82ba48ff3de8c11",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "[\"m99250313\"]",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "LPRO",
+							"type": "text"
+						},
+						{
+							"key": "start_datetime",
+							"value": "2025-12-07 16:45:00",
+							"type": "text"
+						},
+						{
+							"key": "end_datetime",
+							"value": "2025-12-07 16:50:00",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3215/UIP/on_demand_data_read",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"on_demand_data_read"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EVNT On Demand Read",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "evntodr090",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "fc2fa122e6b74794bfa2e3bbb2ac18b7",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "[\"m99250313\"]",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "EVNT",
+							"type": "text"
+						},
+						{
+							"key": "start_datetime",
+							"value": "2025-12-07 15:28:48",
+							"type": "text"
+						},
+						{
+							"key": "end_datetime",
+							"value": "2025-12-07 15:45:00",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3215/UIP/on_demand_data_read",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"on_demand_data_read"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "INSTANTANEOUS DATA",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "ATTvfg675d5hg85fhjjfved47f5d3aRi",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "ATTvfg675d5hg8544ut7fved47f5d3",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "982010",
+							"type": "text"
+						},
+						{
+							"key": "starting_index",
+							"value": "0",
+							"type": "text"
+						},
+						{
+							"key": "limit",
+							"value": "8",
+							"type": "text"
+						},
+						{
+							"key": "start_datetime",
+							"value": "2020-05-15 00:00:00",
+							"type": "text"
+						},
+						{
+							"key": "end_datetime",
+							"value": "2020-05-15 16:00:00",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://172.16.3.24:3215/UIP/instantaneous_data",
+					"protocol": "http",
+					"host": [
+						"172",
+						"16",
+						"3",
+						"24"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"instantaneous_data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BILLING DATA",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "ATTvfg675d5hg85fhjjfveFKG8tf5d3a",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "TjfgTifg675d5hg85fhjjfved47f5dKf73",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "982010",
+							"type": "text"
+						},
+						{
+							"key": "starting_index",
+							"value": "0",
+							"type": "text"
+						},
+						{
+							"key": "limit",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "start_datetime",
+							"value": "2020-05-14 00:00:01",
+							"type": "text"
+						},
+						{
+							"key": "end_datetime",
+							"value": "2020-05-14 15:00:00",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://172.16.3.24:3215/UIP/billing_data",
+					"protocol": "http",
+					"host": [
+						"172",
+						"16",
+						"3",
+						"24"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"billing_data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LOAD PROFILE DATA",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "0cce8799c4494f7883459f49ab62ec57",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "0cce8799c4494f7883459f49ab62ec57",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "2991112202",
+							"type": "text"
+						},
+						{
+							"key": "starting_index",
+							"value": "0",
+							"type": "text"
+						},
+						{
+							"key": "limit",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "start_datetime",
+							"value": "2023-01-26 14:00:00",
+							"type": "text"
+						},
+						{
+							"key": "end_datetime",
+							"value": "2023-01-26 14:30:00",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://172.16.3.24:3215/UIP/load_profile_data",
+					"protocol": "http",
+					"host": [
+						"172",
+						"16",
+						"3",
+						"24"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"load_profile_data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EVENTS",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "odrevent01",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "ea962b1f859e4e74950713763ec6cd7d",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "00998888",
+							"type": "text"
+						},
+						{
+							"key": "starting_index",
+							"value": "0",
+							"type": "text"
+						},
+						{
+							"key": "limit",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "start_datetime",
+							"value": "2020-01-01 00:00:00",
+							"type": "text"
+						},
+						{
+							"key": "end_datetime",
+							"value": "2020-04-24 08:00:00",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://202.142.179.116:3222/udi/events",
+					"protocol": "http",
+					"host": [
+						"202",
+						"142",
+						"179",
+						"116"
+					],
+					"port": "3222",
+					"path": [
+						"udi",
+						"events"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MONTHLY BILLING DATA",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "ATTvfg675d5hg8544ut7fved47f5d3",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "gTvfg675d5hg8544Ke7fved47f5d3W",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "00998888",
+							"type": "text"
+						},
+						{
+							"key": "starting_index",
+							"value": "0",
+							"type": "text"
+						},
+						{
+							"key": "limit",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "start_datetime",
+							"value": "2020-03-01 00:00:00",
+							"type": "text"
+						},
+						{
+							"key": "end_datetime",
+							"value": "2020-04-01 01:00:00",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://172.16.3.24:3215/UIP/monthly_billing_data",
+					"protocol": "http",
+					"host": [
+						"172",
+						"16",
+						"3",
+						"24"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"monthly_billing_data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "APMS Tripping Events",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "apms01",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "9c7a77851c1f431bb3d95267d25a025b",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "[\"m99250313\"]",
+							"type": "text"
+						},
+						{
+							"key": "request_datetime",
+							"value": "2021-03-04 17:00:00",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "OVFC",
+							"type": "text"
+						},
+						{
+							"key": "critical_event_threshold_limit",
+							"value": "275",
+							"type": "text"
+						},
+						{
+							"key": "critical_event_log_time",
+							"value": "10",
+							"type": "text"
+						},
+						{
+							"key": "tripping_event_threshold_limit",
+							"value": "275",
+							"type": "text"
+						},
+						{
+							"key": "tripping_event_log_time",
+							"value": "15",
+							"type": "text"
+						},
+						{
+							"key": "enable_tripping",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3215/UIP/apms_tripping_events",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"apms_tripping_events"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "apms_tripping_events",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "global_device_id",
+							"value": "[\"m99000035\"]",
+							"type": "text"
+						},
+						{
+							"key": "request_datetime",
+							"value": "2021-03-04 17:00:00",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "OVFC",
+							"type": "text"
+						},
+						{
+							"key": "critical_event_threshold_limit",
+							"value": "270",
+							"type": "text"
+						},
+						{
+							"key": "critical_event_log_time",
+							"value": "180",
+							"type": "text"
+						},
+						{
+							"key": "tripping_event_threshold_limit",
+							"value": "300",
+							"type": "text"
+						},
+						{
+							"key": "tripping_event_log_time",
+							"value": "240",
+							"type": "text"
+						},
+						{
+							"key": "enable_tripping",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://172.16.3.24:3215/UIP/apms_tripping_events",
+					"protocol": "http",
+					"host": [
+						"172",
+						"16",
+						"3",
+						"24"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"apms_tripping_events"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "OVFC Param Cancellation",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "cantiou03",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "1130672fe3ae4129aa67b34807d810ec",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "m97138256",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "OVFC",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3215/UIP/parameterization_cancellation",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3215",
+					"path": [
+						"UIP",
+						"parameterization_cancellation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UVFC Param Cancellation",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "wsanc04",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "b6adf235bd6f4b6f9338f8089bd2e603",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "m98202397",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "UVFC",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3222/udil/parameterization_cancellation",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3222",
+					"path": [
+						"udil",
+						"parameterization_cancellation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "OCFC Param Cancelation",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "canlsch01",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "5f519f3c18b4443e9f63e98ad57dafe1",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "m97122310",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "OCFC",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3222/udil/parameterization_cancellation",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3222",
+					"path": [
+						"udil",
+						"parameterization_cancellation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "OLFC Param Cancelation",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "canlsch01",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "5f519f3c18b4443e9f63e98ad57dafe1",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "m97122310",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "OLFC",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3222/udil/parameterization_cancellation",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3222",
+					"path": [
+						"udil",
+						"parameterization_cancellation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VUFC Param Cancelation",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "canlsch01",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "5f519f3c18b4443e9f63e98ad57dafe1",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "m97122310",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "VUFC",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3222/udil/parameterization_cancellation",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3222",
+					"path": [
+						"udil",
+						"parameterization_cancellation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PFFC Param Cancelation",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "canlsch01",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "5f519f3c18b4443e9f63e98ad57dafe1",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "m97122310",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "PFFC",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3222/udil/parameterization_cancellation",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3222",
+					"path": [
+						"udil",
+						"parameterization_cancellation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CUFC Param Cancelation",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "canlsch01",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "5f519f3c18b4443e9f63e98ad57dafe1",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "m97122310",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "CUFC",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3222/udil/parameterization_cancellation",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3222",
+					"path": [
+						"udil",
+						"parameterization_cancellation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "HAPF Param Cancelation",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "transactionid",
+						"value": "canlsch01",
+						"type": "text"
+					},
+					{
+						"key": "privatekey",
+						"value": "5f519f3c18b4443e9f63e98ad57dafe1",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "global_device_id",
+							"value": "m97122310",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "HAPF",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://103.177.241.19:3222/udil/parameterization_cancellation",
+					"protocol": "http",
+					"host": [
+						"103",
+						"177",
+						"241",
+						"19"
+					],
+					"port": "3222",
+					"path": [
+						"udil",
+						"parameterization_cancellation"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
