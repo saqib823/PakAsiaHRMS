@@ -69,6 +69,7 @@
     <Compile Include="DataLayer\DepartmentDAL.cs" />
     <Compile Include="DataLayer\DesignationDAL.cs" />
     <Compile Include="DataLayer\EmployeeMaster.cs" />
+    <Compile Include="DataLayer\KPIDAL.cs" />
     <Compile Include="DataLayer\UserDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

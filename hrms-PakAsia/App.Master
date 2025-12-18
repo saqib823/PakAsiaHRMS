@@ -752,7 +752,7 @@
       <span class="uil uil-graph-bar fs-8 me-2"></span>Performance
     </a>
     <ul class="dropdown-menu navbar-dropdown-caret">
-      <li><a class="dropdown-item" href="kpi.aspx">KPIs</a></li>
+      <li><a class="dropdown-item" runat="server" href="~/Pages/Performance/kpi.aspx">KPIs</a></li>
       <li><a class="dropdown-item" href="appraisals.aspx">Appraisals</a></li>
     </ul>
   </li>

@@ -206,5 +206,18 @@ namespace HRMSLib.DataLayer
                 throw new Exception(ex.Message);
             }
         }
+        public static DataSet GetMonths()
+        {
+            try
+            {
+                Database db = new DatabaseProviderFactory().Create("defaultDB");
+                string query = "SELECT ID, Name FROM Months ORDER BY Name";
+                return db.ExecuteDataSet(CommandType.Text, query);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
