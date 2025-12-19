@@ -64,12 +64,17 @@
     <Compile Include="BusinessLogic\CallResult.cs" />
     <Compile Include="BusinessLogic\Employee.cs" />
     <Compile Include="BusinessLogic\LoggedInUser.cs" />
+    <Compile Include="DataLayer\AttendanceDAL.cs" />
+    <Compile Include="DataLayer\BiometricDAL.cs" />
+    <Compile Include="DataLayer\BiometricDeviceDAL.cs" />
+    <Compile Include="DataLayer\BiometricUI_DAL.cs" />
     <Compile Include="DataLayer\BranchDAL.cs" />
     <Compile Include="DataLayer\CommonDAL.cs" />
     <Compile Include="DataLayer\DepartmentDAL.cs" />
     <Compile Include="DataLayer\DesignationDAL.cs" />
     <Compile Include="DataLayer\EmployeeMaster.cs" />
     <Compile Include="DataLayer\KPIDAL.cs" />
+    <Compile Include="DataLayer\LeaveDAL.cs" />
     <Compile Include="DataLayer\UserDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

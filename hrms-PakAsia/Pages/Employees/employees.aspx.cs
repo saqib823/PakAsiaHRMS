@@ -2,6 +2,7 @@
 using HRMSLib.DataLayer;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -23,8 +24,10 @@ namespace hrms_PakAsia.Pages.Employees
         {
             if (!IsPostBack)
             {
+                long empId = Convert.ToInt64(Request.QueryString["id"]);
                 CheckSession();
                 InitializePage();
+                LoadEmployee(empId);
             }
         }
 
@@ -465,6 +468,131 @@ namespace hrms_PakAsia.Pages.Employees
             // Implement logging here (e.g., to file, database, or application insights)
             // Example: Logger.LogError(ex, context);
         }
+
+        protected void LoadEmployee(long employeeId)
+        {
+            DataTable dt = EmployeeMaster.GetEmployeeProfile(employeeId);
+            if (dt.Rows.Count == 0) return;
+
+            DataRow r = dt.Rows[0];
+
+            /* ================= BASIC INFORMATION ================= */
+
+            txtEmpID.Text = r["EmployeeNo"].ToString();
+            FullName.Text = r["FullName"].ToString();
+            GuardianName.Text = r["FatherOrSpouseName"].ToString();
+
+            SetDropDownValue(ddlGender, r["GenderID"]);
+            SetDropDownValue(ddlMaritalStatus, r["MaritalStatusID"]);
+            SetDropDownValue(BloodGroup, r["BloodGroupID"]);
+
+            txtCNIC.Text = r["CNIC"].ToString();
+            SetDate(txtCnicExpiry, r["CNICExpiryDate"]);
+            SetDate(txtDOB, r["DateOfBirth"]);
+
+
+            /* ================= CONTACT ================= */
+
+            txtPersonalEmail.Text = r["PersonalEmail"].ToString();
+            txtOfficialEmail.Text = r["OfficialEmail"].ToString();
+            txtPhone.Text = r["MobileNumber"].ToString();
+            txtAlternatePhone.Text = r["AlternateMobileNumber"].ToString();
+
+            txtEmergencyContact.Text = r["EmergencyContactNumber"].ToString();
+            txtEmergencyName.Text = r["EmergencyContactName"].ToString();
+            txtEmergencyRelationship.Text = r["EmergencyContactRelation"].ToString();
+
+            /* ================= ADDRESSES ================= */
+
+            txtPermAddress1.Text = r["PermanentAddress"].ToString();
+            txtPermAddress2.Text = r["PermanentAddress"].ToString();
+            txtPermCity.Text = r["City"].ToString();
+            txtPermState.Text = r["Province"].ToString();
+            txtPermPostalCode.Text = r["PostalCode"].ToString();
+
+            txtCurrentAddress1.Text = r["CurrentAddress"].ToString();
+            txtCurrentAddress2.Text = r["CurrentAddress"].ToString();
+            txtCurrentCity.Text = r["City"].ToString();
+            txtCurrentState.Text = r["Province"].ToString();
+            txtCurrentPostalCode.Text = r["PostalCode"].ToString();
+
+            /* ================= EMPLOYMENT ================= */
+
+            SetDropDownValue(ddlDepartment, r["DepartmentID"]);
+            SetDropDownValue(ddlDesignation, r["DesignationID"]);
+            SetDropDownValue(ddlReportingManager, r["ReportingManagerID"]);
+
+            ddlEmploymentType.SelectedValue = r["EmploymentType"].ToString();
+            ddlEmpStatus.SelectedValue = r["EmploymentStatus"].ToString();
+
+            SetDate(txtJoiningDate, r["JoiningDate"]);
+            SetDate(txtConfirmationDate, r["ConfirmationDate"]);
+            SetDate(txtContractEndDate, r["ContractEndDate"]);
+            SetDate(txtProbationEndDate, r["ProbationEndDate"]);
+
+            txtWorkLocation.Text = r["WorkLocation"].ToString();
+            txtJobDescription.Text = r["EmployeeCategory"].ToString();
+
+            /* ================= ATTENDANCE ================= */
+
+            SetDropDownValue(ddlShift, r["Shift"]);
+            SetDropDownValue(ddlWorkDays, r["WorkDays"]);
+            SetDropDownValue(ddlAttendanceMethod, r["AttendancePolicyID"]);
+
+            txtBiometricID.Text = r["BiometricMachineUserID"].ToString();
+            SetMultiSelect(lbWeeklyOff, r["WeeklyOffDayID"].ToString());
+
+            txtAllowedLate.Text = r["AllowedLateCount"].ToString();
+            txtAllowedEarlyLeaveCont.Text = r["AllowedEarlyLeaveCount"].ToString();
+            txtHalfDayHours.Text = r["HalfDayHours"].ToString();
+
+            /* ================= PAYROLL ================= */
+
+            txtBasicSalary.Text = r["BasicSalaryOrDailyWage"].ToString();
+            txtHouseRent.Text = r["HouseRent"].ToString();
+            txtMedicalAllowance.Text = r["MedicalAllowance"].ToString();
+            txtTransportAllowance.Text = r["TransportAllowance"].ToString();
+            txtOtherAllowances.Text = r["OtherAllowances"].ToString();
+
+            txtBankName.Text = r["BankName"].ToString();
+            txtSalaryAccount.Text = r["BankAccountOrIBAN"].ToString();
+
+            txtGrossSalary.Text = r["GrossSalary"].ToString();
+            OvertimeRate.Text = r["OvertimeRate"].ToString();
+
+            SetDropDownValue(ddlPaymentMethod, r["SalaryPaymentMethod"]);
+            SetDropDownValue(PayrollCycle, r["PayrollCycle"]);
+            SetDropDownValue(ddlSalaryType, r["SalaryTypeID"]);
+
+            TaxDeduction.Text = r["TaxStatusOrNTN"].ToString();
+            EOBIRegistered.Text = r["EOBINumber"].ToString();
+            SocialSecurity.Text = r["SocialSecurityNumber"].ToString();
+        }
+        private void SetDropDownValue(DropDownList ddl, object value)
+        {
+            if (value == null) return;
+            string v = value.ToString();
+            if (ddl.Items.FindByValue(v) != null)
+                ddl.SelectedValue = v;
+        }
+
+        private void SetDate(TextBox txt, object value)
+        {
+            if (value == DBNull.Value) return;
+            DateTime dt;
+            if (DateTime.TryParse(value.ToString(), out dt))
+                txt.Text = dt.ToString("yyyy-MM-dd");
+        }
+
+        private void SetMultiSelect(ListBox lb, string csv)
+        {
+            if (string.IsNullOrEmpty(csv)) return;
+
+            var values = csv.Split(',');
+            foreach (ListItem item in lb.Items)
+                item.Selected = values.Contains(item.Value);
+        }
+
         #endregion
 
         #region Event Handlers (Stubs - Implement as needed)

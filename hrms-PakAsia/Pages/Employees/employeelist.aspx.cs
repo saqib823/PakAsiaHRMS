@@ -212,12 +212,12 @@ namespace hrms_PakAsia.Pages.Employees
                 switch (e.CommandName)
                 {
                     case "ViewEmployee":
-                        Response.Redirect($"EmployeeView.aspx?ID={employeeID}", false);
+                        Response.Redirect($"viewemployee.aspx?id={employeeID}", false);
                         Context.ApplicationInstance.CompleteRequest();
                         break;
 
                     case "EditEmployee":
-                        Response.Redirect($"EmployeeEdit.aspx?ID={employeeID}", false);
+                        Response.Redirect($"employees.aspx?id={employeeID}", false);
                         Context.ApplicationInstance.CompleteRequest();
                         break;
 

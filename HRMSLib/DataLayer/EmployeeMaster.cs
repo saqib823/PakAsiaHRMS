@@ -284,5 +284,23 @@ namespace HRMSLib.DataLayer
             }
             
         }
+        public static DataTable GetEmployeeProfile(long employeeId)
+        {
+            Database db = new DatabaseProviderFactory().Create("defaultDB");
+            DbCommand cmd = db.GetStoredProcCommand("SP_GetEmployeeFullProfile");
+
+            db.AddInParameter(cmd, "@EmployeeID", DbType.Int32, employeeId);
+           
+            DataSet ds = db.ExecuteDataSet(cmd);
+
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                return ds.Tables[0];
+            }
+
+            return new DataTable();
+            
+        }
+
     }
 }
