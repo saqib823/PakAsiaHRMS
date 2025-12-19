@@ -57,5 +57,75 @@ namespace HRMSLib.DataLayer
         }
 
         #endregion
+        public static DataTable GetEmployeeLeaveBalance(int employeeId)
+        {
+            DbCommand cmd = db.GetStoredProcCommand("SP_Leave_GetEmployeeBalance");
+            db.AddInParameter(cmd, "@EmployeeID", DbType.Int32, employeeId);
+
+            return db.ExecuteDataSet(cmd).Tables[0];
+        }
+
+        public static (int ResultCode, string ResultMessage) ApplyLeave(
+            int employeeId,
+            int leaveTypeId,
+            DateTime startDate,
+            DateTime endDate,
+            string reason)
+        {
+            DbCommand cmd = db.GetStoredProcCommand("SP_Leave_Apply");
+
+            db.AddInParameter(cmd, "@EmployeeID", DbType.Int32, employeeId);
+            db.AddInParameter(cmd, "@LeaveTypeID", DbType.Int32, leaveTypeId);
+            db.AddInParameter(cmd, "@StartDate", DbType.Date, startDate);
+            db.AddInParameter(cmd, "@EndDate", DbType.Date, endDate);
+            db.AddInParameter(cmd, "@Reason", DbType.String, reason);
+
+            db.AddOutParameter(cmd, "@ResultCode", DbType.Int32, 4);
+            db.AddOutParameter(cmd, "@ResultMessage", DbType.String, 200);
+
+            db.ExecuteNonQuery(cmd);
+
+            return (
+                (int)db.GetParameterValue(cmd, "@ResultCode"),
+                db.GetParameterValue(cmd, "@ResultMessage").ToString()
+            );
+        }
+        public static void GenerateYearlyLeaveBalance(int employeeId, int year)
+        {
+            DbCommand cmd = db.GetStoredProcCommand("SP_Leave_GenerateYearlyBalance");
+
+            db.AddInParameter(cmd, "@EmployeeID", DbType.Int32, employeeId);
+            db.AddInParameter(cmd, "@Year", DbType.Int32, year);
+
+            db.ExecuteNonQuery(cmd);
+        }
+     
+     
+
+
+        // =========================================================
+        // 4. Carry Forward Leaves (Year End)
+        // =========================================================
+        public static void CarryForwardLeaves(int year)
+        {
+            DbCommand cmd = db.GetStoredProcCommand("SP_Leave_CarryForward_YearEnd");
+
+            db.AddInParameter(cmd, "@Year", DbType.Int32, year);
+
+            db.ExecuteNonQuery(cmd);
+        }
+
+        // =========================================================
+        // 5. Get Leave Balances (for Apply Leave UI)
+        // =========================================================
+        public static DataSet GetEmployeeLeaveBalances(int employeeId, int year)
+        {
+            DbCommand cmd = db.GetStoredProcCommand("SP_LeaveBalance_GetByEmployee");
+
+            db.AddInParameter(cmd, "@EmployeeID", DbType.Int32, employeeId);
+            db.AddInParameter(cmd, "@Year", DbType.Int32, year);
+
+            return db.ExecuteDataSet(cmd);
+        }
     }
 }

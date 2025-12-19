@@ -22,6 +22,24 @@ namespace hrms_PakAsia.Pages.Employees {
         protected global::System.Web.UI.UpdatePanel upEmployee;
         
         /// <summary>
+        /// ddlSelectEmployee control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlSelectEmployee;
+        
+        /// <summary>
+        /// phAlert control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder phAlert;
+        
+        /// <summary>
         /// txtEmpID control.
         /// </summary>
         /// <remarks>
@@ -137,6 +155,15 @@ namespace hrms_PakAsia.Pages.Employees {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputFile fileProfilePic;
+        
+        /// <summary>
+        /// btnSubmitBasicInfo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSubmitBasicInfo;
         
         /// <summary>
         /// txtPersonalEmail control.
@@ -301,6 +328,15 @@ namespace hrms_PakAsia.Pages.Employees {
         protected global::System.Web.UI.WebControls.TextBox txtCurrentPostalCode;
         
         /// <summary>
+        /// btnSubmitContactInfo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSubmitContactInfo;
+        
+        /// <summary>
         /// ddlDepartment control.
         /// </summary>
         /// <remarks>
@@ -409,6 +445,15 @@ namespace hrms_PakAsia.Pages.Employees {
         protected global::System.Web.UI.WebControls.TextBox txtJobDescription;
         
         /// <summary>
+        /// btnSubmitEmploymentInfo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSubmitEmploymentInfo;
+        
+        /// <summary>
         /// ddlShift control.
         /// </summary>
         /// <remarks>
@@ -479,6 +524,15 @@ namespace hrms_PakAsia.Pages.Employees {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtHalfDayHours;
+        
+        /// <summary>
+        /// btnSubmitAttendanceInfo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSubmitAttendanceInfo;
         
         /// <summary>
         /// txtBasicSalary control.
@@ -616,6 +670,15 @@ namespace hrms_PakAsia.Pages.Employees {
         protected global::System.Web.UI.WebControls.TextBox txtGrossSalary;
         
         /// <summary>
+        /// btnSubmitPayrollInfo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSubmitPayrollInfo;
+        
+        /// <summary>
         /// fileContract control.
         /// </summary>
         /// <remarks>
@@ -688,6 +751,15 @@ namespace hrms_PakAsia.Pages.Employees {
         protected global::System.Web.UI.WebControls.DropDownList ddlTerms;
         
         /// <summary>
+        /// btnSubmitLegalInfo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSubmitLegalInfo;
+        
+        /// <summary>
         /// btnCancel control.
         /// </summary>
         /// <remarks>
@@ -697,21 +769,12 @@ namespace hrms_PakAsia.Pages.Employees {
         protected global::System.Web.UI.WebControls.Button btnCancel;
         
         /// <summary>
-        /// btnSubmit control.
+        /// btnSubmitAll control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSubmit;
-        
-        /// <summary>
-        /// phAlert control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder phAlert;
+        protected global::System.Web.UI.WebControls.Button btnSubmitAll;
     }
 }

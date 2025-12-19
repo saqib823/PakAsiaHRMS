@@ -637,7 +637,7 @@
     </div>
 </div>
 
-    <form runat="server">
+    <form runat="server" novalidate="novalidate">
         
         <nav class="navbar navbar-top fixed-top navbar-expand-lg" id="navbarCombo" data-navbar-top="combo" data-move-target="#navbarVerticalNav" >
         <div class="navbar-logo">

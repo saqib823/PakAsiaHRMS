@@ -1107,6 +1107,7 @@
     <Content Include="Pages\Employees\employeelist.aspx" />
     <Content Include="Pages\Employees\employees.aspx" />
     <Content Include="Pages\Employees\viewemployee.aspx" />
+    <Content Include="Pages\Leaves\applyleave.aspx" />
     <Content Include="Pages\Leaves\leavemanagement.aspx" />
     <Content Include="Pages\Organization\branches.aspx" />
     <Content Include="Pages\Organization\departments.aspx" />
@@ -1241,6 +1242,13 @@
     </Compile>
     <Compile Include="Pages\Employees\viewemployee.aspx.designer.cs">
       <DependentUpon>viewemployee.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Leaves\applyleave.aspx.cs">
+      <DependentUpon>applyleave.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Leaves\applyleave.aspx.designer.cs">
+      <DependentUpon>applyleave.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Leaves\leavemanagement.aspx.cs">
       <DependentUpon>leavemanagement.aspx</DependentUpon>
