@@ -665,6 +665,8 @@
       <li><a class="dropdown-item" runat="server" href="~/Pages/Organization/teams.aspx">Teams</a></li>
       <li><a class="dropdown-item" runat="server" href="~/Pages/Organization/designation.aspx">Designations</a></li>
       <li><a class="dropdown-item" runat="server" href="~/Pages/Organization/holidays.aspx">Holidays</a></li>
+      <li><a class="dropdown-item" runat="server" href="~/Pages/Shifts/Shifts.aspx">Shifts</a></li>
+      <li><a class="dropdown-item" runat="server" href="~/Pages/Shifts/splitshift.aspx">Split Shifts</a></li>
     </ul>
   </li>
 
@@ -687,7 +689,7 @@
       <span class="uil uil-clock fs-8 me-2"></span>Attendance
     </a>
     <ul class="dropdown-menu navbar-dropdown-caret">
-      <li><a class="dropdown-item" href="attendance-live.aspx">Live Attendance</a></li>
+      <li><a class="dropdown-item" runat="server" href="~/Pages/Attendance/biometric-integration.aspx">Live Attendance</a></li>
       <li><a class="dropdown-item" href="attendance-daily.aspx">Daily Attendance</a></li>
       <li><a class="dropdown-item" href="attendance-monthly.aspx">Monthly Attendance</a></li>
       <li><a class="dropdown-item" href="missing-punch.aspx">Missing Punches</a></li>
@@ -714,7 +716,8 @@
       <span class="uil uil-plane-departure fs-8 me-2"></span>Leaves
     </a>
     <ul class="dropdown-menu navbar-dropdown-caret">
-      <li><a class="dropdown-item" href="leave-apply.aspx">Apply Leave</a></li>
+      <li><a class="dropdown-item" runat="server" href="~/Pages/Leaves/applyleave.aspx">Apply Leave</a></li>
+      <li><a class="dropdown-item" runat="server" href="~/Pages/Leaves/leavemanagement.aspx">Leaves Management</a></li>
       <li><a class="dropdown-item" href="leave-requests.aspx">Leave Requests</a></li>
       <li><a class="dropdown-item" href="leave-balance.aspx">Leave Balance</a></li>
       <li><a class="dropdown-item" href="leave-policy.aspx">Leave Policy</a></li>

@@ -1,0 +1,21 @@
+﻿using HRMSLib.BusinessLogic;
+using HRMSLib.DataLayer;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace hrms_PakAsia.Pages.Shifts
+{
+    public partial class EmployeeShiftAssign : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+
+        }
+      
+
+    }
+}

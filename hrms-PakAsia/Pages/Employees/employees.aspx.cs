@@ -357,8 +357,8 @@ namespace hrms_PakAsia.Pages.Employees
             if (string.IsNullOrWhiteSpace(GuardianName.Text))
                 errors.Add("Father/Spouse Name is required");
 
-            if (!IsValidCNIC(txtCNIC.Text))
-                errors.Add("Invalid CNIC format (XXXXX-XXXXXXX-X)");
+            //if (!IsValidCNIC(txtCNIC.Text))
+            //    errors.Add("Invalid CNIC format (XXXXX-XXXXXXX-X)");
 
             if (!IsValidDate(txtDOB.Text))
                 errors.Add("Invalid Date of Birth");
@@ -379,8 +379,8 @@ namespace hrms_PakAsia.Pages.Employees
             if (!IsValidEmail(txtPersonalEmail.Text))
                 errors.Add("Invalid Personal Email");
 
-            if (!IsValidPhone(txtPhone.Text))
-                errors.Add("Invalid Phone Number (must start with 03)");
+            //if (!IsValidPhone(txtPhone.Text))
+            //    errors.Add("Invalid Phone Number (must start with 03)");
 
             if (errors.Any())
             {

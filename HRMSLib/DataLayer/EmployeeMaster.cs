@@ -289,7 +289,7 @@ namespace HRMSLib.DataLayer
             Database db = new DatabaseProviderFactory().Create("defaultDB");
             DbCommand cmd = db.GetStoredProcCommand("SP_GetEmployeeFullProfile");
 
-            db.AddInParameter(cmd, "@EmployeeID", DbType.Int32, employeeId);
+            db.AddInParameter(cmd, "@EmployeeID", DbType.Int64, employeeId);
            
             DataSet ds = db.ExecuteDataSet(cmd);
 

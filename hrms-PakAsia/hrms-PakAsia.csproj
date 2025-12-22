@@ -1114,6 +1114,12 @@
     <Content Include="Pages\Organization\designation.aspx" />
     <Content Include="Pages\Performance\kpi.aspx" />
     <Content Include="Pages\roles.aspx" />
+    <Content Include="Pages\Shifts\DepartmentShifts.aspx" />
+    <Content Include="Pages\Shifts\EmployeeShiftAssign.aspx" />
+    <Content Include="Pages\Shifts\ShiftRotation.aspx" />
+    <Content Include="Pages\Shifts\Shifts.aspx" />
+    <Content Include="Pages\Shifts\ShiftTypes.aspx" />
+    <Content Include="Pages\Shifts\SplitShift.aspx" />
     <Content Include="Pages\signup.aspx" />
     <Content Include="Site.Master" />
     <Content Include="unicons.iconscout.com\release\v4.0.8\css\line.css" />
@@ -1291,6 +1297,48 @@
     </Compile>
     <Compile Include="Pages\roles.aspx.designer.cs">
       <DependentUpon>roles.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Shifts\DepartmentShifts.aspx.cs">
+      <DependentUpon>DepartmentShifts.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Shifts\DepartmentShifts.aspx.designer.cs">
+      <DependentUpon>DepartmentShifts.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Shifts\EmployeeShiftAssign.aspx.cs">
+      <DependentUpon>EmployeeShiftAssign.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Shifts\EmployeeShiftAssign.aspx.designer.cs">
+      <DependentUpon>EmployeeShiftAssign.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Shifts\ShiftRotation.aspx.cs">
+      <DependentUpon>ShiftRotation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Shifts\ShiftRotation.aspx.designer.cs">
+      <DependentUpon>ShiftRotation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Shifts\Shifts.aspx.cs">
+      <DependentUpon>Shifts.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Shifts\Shifts.aspx.designer.cs">
+      <DependentUpon>Shifts.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Shifts\ShiftTypes.aspx.cs">
+      <DependentUpon>ShiftTypes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Shifts\ShiftTypes.aspx.designer.cs">
+      <DependentUpon>ShiftTypes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Shifts\SplitShift.aspx.cs">
+      <DependentUpon>SplitShift.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Shifts\SplitShift.aspx.designer.cs">
+      <DependentUpon>SplitShift.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\signup.aspx.cs">
       <DependentUpon>signup.aspx</DependentUpon>
