@@ -94,7 +94,7 @@ namespace hrms_PakAsia.Pages.Employees
                 { ddlGender, () => CommonDAL.GetGender() },
                 { ddlMaritalStatus, () => CommonDAL.GetMaritalStatus() },
                 { BloodGroup, () => CommonDAL.GetBloodGroup() },
-                { ddlShift, () => CommonDAL.GetShiftTiming() },
+                { ddlShift, () => ShiftDAL.GetShiftTypes() },
                 { ddlWorkDays, () => CommonDAL.GetWorkDays() },
                 { ddlAttendanceMethod, () => CommonDAL.GetAttendanceMethod() },
                 { ddlPaymentMethod, () => CommonDAL.GetPaymentMethod() },

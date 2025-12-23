@@ -139,10 +139,10 @@ namespace HRMSLib.DataLayer
         public static DataRow GetShiftByID(int shiftId)
         {
             DbCommand cmd = db.GetSqlStringCommand(@"
-        SELECT *
-        FROM Shifts
-        WHERE ShiftID = @ShiftID
-    ");
+                SELECT *
+                FROM Shifts
+                WHERE ShiftID = @ShiftID
+            ");
 
             db.AddInParameter(cmd, "@ShiftID", DbType.Int32, shiftId);
 
@@ -216,16 +216,16 @@ namespace HRMSLib.DataLayer
             );
 
             DbCommand cmd = db.GetSqlStringCommand(@"
-        SELECT
-            d.SplitShiftID,
-            s.ShiftName,
-            d.PartNo,
-            CONVERT(VARCHAR(5), d.StartTime, 108) AS StartTime,
-            CONVERT(VARCHAR(5), d.EndTime, 108) AS EndTime
-        FROM SplitShiftDetails d
-        INNER JOIN Shifts s ON s.ShiftID = d.ShiftID
-        ORDER BY d.SplitShiftID DESC
-        OFFSET @Offset ROWS FETCH NEXT @PageSize ROWS ONLY");
+                SELECT
+                    d.SplitShiftID,
+                    s.ShiftName,
+                    d.PartNo,
+                    CONVERT(VARCHAR(5), d.StartTime, 108) AS StartTime,
+                    CONVERT(VARCHAR(5), d.EndTime, 108) AS EndTime
+                FROM SplitShiftDetails d
+                INNER JOIN Shifts s ON s.ShiftID = d.ShiftID
+                ORDER BY d.SplitShiftID DESC
+                OFFSET @Offset ROWS FETCH NEXT @PageSize ROWS ONLY");
 
             db.AddInParameter(cmd, "@Offset", DbType.Int32, pageIndex * pageSize);
             db.AddInParameter(cmd, "@PageSize", DbType.Int32, pageSize);
@@ -309,8 +309,237 @@ namespace HRMSLib.DataLayer
             // Return the full DataTable, not a single DataRow
             return db.ExecuteDataSet(cmd).Tables[0];
         }
+        ////////////////////-----Department Shift --------/////////////////
 
+        public static DataTable GetDepartmentShifts()
+        {
+            DbCommand cmd = db.GetSqlStringCommand(@"
+        SELECT
+            ds.DepartmentShiftID,
+            d.DepartmentName,
+            s.ShiftName,
+            ds.IsDefault
+        FROM DepartmentShifts ds
+        INNER JOIN Departments d ON d.DepartmentID = ds.DepartmentID
+        INNER JOIN Shifts s ON s.ShiftID = ds.ShiftID
+        ORDER BY d.DepartmentName");
 
+            return db.ExecuteDataSet(cmd).Tables[0];
+        }
+        public static void InsertDepartmentShift(
+            int departmentId,
+            int shiftId,
+            bool isDefault)
+        {
+            // If default → unset previous default
+            if (isDefault)
+            {
+                DbCommand resetCmd = db.GetSqlStringCommand(@"
+            UPDATE DepartmentShifts
+            SET IsDefault = 0
+            WHERE DepartmentID = @DepartmentID");
+
+                db.AddInParameter(resetCmd, "@DepartmentID", DbType.Int32, departmentId);
+                db.ExecuteNonQuery(resetCmd);
+            }
+
+            DbCommand cmd = db.GetSqlStringCommand(@"
+        INSERT INTO DepartmentShifts
+        (DepartmentID, ShiftID, IsDefault)
+        VALUES (@DepartmentID, @ShiftID, @IsDefault)");
+
+            db.AddInParameter(cmd, "@DepartmentID", DbType.Int32, departmentId);
+            db.AddInParameter(cmd, "@ShiftID", DbType.Int32, shiftId);
+            db.AddInParameter(cmd, "@IsDefault", DbType.Boolean, isDefault);
+
+            db.ExecuteNonQuery(cmd);
+        }
+        public static void UpdateDepartmentShift(
+            int departmentShiftId,
+            int departmentId,
+            int shiftId,
+            bool isDefault)
+        {
+            if (isDefault)
+            {
+                DbCommand resetCmd = db.GetSqlStringCommand(@"
+            UPDATE DepartmentShifts
+            SET IsDefault = 0
+            WHERE DepartmentID = @DepartmentID");
+
+                db.AddInParameter(resetCmd, "@DepartmentID", DbType.Int32, departmentId);
+                db.ExecuteNonQuery(resetCmd);
+            }
+
+            DbCommand cmd = db.GetSqlStringCommand(@"
+        UPDATE DepartmentShifts
+        SET ShiftID = @ShiftID,
+            IsDefault = @IsDefault
+        WHERE DepartmentShiftID = @ID");
+
+            db.AddInParameter(cmd, "@ID", DbType.Int32, departmentShiftId);
+            db.AddInParameter(cmd, "@ShiftID", DbType.Int32, shiftId);
+            db.AddInParameter(cmd, "@IsDefault", DbType.Boolean, isDefault);
+
+            db.ExecuteNonQuery(cmd);
+        }
+        public static void DeleteDepartmentShift(int id)
+        {
+            DbCommand cmd = db.GetSqlStringCommand(@"
+        DELETE FROM DepartmentShifts
+        WHERE DepartmentShiftID = @ID");
+
+            db.AddInParameter(cmd, "@ID", DbType.Int32, id);
+            db.ExecuteNonQuery(cmd);
+        }
+        public static DataRow GetDepartmentShiftById(int id)
+        {
+            DbCommand cmd = db.GetSqlStringCommand(@"
+        SELECT *
+        FROM DepartmentShifts
+        WHERE DepartmentShiftID = @ID");
+
+            db.AddInParameter(cmd, "@ID", DbType.Int32, id);
+
+            DataTable dt = db.ExecuteDataSet(cmd).Tables[0];
+            return dt.Rows.Count > 0 ? dt.Rows[0] : null;
+        }
+        ////////////////////////// shift Assign to empployeee
+        public static void Save(int id, int empId, int shiftId, DateTime from, DateTime? to)
+        {
+            DbCommand cmd = db.GetSqlStringCommand(@"
+IF EXISTS (SELECT 1 FROM EmployeeShifts WHERE EmployeeShiftID=@ID)
+    UPDATE EmployeeShifts
+    SET EmployeeID=@EmployeeID, ShiftID=@ShiftID, EffectiveFrom=@FromDate, EffectiveTo=@ToDate
+    WHERE EmployeeShiftID=@ID
+ELSE
+    INSERT INTO EmployeeShifts(EmployeeID, ShiftID, EffectiveFrom, EffectiveTo)
+    VALUES (@EmployeeID, @ShiftID, @FromDate, @ToDate)
+");
+            db.AddInParameter(cmd, "@ID", DbType.Int32, id);
+            db.AddInParameter(cmd, "@EmployeeID", DbType.Int32, empId);
+            db.AddInParameter(cmd, "@ShiftID", DbType.Int32, shiftId);
+            db.AddInParameter(cmd, "@FromDate", DbType.Date, from);
+            db.AddInParameter(cmd, "@ToDate", DbType.Date, to ?? (object)DBNull.Value);
+            db.ExecuteNonQuery(cmd);
+        }
+
+        public static DataTable GetPaged(int page, int size, out int total)
+        {
+            int offset = (page - 1) * size;
+            string sql = $@"
+SELECT * FROM EmployeeShifts ES
+INNER JOIN Employees E ON ES.EmployeeID=E.EmployeeID
+INNER JOIN Shifts S ON ES.ShiftID=S.ShiftID
+ORDER BY ES.EffectiveFrom DESC
+OFFSET {offset} ROWS FETCH NEXT {size} ROWS ONLY;
+
+SELECT COUNT(*) FROM EmployeeShifts;
+";
+            DataSet ds = db.ExecuteDataSet(db.GetSqlStringCommand(sql));
+            total = Convert.ToInt32(ds.Tables[1].Rows[0][0]);
+            return ds.Tables[0];
+        }
+
+        public static DataRow GetById(int id)
+        {
+            DbCommand cmd = db.GetSqlStringCommand("SELECT * FROM EmployeeShifts WHERE EmployeeShiftID=@ID");
+            db.AddInParameter(cmd, "@ID", DbType.Int32, id);
+            DataTable dt = db.ExecuteDataSet(cmd).Tables[0];
+            return dt.Rows[0];
+        }
+
+        public static void Delete(int id)
+        {
+            DbCommand cmd = db.GetSqlStringCommand("DELETE FROM EmployeeShifts WHERE EmployeeShiftID=@ID");
+            db.AddInParameter(cmd, "@ID", DbType.Int32, id);
+            db.ExecuteNonQuery(cmd);
+        }
+
+        //////-------Shift Rotation-------------//////////////////
+        public static void InsertRotation(int employeeId, int shiftId, DateTime rotationDate)
+        {
+            DbCommand cmd = db.GetSqlStringCommand(@"
+                INSERT INTO ShiftRotations(EmployeeID, ShiftID, RotationDate)
+                VALUES(@EmployeeID, @ShiftID, @RotationDate)
+            ");
+            db.AddInParameter(cmd, "@EmployeeID", DbType.Int32, employeeId);
+            db.AddInParameter(cmd, "@ShiftID", DbType.Int32, shiftId);
+            db.AddInParameter(cmd, "@RotationDate", DbType.Date, rotationDate);
+            db.ExecuteNonQuery(cmd);
+        }
+
+        public static void UpdateRotation(int rotationId, int employeeId, int shiftId, DateTime rotationDate)
+        {
+            DbCommand cmd = db.GetSqlStringCommand(@"
+                UPDATE ShiftRotations
+                SET EmployeeID=@EmployeeID, ShiftID=@ShiftID, RotationDate=@RotationDate
+                WHERE RotationID=@ID
+            ");
+            db.AddInParameter(cmd, "@ID", DbType.Int32, rotationId);
+            db.AddInParameter(cmd, "@EmployeeID", DbType.Int32, employeeId);
+            db.AddInParameter(cmd, "@ShiftID", DbType.Int32, shiftId);
+            db.AddInParameter(cmd, "@RotationDate", DbType.Date, rotationDate);
+            db.ExecuteNonQuery(cmd);
+        }
+
+        public static void DeleteRotation(int rotationId)
+        {
+            DbCommand cmd = db.GetSqlStringCommand("DELETE FROM ShiftRotations WHERE RotationID=@ID");
+            db.AddInParameter(cmd, "@ID", DbType.Int32, rotationId);
+            db.ExecuteNonQuery(cmd);
+        }
+
+        public static DataRow GetRotationById(int rotationId)
+        {
+            DbCommand cmd = db.GetSqlStringCommand("SELECT * FROM ShiftRotations WHERE RotationID=@ID");
+            db.AddInParameter(cmd, "@ID", DbType.Int32, rotationId);
+            DataTable dt = db.ExecuteDataSet(cmd).Tables[0];
+            return dt.Rows.Count > 0 ? dt.Rows[0] : null;
+        }
+
+        public static DataTable GetAllRotationsPaged(int page, int pageSize, out int totalRecords)
+        {
+            // Get total records
+            DbCommand totalCmd = db.GetSqlStringCommand("SELECT COUNT(*) FROM ShiftRotations");
+            totalRecords = Convert.ToInt32(db.ExecuteScalar(totalCmd));
+
+            // Paging query using ROW_NUMBER
+            int start = (page - 1) * pageSize + 1;
+            int end = page * pageSize;
+
+            DbCommand cmd = db.GetSqlStringCommand($@"
+                SELECT * FROM (
+                    SELECT R.RotationID, R.EmployeeID, R.ShiftID, R.RotationDate,
+                           E.FullName AS EmployeeName,
+                           S.ShiftTypeName as ShiftName,
+                           ROW_NUMBER() OVER (ORDER BY R.RotationDate DESC) AS RowNum
+                    FROM ShiftRotations R
+                    INNER JOIN Employees E ON R.EmployeeID = E.EmployeeID
+                    INNER JOIN ShiftTypes S ON R.ShiftID = S.ShiftTypeID
+                ) AS T
+                WHERE RowNum BETWEEN {start} AND {end}
+            ");
+            return db.ExecuteDataSet(cmd).Tables[0];
+        }
+
+        public static DataTable GetShiftsRotationPaged(int page, int pageSize, out int totalRecords)
+        {
+            DbCommand totalCmd = db.GetSqlStringCommand("SELECT COUNT(*) FROM Shifts");
+            totalRecords = Convert.ToInt32(db.ExecuteScalar(totalCmd));
+
+            int start = (page - 1) * pageSize + 1;
+            int end = page * pageSize;
+
+            DbCommand cmd = db.GetSqlStringCommand($@"
+                SELECT * FROM (
+                    SELECT *, ROW_NUMBER() OVER (ORDER BY ShiftName) AS RowNum
+                    FROM Shifts
+                ) AS T
+                WHERE RowNum BETWEEN {start} AND {end}
+            ");
+            return db.ExecuteDataSet(cmd).Tables[0];
+        }
     }
 
 }

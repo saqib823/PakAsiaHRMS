@@ -667,6 +667,8 @@
       <li><a class="dropdown-item" runat="server" href="~/Pages/Organization/holidays.aspx">Holidays</a></li>
       <li><a class="dropdown-item" runat="server" href="~/Pages/Shifts/Shifts.aspx">Shifts</a></li>
       <li><a class="dropdown-item" runat="server" href="~/Pages/Shifts/splitshift.aspx">Split Shifts</a></li>
+      <li><a class="dropdown-item" runat="server" href="~/Pages/Shifts/DepartmentShifts.aspx">Department Shifts</a></li>
+      <li><a class="dropdown-item" runat="server" href="~/Pages/Shifts/ShiftRotation.aspx">Rotational Shifts</a></li>
     </ul>
   </li>
 
