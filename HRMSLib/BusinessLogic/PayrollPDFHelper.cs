@@ -94,6 +94,34 @@ namespace HRMSLib.BusinessLogic
                 return package.GetAsByteArray();
             }
         }
+        public static byte[] ExportAttendance(DataTable dt, string sheetName)
+        {
+            using (ExcelPackage package = new ExcelPackage())
+            {
+                ExcelWorksheet ws = package.Workbook.Worksheets.Add(sheetName);
+
+                // Write column headers
+                for (int col = 0; col < dt.Columns.Count; col++)
+                {
+                    ws.Cells[1, col + 1].Value = dt.Columns[col].ColumnName;
+                    ws.Cells[1, col + 1].Style.Font.Bold = true;
+                }
+
+                // Write all rows
+                for (int row = 0; row < dt.Rows.Count; row++)
+                {
+                    for (int col = 0; col < dt.Columns.Count; col++)
+                    {
+                        ws.Cells[row + 2, col + 1].Value = dt.Rows[row][col];
+                    }
+                }
+
+                // Auto-fit columns
+                ws.Cells[ws.Dimension.Address].AutoFitColumns();
+
+                return package.GetAsByteArray();
+            }
+        }
     }
     
 }

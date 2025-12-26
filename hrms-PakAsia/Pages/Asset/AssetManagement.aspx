@@ -62,6 +62,11 @@
                     <h6 class="mb-0">Existing Asset Records</h6>
                 </div>
                 <div class="card-body table-responsive">
+                     <div class="d-flex justify-content-between align-items-center mb-3">
+                        <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control w-50" Placeholder="Search..." />
+                        <asp:Button ID="btnSearch" runat="server" CssClass="btn btn-primary ms-2" Text="Search" OnClick="btnSearch_Click" />
+                        
+                    </div>
                     <asp:Repeater ID="rptAssets" runat="server" OnItemCommand="rptAssets_ItemCommand">
                         <HeaderTemplate>
                             <table class="table table-striped table-hover align-middle">
@@ -104,16 +109,12 @@
                             </table>
                         </FooterTemplate>
                     </asp:Repeater>
-
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control w-50" Placeholder="Search..." />
-                        <asp:Button ID="btnSearch" runat="server" CssClass="btn btn-primary ms-2" Text="Search" OnClick="btnSearch_Click" />
-                        <div>
-                            <asp:LinkButton ID="btnPrev" runat="server" CssClass="btn btn-outline-secondary btn-sm" OnClick="btnPrev_Click">Previous</asp:LinkButton>
-                            <asp:Label ID="lblPageInfo" runat="server" CssClass="fw-bold mx-2"></asp:Label>
-                            <asp:LinkButton ID="btnNext" runat="server" CssClass="btn btn-outline-secondary btn-sm" OnClick="btnNext_Click">Next</asp:LinkButton>
-                        </div>
+                    <div>
+                        <asp:LinkButton ID="btnPrev" runat="server" CssClass="btn btn-outline-secondary btn-sm" OnClick="btnPrev_Click">Previous</asp:LinkButton>
+                        <asp:Label ID="lblPageInfo" runat="server" CssClass="fw-bold mx-2"></asp:Label>
+                        <asp:LinkButton ID="btnNext" runat="server" CssClass="btn btn-outline-secondary btn-sm" OnClick="btnNext_Click">Next</asp:LinkButton>
                     </div>
+                   
                 </div>
             </div>
         </div>

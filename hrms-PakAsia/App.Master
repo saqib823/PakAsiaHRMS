@@ -836,7 +836,7 @@
             </ul>
         </nav>
 
-        <asp:ScriptManager ID="ScriptManager1" runat="server" />
+        <asp:ScriptManager ID="ScriptManager1" runat="server"  />
         <asp:ContentPlaceHolder ID="MainContent" runat="server" />
 
 

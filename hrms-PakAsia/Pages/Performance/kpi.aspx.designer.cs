@@ -13,15 +13,6 @@ namespace hrms_PakAsia.Pages.Performance {
     public partial class kpi {
         
         /// <summary>
-        /// upKPI control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel upKPI;
-        
-        /// <summary>
         /// ddlEmployee control.
         /// </summary>
         /// <remarks>
@@ -38,6 +29,24 @@ namespace hrms_PakAsia.Pages.Performance {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlMonth;
+        
+        /// <summary>
+        /// ddlPeriodType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlPeriodType;
+        
+        /// <summary>
+        /// txtGoal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGoal;
         
         /// <summary>
         /// txtAttendance control.

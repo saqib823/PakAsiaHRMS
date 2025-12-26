@@ -5,11 +5,11 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 <div class="container-fluid">
 
-    <div class="row mt-4">
+    <div class="row mt-10">
         <div class="col-12">
 
             <div class="card shadow-sm mb-4">
-                <div class="card-header text-white bg-primary">
+                <div class="card-header">
                     <h5 class="mb-0">Add / Edit Asset</h5>
                 </div>
                 <div class="card-body">
