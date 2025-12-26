@@ -201,6 +201,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.aspx" />
+    <Content Include="App_Data\DB_Backup\PakAsia_HRMS" />
     <Content Include="assets\css\generic\59.html" />
     <Content Include="assets\css\theme-rtl.min.css" />
     <Content Include="assets\css\theme.min.css" />
@@ -1470,7 +1471,6 @@
   <ItemGroup>
     <Content Include="App.Master" />
     <Content Include="Handler\BiometricPush.ashx" />
-    <Content Include="App_Data\DB_Backup\PakAsia_HRMS" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

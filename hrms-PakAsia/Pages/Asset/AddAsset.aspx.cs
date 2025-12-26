@@ -13,7 +13,7 @@ namespace hrms_PakAsia.Pages.Asset
             if (!IsPostBack)
                 LoadAssets();
         }
-
+        //test
         void LoadAssets()
         {
             rptAssets.DataSource = dal.GetAllAssets();
