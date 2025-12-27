@@ -21,9 +21,9 @@
                             </div>
                             <div class="card-body">
                                 <div class="row align-items-center">
-                                    <div class="col-md-8">
+                                    <div class="col-md-6">
                                         <div class="input-group">
-                                            <span class="input-group-text bg-primary text-white">
+                                            <span class="input-group-text bg-primary">
                                                 <i class="uil uil-users-alt"></i>
                                             </span>
                                             <asp:DropDownList ID="ddlSelectEmployee" runat="server" 
@@ -33,10 +33,17 @@
                                             </asp:DropDownList>
                                         </div>
                                     </div>
-                                    <div class="col-md-4 text-end">
-                                        <a href="?id=0" class="btn btn-primary">
-                                            <i class="uil uil-plus me-1"></i> Create New Employee
-                                        </a>
+                                    <div class="col-md-6 text-end">
+                                        <div class="input-group">
+                                             <span class="input-group-text bg-primary">
+                                                <i class="uil uil-plus"></i>
+                                            </span>
+                                            <asp:DropDownList ID="ddlBioMetricEmployees" runat="server" 
+                                                CssClass="form-control" 
+                                                AutoPostBack="true"
+                                                OnSelectedIndexChanged="ddlBioMetricEmployees_SelectedIndexChanged">
+                                            </asp:DropDownList>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="mt-2">
@@ -74,7 +81,7 @@
                                         <div class="row">
                                             <div class="col-md-3 mb-3">
                                                 <label class="form-label">Employee No. <span class="text-danger">*</span></label>
-                                                <asp:TextBox CssClass="form-control" ID="txtEmpID" runat="server" placeholder="EMP-001"></asp:TextBox>
+                                                <asp:TextBox ReadOnly="true" CssClass="form-control" ID="txtEmpID" runat="server" placeholder="EMP-001"></asp:TextBox>
                                             </div>
                                             <div class="col-md-3 mb-3">
                                                 <label class="form-label">Title</label>

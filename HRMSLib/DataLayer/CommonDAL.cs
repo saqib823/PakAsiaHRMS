@@ -68,7 +68,20 @@ namespace HRMSLib.DataLayer
             try
             {
                 Database db = new DatabaseProviderFactory().Create("defaultDB");
-                string query = "SELECT EmployeeID ID, FullName Name FROM Employees ORDER BY FullName";
+                string query = "SELECT EmployeeID ID, FullName Name,  FullName + ' - ' + EmployeeNo NameNumber FROM Employees ORDER BY FullName";
+                return db.ExecuteDataSet(CommandType.Text, query);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public static DataSet GetBioMetricEmployees()
+        {
+            try
+            {
+                Database db = new DatabaseProviderFactory().Create("defaultDB");
+                string query = "SELECT [EmpNo] ID, [EmpName] Name FROM [TaurusMJ].[dbo].[RS_Emp] ORDER BY EmpName";
                 return db.ExecuteDataSet(CommandType.Text, query);
             }
             catch (Exception ex)

@@ -225,6 +225,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.aspx" />
+    <Content Include="App_Data\DB_Backup\Taurus3.1.20.exe" />
     <Content Include="assets\css\generic\59.html" />
     <Content Include="assets\css\theme-rtl.min.css" />
     <Content Include="assets\css\theme.min.css" />

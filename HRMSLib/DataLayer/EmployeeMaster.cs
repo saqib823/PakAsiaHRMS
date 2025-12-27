@@ -21,6 +21,7 @@ namespace HRMSLib.DataLayer
         {
             try
             {
+               
                 Database db = new DatabaseProviderFactory().Create("defaultDB");
                 DbCommand cmd = db.GetStoredProcCommand("SP_Employee");
 
@@ -286,6 +287,7 @@ namespace HRMSLib.DataLayer
         }
         public static DataTable GetEmployeeProfile(long employeeId)
         {
+
             Database db = new DatabaseProviderFactory().Create("defaultDB");
             DbCommand cmd = db.GetStoredProcCommand("SP_GetEmployeeFullProfile");
 
@@ -300,6 +302,21 @@ namespace HRMSLib.DataLayer
 
             return new DataTable();
             
+        }
+        public static bool EmployeeExists(string employeeNo)
+        {
+            if (string.IsNullOrWhiteSpace(employeeNo))
+                return false;
+
+            Database db = new DatabaseProviderFactory().Create("defaultDB");
+
+            string sql = "SELECT COUNT(1) FROM Employees WHERE EmployeeNo = @EmployeeNo";
+
+            using (DbCommand cmd = db.GetSqlStringCommand(sql))
+            {
+                db.AddInParameter(cmd, "@EmployeeNo", DbType.String, employeeNo.Trim());
+                return Convert.ToInt32(db.ExecuteScalar(cmd)) > 0;
+            }
         }
 
     }

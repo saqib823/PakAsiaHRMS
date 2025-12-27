@@ -71,10 +71,16 @@ namespace hrms_PakAsia.Pages.Employees
             try
             {
                 ddlSelectEmployee.DataSource = CommonDAL.GetEmployees(); 
-                ddlSelectEmployee.DataTextField = "Name";
+                ddlSelectEmployee.DataTextField = "NameNumber";
                 ddlSelectEmployee.DataValueField = "ID";
                 ddlSelectEmployee.DataBind();
-                ddlSelectEmployee.Items.Insert(0, new ListItem("-- Select Employee --", "0"));
+                ddlSelectEmployee.Items.Insert(0, new ListItem("-- Select Existing Employee --", "0"));
+
+                ddlBioMetricEmployees.DataSource = CommonDAL.GetBioMetricEmployees();
+                ddlBioMetricEmployees.DataTextField = "Name";
+                ddlBioMetricEmployees.DataValueField = "ID";
+                ddlBioMetricEmployees.DataBind();
+                ddlBioMetricEmployees.Items.Insert(0, new ListItem("-- Select New Employees --", "0"));
             }
             catch (Exception ex)
             {
@@ -139,6 +145,7 @@ namespace hrms_PakAsia.Pages.Employees
         #region Employee Selection
         protected void ddlSelectEmployee_SelectedIndexChanged(object sender, EventArgs e)
         {
+            ResetForm();
             if (ddlSelectEmployee.SelectedValue != "0")
             {
                 _currentEmployeeId = Convert.ToInt64(ddlSelectEmployee.SelectedValue);
@@ -166,7 +173,11 @@ namespace hrms_PakAsia.Pages.Employees
                     ShowAlert("Please fill all required fields in Basic Information.", "warning");
                     return;
                 }
-
+                if (EmployeeMaster.EmployeeExists(txtEmpID.Text.Trim()))
+                {
+                    ShowAlert("No Duplicate User can be added!", "Danger");
+                    return;
+                }
                 var basicInfo = await SaveEmployeeBasicInfo();
                 if (basicInfo > 0)
                 {
@@ -353,6 +364,8 @@ namespace hrms_PakAsia.Pages.Employees
 
             if (string.IsNullOrWhiteSpace(FullName.Text))
                 errors.Add("Full Name is required");
+             if (string.IsNullOrWhiteSpace(txtEmpID.Text))
+                errors.Add("EmpID is required");
 
             if (string.IsNullOrWhiteSpace(GuardianName.Text))
                 errors.Add("Father/Spouse Name is required");
@@ -437,7 +450,7 @@ namespace hrms_PakAsia.Pages.Employees
         private async Task<long> SaveEmployeeBasicInfo()
         {
             var filePath = await UploadProfilePictureAsync();
-
+            
             var employee = new EmployeeMaster();
             return await employee.EmployeeBasicInfoAsync(
                 txtEmpID.Text.Trim(),
@@ -870,5 +883,20 @@ namespace hrms_PakAsia.Pages.Employees
         protected void rptPager_ItemCommand(object source, RepeaterCommandEventArgs e) { }
         protected void btnNext_Click(object sender, EventArgs e) { }
         #endregion
+
+        protected void ddlBioMetricEmployees_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                ResetForm();
+                txtEmpID.Text = ddlBioMetricEmployees.SelectedValue;
+                FullName.Text = ddlBioMetricEmployees.SelectedItem.Text;
+
+            }
+            catch (Exception ex)
+            {
+                LogError(ex, "Failed to bind employees dropdown");
+            }
+        }
     }
 }

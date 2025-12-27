@@ -31,6 +31,15 @@ namespace hrms_PakAsia.Pages.Employees {
         protected global::System.Web.UI.WebControls.DropDownList ddlSelectEmployee;
         
         /// <summary>
+        /// ddlBioMetricEmployees control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlBioMetricEmployees;
+        
+        /// <summary>
         /// phAlert control.
         /// </summary>
         /// <remarks>
