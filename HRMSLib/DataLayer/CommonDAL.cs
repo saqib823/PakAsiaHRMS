@@ -146,7 +146,7 @@ namespace HRMSLib.DataLayer
             try
             {
                 Database db = new DatabaseProviderFactory().Create("defaultDB");
-                string query = "SELECT ID, Name FROM ShiftTiming ORDER BY Name";
+                string query = "SELECT ShiftID ID, ShiftName Name FROM Shifts ORDER BY Name";
                 return db.ExecuteDataSet(CommandType.Text, query);
             }
             catch (Exception ex)

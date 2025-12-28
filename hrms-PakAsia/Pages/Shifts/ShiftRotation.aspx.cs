@@ -34,7 +34,7 @@ namespace hrms_PakAsia.Pages.Shifts
 
             // Load Shifts
             int total;
-            ddlShift.DataSource = ShiftDAL.GetShiftTypes();
+            ddlShift.DataSource = CommonDAL.GetShiftTiming();
             ddlShift.DataTextField = "Name";
             ddlShift.DataValueField = "ID";
             ddlShift.DataBind();

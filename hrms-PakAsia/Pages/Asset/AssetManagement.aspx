@@ -18,11 +18,13 @@
                     <div class="row g-3">
                         <div class="col-md-4">
                             <label class="form-label">Employee</label>
-                            <asp:DropDownList ID="ddlEmployee" runat="server" CssClass="form-select"></asp:DropDownList>
+                            <asp:DropDownList ID="ddlEmployee" runat="server" CssClass="form-select"
+                               data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'></asp:DropDownList>
                         </div>
                         <div class="col-md-4">
                             <label class="form-label">Asset</label>
-                            <asp:DropDownList ID="ddlAsset" runat="server" CssClass="form-select"></asp:DropDownList>
+                            <asp:DropDownList ID="ddlAsset" runat="server" CssClass="form-select"
+                                data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'></asp:DropDownList>
                         </div>
                         <div class="col-md-4">
                             <label class="form-label">Issue Date</label>
@@ -33,8 +35,9 @@
                             <asp:TextBox ID="txtReturnDate" runat="server" CssClass="form-control" TextMode="Date"></asp:TextBox>
                         </div>
                         <div class="col-md-4">
-                            <label class="form-label">Condition</label>
-                            <asp:DropDownList ID="ddlCondition" runat="server" CssClass="form-select">
+                            <label class="form-label">Condition</label> 
+                            <asp:DropDownList ID="ddlCondition" runat="server" CssClass="form-select" 
+                                data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'>
                                 <asp:ListItem Text="Good" Value="Good" />
                                 <asp:ListItem Text="Damaged" Value="Damaged" />
                                 <asp:ListItem Text="Lost" Value="Lost" />

@@ -29,7 +29,7 @@ namespace hrms_PakAsia.Pages.Shifts
 
         private void LoadShifts()
         {
-            ddlShift.DataSource = ShiftDAL.GetShiftTypes();
+            ddlShift.DataSource = CommonDAL.GetShiftTiming();
             ddlShift.DataBind();
             ddlShift.Items.Insert(0, new ListItem("Select One", "0"));
         }

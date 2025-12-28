@@ -16,19 +16,21 @@
     <div class="col-md-3">
         <label>Employee</label>
         <asp:DropDownList ID="ddlEmployee" runat="server"
-            CssClass="form-control"
-            AutoPostBack="true"
+            CssClass="form-select"
+            AutoPostBack="true" data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'
             OnSelectedIndexChanged="ddlEmployee_SelectedIndexChanged"/>
     </div>
 
     <div class="col-md-3">
         <label>Month</label>
-        <asp:DropDownList ID="ddlMonth" runat="server" CssClass="form-control"/>
+        <asp:DropDownList ID="ddlMonth" runat="server" CssClass="form-select" 
+            data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'/>
     </div>
 
     <div class="col-md-3">
         <label>Period</label>
-        <asp:DropDownList ID="ddlPeriodType" runat="server" CssClass="form-control">
+        <asp:DropDownList ID="ddlPeriodType" runat="server" CssClass="form-select"
+            data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'>
             <asp:ListItem Text="Monthly" Value="M"/>
             <asp:ListItem Text="Quarterly" Value="Q"/>
         </asp:DropDownList>

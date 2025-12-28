@@ -25,7 +25,7 @@
                         <div class="col-md-6">
                             <label class="form-label">Department</label>
                             <asp:DropDownList ID="ddlDepartment" runat="server" DataTextField="Name" DataValueField="ID"
-                                CssClass="form-select">
+                                CssClass="form-select" data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'>
                             </asp:DropDownList>
                         </div>
 
@@ -33,7 +33,7 @@
                         <div class="col-md-6">
                             <label class="form-label">Shift</label>
                             <asp:DropDownList ID="ddlShift" runat="server"  DataTextField="Name" DataValueField="ID"
-                                CssClass="form-select">
+                                CssClass="form-select" data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'>
                             </asp:DropDownList>
                         </div>
 

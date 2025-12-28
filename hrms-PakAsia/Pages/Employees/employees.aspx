@@ -27,20 +27,20 @@
                                                 <i class="uil uil-users-alt"></i>
                                             </span>
                                             <asp:DropDownList ID="ddlSelectEmployee" runat="server" 
-                                                CssClass="form-control" 
-                                                AutoPostBack="true"
+                                                CssClass="form-select" 
+                                                AutoPostBack="true" data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'
                                                 OnSelectedIndexChanged="ddlSelectEmployee_SelectedIndexChanged">
                                             </asp:DropDownList>
                                         </div>
                                     </div>
-                                    <div class="col-md-6 text-end">
+                                    <div class="col-md-6">
                                         <div class="input-group">
                                              <span class="input-group-text bg-primary">
                                                 <i class="uil uil-plus"></i>
                                             </span>
                                             <asp:DropDownList ID="ddlBioMetricEmployees" runat="server" 
-                                                CssClass="form-control" 
-                                                AutoPostBack="true"
+                                                CssClass="form-select" 
+                                                AutoPostBack="true" data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'
                                                 OnSelectedIndexChanged="ddlBioMetricEmployees_SelectedIndexChanged">
                                             </asp:DropDownList>
                                         </div>
@@ -85,7 +85,7 @@
                                             </div>
                                             <div class="col-md-3 mb-3">
                                                 <label class="form-label">Title</label>
-                                                <asp:DropDownList CssClass="form-control" ID="ddlTitle" DataTextField="Name" DataValueField="ID" runat="server"></asp:DropDownList>
+                                                <asp:DropDownList CssClass="form-select" ID="ddlTitle" DataTextField="Name" DataValueField="ID" runat="server" data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'></asp:DropDownList>
                                             </div>
                                             <div class="col-md-3 mb-3">
                                                 <label class="form-label">Full Name <span class="text-danger">*</span></label>
@@ -101,7 +101,7 @@
                                             </div>
                                             <div class="col-md-3 mb-3">
                                                 <label class="form-label">Gender <span class="text-danger">*</span></label>
-                                                <asp:DropDownList CssClass="form-control" ID="ddlGender" DataTextField="Name" DataValueField="ID" runat="server"></asp:DropDownList>
+                                                <asp:DropDownList CssClass="form-select" ID="ddlGender" DataTextField="Name" DataValueField="ID" runat="server" data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'></asp:DropDownList>
                                             </div>
                                             <div class="col-md-3 mb-3">
                                                 <label class="form-label">CNIC <span class="text-danger">*</span></label>
@@ -113,7 +113,7 @@
                                             </div>
                                             <div class="col-md-3 mb-3">
                                                 <label class="form-label">Marital Status</label>
-                                                <asp:DropDownList CssClass="form-control" ID="ddlMaritalStatus" DataTextField="Name" DataValueField="ID" runat="server"></asp:DropDownList>
+                                                <asp:DropDownList CssClass="form-select" ID="ddlMaritalStatus" DataTextField="Name" DataValueField="ID" runat="server" data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'></asp:DropDownList>
                                             </div>
                                             <div class="col-md-3 mb-3">
                                                 <label class="form-label">Nationality</label>
@@ -125,7 +125,7 @@
                                             </div>
                                             <div class="col-md-3 mb-3">
                                                 <label class="form-label">Blood Group</label>
-                                                <asp:DropDownList CssClass="form-control" ID="BloodGroup" DataTextField="Name" DataValueField="ID" runat="server"></asp:DropDownList>
+                                                <asp:DropDownList CssClass="form-select" ID="BloodGroup" DataTextField="Name" DataValueField="ID" runat="server" data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'></asp:DropDownList>
                                             </div>
                                             <div class="col-md-3 mb-3">
                                                 <label class="form-label" for="fileProfilePic">Profile Picture</label>
@@ -269,23 +269,27 @@
                                         <div class="row">
                                             <div class="col-md-3 mb-3">
                                                 <label class="form-label">Department <span class="text-danger">*</span></label>
-                                                <asp:DropDownList CssClass="form-control" ID="ddlDepartment" DataTextField="Name" DataValueField="ID" runat="server" required="true"></asp:DropDownList>
+                                                <asp:DropDownList CssClass="form-select" ID="ddlDepartment" DataTextField="Name" DataValueField="ID" runat="server" required="true" data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'></asp:DropDownList>
                                             </div>
                                             <div class="col-md-3 mb-3">
                                                 <label class="form-label">Designation <span class="text-danger">*</span></label>
-                                                <asp:DropDownList CssClass="form-control" ID="ddlDesignation" DataTextField="Name" DataValueField="ID" runat="server" required="true"></asp:DropDownList>
+                                                <asp:DropDownList CssClass="form-select" ID="ddlDesignation" DataTextField="Name" DataValueField="ID" runat="server" required="true"
+                                                    data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'></asp:DropDownList>
                                             </div>
                                             <div class="col-md-3 mb-3">
                                                 <label class="form-label">Branch <span class="text-danger">*</span></label>
-                                                <asp:DropDownList CssClass="form-control" ID="ddlBranch" DataTextField="Name" DataValueField="ID" runat="server" required="true"></asp:DropDownList>
+                                                <asp:DropDownList CssClass="form-select" ID="ddlBranch" DataTextField="Name" DataValueField="ID" runat="server" required="true"
+                                                    data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'></asp:DropDownList>
                                             </div>
                                             <div class="col-md-3 mb-3">
                                                 <label class="form-label">Reporting Manager</label>
-                                                <asp:DropDownList CssClass="form-control" ID="ddlReportingManager" DataTextField="Name" DataValueField="ID" runat="server"></asp:DropDownList>
+                                                <asp:DropDownList CssClass="form-select" ID="ddlReportingManager" DataTextField="Name" DataValueField="ID" runat="server"
+                                                    data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'></asp:DropDownList>
                                             </div>
                                             <div class="col-md-3 mb-3">
                                                 <label class="form-label">Employment Type</label>
-                                                <asp:DropDownList CssClass="form-control" ID="ddlEmploymentType" runat="server"><asp:ListItem Value="">Select</asp:ListItem>
+                                                <asp:DropDownList CssClass="form-select" ID="ddlEmploymentType" runat="server"
+                                                    data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'><asp:ListItem Value="">Select</asp:ListItem>
                                                     <asp:ListItem>Permanent</asp:ListItem>
                                                     <asp:ListItem>Contract</asp:ListItem>
                                                     <asp:ListItem>Probation</asp:ListItem>
@@ -306,7 +310,8 @@
                                             </div>
                                             <div class="col-md-3 mb-3">
                                                 <label class="form-label">Employee Status</label>
-                                                <asp:DropDownList CssClass="form-control" ID="ddlEmpStatus" runat="server"><asp:ListItem Value="Active" Selected="True">Active</asp:ListItem>
+                                                <asp:DropDownList CssClass="form-select" ID="ddlEmpStatus" runat="server"
+                                                    data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'><asp:ListItem Value="Active" Selected="True">Active</asp:ListItem>
                                                     <asp:ListItem>Inactive</asp:ListItem>
                                                     <asp:ListItem>Suspended</asp:ListItem>
                                                     <asp:ListItem>Terminated</asp:ListItem>
@@ -352,15 +357,18 @@
                                         <div class="row">
                                             <div class="col-md-3 mb-3">
                                                 <label class="form-label">Shift Timing</label>
-                                                <asp:DropDownList CssClass="form-control" ID="ddlShift" DataTextField="Name" DataValueField="ID" runat="server"></asp:DropDownList>
+                                                <asp:DropDownList CssClass="form-select" ID="ddlShift" DataTextField="Name" DataValueField="ID" runat="server"
+                                                    data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'></asp:DropDownList>
                                             </div>
                                             <div class="col-md-3 mb-3">
                                                 <label class="form-label">Work Days</label>
-                                                <asp:DropDownList CssClass="form-control" ID="ddlWorkDays" DataTextField="Name" DataValueField="ID" runat="server"></asp:DropDownList>
+                                                <asp:DropDownList CssClass="form-select" ID="ddlWorkDays" DataTextField="Name" DataValueField="ID" runat="server"
+                                                    data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'></asp:DropDownList>
                                             </div>
                                             <div class="col-md-3 mb-3">
                                                 <label class="form-label">Attendance Method</label>
-                                                <asp:DropDownList CssClass="form-control" ID="ddlAttendanceMethod" DataTextField="Name" DataValueField="ID" runat="server"></asp:DropDownList>
+                                                <asp:DropDownList CssClass="form-select" ID="ddlAttendanceMethod" DataTextField="Name" DataValueField="ID" runat="server"
+                                                    data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'></asp:DropDownList>
                                             </div>
                                             <div class="col-md-3 mb-3">
                                                 <label class="form-label">Biometric ID</label>
@@ -454,7 +462,9 @@
                                             </div>
                                             <div class="col-md-3 mb-3">
                                                 <label class="form-label">Payment Method <span class="text-danger">*</span></label>
-                                                <asp:DropDownList CssClass="form-control" ID="ddlPaymentMethod" DataTextField="Name" DataValueField="ID" runat="server"></asp:DropDownList>
+                                                <asp:DropDownList CssClass="form-select" 
+                                                    ID="ddlPaymentMethod" DataTextField="Name" DataValueField="ID" runat="server"
+                                                    data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'></asp:DropDownList>
                                             </div>
                                             <div class="col-md-3 mb-3">
                                                 <label class="form-label">Tax Status/NTN</label>
@@ -477,11 +487,15 @@
                                             </div>
                                             <div class="col-md-3 mb-3">
                                                 <label class="form-label">Payroll Cycle</label>
-                                                <asp:DropDownList CssClass="form-control" ID="PayrollCycle" DataTextField="Name" DataValueField="ID" runat="server"></asp:DropDownList>
+                                                <asp:DropDownList CssClass="form-select" ID="PayrollCycle"
+                                                    DataTextField="Name" DataValueField="ID" runat="server"
+                                                    data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'></asp:DropDownList>
                                             </div>
                                             <div class="col-md-3 mb-3">
                                                 <label class="form-label">Salary Type</label>
-                                                <asp:DropDownList CssClass="form-control" ID="ddlSalaryType" DataTextField="Name" DataValueField="ID" runat="server"></asp:DropDownList>
+                                                <asp:DropDownList CssClass="form-select" ID="ddlSalaryType"
+                                                    DataTextField="Name" DataValueField="ID" runat="server"
+                                                    data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'></asp:DropDownList>
                                             </div>
                                             <div class="col-md-3 mb-3">
                                                 <label class="form-label">Gross Salary</label>
@@ -548,7 +562,7 @@
                                             </div>
                                             <div class="col-md-6 mb-3">
                                                 <label class="form-label">Non-Disclosure Agreement</label>
-                                                <asp:DropDownList CssClass="form-control" ID="ddlNDA" runat="server">
+                                                <asp:DropDownList CssClass="form-select" ID="ddlNDA" runat="server" data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'>
                                                     <asp:ListItem Value="">Select Status</asp:ListItem>
                                                     <asp:ListItem>Signed</asp:ListItem>
                                                     <asp:ListItem>Pending</asp:ListItem>
@@ -557,7 +571,7 @@
                                             </div>
                                             <div class="col-md-6 mb-3">
                                                 <label class="form-label">Terms & Conditions</label>
-                                                <asp:DropDownList CssClass="form-control" ID="ddlTerms" runat="server">
+                                                <asp:DropDownList CssClass="form-select" ID="ddlTerms" runat="server" data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'>
                                                     <asp:ListItem Value="">Select Status</asp:ListItem>
                                                     <asp:ListItem>Accepted</asp:ListItem>
                                                     <asp:ListItem>Pending</asp:ListItem>

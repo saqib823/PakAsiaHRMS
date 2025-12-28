@@ -123,7 +123,16 @@ namespace HRMSLib.DataLayer
         public static void DeleteShift(int shiftId)
         {
             DbCommand cmd = db.GetSqlStringCommand(
-                "DELETE FROM Shifts WHERE ShiftID = @ShiftID");
+               @"BEGIN TRAN;
+
+            DELETE FROM dbo.SplitShiftDetails
+            WHERE ShiftID = @ShiftID;
+
+            DELETE FROM dbo.Shifts
+            WHERE ShiftID = @ShiftID;
+
+            COMMIT;
+            ");
 
             db.AddInParameter(cmd, "@ShiftID", DbType.Int32, shiftId);
             db.ExecuteNonQuery(cmd);
@@ -512,11 +521,11 @@ SELECT COUNT(*) FROM EmployeeShifts;
                 SELECT * FROM (
                     SELECT R.RotationID, R.EmployeeID, R.ShiftID, R.RotationDate,
                            E.FullName AS EmployeeName,
-                           S.ShiftTypeName as ShiftName,
+                           S.ShiftName as ShiftName,
                            ROW_NUMBER() OVER (ORDER BY R.RotationDate DESC) AS RowNum
                     FROM ShiftRotations R
                     INNER JOIN Employees E ON R.EmployeeID = E.EmployeeID
-                    INNER JOIN ShiftTypes S ON R.ShiftID = S.ShiftTypeID
+                    INNER JOIN Shifts S ON R.ShiftID = S.ShiftID
                 ) AS T
                 WHERE RowNum BETWEEN {start} AND {end}
             ");

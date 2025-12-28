@@ -36,7 +36,6 @@
                         html += "<td>" + row.PunchType + "</td>";
                         html += "<td>" + row.OprtDateFormatted + "</td>";
                         html += "<td>" + row.OprtTimeFormatted + "</td>";
-                        html += "<td>Biometric</td>";
                         html += "</tr>";
                     });
 
@@ -79,8 +78,8 @@
 </script>
 
     <!-- Attendance Logs -->
-    <div class="card">
-        <div class="card-header fw-bold">Attendance Logs (Auto Refresh)</div>
+    <div class="card mt-10">
+        <div class="card-header fw-bold">Live Attendance</div>
         <div class="card-body">
 
             <div class="table-responsive">
@@ -92,7 +91,6 @@
                             <th>Punch Type</th>
                             <th>Date</th>
                             <th>Time</th>
-                            <th>Source</th>
                         </tr>
                     </thead>
                     <tbody id="attendanceBody">

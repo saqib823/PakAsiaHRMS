@@ -600,6 +600,8 @@
     <!-- ===============================================-->
     <!--    Stylesheets-->
     <!-- ===============================================-->
+    <link runat="server" href="~/vendors/choices/choices.min.css" rel="stylesheet">
+    <link runat="server" href="~/vendors/prism/prism-okaidia.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com/"  >
     <link rel="preconnect" href="https://fonts.gstatic.com/"   crossorigin="">
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&amp;display=swap"  rel="stylesheet">
@@ -663,9 +665,7 @@
                             <li><a class="dropdown-item" runat="server" href="~/Pages/signup.aspx">Users</a></li>
                             <li><a class="dropdown-item" runat="server" href="~/Pages/Organization/branches.aspx">Branches</a></li>
                             <li><a class="dropdown-item" runat="server" href="~/Pages/Organization/departments.aspx">Departments</a></li>
-                            <li><a class="dropdown-item" runat="server" href="~/Pages/Organization/teams.aspx">Teams</a></li>
                             <li><a class="dropdown-item" runat="server" href="~/Pages/Organization/designation.aspx">Designations</a></li>
-                            <li><a class="dropdown-item" runat="server" href="~/Pages/Organization/holidays.aspx">Holidays</a></li>
                             <li><a class="dropdown-item" runat="server" href="~/Pages/Shifts/Shifts.aspx">Shifts</a></li>
                             <li><a class="dropdown-item" runat="server" href="~/Pages/Shifts/splitshift.aspx">Split Shifts</a></li>
                             <li><a class="dropdown-item" runat="server" href="~/Pages/Shifts/DepartmentShifts.aspx">Department Shifts</a></li>
@@ -747,8 +747,8 @@
                             <span class="uil uil-box fs-8 me-2"></span>Assets
                         </a>
                         <ul class="dropdown-menu navbar-dropdown-caret">
-                            <li><a class="dropdown-item" href="assets.aspx">Asset Inventory</a></li>
-                            <li><a class="dropdown-item" href="asset-issue.aspx">Issue / Return</a></li>
+                            <li><a class="dropdown-item" runat="server" href="~/Pages/Asset/AddAsset.aspx">Add Asset</a></li>
+                            <li><a class="dropdown-item" runat="server" href="~/Pages/Asset/AssetManagement.aspx">Asset Management</a></li>
                         </ul>
                     </li>
 
@@ -906,7 +906,7 @@
             <script src="<%= ResolveUrl("~/vendors/leaflet.markercluster/leaflet.markercluster.js") %>"></script>
             <script src="<%= ResolveUrl("~/vendors/leaflet.tilelayer.colorfilter/leaflet-tilelayer-colorfilter.min.js") %>"></script>
             <script src="<%= ResolveUrl("~/assets/js/phoenix.js") %>"></script>
-
+            <script src="<%= ResolveUrl("~/vendors/choices/choices.min.js") %>"></script>
             <script src="<%= ResolveUrl("~/vendors/echarts/echarts.min.js") %>"></script>
 
             <script src="<%= ResolveUrl("~/assets/js/dashboards/projectmanagement-dashboard.js") %>"></script>

@@ -24,7 +24,7 @@
                         <div class="col-md-4">
                             <label class="form-label">Rule Type</label>
                             <asp:DropDownList ID="ddlRuleType" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlRuleType_SelectedIndexChanged"
-                                CssClass="form-select">
+                                CssClass="form-select" data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'>
                                 <asp:ListItem Value="">--Select--</asp:ListItem>
                                 <asp:ListItem Value="Late">Late</asp:ListItem>
                                 <asp:ListItem Value="EarlyLeave">Early Leave</asp:ListItem>

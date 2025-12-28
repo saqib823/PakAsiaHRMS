@@ -22,7 +22,9 @@
                     <div class="row g-3 mb-4">
                         <div class="col-md-6">
                             <label class="form-label">Select Split Shift</label>
-                            <asp:DropDownList ID="ddlShift" runat="server" CssClass="form-select"></asp:DropDownList>
+                            <asp:DropDownList ID="ddlShift" runat="server" CssClass="form-select" data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'   >
+
+                            </asp:DropDownList>
                         </div>
                     </div>
 

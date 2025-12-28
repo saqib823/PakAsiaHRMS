@@ -31,7 +31,7 @@
                         <!-- Shift Type -->
                         <div class="col-md-4">
                             <label class="form-label">Shift Type</label>
-                            <asp:DropDownList ID="ddlShiftType" runat="server"
+                            <asp:DropDownList ID="ddlShiftType" runat="server" data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'
                                 CssClass="form-select">
                             </asp:DropDownList>
                         </div>
