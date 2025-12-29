@@ -1,0 +1,11 @@
+C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\AttendanceService\WindowsService1\WindowsService1\bin\Release\WindowsService1.exe.config
+C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\AttendanceService\WindowsService1\WindowsService1\bin\Release\WindowsService1.exe
+C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\AttendanceService\WindowsService1\WindowsService1\bin\Release\WindowsService1.pdb
+C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\AttendanceService\WindowsService1\WindowsService1\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.dll
+C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\AttendanceService\WindowsService1\WindowsService1\bin\Release\Microsoft.Practices.EnterpriseLibrary.Data.dll
+C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\AttendanceService\WindowsService1\WindowsService1\obj\Release\WindowsService1.ProjectInstaller.resources
+C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\AttendanceService\WindowsService1\WindowsService1\obj\Release\WindowsService1.csproj.GenerateResource.cache
+C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\AttendanceService\WindowsService1\WindowsService1\obj\Release\WindowsService1.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\AttendanceService\WindowsService1\WindowsService1\obj\Release\WindowsService1.csproj.CopyComplete
+C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\AttendanceService\WindowsService1\WindowsService1\obj\Release\WindowsService1.exe
+C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\AttendanceService\WindowsService1\WindowsService1\obj\Release\WindowsService1.pdb

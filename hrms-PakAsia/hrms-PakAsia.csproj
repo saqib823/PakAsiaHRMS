@@ -1215,6 +1215,7 @@
     <Content Include="Pages\Organization\branches.aspx" />
     <Content Include="Pages\Organization\departments.aspx" />
     <Content Include="Pages\Organization\designation.aspx" />
+    <Content Include="Pages\Payroll\ProcessPayroll.aspx" />
     <Content Include="Pages\Payroll\SalaryStructure.aspx" />
     <Content Include="Pages\Performance\kpi.aspx" />
     <Content Include="Pages\roles.aspx" />
@@ -1408,6 +1409,13 @@
     </Compile>
     <Compile Include="Pages\Organization\designation.aspx.designer.cs">
       <DependentUpon>designation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Payroll\ProcessPayroll.aspx.cs">
+      <DependentUpon>ProcessPayroll.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Payroll\ProcessPayroll.aspx.designer.cs">
+      <DependentUpon>ProcessPayroll.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Payroll\SalaryStructure.aspx.cs">
       <DependentUpon>SalaryStructure.aspx</DependentUpon>

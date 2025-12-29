@@ -1,0 +1,1 @@
+sc create "AttendanceService" binPath= "C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\AttendanceService\WindowsService1\WindowsService1\bin\Debug\WindowsService1.exe" start= auto
