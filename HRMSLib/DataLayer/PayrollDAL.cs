@@ -331,6 +331,17 @@ namespace HRMSLib.DataLayer
         }
 
         #endregion
+        public DataSet ProcessEmployeePayroll(string empID, DateTime from, DateTime to)
+        {
+            DbCommand cmd = db.GetStoredProcCommand("dbo.usp_CalculateEmployeePayroll");
+
+            db.AddInParameter(cmd, "@EmployeeID", DbType.Int32, Convert.ToInt32(empID));
+            db.AddInParameter(cmd, "@FromDate", DbType.Date, from.Date);
+            db.AddInParameter(cmd, "@ToDate", DbType.Date, to.Date);
+            
+            return db.ExecuteDataSet(cmd);
+        }
+
     }
 
     #region Model Classes

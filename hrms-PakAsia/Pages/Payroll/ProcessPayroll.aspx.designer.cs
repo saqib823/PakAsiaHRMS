@@ -31,13 +31,13 @@ namespace hrms_PakAsia.Pages.Payroll {
         protected global::System.Web.UI.WebControls.TextBox txtEffectiveFrom;
         
         /// <summary>
-        /// TextBox1 control.
+        /// txtEffectiveTo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox1;
+        protected global::System.Web.UI.WebControls.TextBox txtEffectiveTo;
         
         /// <summary>
         /// btnCalculate control.
@@ -49,21 +49,39 @@ namespace hrms_PakAsia.Pages.Payroll {
         protected global::System.Web.UI.WebControls.Button btnCalculate;
         
         /// <summary>
-        /// btnSave control.
+        /// gvAttendance control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSave;
+        protected global::System.Web.UI.WebControls.GridView gvAttendance;
         
         /// <summary>
-        /// hfSalaryID control.
+        /// lblGross control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hfSalaryID;
+        protected global::System.Web.UI.WebControls.Label lblGross;
+        
+        /// <summary>
+        /// lblEarned control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEarned;
+        
+        /// <summary>
+        /// lblNet control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNet;
     }
 }
