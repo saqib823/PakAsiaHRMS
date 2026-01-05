@@ -97,15 +97,15 @@ namespace hrms_PakAsia.Pages.Payroll
 
             if (ds != null && ds.Tables.Count > 0)
             {
-                gvAttendance.DataSource = ds.Tables[0];
-                gvAttendance.DataBind();
+                //gvAttendance.DataSource = ds.Tables[0];
+                //gvAttendance.DataBind();
 
-                if (ds.Tables.Count > 1)
-                {
-                    lblGross.Text = Convert.ToDecimal(ds.Tables[1].Rows[0]["MonthlyGrossSalary"]).ToString("N2");
-                    lblEarned.Text = Convert.ToDecimal(ds.Tables[1].Rows[0]["EarnedSalary"]).ToString("N2");
-                    lblNet.Text = Convert.ToDecimal(ds.Tables[1].Rows[0]["NetPayableSalary"]).ToString("N2");
-                }
+                //if (ds.Tables.Count > 1)
+                //{
+                //    lblGross.Text = Convert.ToDecimal(ds.Tables[1].Rows[0]["MonthlyGrossSalary"]).ToString("N2");
+                //    lblEarned.Text = Convert.ToDecimal(ds.Tables[1].Rows[0]["EarnedSalary"]).ToString("N2");
+                //    lblNet.Text = Convert.ToDecimal(ds.Tables[1].Rows[0]["NetPayableSalary"]).ToString("N2");
+                //}
             }
         }
 

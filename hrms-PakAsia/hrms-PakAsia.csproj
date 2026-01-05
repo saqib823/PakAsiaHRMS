@@ -1219,6 +1219,7 @@
     <Content Include="Pages\Organization\departments.aspx" />
     <Content Include="Pages\Organization\designation.aspx" />
     <Content Include="Pages\Payroll\ProcessPayroll.aspx" />
+    <Content Include="Pages\Payroll\ProcessPayslip.aspx" />
     <Content Include="Pages\Payroll\SalaryStructure.aspx" />
     <Content Include="Pages\Performance\kpi.aspx" />
     <Content Include="Pages\roles.aspx" />
@@ -1300,6 +1301,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Payroll.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Dataset\Payslip.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Payslip.xsd</DependentUpon>
     </Compile>
     <Compile Include="Handler\GetLiveAttendance.ashx.cs">
       <DependentUpon>GetLiveAttendance.ashx</DependentUpon>
@@ -1425,6 +1431,13 @@
     <Compile Include="Pages\Payroll\ProcessPayroll.aspx.designer.cs">
       <DependentUpon>ProcessPayroll.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Payroll\ProcessPayslip.aspx.cs">
+      <DependentUpon>ProcessPayslip.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Payroll\ProcessPayslip.aspx.designer.cs">
+      <DependentUpon>ProcessPayslip.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Payroll\SalaryStructure.aspx.cs">
       <DependentUpon>SalaryStructure.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1528,7 +1541,9 @@
     <Content Include="App_Data\DB_Backup\PakAsia_HRMS" />
     <Content Include="Dataset\Payroll.xsc">
       <DependentUpon>Payroll.xsd</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
+    <Content Include="App_Data\DB_Backup\TaurusMJ" />
     <None Include="Dataset\Payroll.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
@@ -1536,6 +1551,17 @@
     </None>
     <Content Include="Dataset\Payroll.xss">
       <DependentUpon>Payroll.xsd</DependentUpon>
+    </Content>
+    <Content Include="Dataset\Payslip.xsc">
+      <DependentUpon>Payslip.xsd</DependentUpon>
+    </Content>
+    <None Include="Dataset\Payslip.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>Payslip.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Dataset\Payslip.xss">
+      <DependentUpon>Payslip.xsd</DependentUpon>
     </Content>
     <None Include="packages.config" />
     <None Include="Web.Debug.config">

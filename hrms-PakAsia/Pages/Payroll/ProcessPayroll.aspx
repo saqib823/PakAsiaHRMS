@@ -5,13 +5,13 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
-    <div class="container-fluid">
+    <div class="container-fluid mt-10">
 
         <!-- ================= SALARY STRUCTURE FORM ================= -->
         <div class="row mt-4">
             <div class="col-12">
                 <div class="card shadow-sm mb-4">
-                    <div class="card-header bg-primary text-white">
+                    <div class="card-header">
                         <h5 class="mb-0">Process Payroll</h5>
                     </div>
                     <div class="card-body">
@@ -19,7 +19,7 @@
                             <!-- Employee -->
                             <div class="col-md-4">
                                 <label class="form-label">Employee <span class="text-danger">*</span></label>
-                                <asp:DropDownList ID="ddlEmployee" runat="server" CssClass="form-select" required />
+                                <asp:DropDownList ID="ddlEmployee" runat="server" CssClass="form-select"  data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}' required />
                             </div>
                             <!-- From Date -->
                             <div class="col-md-4">
@@ -41,11 +41,12 @@
             </div>
         </div>
 
+
         <!-- ================= PAYROLL REPORT ================= -->
-        <div class="row mt-4">
+       <%-- <div class="row mt-4">
             <div class="col-12">
                 <div class="card shadow-sm mb-4">
-                    <div class="card-header bg-secondary text-white">
+                    <div class="card-header">
                         <h5 class="mb-0">Payroll Details</h5>
                     </div>
                     <div class="card-body">
@@ -82,7 +83,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>--%>
 
     </div>
 
