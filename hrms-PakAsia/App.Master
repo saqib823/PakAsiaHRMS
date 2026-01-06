@@ -734,10 +734,8 @@
                             <span class="uil uil-money-bill fs-8 me-2"></span>Payroll
                         </a>
                         <ul class="dropdown-menu navbar-dropdown-caret">
-                            <li><a class="dropdown-item" runat="server" href="~/Pages/Payroll/SalaryStructure.aspx">Salary Structure</a></li>
-                            <li><a class="dropdown-item" runat="server" href="payroll-process.aspx">Process Payroll</a></li>
-                            <li><a class="dropdown-item" runat="server" href="payslips.aspx">Payslips</a></li>
-                            <li><a class="dropdown-item" runat="server" href="bank-file.aspx">Bank File</a></li>
+                            <li><a class="dropdown-item" runat="server" href="~/Pages/Payroll/ProcessPayroll.aspx">Process Payroll</a></li>
+                            <li><a class="dropdown-item" runat="server" href="~/Pages/Payroll/ProcessPayslip.aspx">Payslips</a></li>
                         </ul>
                     </li>
 

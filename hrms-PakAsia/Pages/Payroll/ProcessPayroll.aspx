@@ -34,7 +34,7 @@
                         </div>
 
                         <div class="mt-4 text-end">
-                            <asp:Button ID="btnCalculate" runat="server" CssClass="btn btn-info px-4" Text="Calculate" OnClick="btnCalculate_Click" />
+                            <asp:Button ID="btnCalculate" runat="server" CssClass="btn btn-info px-4" Text="Generate" OnClick="btnCalculate_Click" />
                         </div>
                     </div>
                 </div>

@@ -1522,6 +1522,12 @@
       <DependentUpon>payroll.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Reports\payslip.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>payslip.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1538,12 +1544,12 @@
     <Content Include="App.Master" />
     <Content Include="Handler\BiometricPush.ashx" />
     <Content Include="Handler\GetLiveAttendance.ashx" />
-    <Content Include="App_Data\DB_Backup\PakAsia_HRMS" />
     <Content Include="Dataset\Payroll.xsc">
       <DependentUpon>Payroll.xsd</DependentUpon>
       <SubType>Designer</SubType>
     </Content>
     <Content Include="App_Data\DB_Backup\TaurusMJ" />
+    <Content Include="App_Data\DB_Backup\PakAsia_HRMS" />
     <None Include="Dataset\Payroll.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
@@ -1581,6 +1587,10 @@
     <EmbeddedResource Include="Reports\payroll.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>payroll.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\payslip.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>payslip.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

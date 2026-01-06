@@ -341,6 +341,12 @@ namespace HRMSLib.DataLayer
             
             return db.ExecuteDataSet(cmd);
         }
+        public DataSet ProcessEmployeePayslip(string empID)
+        {
+            DbCommand cmd = db.GetStoredProcCommand("dbo.SP_GetEmployeePayslip");
+            db.AddInParameter(cmd, "@EmployeeID", DbType.Int64, Convert.ToInt64(empID));
+            return db.ExecuteDataSet(cmd);
+        }
 
     }
 

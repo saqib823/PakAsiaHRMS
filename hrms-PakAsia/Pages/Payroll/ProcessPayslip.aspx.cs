@@ -19,8 +19,7 @@ namespace hrms_PakAsia.Pages.Payroll
             if (!IsPostBack)
             {
                 LoadEmployees();
-                txtEffectiveFrom.Text = DateTime.Now.ToString("yyyy-MM-01");
-                txtEffectiveTo.Text = DateTime.Now.ToString("yyyy-MM-dd");
+                
             }
         }
 
@@ -40,27 +39,20 @@ namespace hrms_PakAsia.Pages.Payroll
             if (ddlEmployee.SelectedValue == "0") return;
 
             string empID = ddlEmployee.SelectedValue;
-            DateTime from = Convert.ToDateTime(txtEffectiveFrom.Text);
-            DateTime to = Convert.ToDateTime(txtEffectiveTo.Text);
+            
 
-            DataSet ds = dal.ProcessEmployeePayroll(empID, from, to);
+            DataSet ds = dal.ProcessEmployeePayslip(empID);
 
             // Create typed dataset instance
-            hrms_PakAsia.Dataset.Payroll payrollDS = new hrms_PakAsia.Dataset.Payroll();
+            hrms_PakAsia.Dataset.Payslip dtPayslip = new hrms_PakAsia.Dataset.Payslip();
 
             // ===== Summary Table =====
-            if (ds.Tables.Count > 1 && ds.Tables[0].Rows.Count > 0)
+            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
-                payrollDS.dtMonthlyAttendance.Clear();
-                payrollDS.dtMonthlyAttendance.Merge(ds.Tables[0]);
+                dtPayslip.dtPayslip.Clear();
+                dtPayslip.dtPayslip.Merge(ds.Tables[0]);
             }
 
-            // ===== Monthly Attendance Table =====
-            if (ds.Tables.Count > 0 && ds.Tables[1].Rows.Count > 0)
-            {
-                payrollDS.dtSummary.Clear();
-                payrollDS.dtSummary.Merge(ds.Tables[1]);
-            }
             // ================= EXPORT TO PDF =================
             ReportDocument rpt = new ReportDocument();
 
@@ -69,7 +61,7 @@ namespace hrms_PakAsia.Pages.Payroll
                 rpt.Load(Server.MapPath("~/Reports/payslip.rpt"));
 
                 // VERY IMPORTANT: Typed DataSet
-                rpt.SetDataSource(payrollDS);
+                rpt.SetDataSource(dtPayslip);
 
                 // Prevent DB login prompt
                 rpt.DataSourceConnections.Clear();
@@ -79,7 +71,7 @@ namespace hrms_PakAsia.Pages.Payroll
                     Response.Clear();
                     Response.Buffer = true;
                     Response.ContentType = "application/pdf";
-                    Response.AddHeader("Content-Disposition", "inline; filename=PayrollSlip.pdf");
+                    Response.AddHeader("Content-Disposition", "inline; filename=PaySlip.pdf");
 
                     pdfStream.CopyTo(Response.OutputStream);
                     Response.Flush();

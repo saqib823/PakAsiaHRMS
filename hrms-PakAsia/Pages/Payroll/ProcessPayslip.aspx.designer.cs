@@ -22,24 +22,6 @@ namespace hrms_PakAsia.Pages.Payroll {
         protected global::System.Web.UI.WebControls.DropDownList ddlEmployee;
         
         /// <summary>
-        /// txtEffectiveFrom control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEffectiveFrom;
-        
-        /// <summary>
-        /// txtEffectiveTo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEffectiveTo;
-        
-        /// <summary>
         /// btnCalculate control.
         /// </summary>
         /// <remarks>
