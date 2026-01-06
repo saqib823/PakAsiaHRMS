@@ -13,6 +13,7 @@ namespace hrms_PakAsia.Pages.Shifts
     public partial class Shifts : System.Web.UI.Page
     {
         private const int PageSize = 10;
+        LoggedInUser currentUser = null;
 
         private int CurrentPage
         {
@@ -27,13 +28,30 @@ namespace hrms_PakAsia.Pages.Shifts
         }
         protected void Page_Load(object sender, EventArgs e)
         {
+            CheckSession();
+            currentUser = GetSessionData();
             if (!IsPostBack)
             {
                 LoadShiftTypes();
                 LoadShiftsPaged();
             }
         }
+        public LoggedInUser GetSessionData()
+        {
+            LoggedInUser currentUser = HttpContext.Current.Session["LoggedInUser"] as LoggedInUser;
 
+            return currentUser;
+        }
+
+        public void CheckSession()
+        {
+            LoggedInUser currentUser = HttpContext.Current.Session["LoggedInUser"] as LoggedInUser;
+
+            if (currentUser == null)
+            {
+                Response.Redirect("~/Default.aspx");
+            }
+        }
         private void LoadShiftTypes()
         {
             ddlShiftType.DataSource = ShiftDAL.GetShiftTypes();

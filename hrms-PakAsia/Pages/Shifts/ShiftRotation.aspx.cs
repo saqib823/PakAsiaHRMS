@@ -1,6 +1,8 @@
-﻿using HRMSLib.DataLayer;
+﻿using HRMSLib.BusinessLogic;
+using HRMSLib.DataLayer;
 using System;
 using System.Data;
+using System.Web;
 using System.Web.UI.WebControls;
 
 namespace hrms_PakAsia.Pages.Shifts
@@ -13,16 +15,34 @@ namespace hrms_PakAsia.Pages.Shifts
             get { return ViewState["CurrentPage"] != null ? (int)ViewState["CurrentPage"] : 1; }
             set { ViewState["CurrentPage"] = value; }
         }
+        LoggedInUser currentUser = null;
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            CheckSession();
+            currentUser = GetSessionData();
             if (!IsPostBack)
             {
                 LoadDropdowns();
                 BindRepeater();
             }
         }
+        public LoggedInUser GetSessionData()
+        {
+            LoggedInUser currentUser = HttpContext.Current.Session["LoggedInUser"] as LoggedInUser;
 
+            return currentUser;
+        }
+
+        public void CheckSession()
+        {
+            LoggedInUser currentUser = HttpContext.Current.Session["LoggedInUser"] as LoggedInUser;
+
+            if (currentUser == null)
+            {
+                Response.Redirect("~/Default.aspx");
+            }
+        }
         private void LoadDropdowns()
         {
             // Load Employees

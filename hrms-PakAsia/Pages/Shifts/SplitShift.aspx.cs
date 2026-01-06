@@ -1,7 +1,9 @@
-﻿using HRMSLib.DataLayer;
+﻿using HRMSLib.BusinessLogic;
+using HRMSLib.DataLayer;
 using System;
 using System.Data;
 using System.Linq;
+using System.Web;
 using System.Web.UI.WebControls;
 
 namespace hrms_PakAsia.Pages.Shifts
@@ -15,7 +17,24 @@ namespace hrms_PakAsia.Pages.Shifts
             get => ViewState["PageIndex"] == null ? 0 : (int)ViewState["PageIndex"];
             set => ViewState["PageIndex"] = value;
         }
+        LoggedInUser currentUser = null;
 
+        public LoggedInUser GetSessionData()
+        {
+            LoggedInUser currentUser = HttpContext.Current.Session["LoggedInUser"] as LoggedInUser;
+
+            return currentUser;
+        }
+
+        public void CheckSession()
+        {
+            LoggedInUser currentUser = HttpContext.Current.Session["LoggedInUser"] as LoggedInUser;
+
+            if (currentUser == null)
+            {
+                Response.Redirect("~/Default.aspx");
+            }
+        }
         private int EditingShiftID
         {
             get => ViewState["EditingShiftID"] == null ? 0 : (int)ViewState["EditingShiftID"];
@@ -26,6 +45,8 @@ namespace hrms_PakAsia.Pages.Shifts
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            CheckSession();
+            currentUser = GetSessionData();
             if (!IsPostBack)
             {
                 LoadSplitShifts();

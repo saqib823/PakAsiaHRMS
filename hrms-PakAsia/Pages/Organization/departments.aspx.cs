@@ -13,6 +13,7 @@ namespace hrms_PakAsia.Pages.Organization
     public partial class departments : System.Web.UI.Page
     {
         private int PageSize => 10;
+         LoggedInUser currentUser = null;
 
         private int CurrentPage
         {
@@ -34,6 +35,14 @@ namespace hrms_PakAsia.Pages.Organization
                 CurrentPage = 1;
                 BindDepartments();
             }
+            currentUser = GetSessionData();
+
+        }
+        public LoggedInUser GetSessionData()
+        {
+            LoggedInUser currentUser = HttpContext.Current.Session["LoggedInUser"] as LoggedInUser;
+
+            return currentUser;
         }
         public void CheckSession()
         {

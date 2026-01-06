@@ -1,4 +1,5 @@
-﻿using HRMSLib.DataLayer;
+﻿using HRMSLib.BusinessLogic;
+using HRMSLib.DataLayer;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,12 +12,30 @@ namespace hrms_PakAsia.Pages.Leaves
 {
     public partial class applyleave : System.Web.UI.Page
     {
+        LoggedInUser currentUser = null;
         protected void Page_Load(object sender, EventArgs e)
         {
+            CheckSession();
+            currentUser = GetSessionData();
             if (!IsPostBack)
                 LoadLeaveTypes();
         }
+        public LoggedInUser GetSessionData()
+        {
+            LoggedInUser currentUser = HttpContext.Current.Session["LoggedInUser"] as LoggedInUser;
 
+            return currentUser;
+        }
+
+        public void CheckSession()
+        {
+            LoggedInUser currentUser = HttpContext.Current.Session["LoggedInUser"] as LoggedInUser;
+
+            if (currentUser == null)
+            {
+                Response.Redirect("~/Default.aspx");
+            }
+        }
         private void LoadLeaveTypes()
         {
             int empId = Convert.ToInt32(Session["EmployeeID"]);

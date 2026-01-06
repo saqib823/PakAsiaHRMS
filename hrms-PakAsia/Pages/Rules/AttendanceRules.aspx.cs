@@ -1,6 +1,8 @@
-﻿using HRMSLib.DataLayer;
+﻿using HRMSLib.BusinessLogic;
+using HRMSLib.DataLayer;
 using System;
 using System.Data;
+using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -10,6 +12,7 @@ namespace hrms_PakAsia.Pages.Rules
     {
         private AttendanceRulesDAL dal = new AttendanceRulesDAL();
         private int PageSize = 10;
+        LoggedInUser currentUser = null;
 
         private int CurrentPage
         {
@@ -25,12 +28,29 @@ namespace hrms_PakAsia.Pages.Rules
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            CheckSession();
+            currentUser = GetSessionData();
             if (!IsPostBack)
             {
                 BindRules();
             }
         }
+        public LoggedInUser GetSessionData()
+        {
+            LoggedInUser currentUser = HttpContext.Current.Session["LoggedInUser"] as LoggedInUser;
 
+            return currentUser;
+        }
+
+        public void CheckSession()
+        {
+            LoggedInUser currentUser = HttpContext.Current.Session["LoggedInUser"] as LoggedInUser;
+
+            if (currentUser == null)
+            {
+                Response.Redirect("~/Default.aspx");
+            }
+        }
         private void BindRules()
         {
             int totalRecords;

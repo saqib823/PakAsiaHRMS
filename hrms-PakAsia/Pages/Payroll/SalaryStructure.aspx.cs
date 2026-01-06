@@ -2,6 +2,7 @@
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using HRMSLib.BusinessLogic;
@@ -13,6 +14,7 @@ namespace hrms_PakAsia.Pages.Payroll
     {
         PayrollDAL dal = new PayrollDAL();
         int PageSize = 10;
+        LoggedInUser currentUser = null;
 
         int PageIndex
         {
@@ -22,6 +24,8 @@ namespace hrms_PakAsia.Pages.Payroll
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            CheckSession();
+            currentUser = GetSessionData();
             if (!IsPostBack)
             {
                 LoadEmployees();
@@ -30,7 +34,22 @@ namespace hrms_PakAsia.Pages.Payroll
                 SetDefaultDates();
             }
         }
+        public LoggedInUser GetSessionData()
+        {
+            LoggedInUser currentUser = HttpContext.Current.Session["LoggedInUser"] as LoggedInUser;
 
+            return currentUser;
+        }
+
+        public void CheckSession()
+        {
+            LoggedInUser currentUser = HttpContext.Current.Session["LoggedInUser"] as LoggedInUser;
+
+            if (currentUser == null)
+            {
+                Response.Redirect("~/Default.aspx");
+            }
+        }
         void SetDefaultDates()
         {
             if (string.IsNullOrEmpty(txtEffectiveFrom.Text))

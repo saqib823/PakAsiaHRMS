@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Data;
+using System.Web;
+using HRMSLib.BusinessLogic;
 using HRMSLib.DataLayer;
 
 namespace hrms_PakAsia.Pages.Asset
 {
     public partial class AssetManagement : System.Web.UI.Page
     {
+        LoggedInUser currentUser = null;
+
         AssetDAL dal = new AssetDAL();
         private int PageSize = 10;
 
@@ -23,13 +27,31 @@ namespace hrms_PakAsia.Pages.Asset
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            CheckSession();
+            currentUser = GetSessionData();
+
             if (!IsPostBack)
             {
                 LoadEmployees();
                 LoadAssets();
             }
         }
+        public LoggedInUser GetSessionData()
+        {
+            LoggedInUser currentUser = HttpContext.Current.Session["LoggedInUser"] as LoggedInUser;
 
+            return currentUser;
+        }
+
+        public void CheckSession()
+        {
+            LoggedInUser currentUser = HttpContext.Current.Session["LoggedInUser"] as LoggedInUser;
+
+            if (currentUser == null)
+            {
+                Response.Redirect("~/Default.aspx");
+            }
+        }
         void LoadEmployees()
         {
             ddlEmployee.DataSource = CommonDAL.GetEmployees();

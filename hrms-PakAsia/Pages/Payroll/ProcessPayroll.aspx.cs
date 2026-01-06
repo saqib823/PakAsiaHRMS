@@ -1,5 +1,6 @@
 ﻿using CrystalDecisions.CrystalReports.Engine;
 using CrystalDecisions.Shared;
+using HRMSLib.BusinessLogic;
 using HRMSLib.DataLayer;
 using System;
 using System.Data;
@@ -12,10 +13,14 @@ namespace hrms_PakAsia.Pages.Payroll
 {
     public partial class ProcessPayroll : System.Web.UI.Page
     {
+        LoggedInUser currentUser = null;
+
         private readonly PayrollDAL dal = new PayrollDAL();
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            CheckSession();
+            currentUser = GetSessionData();
             if (!IsPostBack)
             {
                 LoadEmployees();
@@ -23,7 +28,22 @@ namespace hrms_PakAsia.Pages.Payroll
                 txtEffectiveTo.Text = DateTime.Now.ToString("yyyy-MM-dd");
             }
         }
+        public LoggedInUser GetSessionData()
+        {
+            LoggedInUser currentUser = HttpContext.Current.Session["LoggedInUser"] as LoggedInUser;
 
+            return currentUser;
+        }
+
+        public void CheckSession()
+        {
+            LoggedInUser currentUser = HttpContext.Current.Session["LoggedInUser"] as LoggedInUser;
+
+            if (currentUser == null)
+            {
+                Response.Redirect("~/Default.aspx");
+            }
+        }
         private void LoadEmployees()
         {
             

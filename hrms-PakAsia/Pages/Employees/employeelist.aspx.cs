@@ -45,16 +45,25 @@ namespace hrms_PakAsia.Pages.Employees
         {
             employeeDAL = new EmployeeMaster();
         }
+        LoggedInUser currentUser = null;
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            CheckSession();
+
             if (!IsPostBack)
             {
-                CheckSession();
                 BindEmployees();
             }
-        }
+            currentUser = GetSessionData();
 
+        }
+        public LoggedInUser GetSessionData()
+        {
+            LoggedInUser currentUser = HttpContext.Current.Session["LoggedInUser"] as LoggedInUser;
+
+            return currentUser;
+        }
         private void CheckSession()
         {
             if (Session["LoggedInUser"] == null)

@@ -1,4 +1,5 @@
-﻿using HRMSLib.DataLayer;
+﻿using HRMSLib.BusinessLogic;
+using HRMSLib.DataLayer;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,7 +13,7 @@ namespace hrms_PakAsia.Pages.Leaves
     public partial class leavemanagement : System.Web.UI.Page
     {
         private const int PageSize = 10;
-
+        LoggedInUser currentUser = null;
         protected int CurrentPage
         {
             get => ViewState["CurrentPage"] != null ? (int)ViewState["CurrentPage"] : 1;
@@ -21,10 +22,27 @@ namespace hrms_PakAsia.Pages.Leaves
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            CheckSession();
+            currentUser = GetSessionData();
             if (!IsPostBack)
                 BindLeaves();
         }
+        public LoggedInUser GetSessionData()
+        {
+            LoggedInUser currentUser = HttpContext.Current.Session["LoggedInUser"] as LoggedInUser;
 
+            return currentUser;
+        }
+
+        public void CheckSession()
+        {
+            LoggedInUser currentUser = HttpContext.Current.Session["LoggedInUser"] as LoggedInUser;
+
+            if (currentUser == null)
+            {
+                Response.Redirect("~/Default.aspx");
+            }
+        }
         #region Bind
 
         private void BindLeaves()

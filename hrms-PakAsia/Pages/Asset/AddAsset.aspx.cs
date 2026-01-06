@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Data;
+using System.Web;
+using HRMSLib.BusinessLogic;
 using HRMSLib.DataLayer;
 
 namespace hrms_PakAsia.Pages.Asset
@@ -7,11 +9,30 @@ namespace hrms_PakAsia.Pages.Asset
     public partial class AddAsset : System.Web.UI.Page
     {
         AssetDAL dal = new AssetDAL();
-
+        LoggedInUser currentUser = null;
         protected void Page_Load(object sender, EventArgs e)
         {
+            CheckSession();
+            currentUser = GetSessionData();
+
             if (!IsPostBack)
                 LoadAssets();
+        }
+        public LoggedInUser GetSessionData()
+        {
+            LoggedInUser currentUser = HttpContext.Current.Session["LoggedInUser"] as LoggedInUser;
+
+            return currentUser;
+        }
+
+        public void CheckSession()
+        {
+            LoggedInUser currentUser = HttpContext.Current.Session["LoggedInUser"] as LoggedInUser;
+
+            if (currentUser == null)
+            {
+                Response.Redirect("~/Default.aspx");
+            }
         }
         //test
         void LoadAssets()

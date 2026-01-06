@@ -1,5 +1,6 @@
 ﻿using CrystalDecisions.CrystalReports.Engine;
 using CrystalDecisions.Shared;
+using HRMSLib.BusinessLogic;
 using HRMSLib.DataLayer;
 using System;
 using System.Data;
@@ -13,16 +14,34 @@ namespace hrms_PakAsia.Pages.Payroll
     public partial class ProcessPayslip : System.Web.UI.Page
     {
         private readonly PayrollDAL dal = new PayrollDAL();
+        LoggedInUser currentUser = null;
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            CheckSession();
+            currentUser = GetSessionData();
             if (!IsPostBack)
             {
                 LoadEmployees();
                 
             }
         }
+        public LoggedInUser GetSessionData()
+        {
+            LoggedInUser currentUser = HttpContext.Current.Session["LoggedInUser"] as LoggedInUser;
 
+            return currentUser;
+        }
+
+        public void CheckSession()
+        {
+            LoggedInUser currentUser = HttpContext.Current.Session["LoggedInUser"] as LoggedInUser;
+
+            if (currentUser == null)
+            {
+                Response.Redirect("~/Default.aspx");
+            }
+        }
         private void LoadEmployees()
         {
 

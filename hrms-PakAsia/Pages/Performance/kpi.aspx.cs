@@ -1,5 +1,7 @@
-﻿using HRMSLib.DataLayer;
+﻿using HRMSLib.BusinessLogic;
+using HRMSLib.DataLayer;
 using System;
+using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -8,6 +10,7 @@ namespace hrms_PakAsia.Pages.Performance
     public partial class kpi : Page
     {
         private const int PageSize = 10;
+        LoggedInUser currentUser = null;
 
         private int PageIndex
         {
@@ -17,13 +20,30 @@ namespace hrms_PakAsia.Pages.Performance
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            CheckSession();
+            currentUser = GetSessionData();
             if (!IsPostBack)
             {
                 LoadDDLs();
                 LoadKPIList();
             }
         }
+        public LoggedInUser GetSessionData()
+        {
+            LoggedInUser currentUser = HttpContext.Current.Session["LoggedInUser"] as LoggedInUser;
 
+            return currentUser;
+        }
+
+        public void CheckSession()
+        {
+            LoggedInUser currentUser = HttpContext.Current.Session["LoggedInUser"] as LoggedInUser;
+
+            if (currentUser == null)
+            {
+                Response.Redirect("~/Default.aspx");
+            }
+        }
         #region LOADERS
 
         private void LoadDDLs()

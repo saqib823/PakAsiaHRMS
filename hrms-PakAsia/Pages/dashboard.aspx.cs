@@ -10,13 +10,24 @@ namespace hrms_PakAsia.Pages
 {
     public partial class dashboard : System.Web.UI.Page
     {
+        LoggedInUser currentUser = null;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             CheckSession();
+            currentUser = GetSessionData();
         }
+        public LoggedInUser GetSessionData()
+        {
+            LoggedInUser currentUser = HttpContext.Current.Session["LoggedInUser"] as LoggedInUser;
+
+            return currentUser;
+        }
+
         public void CheckSession()
         {
             LoggedInUser currentUser = HttpContext.Current.Session["LoggedInUser"] as LoggedInUser;
+
             if (currentUser == null)
             {
                 Response.Redirect("~/Default.aspx");

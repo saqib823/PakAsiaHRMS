@@ -27,6 +27,7 @@ namespace hrms_PakAsia.Pages.Employees
             {
                 CheckSession();
                 InitializePage();
+                _currentUser = GetSessionData();
 
                 // Check if employee ID is passed in query string
                 if (!string.IsNullOrEmpty(Request.QueryString["id"]))

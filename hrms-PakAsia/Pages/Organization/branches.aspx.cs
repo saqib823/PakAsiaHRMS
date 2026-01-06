@@ -24,15 +24,24 @@ namespace hrms_PakAsia.Pages.Organization
             get { return ViewState["TotalRecords"] != null ? (int)ViewState["TotalRecords"] : 0; }
             set { ViewState["TotalRecords"] = value; }
         }
+        LoggedInUser currentUser = null;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             CheckSession();
+            currentUser = GetSessionData();
+
             if (!IsPostBack)
             {
                 CurrentPage = 1;
                 BindBranches();
             }
+        }
+        public LoggedInUser GetSessionData()
+        {
+            LoggedInUser currentUser = HttpContext.Current.Session["LoggedInUser"] as LoggedInUser;
+
+            return currentUser;
         }
         public void CheckSession()
         {
