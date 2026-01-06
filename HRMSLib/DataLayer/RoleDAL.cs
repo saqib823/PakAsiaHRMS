@@ -11,13 +11,13 @@ using System.Web;
 
 namespace HRMSLib.DataLayer
 {
-    public class DepartmentDAL
+    public class RoleDAL
     {
         private static Database db =>
                    new DatabaseProviderFactory().Create("defaultDB");
         LoggedInUser currentUser =
                    HttpContext.Current.Session["LoggedInUser"] as LoggedInUser;
-        public DataTable GetDepartmentsPaged(
+        public DataTable GetRolesPaged(
         int pageNumber,
         int pageSize,
         string searchText,
@@ -27,7 +27,8 @@ namespace HRMSLib.DataLayer
         {
             totalRecords = 0;
 
-            DbCommand cmd = db.GetStoredProcCommand("SP_DepartmentsData_Select");
+            Database db = new DatabaseProviderFactory().Create("defaultDB");
+            DbCommand cmd = db.GetStoredProcCommand("SP_RoleData_Select");
 
             db.AddInParameter(cmd, "@Page_Number", DbType.Int32, pageNumber);
             db.AddInParameter(cmd, "@Page_Size", DbType.Int32, pageSize);
@@ -46,22 +47,20 @@ namespace HRMSLib.DataLayer
             return new DataTable();
         }
 
-        public bool DepartmentData(int mode,string DepartmentName, string Status, string DepartmentID)
+        public bool RoleData(int mode, string RoleName, string Status, string RoleID)
         {
             try
             {
-                // Create database instance
-
                 // Create stored procedure command
-                DbCommand cmd = db.GetStoredProcCommand("SP_SaveDepartmentData");
+                DbCommand cmd = db.GetStoredProcCommand("SP_SaveRolesData");
 
                 // Add parameters
                 db.AddInParameter(cmd, "@Mode", DbType.Int32, mode);
-                db.AddInParameter(cmd, "@DepartmentName", DbType.String, DepartmentName);
+                db.AddInParameter(cmd, "@RoleName", DbType.String, RoleName);
                 db.AddInParameter(cmd, "@Status", DbType.String, Status);
                 db.AddInParameter(cmd, "@UserID", DbType.Int32, currentUser.UserID);
-                db.AddInParameter(cmd, "@DepartmentID", DbType.String, DepartmentID);
-             
+                db.AddInParameter(cmd, "@RoleID", DbType.String, RoleID);
+
                 // Execute
                 int rowsAffected = db.ExecuteNonQuery(cmd);
                 return rowsAffected > 0;
@@ -73,12 +72,12 @@ namespace HRMSLib.DataLayer
             }
         }
 
-        public DataRow GetDepartmentById(int DepartmentID)
+        public DataRow GetRoleById(int RoleID)
         {
 
-            using (DbCommand cmd = db.GetStoredProcCommand("SP_GetDepartmentById"))
+            using (DbCommand cmd = db.GetStoredProcCommand("SP_GetRoleById"))
             {
-                db.AddInParameter(cmd, "@DepartmentID", DbType.Int32, DepartmentID);
+                db.AddInParameter(cmd, "@RoleID", DbType.Int32, RoleID);
 
                 DataSet ds = db.ExecuteDataSet(cmd);
 
@@ -88,14 +87,14 @@ namespace HRMSLib.DataLayer
 
             return null;
         }
-        public void DeleteDepartment(int DepartmentID)
+        public void DeleteRoles(int DepartmentID)
         {
             // SQL command (can also be stored procedure)
-            string sql = "DELETE FROM Departments WHERE DepartmentID = @DepartmentID";
+            string sql = "DELETE FROM Roles WHERE RoleID = @RoleID";
 
             using (DbCommand cmd = db.GetSqlStringCommand(sql))
             {
-                db.AddInParameter(cmd, "@DepartmentID", DbType.Int32, DepartmentID);
+                db.AddInParameter(cmd, "@RoleID", DbType.Int32, DepartmentID);
                 db.ExecuteNonQuery(cmd);
             }
         }

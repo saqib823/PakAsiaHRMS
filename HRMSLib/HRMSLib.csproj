@@ -190,6 +190,7 @@
     <Compile Include="DataLayer\KPIDAL.cs" />
     <Compile Include="DataLayer\LeaveDAL.cs" />
     <Compile Include="DataLayer\PayrollDAL.cs" />
+    <Compile Include="DataLayer\RoleDAL.cs" />
     <Compile Include="DataLayer\ShiftDAL.cs" />
     <Compile Include="DataLayer\UserDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
