@@ -1222,6 +1222,7 @@
     <Content Include="Pages\Payroll\ProcessPayslip.aspx" />
     <Content Include="Pages\Payroll\SalaryStructure.aspx" />
     <Content Include="Pages\Performance\kpi.aspx" />
+    <Content Include="Pages\Rights.aspx" />
     <Content Include="Pages\roles.aspx" />
     <Content Include="Pages\Rules\AttendanceRules.aspx" />
     <Content Include="Pages\Shifts\DepartmentShifts.aspx" />
@@ -1451,6 +1452,13 @@
     </Compile>
     <Compile Include="Pages\Performance\kpi.aspx.designer.cs">
       <DependentUpon>kpi.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Rights.aspx.cs">
+      <DependentUpon>Rights.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Rights.aspx.designer.cs">
+      <DependentUpon>Rights.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\roles.aspx.cs">
       <DependentUpon>roles.aspx</DependentUpon>

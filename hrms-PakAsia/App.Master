@@ -640,7 +640,7 @@
     </div>
 
     <form runat="server" novalidate="novalidate">
-
+         <asp:ScriptManager ID="ScriptManager1" runat="server" />
         <nav class="navbar navbar-top fixed-top navbar-expand-lg" id="navbarCombo" data-navbar-top="combo" data-move-target="#navbarVerticalNav">
             <div class="navbar-logo">
                 <button class="btn navbar-toggler navbar-toggler-humburger-icon hover-bg-transparent" type="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalCollapse" aria-controls="navbarVerticalCollapse" aria-expanded="false" aria-label="Toggle Navigation"><span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
@@ -834,8 +834,7 @@
             </ul>
         </nav>
 
-        <asp:ScriptManager ID="ScriptManager1" runat="server"  />
-        <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+                <asp:ContentPlaceHolder ID="MainContent" runat="server" />
 
 
 
