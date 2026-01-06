@@ -8,6 +8,12 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
     <main class="main mt-10">
+        <asp:Label Text="Roles" runat="server" />
+        <asp:DropDownList runat="server" ID="ddlRoles" CssClass="form-select"
+            DataTextField="Name" DataValueField="ID" 
+            data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'>
+          
+        </asp:DropDownList>
 
       <asp:TreeView
         ID="tvFolders"

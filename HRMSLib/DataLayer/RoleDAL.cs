@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -96,6 +97,68 @@ namespace HRMSLib.DataLayer
             {
                 db.AddInParameter(cmd, "@RoleID", DbType.Int32, DepartmentID);
                 db.ExecuteNonQuery(cmd);
+            }
+        }
+        public static bool SaveRoleRights(List<string> selectedPages, int roleId)
+        {
+            if (selectedPages == null)
+                selectedPages = new List<string>();
+
+            try
+            {
+                // 1️⃣ Create TVP DataTable (MUST match SQL TYPE)
+                DataTable dtRights = new DataTable();
+                dtRights.Columns.Add("PageRight", typeof(string));
+
+                foreach (string page in selectedPages)
+                    dtRights.Rows.Add(page);
+
+
+                using (DbConnection conn = db.CreateConnection())
+                {
+                    conn.Open();
+
+                    using (DbTransaction tran = conn.BeginTransaction())
+                    {
+                        try
+                        {
+                            // 2️⃣ Get SP Command
+                            DbCommand cmd = db.GetStoredProcCommand("usp_SaveRoleRights");
+
+                            // 3️⃣ Add normal parameter
+                            db.AddInParameter(cmd, "@RoleID", DbType.Int32, roleId);
+
+                            // 4️⃣ CAST TO SqlCommand FOR TVP (IMPORTANT)
+                            SqlCommand sqlCmd = cmd as SqlCommand;
+                            if (sqlCmd == null)
+                                throw new InvalidOperationException("Command is not SqlCommand");
+
+                            // 5️⃣ Add TVP properly
+                            SqlParameter tvpParam = new SqlParameter("@PageRights", SqlDbType.Structured)
+                            {
+                                TypeName = "dbo.PageRightTableType", // MUST MATCH SQL TYPE
+                                Value = dtRights
+                            };
+
+                            sqlCmd.Parameters.Add(tvpParam);
+
+                            // 6️⃣ Execute
+                            db.ExecuteNonQuery(cmd, tran);
+
+                            tran.Commit();
+                            return true;
+                        }
+                        catch
+                        {
+                            tran.Rollback();
+                            throw;
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                return false;
             }
         }
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HRMSLib.DataLayer;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,6 +14,9 @@ namespace hrms_PakAsia.Pages
         {
             if (!IsPostBack)
             {
+                ddlRoles.DataSource = CommonDAL.GetRoles();
+                ddlRoles.DataBind();
+                ddlRoles.Items.Insert(0, new ListItem("Select One", "0"));
                 BindTree();
             }
         }
@@ -109,10 +113,8 @@ namespace hrms_PakAsia.Pages
                 .Cast<TreeNode>()
                 .Select(n => n.Value)
                 .ToList();
-
-            // TODO: Save to DB
-            // Example: RoleRights(RoleId, PagePath)
-
+            
+            RoleDAL.SaveRoleRights(selectedPages, Convert.ToInt32(ddlRoles.SelectedValue));
             ClientScript.RegisterStartupScript(
                 this.GetType(),
                 "saved",
