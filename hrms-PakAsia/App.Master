@@ -643,166 +643,54 @@
          <asp:ScriptManager ID="ScriptManager1" runat="server" />
         <nav class="navbar navbar-top fixed-top navbar-expand-lg" id="navbarCombo" data-navbar-top="combo" data-move-target="#navbarVerticalNav">
             <div class="navbar-logo">
-                <button class="btn navbar-toggler navbar-toggler-humburger-icon hover-bg-transparent" type="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalCollapse" aria-controls="navbarVerticalCollapse" aria-expanded="false" aria-label="Toggle Navigation"><span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
-                <a class="navbar-brand me-1 me-sm-3" href="index.html">
+                <button class="btn navbar-toggler navbar-toggler-humburger-icon hover-bg-transparent" type="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalCollapse" aria-controls="navbarVerticalCollapse" aria-expanded="false" aria-label="Toggle Navigation">
+                    <span class="navbar-toggle-icon"><span class="toggle-line"></span></span>
+                </button>
+                <a class="navbar-brand me-1 me-sm-3" href="~/Default.aspx">
                     <div class="d-flex align-items-center">
                         <div class="d-flex align-items-center">
-                            <img src="~/assets/img/icons/logo.png" width="90" runat="server" />
+                            <img src="~/assets/img/icons/logo.png" width="90" alt="HRMS Logo" runat="server" />
                         </div>
                     </div>
                 </a>
             </div>
+            
+            <!-- Dynamic Menu Section -->
             <div class="collapse navbar-collapse navbar-top-collapse order-1 order-lg-0 justify-content-center" id="navbarTopCollapse">
-                <ul class="navbar-nav navbar-nav-top" data-dropdown-on-hover="data-dropdown-on-hover">
-
-
-                    <!-- ORGANIZATION -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle lh-1" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">
-                            <span class="uil uil-building fs-8 me-2"></span>Organization
-                        </a>
-                        <ul class="dropdown-menu navbar-dropdown-caret">
-                            <li><a class="dropdown-item" runat="server" href="~/Pages/signup.aspx">Users</a></li>
-                            <li><a class="dropdown-item" runat="server" href="~/Pages/Organization/branches.aspx">Branches</a></li>
-                            <li><a class="dropdown-item" runat="server" href="~/Pages/Organization/departments.aspx">Departments</a></li>
-                            <li><a class="dropdown-item" runat="server" href="~/Pages/Organization/designation.aspx">Designations</a></li>
-                            <li><a class="dropdown-item" runat="server" href="~/Pages/Shifts/Shifts.aspx">Shifts</a></li>
-                            <li><a class="dropdown-item" runat="server" href="~/Pages/Shifts/splitshift.aspx">Split Shifts</a></li>
-                            <li><a class="dropdown-item" runat="server" href="~/Pages/Shifts/DepartmentShifts.aspx">Department Shifts</a></li>
-                            <li><a class="dropdown-item" runat="server" href="~/Pages/Shifts/ShiftRotation.aspx">Rotational Shifts</a></li>
-                        </ul>
-                    </li>
-
-                    <!-- EMPLOYEES -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle lh-1" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">
-                            <span class="uil uil-users-alt fs-8 me-2"></span>Employees
-                        </a>
-                        <ul class="dropdown-menu navbar-dropdown-caret">
-                            <li><a class="dropdown-item" runat="server" href="~/Pages/Employees/employeelist.aspx">Employee List</a></li>
-                            <li><a class="dropdown-item" runat="server" href="~/Pages/Employees/employees.aspx">Add Employee</a></li>
-                            <li><a class="dropdown-item" href="documents.aspx">Documents</a></li>
-                            <li><a class="dropdown-item" href="contracts.aspx">Contracts</a></li>
-                        </ul>
-                    </li>
-
-                    <!-- ATTENDANCE -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle lh-1" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">
-                            <span class="uil uil-clock fs-8 me-2"></span>Attendance
-                        </a>
-                        <ul class="dropdown-menu navbar-dropdown-caret">
-                            <li><a class="dropdown-item" runat="server" href="~/Pages/Rules/AttendanceRules.aspx">Attendance Rules</a></li>
-                            <li><a class="dropdown-item" runat="server" href="~/Pages/Attendance/biometric-integration.aspx">Live Attendance</a></li>
-                            <li><a class="dropdown-item" href="attendance-daily.aspx">Daily Attendance</a></li>
-                            <li><a class="dropdown-item" href="attendance-monthly.aspx">Monthly Attendance</a></li>
-                            <li><a class="dropdown-item" href="missing-punch.aspx">Missing Punches</a></li>
-                            <li><a class="dropdown-item" href="shifts.aspx">Shift Management</a></li>
-                            <li><a class="dropdown-item" href="overtime.aspx">Overtime</a></li>
-                        </ul>
-                    </li>
-
-                    <!-- BIOMETRIC -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle lh-1" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">
-                            <span class="uil uil-fingerprint fs-8 me-2"></span>Biometric
-                        </a>
-                        <ul class="dropdown-menu navbar-dropdown-caret">
-                            <li><a class="dropdown-item" href="devices.aspx">Devices</a></li>
-                            <li><a class="dropdown-item" href="punch-logs.aspx">Punch Logs</a></li>
-                            <li><a class="dropdown-item" href="device-sync.aspx">Sync Monitor</a></li>
-                        </ul>
-                    </li>
-
-                    <!-- LEAVES -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle lh-1" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">
-                            <span class="uil uil-plane-departure fs-8 me-2"></span>Leaves
-                        </a>
-                        <ul class="dropdown-menu navbar-dropdown-caret">
-                            <li><a class="dropdown-item" runat="server" href="~/Pages/Leaves/applyleave.aspx">Apply Leave</a></li>
-                            <li><a class="dropdown-item" runat="server" href="~/Pages/Leaves/leavemanagement.aspx">Leaves Management</a></li>
-                            <li><a class="dropdown-item" href="leave-requests.aspx">Leave Requests</a></li>
-                            <li><a class="dropdown-item" href="leave-balance.aspx">Leave Balance</a></li>
-                            <li><a class="dropdown-item" href="leave-policy.aspx">Leave Policy</a></li>
-                        </ul>
-                    </li>
-
-                    <!-- PAYROLL -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle lh-1" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">
-                            <span class="uil uil-money-bill fs-8 me-2"></span>Payroll
-                        </a>
-                        <ul class="dropdown-menu navbar-dropdown-caret">
-                            <li><a class="dropdown-item" runat="server" href="~/Pages/Payroll/ProcessPayroll.aspx">Process Payroll</a></li>
-                            <li><a class="dropdown-item" runat="server" href="~/Pages/Payroll/ProcessPayslip.aspx">Payslips</a></li>
-                        </ul>
-                    </li>
-
-                    <!-- ASSETS -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle lh-1" href="#" data-bs-toggle="dropdown">
-                            <span class="uil uil-box fs-8 me-2"></span>Assets
-                        </a>
-                        <ul class="dropdown-menu navbar-dropdown-caret">
-                            <li><a class="dropdown-item" runat="server" href="~/Pages/Asset/AddAsset.aspx">Add Asset</a></li>
-                            <li><a class="dropdown-item" runat="server" href="~/Pages/Asset/AssetManagement.aspx">Asset Management</a></li>
-                        </ul>
-                    </li>
-
-                    <!-- PERFORMANCE -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle lh-1" href="#" data-bs-toggle="dropdown">
-                            <span class="uil uil-graph-bar fs-8 me-2"></span>Performance
-                        </a>
-                        <ul class="dropdown-menu navbar-dropdown-caret">
-                            <li><a class="dropdown-item" runat="server" href="~/Pages/Performance/kpi.aspx">KPIs</a></li>
-                            <li><a class="dropdown-item" href="appraisals.aspx">Appraisals</a></li>
-                        </ul>
-                    </li>
-
-                    <!-- RECRUITMENT -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle lh-1" href="#" data-bs-toggle="dropdown">
-                            <span class="uil uil-briefcase fs-8 me-2"></span>Recruitment
-                        </a>
-                        <ul class="dropdown-menu navbar-dropdown-caret">
-                            <li><a class="dropdown-item" href="jobs.aspx">Job Posts</a></li>
-                            <li><a class="dropdown-item" href="candidates.aspx">Candidates</a></li>
-                            <li><a class="dropdown-item" href="onboarding.aspx">Onboarding</a></li>
-                        </ul>
-                    </li>
-
+                <ul class="navbar-nav navbar-nav-top" data-dropdown-on-hover="data-dropdown-on-hover" runat="server" id="dynamicMenu">
+                    <!-- Menu will be generated dynamically from code-behind -->
+                    <asp:Literal ID="litMenu" runat="server"></asp:Literal>
                 </ul>
-
             </div>
+            
+            <!-- User Profile Section -->
             <ul class="navbar-nav navbar-nav-icons flex-row">
+                <!-- Theme Toggle -->
                 <li class="nav-item">
                     <div class="theme-control-toggle feather-icon-wait px-2">
-                        <input class="form-check-input ms-0 theme-control-toggle-input" type="checkbox" data-theme-control="phoenixTheme" value="dark" id="themeControlToggle" /><label class="mb-0 theme-control-toggle-label theme-control-toggle-light" for="themeControlToggle" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Switch theme" style="height: 32px; width: 32px;"><span class="icon" data-feather="moon"></span></label><label class="mb-0 theme-control-toggle-label theme-control-toggle-dark" for="themeControlToggle" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Switch theme" style="height: 32px; width: 32px;"><span class="icon" data-feather="sun"></span></label>
+                        <input class="form-check-input ms-0 theme-control-toggle-input" type="checkbox" data-theme-control="phoenixTheme" value="dark" id="themeControlToggle" />
+                        <label class="mb-0 theme-control-toggle-label theme-control-toggle-light" for="themeControlToggle" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Switch theme">
+                            <span class="icon" data-feather="moon"></span>
+                        </label>
+                        <label class="mb-0 theme-control-toggle-label theme-control-toggle-dark" for="themeControlToggle" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Switch theme">
+                            <span class="icon" data-feather="sun"></span>
+                        </label>
                     </div>
                 </li>
-
-
-                <li class="nav-item dropdown"><a class="nav-link lh-1 pe-0" id="navbarDropdownUser" href="#!" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false">
-                    <div class="avatar avatar-l ">
-                        <img id="imgNav"
-                            runat="server"
-                            class="rounded-circle"
-                            alt="Profile Picture"
-                            width="72" height="72" />
-                    </div>
-                </a>
+                
+                <!-- User Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link lh-1 pe-0" id="navbarDropdownUser" href="#!" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false">
+                        <div class="avatar avatar-l ">
+                            <img id="imgNav" runat="server" class="rounded-circle" alt="Profile Picture" width="72" height="72" />
+                        </div>
+                    </a>
                     <div class="dropdown-menu dropdown-menu-end navbar-dropdown-caret py-0 dropdown-profile shadow border" aria-labelledby="navbarDropdownUser">
                         <div class="card position-relative border-0">
                             <div class="card-body p-0">
                                 <div class="text-center pt-4 pb-3">
                                     <div class="avatar avatar-xl ">
-                                        <img id="imgProfile"
-                                            runat="server"
-                                            class="rounded-circle"
-                                            alt="Profile Picture"
-                                            width="72" height="72" />
+                                        <img id="imgProfile" runat="server" class="rounded-circle" alt="Profile Picture" width="72" height="72" />
                                     </div>
                                     <h6 runat="server" id="FullName" class="mt-2 text-body-emphasis"></h6>
                                 </div>
@@ -825,8 +713,22 @@
                                     <li class="nav-item"><a class="nav-link px-3 d-block" href="#!"><span class="me-2 text-body align-bottom" data-feather="user-plus"></span>Add another account</a></li>
                                 </ul>
                                 <hr />
-                                <div class="px-3"><a class="btn btn-phoenix-secondary d-flex flex-center w-100" href="#!"><span class="me-2" data-feather="log-out"></span>Sign out</a></div>
-                                <div class="my-2 text-center fw-bold fs-10 text-body-quaternary"><a class="text-body-quaternary me-1" href="#!">Privacy policy</a>&bull;<a class="text-body-quaternary mx-1" href="#!">Terms</a>&bull;<a class="text-body-quaternary ms-1" href="#!">Cookies</a></div>
+                                    <div class="px-3">
+                                        <asp:LinkButton
+                                            ID="lnkSignOut"
+                                            runat="server"
+                                            CssClass="btn btn-phoenix-secondary d-flex flex-center w-100"
+                                            OnClick="lnkLogout_Click">
+        
+                                            <span class="me-2" data-feather="log-out"></span>
+                                            Sign out
+                                        </asp:LinkButton>
+                                    </div>
+                                <div class="my-2 text-center fw-bold fs-10 text-body-quaternary">
+                                    <a class="text-body-quaternary me-1" href="#!">Privacy policy</a>&bull;
+                            <a class="text-body-quaternary mx-1" href="#!">Terms</a>&bull;
+                            <a class="text-body-quaternary ms-1" href="#!">Cookies</a>
+                                </div>
                             </div>
                         </div>
                     </div>

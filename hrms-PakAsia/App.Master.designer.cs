@@ -58,6 +58,24 @@ namespace hrms_PakAsia {
         protected global::System.Web.UI.ScriptManager ScriptManager1;
         
         /// <summary>
+        /// dynamicMenu control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dynamicMenu;
+        
+        /// <summary>
+        /// litMenu control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litMenu;
+        
+        /// <summary>
         /// imgNav control.
         /// </summary>
         /// <remarks>
@@ -83,6 +101,15 @@ namespace hrms_PakAsia {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl FullName;
+        
+        /// <summary>
+        /// lnkSignOut control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkSignOut;
         
         /// <summary>
         /// MainContent control.

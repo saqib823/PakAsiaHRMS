@@ -16,8 +16,8 @@ namespace HRMSLib.DataLayer
     {
         private static Database db =>
                    new DatabaseProviderFactory().Create("defaultDB");
-        LoggedInUser currentUser =
-                   HttpContext.Current.Session["LoggedInUser"] as LoggedInUser;
+       
+       
         public DataTable GetRolesPaged(
         int pageNumber,
         int pageSize,
@@ -54,6 +54,8 @@ namespace HRMSLib.DataLayer
             {
                 // Create stored procedure command
                 DbCommand cmd = db.GetStoredProcCommand("SP_SaveRolesData");
+                LoggedInUser currentUser =
+                  HttpContext.Current.Session["LoggedInUser"] as LoggedInUser;
 
                 // Add parameters
                 db.AddInParameter(cmd, "@Mode", DbType.Int32, mode);
@@ -88,17 +90,34 @@ namespace HRMSLib.DataLayer
 
             return null;
         }
-        public void DeleteRoles(int DepartmentID)
+        public void DeleteRoles(int RoleID)
         {
             // SQL command (can also be stored procedure)
             string sql = "DELETE FROM Roles WHERE RoleID = @RoleID";
 
             using (DbCommand cmd = db.GetSqlStringCommand(sql))
             {
-                db.AddInParameter(cmd, "@RoleID", DbType.Int32, DepartmentID);
+                db.AddInParameter(cmd, "@RoleID", DbType.Int32, RoleID);
                 db.ExecuteNonQuery(cmd);
             }
         }
+        public static List<string> GetRoleRights(int roleId)
+        {
+            string sql = "SELECT PageRight FROM RoleRights WHERE RoleID = @RoleID";
+
+            using (DbCommand cmd = db.GetSqlStringCommand(sql))
+            {
+                db.AddInParameter(cmd, "@RoleID", DbType.Int32, roleId);
+
+                DataSet ds = db.ExecuteDataSet(cmd);
+
+                return ds.Tables[0].AsEnumerable()
+                    .Select(r => r.Field<string>("PageRight"))
+                    .ToList();
+            }
+        }
+
+
         public static bool SaveRoleRights(List<string> selectedPages, int roleId)
         {
             if (selectedPages == null)
@@ -161,5 +180,64 @@ namespace HRMSLib.DataLayer
                 return false;
             }
         }
+
+        public List<int> GetRoleMenuRights(int roleId)
+        {
+            DbCommand cmd = db.GetSqlStringCommand(
+                "SELECT MenuId FROM RoleMenuAccess WHERE RoleId = @RoleId");
+
+            db.AddInParameter(cmd, "@RoleId", DbType.Int32, roleId);
+
+            DataSet ds = db.ExecuteDataSet(cmd);
+
+            return ds.Tables[0]
+                .AsEnumerable()
+                .Select(r => r.Field<int>("MenuId"))
+                .ToList();
+        }
+
+        public bool SaveRoleMenuRights(int roleId, List<int> menuIds)
+        {
+            if (menuIds == null)
+                menuIds = new List<int>();
+
+            using (DbConnection conn = db.CreateConnection())
+            {
+                conn.Open();
+                using (DbTransaction tran = conn.BeginTransaction())
+                {
+                    try
+                    {
+                        // 🔥 Delete old rights
+                        DbCommand deleteCmd = db.GetSqlStringCommand(
+                            "DELETE FROM RoleMenuAccess WHERE RoleId = @RoleId");
+                        db.AddInParameter(deleteCmd, "@RoleId", DbType.Int32, roleId);
+                        db.ExecuteNonQuery(deleteCmd, tran);
+
+                        // 🔥 Insert new rights
+                        foreach (int menuId in menuIds)
+                        {
+                            DbCommand insertCmd = db.GetSqlStringCommand(
+                                @"INSERT INTO RoleMenuAccess (RoleId, MenuId)
+                                  VALUES (@RoleId, @MenuId)");
+
+                            db.AddInParameter(insertCmd, "@RoleId", DbType.Int32, roleId);
+                            db.AddInParameter(insertCmd, "@MenuId", DbType.Int32, menuId);
+
+                            db.ExecuteNonQuery(insertCmd, tran);
+                        }
+
+                        tran.Commit();
+                        return true;
+                    }
+                    catch
+                    {
+                        tran.Rollback();
+                        throw;
+                    }
+                }
+            }
+        }
     }
+
 }

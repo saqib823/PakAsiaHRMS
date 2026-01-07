@@ -1,125 +1,177 @@
 ﻿using HRMSLib.DataLayer;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using MenuItem = HRMSLib.DataLayer.MenuItem;
 
 namespace hrms_PakAsia.Pages
 {
     public partial class Rights : Page
     {
+        private readonly RoleDAL roleDAL = new RoleDAL();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                ddlRoles.DataSource = CommonDAL.GetRoles();
-                ddlRoles.DataBind();
-                ddlRoles.Items.Insert(0, new ListItem("Select One", "0"));
-                BindTree();
+                BindRoles();
+                BindMenuTree();
             }
         }
 
-        private void BindTree()
+        #region ROLES
+
+        private void BindRoles()
+        {
+            ddlRoles.DataSource = CommonDAL.GetRoles();
+            ddlRoles.DataTextField = "Name";
+            ddlRoles.DataValueField = "ID";
+            ddlRoles.DataBind();
+            ddlRoles.Items.Insert(0, new ListItem("Select One", "0"));
+        }
+
+        protected void ddlRoles_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UncheckAllNodes(tvFolders.Nodes);
+
+            int roleId = Convert.ToInt32(ddlRoles.SelectedValue);
+            if (roleId == 0) return;
+
+            List<int> assignedMenus = roleDAL.GetRoleMenuRights(roleId);
+
+            foreach (TreeNode node in tvFolders.Nodes)
+                CheckNodeRecursive(node, assignedMenus);
+        }
+
+        #endregion
+
+        #region TREE BINDING (DB DRIVEN)
+
+        private void BindMenuTree()
         {
             tvFolders.Nodes.Clear();
 
-            string physicalRoot = Server.MapPath("~/Pages");
-            string virtualRoot = "~/Pages";
+            List<MenuItem> menus = MenuDAL.GetMenus();
+            var rootMenus = menus.Where(m => m.ParentMenuId == null).ToList();
 
-            DirectoryInfo rootDir = new DirectoryInfo(physicalRoot);
+            foreach (var menu in rootMenus)
+            {
+                TreeNode node = CreateNode(menu);
+                tvFolders.Nodes.Add(node);
+                AddChildNodes(node, menus);
+            }
 
-            TreeNode rootNode = new TreeNode("Pages", virtualRoot)
+            tvFolders.ExpandAll();
+        }
+
+        private TreeNode CreateNode(MenuItem menu)
+        {
+            return new TreeNode(menu.MenuText, menu.MenuId.ToString())
             {
                 SelectAction = TreeNodeSelectAction.None
             };
-
-            tvFolders.Nodes.Add(rootNode);
-            LoadDirectories(rootDir, rootNode, virtualRoot);
-            rootNode.Expand();
         }
 
-        private void LoadDirectories(DirectoryInfo dir, TreeNode parentNode, string virtualPath)
+        private void AddChildNodes(TreeNode parentNode, List<MenuItem> menus)
         {
-            // Folders
-            foreach (DirectoryInfo subDir in dir.GetDirectories())
+            int parentId = int.Parse(parentNode.Value);
+
+            var children = menus.Where(m => m.ParentMenuId == parentId);
+
+            foreach (var child in children)
             {
-                if (subDir.Name.Equals("bin", StringComparison.OrdinalIgnoreCase) ||
-                    subDir.Name.Equals("obj", StringComparison.OrdinalIgnoreCase))
-                    continue;
-
-                string folderPath = virtualPath + "/" + subDir.Name;
-
-                TreeNode dirNode = new TreeNode(subDir.Name, folderPath)
-                {
-                    SelectAction = TreeNodeSelectAction.None
-                };
-
-                parentNode.ChildNodes.Add(dirNode);
-                LoadDirectories(subDir, dirNode, folderPath);
-            }
-
-            // Pages
-            foreach (FileInfo file in dir.GetFiles("*.aspx"))
-            {
-                string filePath = virtualPath + "/" + file.Name;
-
-                TreeNode fileNode = new TreeNode(file.Name, filePath)
-                {
-                    SelectAction = TreeNodeSelectAction.None
-                };
-
-                parentNode.ChildNodes.Add(fileNode);
+                TreeNode childNode = CreateNode(child);
+                parentNode.ChildNodes.Add(childNode);
+                AddChildNodes(childNode, menus);
             }
         }
 
-        // 🔥 Main sync handler
+        #endregion
+
+        #region CHECKBOX SYNC
+
         protected void tvFolders_TreeNodeCheckChanged(object sender, TreeNodeEventArgs e)
         {
-            // 1️⃣ Parent → Children
-            CheckUncheckChildren(e.Node, e.Node.Checked);
+            // Parent → children
+            SetChildNodes(e.Node, e.Node.Checked);
 
-            // 2️⃣ Child → Parent
-            UpdateParentState(e.Node.Parent);
+            // Child → parent
+            UpdateParentNode(e.Node.Parent);
         }
 
-        private void CheckUncheckChildren(TreeNode parent, bool isChecked)
+        private void SetChildNodes(TreeNode parent, bool isChecked)
         {
             foreach (TreeNode child in parent.ChildNodes)
             {
                 child.Checked = isChecked;
-                CheckUncheckChildren(child, isChecked);
+                SetChildNodes(child, isChecked);
             }
         }
 
-        private void UpdateParentState(TreeNode parent)
+        private void UpdateParentNode(TreeNode parent)
         {
             if (parent == null) return;
 
-            bool anyChecked = parent.ChildNodes
-                .Cast<TreeNode>()
-                .Any(n => n.Checked);
-
-            parent.Checked = anyChecked;
-
-            UpdateParentState(parent.Parent);
+            parent.Checked = parent.ChildNodes.Cast<TreeNode>().Any(n => n.Checked);
+            UpdateParentNode(parent.Parent);
         }
 
-        // 🔐 Save
+        #endregion
+
+        #region SAVE RIGHTS
+
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            List<string> selectedPages = tvFolders.CheckedNodes
+            int roleId = Convert.ToInt32(ddlRoles.SelectedValue);
+            if (roleId == 0)
+            {
+                ShowMessage("Please select a role");
+                return;
+            }
+
+            List<int> selectedMenuIds = tvFolders.CheckedNodes
                 .Cast<TreeNode>()
-                .Select(n => n.Value)
+                .Select(n => int.Parse(n.Value))
                 .ToList();
-            
-            RoleDAL.SaveRoleRights(selectedPages, Convert.ToInt32(ddlRoles.SelectedValue));
+
+            roleDAL.SaveRoleMenuRights(roleId, selectedMenuIds);
+
+            ShowMessage("Rights saved successfully");
+        }
+
+        #endregion
+
+        #region HELPERS
+
+        private void CheckNodeRecursive(TreeNode node, List<int> assignedMenus)
+        {
+            if (assignedMenus.Contains(int.Parse(node.Value)))
+                node.Checked = true;
+
+            foreach (TreeNode child in node.ChildNodes)
+                CheckNodeRecursive(child, assignedMenus);
+        }
+
+        private void UncheckAllNodes(TreeNodeCollection nodes)
+        {
+            foreach (TreeNode node in nodes)
+            {
+                node.Checked = false;
+                UncheckAllNodes(node.ChildNodes);
+            }
+        }
+
+        private void ShowMessage(string message)
+        {
             ClientScript.RegisterStartupScript(
-                this.GetType(),
-                "saved",
-                "alert('Rights saved successfully');",
+                GetType(),
+                "msg",
+                $"alert('{message}');",
                 true);
         }
+
+        #endregion
     }
 }

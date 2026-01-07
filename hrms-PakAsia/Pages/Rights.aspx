@@ -9,20 +9,19 @@
 
     <main class="main mt-10">
         <asp:Label Text="Roles" runat="server" />
-        <asp:DropDownList runat="server" ID="ddlRoles" CssClass="form-select"
-            DataTextField="Name" DataValueField="ID" 
+        <asp:DropDownList runat="server" ID="ddlRoles" CssClass="form-select" AutoPostBack="true"
+            DataTextField="Name" DataValueField="ID" OnSelectedIndexChanged="ddlRoles_SelectedIndexChanged"
             data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'>
-          
         </asp:DropDownList>
+<asp:TreeView
+    ID="tvFolders"
+    runat="server"
+    ShowCheckBoxes="All"
+    OnTreeNodeCheckChanged="tvFolders_TreeNodeCheckChanged"
+    ExpandDepth="1"
+    CssClass="treeview" />
 
-      <asp:TreeView
-        ID="tvFolders"
-        runat="server"
-        ShowCheckBoxes="All"
-        EnableClientScript="true"
-        ExpandDepth="1"
-        CssClass="treeview">
-    </asp:TreeView>
+
 
 
         <asp:Button
