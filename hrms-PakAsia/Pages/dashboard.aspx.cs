@@ -6,11 +6,13 @@ using System.Collections.Generic;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Linq;
 
 namespace hrms_PakAsia.Pages
 {
     public partial class dashboard : System.Web.UI.Page
     {
+        protected List<EmployeePerformance> EmployeePerformanceList = new List<EmployeePerformance>();
         LoggedInUser currentUser = null;
         // Add these public properties
         public int PresentCount { get; set; }
@@ -144,11 +146,39 @@ namespace hrms_PakAsia.Pages
                     }
 
                     // Table 6: Employee Performance
-                    if (ds.Tables[5].Rows.Count > 0)
+                    if (ds != null && ds.Tables.Count > 5 && ds.Tables[5] != null)
                     {
-                        rptEmployeePerformance.DataSource = ds.Tables[5];
+                        DataTable dtEmpPerf = ds.Tables[5];
+
+                        EmployeePerformanceList = dtEmpPerf.AsEnumerable().Select(r => new EmployeePerformance
+                        {
+                            EmployeeID = Convert.ToInt32(r["EmployeeID"]),
+                            EmployeeName = r["EmployeeName"].ToString(),
+                            DesignationName = r["DesignationName"].ToString(),
+                            WorkLocation = r["WorkLocation"].ToString(),
+                            AttendancePct = r["AttendancePct"] != DBNull.Value ? Convert.ToDecimal(r["AttendancePct"]) : 0,
+                            PunctualityPct = r["PunctualityPct"] != DBNull.Value ? Convert.ToDecimal(r["PunctualityPct"]) : 0,
+                            OvertimeHours = r["OvertimeHours"] != DBNull.Value ? Convert.ToDecimal(r["OvertimeHours"]) : 0,
+                            KPIScore = r["KPIScore"] != DBNull.Value ? Convert.ToDecimal(r["KPIScore"]) : 0,
+                            Grade = r["Grade"]?.ToString() ?? "-",
+
+                            //TaskCompletionPct = r["TaskCompletionPct"] != DBNull.Value ? Convert.ToDecimal(r["TaskCompletionPct"]) : 0,
+
+                            JoiningDate = r["JoiningDate"] != DBNull.Value
+                                ? (DateTime?)Convert.ToDateTime(r["JoiningDate"])
+                                : null,
+
+                                                        ContractEndDate = r["ContractEndDate"] != DBNull.Value
+                                ? (DateTime?)Convert.ToDateTime(r["ContractEndDate"])
+                                : null,
+                            ProfileImageUrl = !string.IsNullOrEmpty(r["PhotographPath"]?.ToString()) ? r["PhotographPath"].ToString() : "../assets/img/default-user.png"
+                        }).ToList();
+
+                        // Bind repeater
+                        rptEmployeePerformance.DataSource = EmployeePerformanceList;
                         rptEmployeePerformance.DataBind();
                     }
+
                 }
             }
             catch (Exception ex)
@@ -170,5 +200,23 @@ namespace hrms_PakAsia.Pages
             }
             return ResolveUrl("~/assets/img/default-user.png");
         }
+        public class EmployeePerformance
+        {
+            public int EmployeeID { get; set; }
+            public string EmployeeName { get; set; }
+            public string DesignationName { get; set; }
+            public string WorkLocation { get; set; }
+            public decimal AttendancePct { get; set; }
+            public decimal PunctualityPct { get; set; }
+            public decimal TaskCompletionPct { get; set; }
+            public decimal OvertimeHours { get; set; }
+            public decimal KPIScore { get; set; }
+            public string Grade { get; set; }
+            public DateTime? JoiningDate { get; set; }
+            public DateTime? ContractEndDate { get; set; }
+            public string ProfileImageUrl { get; set; }
+
+        }
     }
+
 }

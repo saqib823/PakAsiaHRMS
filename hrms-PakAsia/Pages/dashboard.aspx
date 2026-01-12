@@ -500,15 +500,17 @@
             <!-- Joining Date -->
             <td class="align-middle white-space-nowrap joining ps-3">
                 <p class="mb-0 fs-9 text-body">
-                    <%# Eval("JoiningDate") != DBNull.Value ? Convert.ToDateTime(Eval("JoiningDate")).ToString("MMM dd, yyyy") : "-" %>
-                </p>
+<%# Eval("JoiningDate") == null 
+            ? "-" 
+            : ((DateTime)Eval("JoiningDate")).ToString("MMM dd, yyyy") %>                </p>
             </td>
 
             <!-- Contract End -->
             <td class="align-middle white-space-nowrap contract ps-3">
                 <p class="mb-0 fs-9 text-body">
-                    <%# Eval("ContractEndDate") != DBNull.Value ? Convert.ToDateTime(Eval("ContractEndDate")).ToString("MMM dd, yyyy") : "-" %>
-                </p>
+  <%# Eval("ContractEndDate") == null 
+            ? "-" 
+            : ((DateTime)Eval("ContractEndDate")).ToString("MMM dd, yyyy") %>                </p>
             </td>
 
             <!-- Overtime -->
@@ -535,7 +537,7 @@
             </td>
 
             <!-- Action -->
-            <td class="align-middle text-end white-space-nowrap pe-0 action">
+           <%-- <td class="align-middle text-end white-space-nowrap pe-0 action">
                 <div class="btn-reveal-trigger position-static">
                     <button class="btn btn-sm dropdown-toggle dropdown-caret-none transition-none btn-reveal fs-10" type="button" data-bs-toggle="dropdown">
                         <span class="fas fa-ellipsis-h fs-10"></span>
@@ -547,7 +549,7 @@
                         <a class="dropdown-item text-danger" href="#!">Flag Issue</a>
                     </div>
                 </div>
-            </td>
+            </td>--%>
         </tr>
     </ItemTemplate>
 </asp:Repeater>
