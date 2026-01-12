@@ -646,7 +646,7 @@
                 <button class="btn navbar-toggler navbar-toggler-humburger-icon hover-bg-transparent" type="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalCollapse" aria-controls="navbarVerticalCollapse" aria-expanded="false" aria-label="Toggle Navigation">
                     <span class="navbar-toggle-icon"><span class="toggle-line"></span></span>
                 </button>
-                <a class="navbar-brand me-1 me-sm-3" href="~/Default.aspx">
+                <a class="navbar-brand me-1 me-sm-3" runat="server" href="~/Pages/dashboard.aspx">
                     <div class="d-flex align-items-center">
                         <div class="d-flex align-items-center">
                             <img src="~/assets/img/icons/logo.png" width="90" alt="HRMS Logo" runat="server" />
