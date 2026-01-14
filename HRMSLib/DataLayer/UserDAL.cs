@@ -185,6 +185,52 @@ namespace HRMSLib.DataLayer
             }
            
         }
+         public List<RoleRights> GetRoleRights(int roleId)
+        {
+            try
+            {
+                Database db = new DatabaseProviderFactory().Create("defaultDB");
+
+                using (DbCommand cmd = db.GetStoredProcCommand("dbo.usp_GetRoleAllowedMenus"))
+                {
+                    db.AddInParameter(cmd, "@RoleId", DbType.Int32, roleId);
+
+                    DataSet ds = db.ExecuteDataSet(cmd);
+
+                    if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                    {
+                        DataTable dt = ds.Tables[0];
+
+                        List<RoleRights> roleRightsList = new List<RoleRights>();
+
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            roleRightsList.Add(new RoleRights
+                            {
+                                MenuId = Convert.ToInt32(row["MenuId"]),
+                                MenuHref = row["MenuHref"].ToString()
+                            });
+                        }
+
+
+                        // Store in session
+                        HttpContext.Current.Session["RoleRights"] = roleRightsList;
+
+                            return roleRightsList;
+                        
+                    }
+                }
+
+                return null; // Login failed
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+           
+        }
 
     }
 }

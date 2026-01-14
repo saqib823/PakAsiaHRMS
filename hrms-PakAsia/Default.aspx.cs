@@ -23,17 +23,67 @@ namespace hrms_PakAsia
             {
                 UserDAL dal = new UserDAL();
                 LoggedInUser currentUser = dal.LoginUser(email.Text, password.Text);
-                if (currentUser != null)
+                List<RoleRights> currentRoleRights = dal.GetRoleRights(currentUser.RoleId);
+
+                if (currentUser != null && currentRoleRights != null && currentRoleRights.Count > 0)
                 {
-                    Response.Redirect("~/Pages/dashboard.aspx");
+                    // Get allowed URLs (ignore '#')
+                    var allowedUrls = currentRoleRights
+                                        .Where(r => !string.IsNullOrEmpty(r.MenuHref) && r.MenuHref != "#")
+                                        .Select(r => VirtualPathUtility.ToAbsolute(NormalizeMenuUrl(r.MenuHref)))
+                                        .ToList();
+
+                    // Priority dashboard pages
+                    string adminDashboard = "~/Pages/dashboard.aspx";
+                    string userDashboard = "~/Pages/UserDashboard.aspx";
+
+                    string redirectUrl = null;
+
+                    // If admin dashboard exists in role rights
+                    if (allowedUrls.Any(u => u.Equals(
+                            VirtualPathUtility.ToAbsolute(adminDashboard),
+                            StringComparison.OrdinalIgnoreCase)))
+                    {
+                        redirectUrl = adminDashboard;
+                    }
+                    // If user dashboard exists in role rights
+                    else if (allowedUrls.Any(u => u.Equals(
+                            VirtualPathUtility.ToAbsolute(userDashboard),
+                            StringComparison.OrdinalIgnoreCase)))
+                    {
+                        redirectUrl = userDashboard;
+                    }
+                    // Otherwise redirect to first allowed page
+                    else
+                    {
+                        redirectUrl = allowedUrls.First();
+                    }
+
+                    Response.Redirect(redirectUrl, true);
                 }
                 else
                 {
                     ShowAlert("Invalid Credentials", "danger");
                     return;
                 }
+
+            
             }
         }
+        private string NormalizeMenuUrl(string url)
+        {
+            if (string.IsNullOrWhiteSpace(url) || url == "#")
+                return null;
+
+            // If only filename is stored → make it app-relative
+            if (!url.StartsWith("~/") && !url.StartsWith("/"))
+            {
+                url = "~/" + url;
+            }
+
+            return VirtualPathUtility.ToAbsolute(url);
+        }
+
         private void ShowAlert(string message, string css)
         {
             phAlert.Controls.Clear();

@@ -24,5 +24,9 @@ namespace HRMSLib.BusinessLogic
         public string filePath { get; set; } = "";
         public string ImageType { get; set; } = "";
     }
-
+    public class RoleRights
+    {
+        public int MenuId { get; internal set; }
+        public string MenuHref { get; internal set; }
+    }
 }

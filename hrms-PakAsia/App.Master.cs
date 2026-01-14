@@ -2,6 +2,7 @@
 using HRMSLib.DataLayer;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -21,7 +22,7 @@ namespace hrms_PakAsia
             if (!IsPostBack)
             {
                 currentUser = HttpContext.Current.Session["LoggedInUser"] as LoggedInUser;
-
+                GetCheckRightsData();   
                 if (currentUser == null)
                 {
                     // Redirect to login if no user session
@@ -32,6 +33,66 @@ namespace hrms_PakAsia
                 InitializeUserProfile();
                 BuildDynamicMenu();
             }
+        }
+        public List<RoleRights> GetCheckRightsData()
+        {
+            List<RoleRights> currentRolesRights =
+                HttpContext.Current.Session["RoleRights"] as List<RoleRights>;
+
+            // Session expired or no rights
+            if (currentRolesRights == null || currentRolesRights.Count == 0)
+            {
+                Response.Redirect("~/Default.aspx", true);
+                return null;
+            }
+
+            // Get current page url
+            string currentUrl = VirtualPathUtility.ToAbsolute(
+                                    HttpContext.Current.Request.AppRelativeCurrentExecutionFilePath);
+
+            // Check permission
+            bool hasAccess = currentRolesRights.Any(r =>
+                !string.IsNullOrEmpty(r.MenuHref) &&
+                r.MenuHref != "#" &&
+                VirtualPathUtility.ToAbsolute(NormalizeUrl(r.MenuHref))
+                    .Equals(currentUrl, StringComparison.OrdinalIgnoreCase));
+
+            if (!hasAccess)
+            {
+                Response.Redirect("~/Default.aspx", true);
+                return null;
+            }
+
+            return currentRolesRights;
+        }
+        private string NormalizeUrl(string url)
+        {
+            if (string.IsNullOrEmpty(url))
+                return string.Empty;
+
+            // Convert ~/ to absolute
+            string normalized = VirtualPathUtility.ToAbsolute(NormalizeMenuUrl(url));
+
+            // Remove query string
+            normalized = normalized.Split('?')[0];
+
+            // Remove file extension
+            normalized = Path.ChangeExtension(normalized, null);
+
+            return normalized.ToLowerInvariant();
+        }
+        private string NormalizeMenuUrl(string url)
+        {
+            if (string.IsNullOrWhiteSpace(url) || url == "#")
+                return null;
+
+            // If only filename is stored → make it app-relative
+            if (!url.StartsWith("~/") && !url.StartsWith("/"))
+            {
+                url = "~/" + url;
+            }
+
+            return VirtualPathUtility.ToAbsolute(url);
         }
 
         private void InitializeUserProfile()

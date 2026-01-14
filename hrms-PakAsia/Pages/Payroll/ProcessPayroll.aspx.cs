@@ -86,7 +86,9 @@ namespace hrms_PakAsia.Pages.Payroll
 
             try
             {
-                rpt.Load(Server.MapPath("~/Reports/payroll.rpt"));
+                rpt.PrintOptions.PaperOrientation = PaperOrientation.Portrait;
+                rpt.PrintOptions.PaperSize = PaperSize.PaperA4;
+                rpt.Load(Server.MapPath("~/Reports/PayrollReport.rpt"));
 
                 // VERY IMPORTANT: Typed DataSet
                 rpt.SetDataSource(payrollDS);

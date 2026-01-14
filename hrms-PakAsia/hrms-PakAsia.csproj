@@ -1232,6 +1232,7 @@
     <Content Include="Pages\Shifts\ShiftTypes.aspx" />
     <Content Include="Pages\Shifts\SplitShift.aspx" />
     <Content Include="Pages\signup.aspx" />
+    <Content Include="Pages\UserDashboard.aspx" />
     <Content Include="Scripts\jquery.signalR-2.4.3.js" />
     <Content Include="Scripts\jquery.signalR-2.4.3.min.js" />
     <Content Include="Site.Master" />
@@ -1522,6 +1523,13 @@
     </Compile>
     <Compile Include="Pages\signup.aspx.designer.cs">
       <DependentUpon>signup.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\UserDashboard.aspx.cs">
+      <DependentUpon>UserDashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\UserDashboard.aspx.designer.cs">
+      <DependentUpon>UserDashboard.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reports\payroll.cs">

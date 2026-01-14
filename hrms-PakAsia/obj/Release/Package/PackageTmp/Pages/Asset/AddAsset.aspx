@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Add Asset" Language="C#" MasterPageFile="~/App.Master"
+﻿<%@ Page Async="true" Title="Add Asset" Language="C#" MasterPageFile="~/App.Master"
     AutoEventWireup="true" CodeBehind="AddAsset.aspx.cs"
     Inherits="hrms_PakAsia.Pages.Asset.AddAsset" %>
 
