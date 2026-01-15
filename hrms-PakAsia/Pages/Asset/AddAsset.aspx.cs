@@ -11,7 +11,7 @@ namespace hrms_PakAsia.Pages.Asset
     {
         AssetDAL dal = new AssetDAL();
         LoggedInUser currentUser = null;
-        protected async void Page_Load(object sender, EventArgs e)
+        protected void Page_Load(object sender, EventArgs e)
         {
             CheckSession();
             currentUser = GetSessionData();

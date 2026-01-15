@@ -99,10 +99,6 @@ namespace HRMSLib.DataLayer
 
             db.ExecuteNonQuery(cmd);
         }
-     
-     
-
-
         // =========================================================
         // 4. Carry Forward Leaves (Year End)
         // =========================================================
