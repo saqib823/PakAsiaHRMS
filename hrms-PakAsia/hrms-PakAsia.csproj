@@ -1209,6 +1209,7 @@
     <Content Include="Pages\Asset\AddAsset.aspx" />
     <Content Include="Pages\Asset\AssetManagement.aspx" />
     <Content Include="Pages\Attendance\biometric-integration.aspx" />
+    <Content Include="Pages\Attendance\manualAttenndence.aspx" />
     <Content Include="Pages\dashboard.aspx" />
     <Content Include="Pages\Employees\employeelist.aspx" />
     <Content Include="Pages\Employees\employees.aspx" />
@@ -1362,6 +1363,13 @@
     </Compile>
     <Compile Include="Pages\Attendance\biometric-integration.aspx.designer.cs">
       <DependentUpon>biometric-integration.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Attendance\manualAttenndence.aspx.cs">
+      <DependentUpon>manualAttenndence.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Attendance\manualAttenndence.aspx.designer.cs">
+      <DependentUpon>manualAttenndence.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\dashboard.aspx.cs">
       <DependentUpon>dashboard.aspx</DependentUpon>
