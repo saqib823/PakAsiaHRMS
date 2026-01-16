@@ -17,14 +17,17 @@ namespace HRMSLib.DataLayer
 
         #region Get Leave List (Paging + Search)
 
-        public static DataSet GetLeaves(string search, int pageNumber, int pageSize)
+        public static DataSet GetLeaves(string search, int pageNumber, int pageSize, int EmployeeID)
         {
             DbCommand cmd = db.GetStoredProcCommand("SP_Leave_List");
 
             db.AddInParameter(cmd, "@Search", DbType.String, search);
             db.AddInParameter(cmd, "@PageNumber", DbType.Int32, pageNumber);
             db.AddInParameter(cmd, "@PageSize", DbType.Int32, pageSize);
-
+            if (EmployeeID > 0)
+            {
+                db.AddInParameter(cmd, "@EmployeeID", DbType.Int32, @EmployeeID);
+            }
             return db.ExecuteDataSet(cmd);
         }
 

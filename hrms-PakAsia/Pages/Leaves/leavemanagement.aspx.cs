@@ -47,11 +47,26 @@ namespace hrms_PakAsia.Pages.Leaves
 
         private void BindLeaves()
         {
-            DataSet ds = LeaveDAL.GetLeaves(
-                txtSearchLeave.Text.Trim(),
-                CurrentPage,
-                PageSize
-            );
+            DataSet ds = new DataSet();
+            if (currentUser.RoleId == 1)
+            {
+                ds = LeaveDAL.GetLeaves(
+                               txtSearchLeave.Text.Trim(),
+                               CurrentPage,
+                               PageSize,
+                               0
+                           );
+            }
+            else
+            {
+                ds = LeaveDAL.GetLeaves(
+                               txtSearchLeave.Text.Trim(),
+                               CurrentPage,
+                               PageSize,
+                               currentUser.UserID
+                           );
+            }
+           
 
             rptLeaves.DataSource = ds.Tables[0];
             rptLeaves.DataBind();
@@ -158,6 +173,11 @@ namespace hrms_PakAsia.Pages.Leaves
                 LinkButton btnApprove = (LinkButton)e.Item.FindControl("btnApprove");
                 LinkButton btnReject = (LinkButton)e.Item.FindControl("btnReject");
 
+                if (currentUser.RoleId != 1 && status != "Pending")
+                {
+                    btnApprove.Visible = false;
+                    btnReject.Visible = false;
+                }
                 if (status != "Pending")
                 {
                     btnApprove.Visible = false;

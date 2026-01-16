@@ -15,10 +15,10 @@ namespace HRMSLib.DataLayer
     {
         public async Task<long> EmployeeBasicInfoAsync(
             string empID, string empTitle, string empFullName, string empGuardian,
-            DateTime empDoB, string empGender, string empCnic, DateTime empCNICExpiry,
+            DateTime? empDoB, string empGender, string empCnic, DateTime? empCNICExpiry,
             string empMaritalStatus, string Nationality, string Religion, string empImagePath,
             string empBloodGroup, string empCreatedBy, string EmailAddress, string passsword, bool IsActive, 
-            long roleId)
+            long? roleId)
         {
             try
             {
@@ -32,10 +32,12 @@ namespace HRMSLib.DataLayer
                 db.AddInParameter(cmd, "@empTitle", DbType.String, empTitle);
                 db.AddInParameter(cmd, "@empFullName", DbType.String, empFullName);
                 db.AddInParameter(cmd, "@empGuardian", DbType.String, empGuardian);
-                db.AddInParameter(cmd, "@empDoB", DbType.Date, empDoB);
+                db.AddInParameter(cmd, "@empDoB", DbType.Date,
+                    empDoB.HasValue ? (object)empDoB.Value : DBNull.Value);
                 db.AddInParameter(cmd, "@empGender", DbType.String, empGender);
                 db.AddInParameter(cmd, "@empCnic", DbType.String, empCnic);
-                db.AddInParameter(cmd, "@empCNICExpiry", DbType.Date, empCNICExpiry);
+                db.AddInParameter(cmd, "@empCNICExpiry", DbType.Date,
+                    empCNICExpiry.HasValue ? (object)empCNICExpiry.Value : DBNull.Value);
                 db.AddInParameter(cmd, "@empMaritalStatus", DbType.String, empMaritalStatus);
                 db.AddInParameter(cmd, "@Nationality", DbType.String, Nationality);
                 db.AddInParameter(cmd, "@Religion", DbType.String, Religion);
@@ -44,7 +46,8 @@ namespace HRMSLib.DataLayer
                 db.AddInParameter(cmd, "@empCreatedBy", DbType.String, empCreatedBy);
                 db.AddInParameter(cmd, "@EmailAddress", DbType.String, EmailAddress);
                 db.AddInParameter(cmd, "@Password", DbType.String, passsword);
-                db.AddInParameter(cmd, "@RoleId", DbType.Int64, roleId);
+                db.AddInParameter(cmd, "@RoleId", DbType.Int64,
+                    roleId.HasValue ? (object)roleId.Value : DBNull.Value);
                 db.AddInParameter(cmd, "@Active", DbType.Boolean, IsActive);
 
                 // Output parameter to get inserted EmployeeID
@@ -52,12 +55,13 @@ namespace HRMSLib.DataLayer
 
                 // Execute
                 await Task.Run(() => db.ExecuteNonQuery(cmd));
+                object outVal = db.GetParameterValue(cmd, "@empID_New");
+                LeaveDAL.GenerateYearlyLeaveBalance(Convert.ToInt32(outVal), DateTime.Now.Year);
 
-                // Read the output value
-                long newEmployeeID = Convert.ToInt64(db.GetParameterValue(cmd, "@empID_New"));
-                return newEmployeeID;
+                return outVal == DBNull.Value ? 0 : Convert.ToInt64(outVal);
+
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return 0; // return 0 if failed
             }

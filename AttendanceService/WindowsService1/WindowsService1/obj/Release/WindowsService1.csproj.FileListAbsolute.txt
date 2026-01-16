@@ -9,3 +9,4 @@ C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\AttendanceService\WindowsSer
 C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\AttendanceService\WindowsService1\WindowsService1\obj\Release\WindowsService1.csproj.CopyComplete
 C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\AttendanceService\WindowsService1\WindowsService1\obj\Release\WindowsService1.exe
 C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\AttendanceService\WindowsService1\WindowsService1\obj\Release\WindowsService1.pdb
+C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\AttendanceService\WindowsService1\WindowsService1\obj\Release\WindowsService1.csprojAssemblyReference.cache

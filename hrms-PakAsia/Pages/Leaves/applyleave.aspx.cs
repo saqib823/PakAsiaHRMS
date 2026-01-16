@@ -18,7 +18,10 @@ namespace hrms_PakAsia.Pages.Leaves
             currentUser = GetSessionData();
 
             if (!IsPostBack)
+            {
                 LoadLeaveTypes();
+                LoadEmployees();
+            }
         }
 
         private LoggedInUser GetSessionData()
@@ -44,29 +47,34 @@ namespace hrms_PakAsia.Pages.Leaves
         {
             if (currentUser.RoleId == 1)
             {
-                ddlLeaveType.DataSource = CommonDAL.GetEmployees(); ;
-                ddlLeaveType.DataTextField = "Name";
-                ddlLeaveType.DataValueField = "ID";
-                ddlLeaveType.DataBind();
-                ddlLeaveType.Items.Insert(0, new ListItem("-- Select Leave --", "0"));
+                ddlEmployees.DataSource = CommonDAL.GetEmployees(); ;
+                ddlEmployees.DataTextField = "Name";
+                ddlEmployees.DataValueField = "ID";
+                ddlEmployees.DataBind();
+                ddlEmployees.Items.Insert(0, new ListItem("-- Select Employee --", "0"));
             }
             else
             {
-                ddlLeaveType.DataSource = CommonDAL.GetEmployee(currentUser.UserID.ToString()); ;
-                ddlLeaveType.DataTextField = "Name";
-                ddlLeaveType.DataValueField = "ID";
-                ddlLeaveType.DataBind();
-                ddlLeaveType.Items.Insert(0, new ListItem("-- Select Leave --", "0"));
+                ddlEmployees.DataSource = CommonDAL.GetEmployee(currentUser.UserID.ToString()); ;
+                ddlEmployees.DataTextField = "Name";
+                ddlEmployees.DataValueField = "ID";
+                ddlEmployees.DataBind();
             }
         }
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(ddlLeaveType.SelectedValue))
+            if (ddlEmployees.SelectedValue == "0" || ddlEmployees.SelectedValue == "")
+            {
+                ShowAlert("Please select Employee", "warning");
+                return;
+            }
+            if (ddlLeaveType.SelectedValue == "0" || ddlLeaveType.SelectedValue == "")
             {
                 ShowAlert("Please select leave type", "warning");
                 return;
             }
+         
 
             if (string.IsNullOrEmpty(txtStartDate.Text) || string.IsNullOrEmpty(txtEndDate.Text))
             {
@@ -84,7 +92,7 @@ namespace hrms_PakAsia.Pages.Leaves
             }
 
             var result = LeaveDAL.ApplyLeave(
-                currentUser.UserID,
+                Convert.ToInt32(ddlEmployees.SelectedValue),
                 Convert.ToInt32(ddlLeaveType.SelectedValue),
                 startDate,
                 endDate,
@@ -97,6 +105,7 @@ namespace hrms_PakAsia.Pages.Leaves
             if (result.ResultCode > 0)
             {
                 ddlLeaveType.SelectedIndex = 0;
+                ddlEmployees.SelectedIndex = 0;
                 txtStartDate.Text = "";
                 txtEndDate.Text = "";
                 txtReason.Text = "";

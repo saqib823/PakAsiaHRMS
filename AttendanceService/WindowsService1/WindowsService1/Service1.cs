@@ -45,6 +45,15 @@ namespace WindowsService1
             {
                 db.ExecuteNonQuery(cmd);
             }
+            if (DateTime.Today.Month == 1 && DateTime.Today.Day == 1)
+            {
+                DbCommand cmd2 = db.GetSqlStringCommand(@"
+                    UPDATE LeaveBalance
+                    SET [Year] = YEAR(GETDATE())");
+
+                db.ExecuteNonQuery(cmd2);
+            }
+
         }
         private void LogError(Exception ex)
         {

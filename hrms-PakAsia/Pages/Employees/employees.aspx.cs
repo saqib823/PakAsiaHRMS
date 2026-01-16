@@ -478,6 +478,7 @@ namespace hrms_PakAsia.Pages.Employees
                 chkActive.Checked,
                 Convert.ToInt64(ddlRoleId.SelectedValue)
             );
+
         }
 
         private async Task SaveEmployeeContactInfo(long employeeId)
@@ -520,7 +521,6 @@ namespace hrms_PakAsia.Pages.Employees
                 txtWorkLocation.Text.Trim(),
                 txtJobDescription.Text.Trim()
             );
-            LeaveDAL.GenerateYearlyLeaveBalance(Convert.ToInt32(employeeId), DateTime.Now.Year);
         }
 
         private async Task SaveEmployeeAttendanceInfo(long employeeId)
