@@ -132,6 +132,57 @@
                                                 <input class="form-control" id="fileProfilePic" type="file" runat="server" accept="image/*" />
                                                 <small class="form-text text-muted">Max 5MB, JPG/PNG only</small>
                                             </div>
+                                           <div class="col-sm-3 mb-3">
+                                                <label for="EmailAddress" class="form-label">Email</label>
+                                                <asp:TextBox 
+                                                    ID="EmailAddress"
+                                                    runat="server"
+                                                    CssClass="form-control"
+                                                    TextMode="Email"
+                                                    placeholder="email@example.com"
+                                                    AutoCompleteType="Email">
+                                                </asp:TextBox>
+                                            </div>
+
+                                            <!-- Password -->
+                                            <div class="col-sm-3 mb-3">
+                                                <label for="Password" class="form-label">Password</label>
+                                                <asp:TextBox 
+                                                    ID="Password"
+                                                    runat="server"
+                                                    CssClass="form-control"
+                                                    TextMode="Password"
+                                                    placeholder="Password"
+                                                    AutoCompleteType="Disabled">
+                                                </asp:TextBox>
+                                            </div>
+
+                                            <!-- Role -->
+                                            <div class="col-sm-3 mb-3">
+                                                <label for="ddlRoleId" class="form-label">Role</label>
+                                                <asp:DropDownList 
+                                                    ID="ddlRoleId"
+                                                    runat="server"
+                                                    CssClass="form-select"
+                                                    DataTextField="Name"
+                                                    DataValueField="ID"
+                                                    AppendDataBoundItems="true">
+                                                    <asp:ListItem Text="-- Select Role --" Value="" />
+                                                </asp:DropDownList>
+                                            </div>
+
+                                            <!-- Active -->
+                                            <div class="col-sm-3 mb-4">
+                                                <div class="form-check mt-4">
+                                                    <asp:CheckBox 
+                                                        ID="chkActive"
+                                                        runat="server"
+                                                        CssClass="form-check-input" />
+                                                    <label class="form-check-label" for="chkActive">
+                                                        Active
+                                                    </label>
+                                                </div>
+                                            </div>
                                         </div>
                                         
                                         <!-- Save Basic Info Button -->

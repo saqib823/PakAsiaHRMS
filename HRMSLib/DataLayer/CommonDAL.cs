@@ -63,6 +63,19 @@ namespace HRMSLib.DataLayer
                 throw new Exception(ex.Message);
             }
         }
+        public static DataSet GetLeaveTypes()
+        {
+            try
+            {
+                Database db = new DatabaseProviderFactory().Create("defaultDB");
+                string query = "SELECT [LeaveTypeID] ID ,[LeaveName] Name FROM [LeaveTypes] ORDER BY ID DESC";
+                return db.ExecuteDataSet(CommandType.Text, query);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         public static DataSet GetEmployees()
         {
             try
@@ -76,6 +89,31 @@ namespace HRMSLib.DataLayer
                 throw new Exception(ex.Message);
             }
         }
+        public static DataSet GetEmployee(string employeeID)
+        {
+            try
+            {
+                Database db = new DatabaseProviderFactory().Create("defaultDB");
+
+                string query = @"SELECT 
+                            EmployeeID AS ID,
+                            FullName AS Name,
+                            FullName + ' - ' + EmployeeNo AS NameNumber
+                         FROM Employees
+                         WHERE EmployeeID = @EmployeeID
+                         ORDER BY FullName";
+
+                DbCommand cmd = db.GetSqlStringCommand(query);
+                db.AddInParameter(cmd, "@EmployeeID", DbType.String, employeeID);
+
+                return db.ExecuteDataSet(cmd);
+            }
+            catch (Exception ex)
+            {
+                throw; // preserves original stack trace
+            }
+        }
+
         public static DataSet GetEmployees_EmpNO_DDL()
         {
             try

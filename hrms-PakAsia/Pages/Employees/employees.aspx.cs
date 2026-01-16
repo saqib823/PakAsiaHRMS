@@ -106,6 +106,7 @@ namespace hrms_PakAsia.Pages.Employees
                 { ddlAttendanceMethod, () => CommonDAL.GetAttendanceMethod() },
                 { ddlPaymentMethod, () => CommonDAL.GetPaymentMethod() },
                 { PayrollCycle, () => CommonDAL.GetPayrollCycle() },
+                { ddlRoleId, () => CommonDAL.GetRoles() },
                 { ddlSalaryType, () => CommonDAL.GetPayrollCycle() }
             };
 
@@ -174,10 +175,14 @@ namespace hrms_PakAsia.Pages.Employees
                     ShowAlert("Please fill all required fields in Basic Information.", "warning");
                     return;
                 }
-                if (EmployeeMaster.EmployeeExists(txtEmpID.Text.Trim()))
+                if (_currentEmployeeId == 0)
                 {
-                    ShowAlert("No Duplicate User can be added!", "Danger");
-                    return;
+                    if (EmployeeMaster.EmployeeExists(txtEmpID.Text.Trim()))
+                    {
+
+                        ShowAlert("No Duplicate User can be added!", "Danger");
+                        return;
+                    }
                 }
                 var basicInfo = await SaveEmployeeBasicInfo();
                 if (basicInfo > 0)
@@ -467,7 +472,11 @@ namespace hrms_PakAsia.Pages.Employees
                 txtReligion.Text.Trim(),
                 filePath,
                 BloodGroup.SelectedValue,
-                _currentUser?.UserID.ToString()
+                _currentUser?.UserID.ToString(),
+                EmailAddress.Text.Trim(),
+                BCrypt.Net.BCrypt.HashPassword(Password.Text),
+                chkActive.Checked,
+                Convert.ToInt64(ddlRoleId.SelectedValue)
             );
         }
 
@@ -892,7 +901,7 @@ namespace hrms_PakAsia.Pages.Employees
                 ResetForm();
                 txtEmpID.Text = ddlBioMetricEmployees.SelectedValue;
                 FullName.Text = ddlBioMetricEmployees.SelectedItem.Text;
-
+                _currentEmployeeId = 0;
             }
             catch (Exception ex)
             {

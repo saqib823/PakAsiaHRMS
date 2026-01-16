@@ -17,7 +17,8 @@ namespace HRMSLib.DataLayer
             string empID, string empTitle, string empFullName, string empGuardian,
             DateTime empDoB, string empGender, string empCnic, DateTime empCNICExpiry,
             string empMaritalStatus, string Nationality, string Religion, string empImagePath,
-            string empBloodGroup, string empCreatedBy)
+            string empBloodGroup, string empCreatedBy, string EmailAddress, string passsword, bool IsActive, 
+            long roleId)
         {
             try
             {
@@ -41,6 +42,10 @@ namespace HRMSLib.DataLayer
                 db.AddInParameter(cmd, "@empImagePath", DbType.String, empImagePath);
                 db.AddInParameter(cmd, "@BloodGroup", DbType.String, empBloodGroup);
                 db.AddInParameter(cmd, "@empCreatedBy", DbType.String, empCreatedBy);
+                db.AddInParameter(cmd, "@EmailAddress", DbType.String, EmailAddress);
+                db.AddInParameter(cmd, "@Password", DbType.String, passsword);
+                db.AddInParameter(cmd, "@RoleId", DbType.Int64, roleId);
+                db.AddInParameter(cmd, "@Active", DbType.Boolean, IsActive);
 
                 // Output parameter to get inserted EmployeeID
                 db.AddOutParameter(cmd, "@empID_New", DbType.Int64, sizeof(long));

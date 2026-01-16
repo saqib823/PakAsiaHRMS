@@ -34,14 +34,30 @@ namespace hrms_PakAsia.Pages.Leaves
 
         private void LoadLeaveTypes()
         {
-            DataTable dt = LeaveDAL.GetEmployeeLeaveBalance(currentUser.UserID);
-
-            ddlLeaveType.DataSource = dt;
+            ddlLeaveType.DataSource = CommonDAL.GetLeaveTypes(); ;
             ddlLeaveType.DataTextField = "Name";
             ddlLeaveType.DataValueField = "ID";
             ddlLeaveType.DataBind();
-
-            ddlLeaveType.Items.Insert(0, new ListItem("-- Select Leave --", ""));
+            ddlLeaveType.Items.Insert(0, new ListItem("-- Select Leave --", "0"));
+        }
+        private void LoadEmployees()
+        {
+            if (currentUser.RoleId == 1)
+            {
+                ddlLeaveType.DataSource = CommonDAL.GetEmployees(); ;
+                ddlLeaveType.DataTextField = "Name";
+                ddlLeaveType.DataValueField = "ID";
+                ddlLeaveType.DataBind();
+                ddlLeaveType.Items.Insert(0, new ListItem("-- Select Leave --", "0"));
+            }
+            else
+            {
+                ddlLeaveType.DataSource = CommonDAL.GetEmployee(currentUser.UserID.ToString()); ;
+                ddlLeaveType.DataTextField = "Name";
+                ddlLeaveType.DataValueField = "ID";
+                ddlLeaveType.DataBind();
+                ddlLeaveType.Items.Insert(0, new ListItem("-- Select Leave --", "0"));
+            }
         }
 
         protected void btnSubmit_Click(object sender, EventArgs e)

@@ -173,6 +173,48 @@ namespace HRMSLib.DataLayer
                             return user;
                         }
                     }
+                    else
+                    {
+                        using (DbCommand cmdEmp = db.GetStoredProcCommand("dbo.usp_GetEmployeeByEmail"))
+                        {
+                            db.AddInParameter(cmdEmp, "@EmailAddress", DbType.String, email);
+
+                            DataSet dsEmp = db.ExecuteDataSet(cmdEmp);
+
+                            if (dsEmp.Tables.Count > 0 && dsEmp.Tables[0].Rows.Count > 0)
+                            {
+                                DataRow dr = dsEmp.Tables[0].Rows[0];
+
+                                // Verify bcrypt password
+                                string hashedPassword = dr["Password"].ToString().Trim();
+
+                                if (BCrypt.Net.BCrypt.Verify(password, hashedPassword))
+                                {
+                                    LoggedInUser user = new LoggedInUser
+                                    {
+                                        UserID = Convert.ToInt32(dr["EmployeeID"]),
+                                        RoleId = Convert.ToInt32(dr["RoleId"]),
+                                        UserName = dr["FullName"].ToString(),
+                                        FirstName = dr["FullName"].ToString(),
+                                        LastName = dr["FatherOrSpouseName"].ToString(),
+                                        EmailAddress = dr["EmailAddress"].ToString(),
+                                        Active = Convert.ToBoolean(dr["Active"]),
+                                        PrimaryDepartmentId = dr["DepartmentID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["DepartmentID"]),
+                                        CreatedDate = Convert.ToDateTime(dr["CreatedDate"]),
+                                        CreatedBy = dr["CreatedBy"].ToString(),
+                                        Cnic = dr["CNIC"].ToString(),
+                                        PhoneNumber = dr["MobileNumber"].ToString(),
+                                        Designation = dr["DesignationID"]?.ToString(),
+                                        filePath = dr["PhotographPath"]?.ToString()
+                                    };
+
+                                    HttpContext.Current.Session["LoggedInUser"] = user;
+                                    return user;
+                                }
+                            }
+                        }
+                    }
+
                 }
 
                 return null; // Login failed
