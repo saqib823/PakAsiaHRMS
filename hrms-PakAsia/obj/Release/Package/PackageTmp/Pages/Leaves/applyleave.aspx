@@ -14,10 +14,15 @@
                     <asp:PlaceHolder ID="phAlert" runat="server" />
 
                     <div class="row g-3">
+                         <div class="col-md-6">
+                            <label>Employee</label>
+                            <asp:DropDownList ID="ddlEmployees" runat="server"
+                                CssClass="form-select" DataTextField="Name" DataValueField="ID" data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}' />
+                        </div>
                         <div class="col-md-6">
                             <label>Leave Type</label>
                             <asp:DropDownList ID="ddlLeaveType" runat="server"
-                                CssClass="form-select" />
+                                CssClass="form-select" DataTextField="Name" DataValueField="ID" data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}' />
                         </div>
 
                         <div class="col-md-3">

@@ -44,10 +44,14 @@
                                             <table class="table table-hover table-striped table-sm">
                                                 <thead>
                                                     <tr>
-                                                        <th>Emp ID</th>
-                                                        <th>Employee Name</th>
-                                                        <th>Leave Type</th>
-                                                        <th>Total Days</th>
+                                                        <th>ID</th>
+                                                        <th>Name</th>
+                                                        <th>Type</th>
+                                                        <th>Reason</th>
+                                                        <th>Start</th>
+                                                        <th>End</th>
+                                                        <th>Total</th>
+                                                        <th>Allocated</th>
                                                         <th>Used</th>
                                                         <th>Remaining</th>
                                                         <th>Status</th>
@@ -62,6 +66,15 @@
                                                 <td><%# Eval("EmployeeID") %></td>
                                                 <td><strong><%# Eval("FullName") %></strong></td>
                                                 <td><%# Eval("LeaveName") %></td>
+<td>
+    <div style="white-space: normal; word-wrap: break-word;">
+        <%# Eval("Reason") %>
+    </div>
+</td>
+                                                <td><%# Eval("StartDate", "{0:yyyy-MM-dd}") %></td>
+                                                <td><%# Eval("EndDate", "{0:yyyy-MM-dd}") %></td>
+
+                                                <td><%# Eval("TotalDays") %></td>
                                                 <td><%# Eval("TotalAllocated") %></td>
                                                 <td><%# Eval("Used") %></td>
                                                 <td><%# Eval("Remaining") %></td>
@@ -80,10 +93,7 @@
                                                             CommandName="RejectLeave" CommandArgument='<%# Eval("EmployeeLeaveID") %>' ToolTip="Reject Leave">
                                                             <i class="uil uil-times"></i>
                                                         </asp:LinkButton>
-                                                        <asp:LinkButton ID="btnEncash" runat="server" CssClass="btn btn-outline-primary"
-                                                            CommandName="EncashLeave" CommandArgument='<%# Eval("EmployeeLeaveID") %>' ToolTip="Encash Leave">
-                                                            <i class="uil uil-money-insert"></i>
-                                                        </asp:LinkButton>
+                                                       
                                                     </div>
                                                 </td>
                                             </tr>
