@@ -103,6 +103,25 @@ namespace hrms_PakAsia.Pages.Employees
             lblOTRate.Text = r["OvertimeRate"].ToString();
             lblBank.Text = r["BankName"].ToString();
             lblAccount.Text = r["BankAccountOrIBAN"].ToString();
+
+            BindFile(r["ContractFile"], lblContractFile, btnDownloadContract);
+            BindFile(r["CNICFrontFile"], lblCNICFront, btnDownloadCNICFront);
+            BindFile(r["CNICBackFile"], lblCNICBack, btnDownloadCNICBack);
+            BindFile(r["EducationCertificates"], lblEducation, btnDownloadEducation);
+            BindFile(r["ExperienceLetters"], lblExperience, btnDownloadExperience);
+            BindFile(r["OtherDocuments"], lblOtherDocs, btnDownloadOtherDocs);
+
+
+            lblNDAStatus.Text = r["NDASigned"].ToString();
+            lblTerms.Text = r["TermsAccepted"].ToString();
+            lblAppointmentIssued.Text = Convert.ToBoolean(r["AppointmentLetterIssued"]) ? "Issued" : "Not Issued";
+
+            lblContractStartDate.Text =
+                r["ContractStartDate"] == DBNull.Value
+                    ? "-"
+                    : Convert.ToDateTime(r["ContractStartDate"]).ToString("dd-MMM-yyyy");
+
+
         }
 
         private string FormatDate(object value)
@@ -110,6 +129,43 @@ namespace hrms_PakAsia.Pages.Employees
             if (value == DBNull.Value) return "-";
             return Convert.ToDateTime(value).ToString("dd-MMM-yyyy");
         }
+        private void BindFile(object value, Label lbl, LinkButton btn)
+        {
+            if (value != DBNull.Value && !string.IsNullOrWhiteSpace(value.ToString()))
+            {
+                lbl.Text = System.IO.Path.GetFileName(value.ToString());
+                btn.Visible = true;
+                btn.CommandArgument = value.ToString(); // store ~/Uploads/...
+            }
+            else
+            {
+                lbl.Text = "Not Uploaded";
+                btn.Visible = false;
+            }
+        }
+        protected void Download_Click(object sender, EventArgs e)
+        {
+            LinkButton btn = (LinkButton)sender;
+
+            // DB value example: ~/Uploads/Education/82_Education_xxx.png
+            string virtualPath = btn.CommandArgument;
+
+            string fullPath = Server.MapPath(virtualPath);
+
+            if (System.IO.File.Exists(fullPath))
+            {
+                Response.Clear();
+                Response.ContentType = "application/octet-stream";
+                Response.AppendHeader(
+                    "Content-Disposition",
+                    "attachment; filename=" + System.IO.Path.GetFileName(fullPath)
+                );
+                Response.TransmitFile(fullPath);
+                Response.End();
+            }
+        }
+
+
 
     }
 }

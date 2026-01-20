@@ -49,7 +49,10 @@ namespace hrms_PakAsia
             // Get current page url
             string currentUrl = VirtualPathUtility.ToAbsolute(
                                     HttpContext.Current.Request.AppRelativeCurrentExecutionFilePath);
-
+            if (currentUrl == "/Pages/Employees/viewemployee" || currentUrl.Contains("upload"))
+            {
+                return null;
+            }
             // Check permission
             bool hasAccess = currentRolesRights.Any(r =>
                 !string.IsNullOrEmpty(r.MenuHref) &&

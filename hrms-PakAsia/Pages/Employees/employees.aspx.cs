@@ -775,6 +775,10 @@ namespace hrms_PakAsia.Pages.Employees
             txtEmpID.Text = r["EmployeeNo"].ToString();
             FullName.Text = r["FullName"].ToString();
             GuardianName.Text = r["FatherOrSpouseName"].ToString();
+            EmailAddress.Text = r["EmailAddress"].ToString();
+            ddlRoleId.SelectedValue = r["RoleId"].ToString();
+            chkActive.Checked = Convert.ToBoolean(r["Active"]);
+            GuardianName.Text = r["FatherOrSpouseName"].ToString();
 
             SetDropDownValue(ddlGender, r["GenderID"]);
             SetDropDownValue(ddlMaritalStatus, r["MaritalStatusID"]);
