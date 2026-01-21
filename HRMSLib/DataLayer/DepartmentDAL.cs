@@ -46,7 +46,7 @@ namespace HRMSLib.DataLayer
             return new DataTable();
         }
 
-        public bool DepartmentData(int mode,string DepartmentName, string Status, string DepartmentID)
+        public bool DepartmentData(int mode,string DepartmentName, string Status, string DepartmentID, long BranchID)
         {
             try
             {
@@ -61,6 +61,7 @@ namespace HRMSLib.DataLayer
                 db.AddInParameter(cmd, "@Status", DbType.String, Status);
                 db.AddInParameter(cmd, "@UserID", DbType.Int32, currentUser.UserID);
                 db.AddInParameter(cmd, "@DepartmentID", DbType.String, DepartmentID);
+                db.AddInParameter(cmd, "@BranchID", DbType.Int64, BranchID);
              
                 // Execute
                 int rowsAffected = db.ExecuteNonQuery(cmd);

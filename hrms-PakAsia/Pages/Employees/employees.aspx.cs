@@ -93,7 +93,7 @@ namespace hrms_PakAsia.Pages.Employees
         {
             var dropdowns = new Dictionary<DropDownList, Func<object>>
             {
-                { ddlDepartment, () => CommonDAL.GetDepartments() },
+                
                 { ddlBranch, () => CommonDAL.GetBranches() },
                 { ddlDesignation, () => CommonDAL.GetDesignation() },
                 { ddlReportingManager, () => CommonDAL.GetEmployees() },
@@ -911,6 +911,13 @@ namespace hrms_PakAsia.Pages.Employees
             {
                 LogError(ex, "Failed to bind employees dropdown");
             }
+        }
+
+        protected void ddlBranch_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ddlDepartment.DataSource = CommonDAL.GetBranchDepartments(Convert.ToInt64(ddlBranch.SelectedValue));
+            ddlDepartment.DataBind();
+            ddlDepartment.Items.Insert(0, new ListItem("Select One", "0"));
         }
     }
 }

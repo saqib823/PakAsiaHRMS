@@ -318,6 +318,11 @@
                                     <div class="accordion-body pt-0">
                                         <h5 class="mb-4 text-primary">Job Details</h5>
                                         <div class="row">
+                                              <div class="col-md-3 mb-3">
+                                                <label class="form-label">Branch <span class="text-danger">*</span></label>
+                                                <asp:DropDownList CssClass="form-select" ID="ddlBranch" DataTextField="Name" DataValueField="ID" runat="server" required="true"
+                                                    data-choices="data-choices" OnSelectedIndexChanged="ddlBranch_SelectedIndexChanged" AutoPostBack="true" data-options='{"removeItemButton":true,"placeholder":true}'></asp:DropDownList>
+                                            </div>
                                             <div class="col-md-3 mb-3">
                                                 <label class="form-label">Department <span class="text-danger">*</span></label>
                                                 <asp:DropDownList CssClass="form-select" ID="ddlDepartment" DataTextField="Name" DataValueField="ID" runat="server" required="true" data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'></asp:DropDownList>
@@ -327,11 +332,7 @@
                                                 <asp:DropDownList CssClass="form-select" ID="ddlDesignation" DataTextField="Name" DataValueField="ID" runat="server" required="true"
                                                     data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'></asp:DropDownList>
                                             </div>
-                                            <div class="col-md-3 mb-3">
-                                                <label class="form-label">Branch <span class="text-danger">*</span></label>
-                                                <asp:DropDownList CssClass="form-select" ID="ddlBranch" DataTextField="Name" DataValueField="ID" runat="server" required="true"
-                                                    data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'></asp:DropDownList>
-                                            </div>
+                                          
                                             <div class="col-md-3 mb-3">
                                                 <label class="form-label">Reporting Manager</label>
                                                 <asp:DropDownList CssClass="form-select" ID="ddlReportingManager" DataTextField="Name" DataValueField="ID" runat="server"

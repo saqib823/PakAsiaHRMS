@@ -43,16 +43,16 @@
                         <asp:DropDownList CssClass="form-select" ID="Designation" DataTextField="Name" DataValueField="ID" runat="server" data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'></asp:DropDownList>
                     </div>
 
-
+                     <div class="col-sm-3 mt-3">
+                        <label class="form-label">Branch</label>
+                        <asp:DropDownList CssClass="form-select" ID="ddlBranch" OnSelectedIndexChanged="ddlBranch_SelectedIndexChanged" AutoPostBack="true" DataTextField="Name" DataValueField="ID" runat="server" data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'></asp:DropDownList>
+                    </div>
               
                     <div class="col-sm-3 mt-3">
                         <label class="form-label">Department</label>
                         <asp:DropDownList CssClass="form-select" ID="ddlDepartment" DataTextField="Name" DataValueField="ID" runat="server" data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'></asp:DropDownList>
                     </div>
-                     <div class="col-sm-3 mt-3">
-                        <label class="form-label">Branch</label>
-                        <asp:DropDownList CssClass="form-select" ID="ddlBranch" DataTextField="Name" DataValueField="ID" runat="server" data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'></asp:DropDownList>
-                    </div>
+                    
 
                    <div class="col-sm-3 mt-3">
                         <label class="form-label">Role</label>

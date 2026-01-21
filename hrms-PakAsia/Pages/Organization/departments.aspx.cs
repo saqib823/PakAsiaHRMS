@@ -34,6 +34,9 @@ namespace hrms_PakAsia.Pages.Organization
             {
                 CurrentPage = 1;
                 BindDepartments();
+                ddlBranch.DataSource = CommonDAL.GetBranches();
+                ddlBranch.DataBind();
+                ddlBranch.Items.Insert(0, new ListItem("Select One", "0"));
             }
             currentUser = GetSessionData();
 
@@ -64,6 +67,11 @@ namespace hrms_PakAsia.Pages.Organization
         protected void btnSave_Click(object sender, EventArgs e)
         {
             int? DepartmentID = ViewState["DepartmentID"] as int?;
+            if (Convert.ToInt64(ddlBranch.SelectedValue) == 0)
+            {
+                ShowAlert("Please Select any branch first!", "warning");
+                return;
+            }
             DepartmentDAL dal = new DepartmentDAL();
             bool IsSaved = false;
             if (DepartmentID.HasValue)
@@ -73,7 +81,8 @@ namespace hrms_PakAsia.Pages.Organization
                     2,
                     Department.Text,
                     ddlActive.SelectedValue,
-                    DepartmentID.Value.ToString()
+                    DepartmentID.Value.ToString(),
+                    Convert.ToInt64(ddlBranch.SelectedValue)
                 );
 
                 ViewState["DepartmentID"] = null;
@@ -86,7 +95,8 @@ namespace hrms_PakAsia.Pages.Organization
                     1,
                      Department.Text,
                      ddlActive.SelectedValue,
-                     ""
+                     "",
+                     Convert.ToInt64(ddlBranch.SelectedValue)
                 );
 
                 ShowAlert("Department created successfully", "success");

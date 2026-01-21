@@ -17,7 +17,11 @@
 
                 <!-- Row 1 — 4 Fields -->
                 <div class="row">
-
+                    <div class="col-md-3 mt-3">
+                          <label class="form-label">Branch <span class="text-danger">*</span></label>
+                          <asp:DropDownList CssClass="form-select" ID="ddlBranch" DataTextField="Name" DataValueField="ID" runat="server" required="true"
+                              data-choices="data-choices"  data-options='{"removeItemButton":true,"placeholder":true}'></asp:DropDownList>
+                    </div>
                     <div class="col-sm-3 mt-3">
                         <label class="form-label">Department</label>
                         <asp:TextBox CssClass="form-control" ID="Department" runat="server" placeholder="Enter Department Name"></asp:TextBox>
@@ -67,6 +71,7 @@
                                         <tr>
                                             <th>Department ID</th>
                                             <th>Department Name</th>
+                                            <th>Branch Name</th>
                                             <th>Status</th>
                                             <th>Created Date</th>
                                             <th>Created By</th>
@@ -80,6 +85,7 @@
                                 <tr>
                                     <td><%# Eval("DepartmentID") %></td>
                                     <td><%# Eval("DepartmentName") %></td>
+                                    <td><%# Eval("BranchName") %></td>
                                     <td><%# Eval("StatusText") %></td>
                                     <td><%# Eval("CreatedDate") %></td>
                                     <td><%# Eval("CreatedBy") %></td>

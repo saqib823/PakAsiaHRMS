@@ -58,10 +58,7 @@ namespace hrms_PakAsia.Pages
         {
             try
             {
-                ddlDepartment.DataSource = CommonDAL.GetDepartments();
-                ddlDepartment.DataBind();
-                ddlDepartment.Items.Insert(0, new ListItem("Select One", "0"));
-
+                
                 ddlRole.DataSource = CommonDAL.GetRoles();
                 ddlRole.DataBind();
                 ddlRole.Items.Insert(0, new ListItem("Select One", "0"));
@@ -361,6 +358,15 @@ namespace hrms_PakAsia.Pages
 
             ShowAlert("User deleted successfully", "warning");
             BindUsers();
+        }
+
+        protected void ddlBranch_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+            ddlDepartment.DataSource = CommonDAL.GetBranchDepartments(Convert.ToInt64(ddlBranch.SelectedValue));
+            ddlDepartment.DataBind();
+            ddlDepartment.Items.Insert(0, new ListItem("Select One", "0"));
+
         }
     }
 }

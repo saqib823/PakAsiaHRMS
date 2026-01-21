@@ -67,15 +67,6 @@ namespace hrms_PakAsia.Pages {
         protected global::System.Web.UI.WebControls.DropDownList Designation;
         
         /// <summary>
-        /// ddlDepartment control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlDepartment;
-        
-        /// <summary>
         /// ddlBranch control.
         /// </summary>
         /// <remarks>
@@ -83,6 +74,15 @@ namespace hrms_PakAsia.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlBranch;
+        
+        /// <summary>
+        /// ddlDepartment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlDepartment;
         
         /// <summary>
         /// ddlRole control.
