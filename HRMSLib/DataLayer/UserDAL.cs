@@ -123,7 +123,7 @@ namespace HRMSLib.DataLayer
             }
         }
 
-    
+
 
         public LoggedInUser LoginUser(string email, string password)
         {
@@ -131,103 +131,102 @@ namespace HRMSLib.DataLayer
             {
                 Database db = new DatabaseProviderFactory().Create("defaultDB");
 
-                string sql = "SELECT * FROM UserInformation WHERE EmailAddress = @EmailAddress";
-
-                using (DbCommand cmd = db.GetSqlStringCommand(sql))
+                // 1️⃣ Try UserInformation first
+                LoggedInUser user = TryLoginUserInformation(db, email, password);
+                if (user != null)
                 {
-                    db.AddInParameter(cmd, "@EmailAddress", DbType.String, email);
+                    HttpContext.Current.Session["LoggedInUser"] = user;
+                    return user;
+                }
 
-                    DataSet ds = db.ExecuteDataSet(cmd);
-
-                    if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
-                    {
-                        DataRow dr = ds.Tables[0].Rows[0];
-
-                        // Verify bcrypt password
-                        string hashedPassword = dr["Password"].ToString().Trim();
-                        if (BCrypt.Net.BCrypt.Verify(password, hashedPassword))
-                        {
-                            // Create strongly-typed user object
-                            LoggedInUser user = new LoggedInUser
-                            {
-                                UserID = Convert.ToInt32(dr["UserID"]),
-                                RoleId = Convert.ToInt32(dr["RoleId"]),
-                                UserName = dr["UserName"].ToString(),
-                                FirstName = dr["FirstName"].ToString(),
-                                LastName = dr["LastName"].ToString(),
-                                EmailAddress = dr["EmailAddress"].ToString(),
-                                Active = Convert.ToBoolean(dr["Active"]),
-                                PrimaryDepartmentId = Convert.ToInt32(dr["PrimaryDepartmentId"]),
-                                CreatedDate = Convert.ToDateTime(dr["CreatedDate"]),
-                                CreatedBy = dr["CreatedBy"].ToString(),
-                                Cnic = dr["Cnic"].ToString(),
-                                PhoneNumber = dr["PhoneNumber"].ToString(),
-                                Designation = dr["Designation"].ToString(),
-                                filePath = dr["ImageData"].ToString(),
-                                ImageType = dr["ImageType"].ToString()
-                            };
-
-                            // Store in session
-                            HttpContext.Current.Session["LoggedInUser"] = user;
-
-                            return user;
-                        }
-                    }
-                    else
-                    {
-                        using (DbCommand cmdEmp = db.GetStoredProcCommand("dbo.usp_GetEmployeeByEmail"))
-                        {
-                            db.AddInParameter(cmdEmp, "@EmailAddress", DbType.String, email);
-
-                            DataSet dsEmp = db.ExecuteDataSet(cmdEmp);
-
-                            if (dsEmp.Tables.Count > 0 && dsEmp.Tables[0].Rows.Count > 0)
-                            {
-                                DataRow dr = dsEmp.Tables[0].Rows[0];
-
-                                // Verify bcrypt password
-                                string hashedPassword = dr["Password"].ToString().Trim();
-
-                                if (BCrypt.Net.BCrypt.Verify(password, hashedPassword))
-                                {
-                                    LoggedInUser user = new LoggedInUser
-                                    {
-                                        UserID = Convert.ToInt32(dr["EmployeeID"]),
-                                        RoleId = Convert.ToInt32(dr["RoleId"]),
-                                        UserName = dr["FullName"].ToString(),
-                                        FirstName = dr["FullName"].ToString(),
-                                        LastName = dr["FatherOrSpouseName"].ToString(),
-                                        EmailAddress = dr["EmailAddress"].ToString(),
-                                        Active = Convert.ToBoolean(dr["Active"]),
-                                        PrimaryDepartmentId = dr["DepartmentID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["DepartmentID"]),
-                                        CreatedDate = Convert.ToDateTime(dr["CreatedDate"]),
-                                        CreatedBy = dr["CreatedBy"].ToString(),
-                                        Cnic = dr["CNIC"].ToString(),
-                                        PhoneNumber = dr["MobileNumber"].ToString(),
-                                        Designation = dr["DesignationID"]?.ToString(),
-                                        filePath = dr["PhotographPath"]?.ToString()
-                                    };
-
-                                    HttpContext.Current.Session["LoggedInUser"] = user;
-                                    return user;
-                                }
-                            }
-                        }
-                    }
-
+                // 2️⃣ If not found or password mismatch, try Employee
+                user = TryLoginEmployee(db, email, password);
+                if (user != null)
+                {
+                    HttpContext.Current.Session["LoggedInUser"] = user;
+                    return user;
                 }
 
                 return null; // Login failed
-
             }
-            catch (Exception)
+            catch
             {
-
                 throw;
             }
-           
         }
-         public List<RoleRights> GetRoleRights(int roleId)
+        private LoggedInUser TryLoginUserInformation(Database db, string email, string password)
+        {
+            string sql = "SELECT * FROM UserInformation WHERE EmailAddress = @EmailAddress";
+
+            using (DbCommand cmd = db.GetSqlStringCommand(sql))
+            {
+                db.AddInParameter(cmd, "@EmailAddress", DbType.String, email);
+
+                DataSet ds = db.ExecuteDataSet(cmd);
+                if (ds.Tables[0].Rows.Count == 0)
+                    return null;
+
+                DataRow dr = ds.Tables[0].Rows[0];
+
+                if (!BCrypt.Net.BCrypt.Verify(password, dr["Password"].ToString()))
+                    return null;
+
+                return new LoggedInUser
+                {
+                    UserID = Convert.ToInt32(dr["UserID"]),
+                    RoleId = Convert.ToInt32(dr["RoleId"]),
+                    UserName = dr["UserName"].ToString(),
+                    FirstName = dr["FirstName"].ToString(),
+                    LastName = dr["LastName"].ToString(),
+                    EmailAddress = dr["EmailAddress"].ToString(),
+                    Active = Convert.ToBoolean(dr["Active"]),
+                    PrimaryDepartmentId = Convert.ToInt32(dr["PrimaryDepartmentId"]),
+                    CreatedDate = Convert.ToDateTime(dr["CreatedDate"]),
+                    CreatedBy = dr["CreatedBy"].ToString(),
+                    Cnic = dr["Cnic"].ToString(),
+                    PhoneNumber = dr["PhoneNumber"].ToString(),
+                    Designation = dr["Designation"].ToString(),
+                    filePath = dr["ImageData"]?.ToString(),
+                    ImageType = dr["ImageType"]?.ToString()
+                };
+            }
+        }
+        private LoggedInUser TryLoginEmployee(Database db, string email, string password)
+        {
+            using (DbCommand cmd = db.GetStoredProcCommand("dbo.usp_GetEmployeeByEmail"))
+            {
+                db.AddInParameter(cmd, "@EmailAddress", DbType.String, email);
+
+                DataSet ds = db.ExecuteDataSet(cmd);
+                if (ds.Tables[0].Rows.Count == 0)
+                    return null;
+
+                DataRow dr = ds.Tables[0].Rows[0];
+
+                if (!BCrypt.Net.BCrypt.Verify(password, dr["Password"].ToString()))
+                    return null;
+
+                return new LoggedInUser
+                {
+                    UserID = Convert.ToInt32(dr["EmployeeID"]),
+                    RoleId = Convert.ToInt32(dr["RoleId"]),
+                    UserName = dr["FullName"].ToString(),
+                    FirstName = dr["FullName"].ToString(),
+                    LastName = dr["FatherOrSpouseName"].ToString(),
+                    EmailAddress = dr["EmailAddress"].ToString(),
+                    Active = Convert.ToBoolean(dr["Active"]),
+                    PrimaryDepartmentId = dr["DepartmentID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["DepartmentID"]),
+                    CreatedDate = Convert.ToDateTime(dr["CreatedDate"]),
+                    CreatedBy = dr["CreatedBy"].ToString(),
+                    Cnic = dr["CNIC"].ToString(),
+                    PhoneNumber = dr["MobileNumber"].ToString(),
+                    Designation = dr["DesignationID"]?.ToString(),
+                    filePath = dr["PhotographPath"]?.ToString()
+                };
+            }
+        }
+
+        public List<RoleRights> GetRoleRights(int roleId)
         {
             try
             {

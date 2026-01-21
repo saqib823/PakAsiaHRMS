@@ -772,93 +772,125 @@ namespace hrms_PakAsia.Pages.Employees
             DataRow r = dt.Rows[0];
 
             /* ================= BASIC INFORMATION ================= */
-            txtEmpID.Text = r["EmployeeNo"].ToString();
-            FullName.Text = r["FullName"].ToString();
-            GuardianName.Text = r["FatherOrSpouseName"].ToString();
-            EmailAddress.Text = r["EmailAddress"].ToString();
-            ddlRoleId.SelectedValue = r["RoleId"].ToString();
-            chkActive.Checked = Convert.ToBoolean(r["Active"]);
-            GuardianName.Text = r["FatherOrSpouseName"].ToString();
+            txtEmpID.Text = GetString(r["EmployeeNo"]);
+            FullName.Text = GetString(r["FullName"]);
+            GuardianName.Text = GetString(r["FatherOrSpouseName"]);
+            EmailAddress.Text = GetString(r["EmailAddress"]);
+
+            ddlRoleId.SelectedValue = GetInt(r["RoleId"]).ToString();
+            chkActive.Checked = GetBool(r["Active"]);
 
             SetDropDownValue(ddlGender, r["GenderID"]);
             SetDropDownValue(ddlMaritalStatus, r["MaritalStatusID"]);
             SetDropDownValue(BloodGroup, r["BloodGroupID"]);
 
-            txtCNIC.Text = r["CNIC"].ToString();
+            txtCNIC.Text = GetString(r["CNIC"]);
             SetDate(txtCnicExpiry, r["CNICExpiryDate"]);
             SetDate(txtDOB, r["DateOfBirth"]);
 
-            /* ================= CONTACT ================= */
-            txtPersonalEmail.Text = r["PersonalEmail"].ToString();
-            txtOfficialEmail.Text = r["OfficialEmail"].ToString();
-            txtPhone.Text = r["MobileNumber"].ToString();
-            txtAlternatePhone.Text = r["AlternateMobileNumber"].ToString();
 
-            txtEmergencyContact.Text = r["EmergencyContactNumber"].ToString();
-            txtEmergencyName.Text = r["EmergencyContactName"].ToString();
-            txtEmergencyRelationship.Text = r["EmergencyContactRelation"].ToString();
+            /* ================= CONTACT ================= */
+            txtPersonalEmail.Text = GetString(r["PersonalEmail"]);
+            txtOfficialEmail.Text = GetString(r["OfficialEmail"]);
+            txtPhone.Text = GetString(r["MobileNumber"]);
+            txtAlternatePhone.Text = GetString(r["AlternateMobileNumber"]);
+
+            txtEmergencyContact.Text = GetString(r["EmergencyContactNumber"]);
+            txtEmergencyName.Text = GetString(r["EmergencyContactName"]);
+            txtEmergencyRelationship.Text = GetString(r["EmergencyContactRelation"]);
+
 
             /* ================= ADDRESSES ================= */
-            txtPermAddress1.Text = r["PermanentAddress"].ToString();
-            txtPermAddress2.Text = r["PermanentAddress"].ToString();
-            txtPermCity.Text = r["City"].ToString();
-            txtPermState.Text = r["Province"].ToString();
-            txtPermPostalCode.Text = r["PostalCode"].ToString();
+            txtPermAddress1.Text = GetString(r["PermanentAddress"]);
+            txtPermAddress2.Text = GetString(r["PermanentAddress"]);
+            txtPermCity.Text = GetString(r["City"]);
+            txtPermState.Text = GetString(r["Province"]);
+            txtPermPostalCode.Text = GetString(r["PostalCode"]);
 
-            txtCurrentAddress1.Text = r["CurrentAddress"].ToString();
-            txtCurrentAddress2.Text = r["CurrentAddress"].ToString();
-            txtCurrentCity.Text = r["City"].ToString();
-            txtCurrentState.Text = r["Province"].ToString();
-            txtCurrentPostalCode.Text = r["PostalCode"].ToString();
+            txtCurrentAddress1.Text = GetString(r["CurrentAddress"]);
+            txtCurrentAddress2.Text = GetString(r["CurrentAddress"]);
+            txtCurrentCity.Text = GetString(r["City"]);
+            txtCurrentState.Text = GetString(r["Province"]);
+            txtCurrentPostalCode.Text = GetString(r["PostalCode"]);
+
 
             /* ================= EMPLOYMENT ================= */
             SetDropDownValue(ddlDepartment, r["DepartmentID"]);
             SetDropDownValue(ddlDesignation, r["DesignationID"]);
             SetDropDownValue(ddlReportingManager, r["ReportingManagerID"]);
 
-            ddlEmploymentType.SelectedValue = r["EmploymentType"].ToString();
-            ddlEmpStatus.SelectedValue = r["EmploymentStatus"].ToString();
+            ddlEmploymentType.SelectedValue = GetString(r["EmploymentType"]);
+            ddlEmpStatus.SelectedValue = GetString(r["EmploymentStatus"]);
 
             SetDate(txtJoiningDate, r["JoiningDate"]);
             SetDate(txtConfirmationDate, r["ConfirmationDate"]);
             SetDate(txtContractEndDate, r["ContractEndDate"]);
             SetDate(txtProbationEndDate, r["ProbationEndDate"]);
 
-            txtWorkLocation.Text = r["WorkLocation"].ToString();
-            txtJobDescription.Text = r["EmployeeCategory"].ToString();
+            txtWorkLocation.Text = GetString(r["WorkLocation"]);
+            txtJobDescription.Text = GetString(r["EmployeeCategory"]);
+
 
             /* ================= ATTENDANCE ================= */
             SetDropDownValue(ddlShift, r["Shift"]);
             SetDropDownValue(ddlWorkDays, r["WorkDays"]);
             SetDropDownValue(ddlAttendanceMethod, r["AttendancePolicyID"]);
 
-            txtBiometricID.Text = r["BiometricMachineUserID"].ToString();
-            SetMultiSelect(lbWeeklyOff, r["WeeklyOffDayID"].ToString());
+            txtBiometricID.Text = GetString(r["BiometricMachineUserID"]);
+            SetMultiSelect(lbWeeklyOff, GetString(r["WeeklyOffDayID"]));
 
-            txtAllowedLate.Text = r["AllowedLateCount"].ToString();
-            txtAllowedEarlyLeaveCont.Text = r["AllowedEarlyLeaveCount"].ToString();
-            txtHalfDayHours.Text = r["HalfDayHours"].ToString();
+            txtAllowedLate.Text = GetString(r["AllowedLateCount"]);
+            txtAllowedEarlyLeaveCont.Text = GetString(r["AllowedEarlyLeaveCount"]);
+            txtHalfDayHours.Text = GetString(r["HalfDayHours"]);
+
 
             /* ================= PAYROLL ================= */
-            txtBasicSalary.Text = r["BasicSalaryOrDailyWage"].ToString();
-            txtHouseRent.Text = r["HouseRent"].ToString();
-            txtMedicalAllowance.Text = r["MedicalAllowance"].ToString();
-            txtTransportAllowance.Text = r["TransportAllowance"].ToString();
-            txtOtherAllowances.Text = r["OtherAllowances"].ToString();
+            txtBasicSalary.Text = GetString(r["BasicSalaryOrDailyWage"]);
+            txtHouseRent.Text = GetString(r["HouseRent"]);
+            txtMedicalAllowance.Text = GetString(r["MedicalAllowance"]);
+            txtTransportAllowance.Text = GetString(r["TransportAllowance"]);
+            txtOtherAllowances.Text = GetString(r["OtherAllowances"]);
 
-            txtBankName.Text = r["BankName"].ToString();
-            txtSalaryAccount.Text = r["BankAccountOrIBAN"].ToString();
+            txtBankName.Text = GetString(r["BankName"]);
+            txtSalaryAccount.Text = GetString(r["BankAccountOrIBAN"]);
 
-            txtGrossSalary.Text = r["GrossSalary"].ToString();
-            OvertimeRate.Text = r["OvertimeRate"].ToString();
+            txtGrossSalary.Text = GetString(r["GrossSalary"]);
+            OvertimeRate.Text = GetString(r["OvertimeRate"]);
 
             SetDropDownValue(ddlPaymentMethod, r["SalaryPaymentMethod"]);
             SetDropDownValue(PayrollCycle, r["PayrollCycle"]);
             SetDropDownValue(ddlSalaryType, r["SalaryTypeID"]);
 
-            TaxDeduction.Text = r["TaxStatusOrNTN"].ToString();
-            EOBIRegistered.Text = r["EOBINumber"].ToString();
-            SocialSecurity.Text = r["SocialSecurityNumber"].ToString();
+            TaxDeduction.Text = GetString(r["TaxStatusOrNTN"]);
+            EOBIRegistered.Text = GetString(r["EOBINumber"]);
+            SocialSecurity.Text = GetString(r["SocialSecurityNumber"]);
+
+        }
+        private string GetString(object value)
+        {
+            return value == DBNull.Value || value == null
+                ? string.Empty
+                : value.ToString();
+        }
+
+        private bool GetBool(object value)
+        {
+            return value != DBNull.Value && Convert.ToBoolean(value);
+        }
+
+        private int GetInt(object value)
+        {
+            return value == DBNull.Value ? 0 : Convert.ToInt32(value);
+        }
+
+        private decimal GetDecimal(object value)
+        {
+            return value == DBNull.Value ? 0 : Convert.ToDecimal(value);
+        }
+
+        private DateTime? GetDate(object value)
+        {
+            return value == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(value);
         }
 
         private void SetDropDownValue(DropDownList ddl, object value)

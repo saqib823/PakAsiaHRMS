@@ -23,7 +23,22 @@ namespace hrms_PakAsia
             {
                 UserDAL dal = new UserDAL();
                 LoggedInUser currentUser = dal.LoginUser(email.Text, password.Text);
+                if (currentUser == null)
+                {
+                    ShowAlert("User not exist!", "danger");
+                    return;
+                }
+                if (currentUser.RoleId == null || currentUser.RoleId == 0)
+                {
+                    ShowAlert("You have no role assigned! Contact with Admin", "danger");
+                    return;
+                }
                 List<RoleRights> currentRoleRights = dal.GetRoleRights(currentUser.RoleId);
+                if (currentRoleRights == null)
+                {
+                    ShowAlert("Your Role has no rights! Contact with Admin", "danger");
+                    return;
+                }
 
                 if (currentUser != null && currentRoleRights != null && currentRoleRights.Count > 0)
                 {
