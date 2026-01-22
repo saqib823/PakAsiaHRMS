@@ -341,6 +341,18 @@ namespace HRMSLib.DataLayer
             
             return db.ExecuteDataSet(cmd);
         }
+        public DataSet ProcessBranchPayroll(long branchID, DateTime from, DateTime to, long payrollCycle)
+        {
+            DbCommand cmd = db.GetStoredProcCommand("dbo.usp_BranchPayrollSummary");
+
+            db.AddInParameter(cmd, "@FromDate", DbType.Date, from.Date);
+            db.AddInParameter(cmd, "@ToDate", DbType.Date, to.Date);
+            db.AddInParameter(cmd, "@BranchID", DbType.Int64, branchID);
+            db.AddInParameter(cmd, "@PayrollCycle", DbType.Int64, payrollCycle);
+
+            return db.ExecuteDataSet(cmd);
+        }
+
         public DataSet ProcessEmployeePayslip(string empID)
         {
             DbCommand cmd = db.GetStoredProcCommand("dbo.SP_GetEmployeePayslip");

@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="BranchPayroll" targetNamespace="http://tempuri.org/BranchPayroll.xsd" xmlns:mstns="http://tempuri.org/BranchPayroll.xsd" xmlns="http://tempuri.org/BranchPayroll.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="BranchPayroll" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="BranchPayroll" msprop:Generator_UserDSName="BranchPayroll">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="dtBranchPayroll" msprop:Generator_TableClassName="dtBranchPayrollDataTable" msprop:Generator_TableVarName="tabledtBranchPayroll" msprop:Generator_TablePropName="dtBranchPayroll" msprop:Generator_RowDeletingName="dtBranchPayrollRowDeleting" msprop:Generator_RowChangingName="dtBranchPayrollRowChanging" msprop:Generator_RowEvHandlerName="dtBranchPayrollRowChangeEventHandler" msprop:Generator_RowDeletedName="dtBranchPayrollRowDeleted" msprop:Generator_UserTableName="dtBranchPayroll" msprop:Generator_RowChangedName="dtBranchPayrollRowChanged" msprop:Generator_RowEvArgName="dtBranchPayrollRowChangeEvent" msprop:Generator_RowClassName="dtBranchPayrollRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="EmployeeNo" msprop:Generator_ColumnVarNameInTable="columnEmployeeNo" msprop:Generator_ColumnPropNameInRow="EmployeeNo" msprop:Generator_ColumnPropNameInTable="EmployeeNoColumn" msprop:Generator_UserColumnName="EmployeeNo" type="xs:string" minOccurs="0" />
+              <xs:element name="FullName" msprop:Generator_ColumnVarNameInTable="columnFullName" msprop:Generator_ColumnPropNameInRow="FullName" msprop:Generator_ColumnPropNameInTable="FullNameColumn" msprop:Generator_UserColumnName="FullName" type="xs:string" minOccurs="0" />
+              <xs:element name="GrossSalary" msprop:Generator_ColumnVarNameInTable="columnGrossSalary" msprop:Generator_ColumnPropNameInRow="GrossSalary" msprop:Generator_ColumnPropNameInTable="GrossSalaryColumn" msprop:Generator_UserColumnName="GrossSalary" type="xs:decimal" minOccurs="0" />
+              <xs:element name="PerDaySalary" msprop:Generator_ColumnVarNameInTable="columnPerDaySalary" msprop:Generator_ColumnPropNameInRow="PerDaySalary" msprop:Generator_ColumnPropNameInTable="PerDaySalaryColumn" msprop:Generator_UserColumnName="PerDaySalary" type="xs:decimal" minOccurs="0" />
+              <xs:element name="PresentDays" msprop:Generator_ColumnVarNameInTable="columnPresentDays" msprop:Generator_ColumnPropNameInRow="PresentDays" msprop:Generator_ColumnPropNameInTable="PresentDaysColumn" msprop:Generator_UserColumnName="PresentDays" type="xs:int" minOccurs="0" />
+              <xs:element name="ApprovedLeaveDays" msprop:Generator_ColumnVarNameInTable="columnApprovedLeaveDays" msprop:Generator_ColumnPropNameInRow="ApprovedLeaveDays" msprop:Generator_ColumnPropNameInTable="ApprovedLeaveDaysColumn" msprop:Generator_UserColumnName="ApprovedLeaveDays" type="xs:int" minOccurs="0" />
+              <xs:element name="AbsentDays" msprop:Generator_ColumnVarNameInTable="columnAbsentDays" msprop:Generator_ColumnPropNameInRow="AbsentDays" msprop:Generator_ColumnPropNameInTable="AbsentDaysColumn" msprop:Generator_UserColumnName="AbsentDays" type="xs:int" minOccurs="0" />
+              <xs:element name="DeductibleDays" msprop:Generator_ColumnVarNameInTable="columnDeductibleDays" msprop:Generator_ColumnPropNameInRow="DeductibleDays" msprop:Generator_ColumnPropNameInTable="DeductibleDaysColumn" msprop:Generator_UserColumnName="DeductibleDays" type="xs:int" minOccurs="0" />
+              <xs:element name="NetPayable" msprop:Generator_ColumnVarNameInTable="columnNetPayable" msprop:Generator_ColumnPropNameInRow="NetPayable" msprop:Generator_ColumnPropNameInTable="NetPayableColumn" msprop:Generator_UserColumnName="NetPayable" type="xs:decimal" minOccurs="0" />
+              <xs:element name="BranchCost" msprop:Generator_ColumnVarNameInTable="columnBranchCost" msprop:Generator_ColumnPropNameInRow="BranchCost" msprop:Generator_ColumnPropNameInTable="BranchCostColumn" msprop:Generator_UserColumnName="BranchCost" type="xs:decimal" minOccurs="0" />
+              <xs:element name="From" msprop:Generator_ColumnVarNameInTable="columnFrom" msprop:Generator_ColumnPropNameInRow="From" msprop:Generator_ColumnPropNameInTable="FromColumn" msprop:Generator_UserColumnName="From" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="To" msprop:Generator_ColumnVarNameInTable="columnTo" msprop:Generator_ColumnPropNameInRow="To" msprop:Generator_ColumnPropNameInTable="ToColumn" msprop:Generator_UserColumnName="To" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

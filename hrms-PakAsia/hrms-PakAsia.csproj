@@ -1300,6 +1300,11 @@
     <Compile Include="App.Master.designer.cs">
       <DependentUpon>App.Master</DependentUpon>
     </Compile>
+    <Compile Include="Dataset\BranchPayroll.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BranchPayroll.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Dataset\Payroll.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1579,7 +1584,18 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="App_Data\DB_Backup\TaurusMJ" />
+    <Content Include="Dataset\BranchPayroll.xsc">
+      <DependentUpon>BranchPayroll.xsd</DependentUpon>
+    </Content>
     <Content Include="App_Data\DB_Backup\PakAsia_HRMS" />
+    <None Include="Dataset\BranchPayroll.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>BranchPayroll.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Dataset\BranchPayroll.xss">
+      <DependentUpon>BranchPayroll.xsd</DependentUpon>
+    </Content>
     <None Include="Dataset\Payroll.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>

@@ -51,7 +51,12 @@ namespace hrms_PakAsia.Pages.Payroll
                  ddlEmployee.DataTextField = "Name";
                 ddlEmployee.DataValueField = "ID";
                 ddlEmployee.DataBind();
-            
+             ddlBranch.DataSource = CommonDAL.GetBranches();
+            ddlBranch.DataTextField = "Name";
+            ddlBranch.DataValueField = "ID";
+            ddlBranch.DataBind();
+            ddlPayrollCycle.Items.Insert(0, new ListItem("Monthly", "2"));
+            ddlPayrollCycle.Items.Insert(1, new ListItem("Wagges", "1"));
             ddlEmployee.Items.Insert(0, new ListItem("-- Select Employee --", "0"));
         }
 
@@ -149,6 +154,74 @@ namespace hrms_PakAsia.Pages.Payroll
                         e.Row.BackColor = System.Drawing.Color.LightGreen;
                         break;
                 }
+            }
+        }
+
+        protected void btnBranchPayroll_Click(object sender, EventArgs e)
+        {
+            if (ddlBranch.SelectedValue == "0" || ddlBranch.SelectedValue == "") return;
+            if (ddlPayrollCycle.SelectedValue == "0" || ddlPayrollCycle.SelectedValue == "") return;
+            string branchID = ddlBranch.SelectedValue;
+            string PayrollCycle = ddlPayrollCycle.SelectedValue;
+            DateTime from = Convert.ToDateTime(dateFrom.Text);
+            DateTime to = Convert.ToDateTime(dateTo.Text);
+
+            DataSet ds = dal.ProcessBranchPayroll(Convert.ToInt64(branchID), from, to, Convert.ToInt64(PayrollCycle));
+
+            hrms_PakAsia.Dataset.BranchPayroll BranchPayroll = new hrms_PakAsia.Dataset.BranchPayroll();
+
+            // ===== Summary Table =====
+            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                BranchPayroll.dtBranchPayroll.Clear();
+                BranchPayroll.dtBranchPayroll.Merge(ds.Tables[0]);
+            }
+            ReportDocument rpt = new ReportDocument();
+
+            try
+            {
+                rpt.PrintOptions.PaperOrientation = PaperOrientation.Portrait;
+                rpt.PrintOptions.PaperSize = PaperSize.PaperA4;
+                rpt.Load(Server.MapPath("~/Reports/BranchPayroll.rpt"));
+
+                // VERY IMPORTANT: Typed DataSet
+                rpt.SetDataSource(BranchPayroll);
+
+                // Prevent DB login prompt
+                rpt.DataSourceConnections.Clear();
+
+                using (Stream pdfStream = rpt.ExportToStream(ExportFormatType.PortableDocFormat))
+                {
+                    Response.Clear();
+                    Response.Buffer = true;
+                    Response.ContentType = "application/pdf";
+                    Response.AddHeader("Content-Disposition", "inline; filename=Branch_PayrollSlip.pdf");
+
+                    pdfStream.CopyTo(Response.OutputStream);
+                    Response.Flush();
+
+                    // IMPORTANT: Complete request safely
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                }
+            }
+            finally
+            {
+                rpt.Close();
+                rpt.Dispose();
+            }
+
+
+            if (ds != null && ds.Tables.Count > 0)
+            {
+                //gvAttendance.DataSource = ds.Tables[0];
+                //gvAttendance.DataBind();
+
+                //if (ds.Tables.Count > 1)
+                //{
+                //    lblGross.Text = Convert.ToDecimal(ds.Tables[1].Rows[0]["MonthlyGrossSalary"]).ToString("N2");
+                //    lblEarned.Text = Convert.ToDecimal(ds.Tables[1].Rows[0]["EarnedSalary"]).ToString("N2");
+                //    lblNet.Text = Convert.ToDecimal(ds.Tables[1].Rows[0]["NetPayableSalary"]).ToString("N2");
+                //}
             }
         }
     }
