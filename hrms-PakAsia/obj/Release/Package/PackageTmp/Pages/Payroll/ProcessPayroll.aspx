@@ -19,8 +19,9 @@
                             <!-- Employee -->
                             <div class="col-md-4">
                                 <label class="form-label">Employee <span class="text-danger">*</span></label>
-                                <asp:DropDownList ID="ddlEmployee" runat="server" CssClass="form-select"  data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}' required />
-                            </div>
+<asp:DropDownList ID="ddlEmployee" runat="server" CssClass="form-select"
+    data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}' required>
+</asp:DropDownList>                            </div>
                             <!-- From Date -->
                             <div class="col-md-4">
                                 <label class="form-label">From <span class="text-danger">*</span></label>
@@ -52,7 +53,10 @@
                             <!-- Employee -->
                             <div class="col-md-4">
                                 <label class="form-label">Branch <span class="text-danger">*</span></label>
-                                <asp:DropDownList ID="ddlBranch" runat="server" CssClass="form-select"  data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}' required />
+<asp:DropDownList ID="ddlBranch" runat="server" CssClass="form-select"
+    data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}' required>
+</asp:DropDownList>
+
                             </div>
                             <!-- From Date -->
                             <div class="col-md-4">
@@ -66,8 +70,9 @@
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label">To <span class="text-danger">*</span></label>
-                                <asp:DropDownList ID="ddlPayrollCycle" runat="server" CssClass="form-select"  data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}' required />
-                            </div>
+<asp:DropDownList ID="ddlPayrollCycle" runat="server" CssClass="form-select"
+    data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}' required>
+</asp:DropDownList>                            </div>
                         </div>
 
                         <div class="mt-4 text-end">

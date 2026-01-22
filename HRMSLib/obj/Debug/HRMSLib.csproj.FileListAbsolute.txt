@@ -16,7 +16,6 @@ C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\HRMSLib\bin\Debug\System.Buf
 C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\HRMSLib\bin\Debug\System.Memory.xml
 C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\HRMSLib\bin\Debug\System.Numerics.Vectors.xml
 C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\HRMSLib\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
-C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\HRMSLib\obj\Debug\HRMSLib.csprojAssemblyReference.cache
 C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\HRMSLib\bin\Debug\HRMSLib.dll.config
 C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\HRMSLib\bin\Debug\itext.barcodes.dll
 C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\HRMSLib\bin\Debug\itext.bouncy-castle-connector.dll

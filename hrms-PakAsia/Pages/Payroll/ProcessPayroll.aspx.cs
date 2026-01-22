@@ -46,18 +46,28 @@ namespace hrms_PakAsia.Pages.Payroll
         }
         private void LoadEmployees()
         {
-            
-                ddlEmployee.DataSource = CommonDAL.GetEmployees();
-                 ddlEmployee.DataTextField = "Name";
+            var employees = CommonDAL.GetEmployees();
+            if (employees != null)
+            {
+                ddlEmployee.DataSource = employees;
+                ddlEmployee.DataTextField = "Name";
                 ddlEmployee.DataValueField = "ID";
                 ddlEmployee.DataBind();
-             ddlBranch.DataSource = CommonDAL.GetBranches();
-            ddlBranch.DataTextField = "Name";
-            ddlBranch.DataValueField = "ID";
-            ddlBranch.DataBind();
+                ddlEmployee.Items.Insert(0, new ListItem("-- Select Employee --", "0"));
+            }
+
+            var branches = CommonDAL.GetBranches();
+            if (branches != null)
+            {
+                ddlBranch.DataSource = branches;
+                ddlBranch.DataTextField = "Name";
+                ddlBranch.DataValueField = "ID";
+                ddlBranch.DataBind();
+            }
+
+            ddlPayrollCycle.Items.Clear();
             ddlPayrollCycle.Items.Insert(0, new ListItem("Monthly", "2"));
             ddlPayrollCycle.Items.Insert(1, new ListItem("Wagges", "1"));
-            ddlEmployee.Items.Insert(0, new ListItem("-- Select Employee --", "0"));
         }
 
         protected void btnCalculate_Click(object sender, EventArgs e)
