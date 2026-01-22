@@ -518,7 +518,7 @@ namespace hrms_PakAsia.Pages.Employees
                 ParseNullableDate(txtConfirmationDate.Text),
                 ParseNullableDate(txtContractEndDate.Text),
                 ParseNullableDate(txtProbationEndDate.Text),
-                txtWorkLocation.Text.Trim(),
+                ddlBranch.SelectedValue,
                 txtJobDescription.Text.Trim()
             );
         }
