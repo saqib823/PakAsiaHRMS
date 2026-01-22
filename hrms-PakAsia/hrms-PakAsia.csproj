@@ -1545,6 +1545,12 @@
       <DependentUpon>UserDashboard.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\BranchPayroll.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BranchPayroll.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Reports\payroll.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1631,6 +1637,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Reports\BranchPayroll.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>BranchPayroll.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\payroll.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>payroll.cs</LastGenOutput>
