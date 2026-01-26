@@ -16,9 +16,10 @@ namespace hrms_PakAsia.Pages.Leaves
         {
             CheckSession();
             currentUser = GetSessionData();
-
             if (!IsPostBack)
             {
+                chkCarryForward.Visible = false;
+
                 LoadLeaveTypes();
                 LoadEmployees();
             }
@@ -37,7 +38,7 @@ namespace hrms_PakAsia.Pages.Leaves
 
         private void LoadLeaveTypes()
         {
-            ddlLeaveType.DataSource = CommonDAL.GetLeaveTypes(); ;
+            ddlLeaveType.DataSource = CommonDAL.GetLeaveTypes(); 
             ddlLeaveType.DataTextField = "Name";
             ddlLeaveType.DataValueField = "ID";
             ddlLeaveType.DataBind();
@@ -74,17 +75,17 @@ namespace hrms_PakAsia.Pages.Leaves
                 ShowAlert("Please select leave type", "warning");
                 return;
             }
-         
-
+            DateTime? startDate = null;
+            DateTime? endDate = null;
             if (string.IsNullOrEmpty(txtStartDate.Text) || string.IsNullOrEmpty(txtEndDate.Text))
             {
-                ShowAlert("Please select start and end date", "warning");
-                return;
+
             }
-
-            DateTime startDate = Convert.ToDateTime(txtStartDate.Text);
-            DateTime endDate = Convert.ToDateTime(txtEndDate.Text);
-
+            else
+            {
+                startDate = Convert.ToDateTime(txtStartDate.Text);
+                endDate = Convert.ToDateTime(txtEndDate.Text);
+            }
             if (endDate < startDate)
             {
                 ShowAlert("End date cannot be earlier than start date", "danger");
@@ -96,7 +97,9 @@ namespace hrms_PakAsia.Pages.Leaves
                 Convert.ToInt32(ddlLeaveType.SelectedValue),
                 startDate,
                 endDate,
-                txtReason.Text.Trim()
+                txtReason.Text.Trim(),
+                chkCarryForward.Checked,
+                chkEncash.Checked
             );
 
             ShowAlert(result.ResultMessage,
@@ -128,6 +131,40 @@ namespace hrms_PakAsia.Pages.Leaves
                     }},3000);
                 </script>"
             });
+        }
+
+        protected void ddlLeaveType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (LeaveDAL.CheckCarryForward(Convert.ToInt32(ddlLeaveType.SelectedValue)))
+            {
+                chkCarryForward.Visible = true;
+                txtStartDate.Visible = true;
+                txtEndDate.Visible = true;
+
+                chkEncash.Visible = true;
+            }
+            else
+            {
+                chkCarryForward.Visible = false;
+                chkEncash.Visible = true;
+            }
+        }
+
+        protected void chkEncash_CheckedChanged(object sender, EventArgs e)
+        {
+            chkCarryForward.Visible = false;
+            chkCarryForward.Checked = false;
+
+            chkEncash.Visible = true;
+        }
+
+        protected void chkCarryForward_CheckedChanged(object sender, EventArgs e)
+        {
+            chkEncash.Visible = false;
+            chkEncash.Checked = false;
+
+            chkCarryForward.Visible = true;
+
         }
     }
 }

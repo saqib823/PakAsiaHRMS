@@ -71,9 +71,11 @@ namespace HRMSLib.DataLayer
         public static (int ResultCode, string ResultMessage) ApplyLeave(
             int employeeId,
             int leaveTypeId,
-            DateTime startDate,
-            DateTime endDate,
-            string reason)
+            DateTime? startDate,
+            DateTime? endDate,
+            string reason,
+            bool CarryForward,
+               bool Encashment)
         {
             DbCommand cmd = db.GetStoredProcCommand("SP_Leave_Apply");
 
@@ -82,6 +84,8 @@ namespace HRMSLib.DataLayer
             db.AddInParameter(cmd, "@StartDate", DbType.Date, startDate);
             db.AddInParameter(cmd, "@EndDate", DbType.Date, endDate);
             db.AddInParameter(cmd, "@Reason", DbType.String, reason);
+            db.AddInParameter(cmd, "@CarryForward", DbType.Boolean, CarryForward);
+            db.AddInParameter(cmd, "@Encashment", DbType.Boolean, Encashment);      
 
             db.AddOutParameter(cmd, "@ResultCode", DbType.Int32, 4);
             db.AddOutParameter(cmd, "@ResultMessage", DbType.String, 200);
@@ -105,11 +109,12 @@ namespace HRMSLib.DataLayer
         // =========================================================
         // 4. Carry Forward Leaves (Year End)
         // =========================================================
-        public static void CarryForwardLeaves(int year)
+        public static void CarryForwardLeaves(int year, int EmployeeLeaveID)
         {
             DbCommand cmd = db.GetStoredProcCommand("SP_Leave_CarryForward_YearEnd");
 
             db.AddInParameter(cmd, "@Year", DbType.Int32, year);
+            db.AddInParameter(cmd, "@EmployeeLeaveID", DbType.Int32, EmployeeLeaveID);
 
             db.ExecuteNonQuery(cmd);
         }
@@ -126,5 +131,20 @@ namespace HRMSLib.DataLayer
 
             return db.ExecuteDataSet(cmd);
         }
+
+        public static bool CheckCarryForward(int leaveTypeID)
+        {
+            var cmd = db.GetSqlStringCommand(
+                "SELECT CarryForwardAllowed FROM LeaveTypes WHERE LeaveTypeID = @LeaveTypeID"
+            );
+            db.AddInParameter(cmd, "@LeaveTypeID", DbType.Int32, leaveTypeID);
+
+            object result = db.ExecuteScalar(cmd);
+
+            return result != null && result != DBNull.Value && (bool)result;
+        }
+
+
+
     }
 }

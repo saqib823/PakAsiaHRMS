@@ -58,6 +58,24 @@ namespace hrms_PakAsia.Pages.Leaves {
         protected global::System.Web.UI.WebControls.TextBox txtEndDate;
         
         /// <summary>
+        /// chkCarryForward control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkCarryForward;
+        
+        /// <summary>
+        /// chkEncash control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkEncash;
+        
+        /// <summary>
         /// txtReason control.
         /// </summary>
         /// <remarks>

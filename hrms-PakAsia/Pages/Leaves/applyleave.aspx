@@ -22,7 +22,8 @@
                         <div class="col-md-6">
                             <label>Leave Type</label>
                             <asp:DropDownList ID="ddlLeaveType" runat="server"
-                                CssClass="form-select" DataTextField="Name" DataValueField="ID" data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}' />
+                                CssClass="form-select" OnSelectedIndexChanged="ddlLeaveType_SelectedIndexChanged" AutoPostBack="true"
+                                DataTextField="Name" DataValueField="ID" data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}' />
                         </div>
 
                         <div class="col-md-3">
@@ -36,7 +37,16 @@
                             <asp:TextBox ID="txtEndDate" runat="server"
                                 TextMode="Date" CssClass="form-control" />
                         </div>
-
+                         <div class="col-md-3">
+                            <label>Carry Forward</label>
+                            <asp:CheckBox ID="chkCarryForward" runat="server" OnCheckedChanged="chkCarryForward_CheckedChanged"
+                                AutoPostBack="true"   CssClass="form-control" />
+                        </div>
+                        <div class="col-md-3">
+                            <label>Leave Encashment</label>
+                            <asp:CheckBox ID="chkEncash" runat="server" OnCheckedChanged="chkEncash_CheckedChanged"
+                             AutoPostBack="true"   CssClass="form-control"/>
+                        </div>
                         <div class="col-12">
                             <label>Reason</label>
                             <asp:TextBox ID="txtReason" runat="server"

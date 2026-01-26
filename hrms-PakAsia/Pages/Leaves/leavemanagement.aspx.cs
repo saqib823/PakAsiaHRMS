@@ -153,6 +153,11 @@ namespace hrms_PakAsia.Pages.Leaves
 
                 case "EncashLeave":
                     LeaveDAL.EncashLeave(leaveId);
+                    LeaveDAL.ApproveRejectLeave(leaveId, approverId, "Approved");
+                    break;
+                case "CarryForward":
+                    LeaveDAL.CarryForwardLeaves(DateTime.Now.Year, leaveId);
+                    LeaveDAL.ApproveRejectLeave(leaveId, approverId, "Approved");
                     break;
             }
 
@@ -165,26 +170,46 @@ namespace hrms_PakAsia.Pages.Leaves
 
         protected void rptLeaves_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
-            if (e.Item.ItemType == ListItemType.Item ||
-                e.Item.ItemType == ListItemType.AlternatingItem)
+            if (e.Item.ItemType != ListItemType.Item &&
+                e.Item.ItemType != ListItemType.AlternatingItem)
+                return;
+
+            string status = Convert.ToString(DataBinder.Eval(e.Item.DataItem, "Status"));
+
+            bool carryForward = DataBinder.Eval(e.Item.DataItem, "CarryForward") != DBNull.Value &&
+                                Convert.ToBoolean(DataBinder.Eval(e.Item.DataItem, "CarryForward"));
+
+            bool encashment = DataBinder.Eval(e.Item.DataItem, "Encashment") != DBNull.Value &&
+                              Convert.ToBoolean(DataBinder.Eval(e.Item.DataItem, "Encashment"));
+
+            LinkButton btnApprove = (LinkButton)e.Item.FindControl("btnApprove");
+            LinkButton btnReject = (LinkButton)e.Item.FindControl("btnReject");
+            LinkButton btnEncash = (LinkButton)e.Item.FindControl("btnEncash");
+            LinkButton btnCarryForward = (LinkButton)e.Item.FindControl("btnCarryForward");
+
+            // 🔒 Default: hide all
+            btnApprove.Visible = false;
+            btnReject.Visible = false;
+            btnEncash.Visible = false;
+            btnCarryForward.Visible = false;
+
+            // 🚫 Non-admin or non-pending → no actions
+            if (currentUser.RoleId != 1 || status != "Pending")
+                return;
+
+            // 💰 Encash / Carry Forward allowed
+            if (carryForward || encashment)
             {
-                string status = DataBinder.Eval(e.Item.DataItem, "Status").ToString();
-
-                LinkButton btnApprove = (LinkButton)e.Item.FindControl("btnApprove");
-                LinkButton btnReject = (LinkButton)e.Item.FindControl("btnReject");
-
-                if (currentUser.RoleId != 1 && status != "Pending")
-                {
-                    btnApprove.Visible = false;
-                    btnReject.Visible = false;
-                }
-                if (status != "Pending")
-                {
-                    btnApprove.Visible = false;
-                    btnReject.Visible = false;
-                }
+                btnEncash.Visible = encashment;
+                btnCarryForward.Visible = carryForward;
+                return;
             }
+
+            // ✔ Normal approve / reject
+            btnApprove.Visible = true;
+            btnReject.Visible = true;
         }
+
 
         protected string ShowEmptyMessageLeave()
         {

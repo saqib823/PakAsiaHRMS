@@ -54,6 +54,8 @@
                                                         <th>Allocated</th>
                                                         <th>Used</th>
                                                         <th>Remaining</th>
+                                                        <th>Carry Forward</th>
+                                                        <th>Encashment</th>
                                                         <th>Status</th>
                                                         <th class="text-center">Actions</th>
                                                     </tr>
@@ -78,6 +80,8 @@
                                                 <td><%# Eval("TotalAllocated") %></td>
                                                 <td><%# Eval("Used") %></td>
                                                 <td><%# Eval("Remaining") %></td>
+                                                <td><%# Eval("CarryForward") %></td>
+                                                <td><%# Eval("Encashment") %></td>
                                                 <td>
                                                     <asp:Label ID="lblStatus" runat="server" Text='<%# Eval("Status") %>'
                                                         CssClass='<%# Eval("Status").ToString() == "Approved" ? "badge bg-success" : Eval("Status").ToString() == "Pending" ? "badge bg-warning" : "badge bg-danger" %>'>
@@ -93,7 +97,14 @@
                                                             CommandName="RejectLeave" CommandArgument='<%# Eval("EmployeeLeaveID") %>' ToolTip="Reject Leave">
                                                             <i class="uil uil-times"></i>
                                                         </asp:LinkButton>
-                                                       
+                                                        <asp:LinkButton ID="btnEncash" runat="server" CssClass="btn btn-outline-success"
+                                                            CommandName="EncashLeave" CommandArgument='<%# Eval("EmployeeLeaveID") %>' ToolTip="Encash Leave">
+                                                            <i class="uil uil-money-bill"></i>
+                                                        </asp:LinkButton>
+                                                        <asp:LinkButton ID="btnCarryForward" runat="server" CssClass="btn btn-outline-primary"
+                                                            CommandName="CarryForward" CommandArgument='<%# Eval("EmployeeLeaveID") %>' ToolTip="Carry Forward Leave">
+                                                            <i class="uil uil-sync"></i>
+                                                        </asp:LinkButton>
                                                     </div>
                                                 </td>
                                             </tr>
