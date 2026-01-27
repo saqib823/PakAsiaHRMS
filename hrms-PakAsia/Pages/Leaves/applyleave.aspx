@@ -16,7 +16,7 @@
                     <div class="row g-3">
                          <div class="col-md-6">
                             <label>Employee</label>
-                            <asp:DropDownList ID="ddlEmployees" runat="server"
+                            <asp:DropDownList ID="ddlEmployees" runat="server" OnSelectedIndexChanged="ddlEmployees_SelectedIndexChanged" AutoPostBack="true"
                                 CssClass="form-select" DataTextField="Name" DataValueField="ID" data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}' />
                         </div>
                         <div class="col-md-6">

@@ -60,6 +60,8 @@ namespace hrms_PakAsia.Pages.Leaves
                 ddlEmployees.DataTextField = "Name";
                 ddlEmployees.DataValueField = "ID";
                 ddlEmployees.DataBind();
+                ddlEmployees.Items.Insert(0, new ListItem("-- Select Employee --", "0"));
+
             }
         }
 
@@ -165,6 +167,18 @@ namespace hrms_PakAsia.Pages.Leaves
 
             chkCarryForward.Visible = true;
 
+        }
+
+        protected void ddlEmployees_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (Convert.ToInt64(ddlEmployees.SelectedValue) != 0)
+            {
+                ddlLeaveType.DataSource = CommonDAL.GetEmployeeLeavesTypeBalance(Convert.ToInt64(ddlEmployees.SelectedValue));
+                ddlLeaveType.DataTextField = "Name";
+                ddlLeaveType.DataValueField = "ID";
+                ddlLeaveType.DataBind();
+                ddlLeaveType.Items.Insert(0, new ListItem("-- Select Leave --", "0"));
+            }
         }
     }
 }

@@ -89,6 +89,40 @@ namespace HRMSLib.DataLayer
                 throw new Exception(ex.Message);
             }
         }
+        public static DataSet GetEmployeeLeavesTypeBalance(long employeeID)
+        {
+            try
+            {
+                Database db = new DatabaseProviderFactory().Create("defaultDB");
+
+                string query = @"
+            SELECT  
+                LB.EmployeeID,
+                LB.LeaveTypeID AS ID,
+                LT.LeaveName AS Name,
+                LB.Year,
+                LB.TotalAllocated,
+                LB.Used,
+                LB.Remaining
+            FROM LeaveBalance LB
+            LEFT JOIN LeaveTypes LT 
+                ON LT.LeaveTypeID = LB.LeaveTypeID
+            WHERE LB.EmployeeID = @EmployeeID
+              AND LB.Used IS NOT NULL
+              AND LB.Remaining IS NOT NULL
+              AND LB.Used != LB.TotalAllocated";
+
+                DbCommand cmd = db.GetSqlStringCommand(query);
+                db.AddInParameter(cmd, "@EmployeeID", DbType.Int64, employeeID);
+
+                return db.ExecuteDataSet(cmd);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public static DataSet GetEmployees()
         {
             try

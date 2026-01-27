@@ -68,11 +68,11 @@
                                                 <td><%# Eval("EmployeeID") %></td>
                                                 <td><strong><%# Eval("FullName") %></strong></td>
                                                 <td><%# Eval("LeaveName") %></td>
-<td>
-    <div style="white-space: normal; word-wrap: break-word;">
-        <%# Eval("Reason") %>
-    </div>
-</td>
+                                                <td>
+                                                    <div style="white-space: normal; word-wrap: break-word;">
+                                                        <%# Eval("Reason") %>
+                                                    </div>
+                                                </td>
                                                 <td><%# Eval("StartDate", "{0:yyyy-MM-dd}") %></td>
                                                 <td><%# Eval("EndDate", "{0:yyyy-MM-dd}") %></td>
 
