@@ -202,6 +202,7 @@ namespace hrms_PakAsia.Pages.Leaves
             {
                 btnEncash.Visible = encashment;
                 btnCarryForward.Visible = carryForward;
+                btnReject.Visible = true;
                 return;
             }
 

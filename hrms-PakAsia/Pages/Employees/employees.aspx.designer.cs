@@ -571,6 +571,15 @@ namespace hrms_PakAsia.Pages.Employees {
         protected global::System.Web.UI.WebControls.TextBox txtHalfDayHours;
         
         /// <summary>
+        /// chkSandwichRule control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkSandwichRule;
+        
+        /// <summary>
         /// btnSubmitAttendanceInfo control.
         /// </summary>
         /// <remarks>

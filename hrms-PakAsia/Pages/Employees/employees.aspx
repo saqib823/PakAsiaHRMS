@@ -443,6 +443,10 @@
                                                 <label class="form-label">Half Day Hours</label>
                                                 <asp:TextBox CssClass="form-control" ID="txtHalfDayHours" runat="server" TextMode="Number" placeholder="4"></asp:TextBox>
                                             </div>
+                                            <div class="col-md-3 mb-3">
+                                                <label class="form-label">Sandwich Rule</label>
+                                                <asp:CheckBox CssClass="form-control" ID="chkSandwichRule" Checked="true" runat="server" ></asp:CheckBox>
+                                            </div>
                                         </div>
                                         
                                         <!-- Save Attendance Button -->

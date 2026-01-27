@@ -538,7 +538,8 @@ namespace hrms_PakAsia.Pages.Employees
                 ParseInt(ddlAttendanceMethod.SelectedValue),
                 ParseInt(txtAllowedLate.Text),
                 ParseInt(txtAllowedEarlyLeaveCont.Text),
-                txtBiometricID.Text.Trim()
+                txtBiometricID.Text.Trim(),
+                chkSandwichRule.Checked
             );
         }
 
