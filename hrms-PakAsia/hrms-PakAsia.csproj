@@ -1235,8 +1235,6 @@
     <Content Include="Pages\signup.aspx" />
     <Content Include="Pages\SubmitExpense.aspx" />
     <Content Include="Pages\UserDashboard.aspx" />
-    <Content Include="Scripts\jquery.signalR-2.4.3.js" />
-    <Content Include="Scripts\jquery.signalR-2.4.3.min.js" />
     <Content Include="Site.Master" />
     <Content Include="unicons.iconscout.com\release\v4.0.8\css\line.css" />
     <Content Include="vendors\anchorjs\anchor.min.js" />
@@ -1586,6 +1584,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Scripts\" />
     <Folder Include="Uploads\" />
   </ItemGroup>
   <ItemGroup>
