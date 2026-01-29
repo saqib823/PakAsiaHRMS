@@ -186,7 +186,45 @@ namespace HRMSLib.DataLayer
                 throw; // preserves original stack trace
             }
         }
+        public static int GetEmployeeIdByEmpNo(string employeeNo)
+        {
+            if (string.IsNullOrWhiteSpace(employeeNo))
+                throw new ArgumentException("Employee number cannot be null or empty.", nameof(employeeNo));
 
+            try
+            {
+                // Create database instance from configuration
+                Database db = new DatabaseProviderFactory().Create("defaultDB");
+
+                // SQL query to fetch EmployeeID
+                string query = @"SELECT EmployeeID FROM Employees WHERE EmployeeNo = @EmployeeNo";
+
+                // Create a command
+                DbCommand cmd = db.GetSqlStringCommand(query);
+
+                // Add parameter
+                db.AddInParameter(cmd, "@EmployeeNo", DbType.String, employeeNo);
+
+                // Execute scalar to get single value
+                object result = db.ExecuteScalar(cmd);
+
+                // Check for null and convert to long
+                if (result != null && result != DBNull.Value)
+                    return Convert.ToInt32(result);
+
+                return 0; // not found
+            }
+            catch (DbException dbEx)
+            {
+                // Handle database-specific errors
+                throw new ApplicationException("Database operation failed.", dbEx);
+            }
+            catch (Exception ex)
+            {
+                // Handle other errors
+                throw;
+            }
+        }
         public static DataSet GetEmployees_EmpNO_DDL()
         {
             try

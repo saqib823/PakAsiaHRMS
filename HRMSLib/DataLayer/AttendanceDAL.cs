@@ -50,22 +50,29 @@ namespace HRMSLib.DataLayer
 
             return db.ExecuteDataSet(cmd).Tables[0];
         }
-        public static DataRow GetEmployeeKPI(string employeeNo, DateTime fromDate, DateTime toDate)
+        public static DataRow GetEmployeeAttendancePercentages(string employeeNo, DateTime fromDate, DateTime toDate)
         {
+            // Create database object using your default DB connection string
             Database db = new DatabaseProviderFactory().Create("defaultDB");
-            DbCommand cmd = db.GetStoredProcCommand("SP_CalculateEmployeeKPI");
 
-            db.AddInParameter(cmd, "@EmployeeNo", DbType.String, employeeNo);
+            // Create command for the new stored procedure
+            DbCommand cmd = db.GetStoredProcCommand("SP_GetEmployeeAttendancePercentages");
+
+            // Add input parameters
+            db.AddInParameter(cmd, "@EmpNo", DbType.String, employeeNo);
             db.AddInParameter(cmd, "@FromDate", DbType.Date, fromDate);
             db.AddInParameter(cmd, "@ToDate", DbType.Date, toDate);
 
+            // Execute and get dataset
             DataSet ds = db.ExecuteDataSet(cmd);
 
+            // Return first row if exists
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
                 return ds.Tables[0].Rows[0];
 
             return null;
         }
+
 
         public static bool SaveAttendance(
            int mode,

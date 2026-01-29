@@ -93,22 +93,62 @@ namespace hrms_PakAsia.Pages.Performance
 
         protected void btnCalculate_Click(object sender, EventArgs e)
         {
-            if (!DateTime.TryParse(txtFrom.Text, out DateTime fromDate) ||
-                !DateTime.TryParse(txtTo.Text, out DateTime toDate))
+            try
             {
-                ShowAlert("Invalid date range", "danger");
-                return;
+                // 1️⃣ Parse Employee & Dates
+                string employeeNo = ddlEmployee.SelectedValue.Trim(); // Assuming you have txtEmployee for EmpNo
+                DateTime fromDate = DateTime.Parse(txtFrom.Text); // From date textbox
+                DateTime toDate = DateTime.Parse(txtTo.Text);     // To date textbox
+
+                // 2️⃣ Fetch KPI from database using stored procedure
+                DataRow kpiRow = AttendanceDAL.GetEmployeeAttendancePercentages(employeeNo, fromDate, toDate);
+
+                decimal attendance = 0, punctuality = 0, overtime = 0;
+
+                if (kpiRow != null)
+                {
+                    // Pull attendance, punctuality, overtime from DB
+                    attendance = kpiRow["AttendancePercentage"] != DBNull.Value ? Convert.ToDecimal(kpiRow["AttendancePercentage"]) : 0;
+                    punctuality = kpiRow["PunctualityPercentage"] != DBNull.Value ? Convert.ToDecimal(kpiRow["PunctualityPercentage"]) : 0;
+                    overtime = kpiRow["OvertimeHours"] != DBNull.Value ? Convert.ToDecimal(kpiRow["OvertimeHours"]) : 0;
+
+                    // Display in textboxes (optional)
+                    txtAttendance.Text = attendance.ToString("0.00");
+                    txtPunctuality.Text = punctuality.ToString("0.00");
+                    txtOvertime.Text = overtime.ToString("0.00");
+                }
+
+                // 3️⃣ Parse Task Completion and Goal Achievement
+                decimal taskCompletion = 0, goal = 0;
+
+                decimal.TryParse(txtTaskCompletion.Text, out taskCompletion); // % or points
+                decimal.TryParse(txtGoal.Text, out goal);                       // % or points
+
+                // 4️⃣ Normalize overtime (0-100 scale)
+                decimal maxOvertimeHours = 40; // adjust as per policy
+                decimal overtimeScore = Math.Min(overtime / maxOvertimeHours * 100, 100);
+
+                // 5️⃣ Assign weights
+                decimal weightAttendance = 0.3m;
+                decimal weightPunctuality = 0.2m;
+                decimal weightOvertime = 0.1m;
+                decimal weightTask = 0.2m;
+                decimal weightGoal = 0.2m;
+
+                // 6️⃣ Calculate final score
+                decimal finalScore = (attendance * weightAttendance) +
+                                     (punctuality * weightPunctuality) +
+                                     (overtimeScore * weightOvertime) +
+                                     (taskCompletion * weightTask) +
+                                     (goal * weightGoal);
+
+                // 7️⃣ Display rounded score
+                txtFinalScore.Text = finalScore.ToString("0.00");
             }
-
-            string employeeID = ddlEmployee.SelectedValue;
-
-            DataRow dr = AttendanceDAL.GetEmployeeKPI(employeeID, fromDate, toDate);
-
-            if (dr == null) return;
-
-            txtAttendance.Text = dr["AttendancePercentage"].ToString() + "%";
-            txtPunctuality.Text = dr["PunctualityPercentage"].ToString() + "%";
-            txtFinalScore.Text = dr["FinalScore"].ToString();
+            catch (Exception ex)
+            {
+                txtFinalScore.Text = "Error: " + ex.Message;
+            }
         }
 
 
@@ -123,9 +163,14 @@ namespace hrms_PakAsia.Pages.Performance
             decimal finalScore = ToDecimal(txtFinalScore.Text);
             DateTime From = Convert.ToDateTime(txtFrom.Text);
             DateTime To = Convert.ToDateTime(txtTo.Text);
-            
+            int empID = CommonDAL.GetEmployeeIdByEmpNo(ddlEmployee.SelectedValue);
+            if (empID == 0)
+            {
+                ShowAlert("Employee ID Not Found","warning");
+                return;
+            }
             KPIDAL.SaveEmployeeKPI(
-                employeeId: Convert.ToInt32(ddlEmployee.SelectedValue),
+                employeeId: empID, //Emp ID against Emp NO
                 From: From,
                 To: To,
                 attendance: ToDecimal(txtAttendance.Text),
@@ -134,9 +179,19 @@ namespace hrms_PakAsia.Pages.Performance
                 overtime: ToDecimal(txtOvertime.Text),
                 finalScore: finalScore,
                 grade: GetGrade(finalScore),
-                createdBy: Convert.ToInt32(Session["UserID"])
-            );
+                createdBy: Convert.ToInt32(Session["UserID"]),
+                appraisalpct : Convert.ToDecimal(txtAppraisal.Text),
+                currentbasic : Convert.ToDecimal(ltCurrentBasicSalary.Text),
+                appraised : Convert.ToDecimal(ltAppraisedSalary.Text)
 
+            );
+            decimal appraisalPercentage = Convert.ToDecimal(txtAppraisal.Text);
+            decimal basicSalary = KPIDAL.GetEmployeeBasicSalary(empID);
+            decimal appraisalAmount = basicSalary * appraisalPercentage / 100;
+
+            ltCurrentBasicSalary.Text = basicSalary.ToString();
+            ltAppraisedSalary.Text = (appraisalAmount + basicSalary).ToString();
+            KPIDAL.UpdateEmployeeAppraisedSalary(empID, Convert.ToDecimal(ltAppraisedSalary.Text), appraisalAmount);
             ClearForm();
             LoadKPIList();
             ShowAlert("KPI saved successfully", "success");
@@ -192,5 +247,36 @@ namespace hrms_PakAsia.Pages.Performance
         }
 
         #endregion
+
+        protected void txtTo_TextChanged(object sender, EventArgs e)
+        {
+            if (!DateTime.TryParse(txtFrom.Text, out DateTime fromDate) ||
+               !DateTime.TryParse(txtTo.Text, out DateTime toDate))
+            {
+                ShowAlert("Invalid date range", "danger");
+                return;
+            }
+
+            string employeeID = ddlEmployee.SelectedValue;
+
+            DataRow dr = AttendanceDAL.GetEmployeeAttendancePercentages(employeeID, fromDate, toDate);
+
+            if (dr == null) return;
+
+            txtAttendance.Text = dr["AttendancePercentage"].ToString();
+            txtPunctuality.Text = dr["PunctualityPercentage"].ToString();
+            txtOvertime.Text = dr["OvertimeHours"].ToString();
+        }
+
+        protected void txtAppraisal_TextChanged(object sender, EventArgs e)
+        {
+            int empID = CommonDAL.GetEmployeeIdByEmpNo(ddlEmployee.SelectedValue);
+            decimal appraisalPercentage = Convert.ToDecimal(txtAppraisal.Text);
+            decimal basicSalary = KPIDAL.GetEmployeeBasicSalary(empID);
+            decimal appraisalAmount = basicSalary * appraisalPercentage / 100;
+
+            ltCurrentBasicSalary.Text = basicSalary.ToString();
+            ltAppraisedSalary.Text = (appraisalAmount + basicSalary).ToString();
+        }
     }
 }
