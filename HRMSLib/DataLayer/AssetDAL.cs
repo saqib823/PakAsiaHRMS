@@ -15,38 +15,26 @@ namespace HRMSLib.DataLayer
             return db.ExecuteDataSet(cmd).Tables[0];
         }
 
-        public DataTable GetAssetRecords(int pageIndex, int pageSize, string searchTerm, out int totalRecords)
+        public DataTable GetAssetRecords(
+     int pageIndex,
+     int pageSize,
+     string searchTerm,
+     int? empID,
+     out int totalRecords
+ )
         {
-            string sql = @"
-                SELECT COUNT(*) OVER() AS TotalCount,
-                       AR.AssetRecordID, AR.EmployeeID, E.FullName AS EmployeeName, A.AssetName,
-                       AR.IssueDate, AR.ReturnDate, AR.Condition, AR.Deduction
-                FROM AssetRecords AR
-                INNER JOIN Employees E ON E.EmployeeID = AR.EmployeeID
-                INNER JOIN Assets A ON A.AssetID = AR.AssetID
-                WHERE (@SearchTerm = '' OR E.FullName LIKE '%' + @SearchTerm + '%' OR A.AssetName LIKE '%' + @SearchTerm + '%')";
+            DbCommand cmd = db.GetStoredProcCommand("SP_GetAssetRecordsPaged");
 
-            sql = $@"
-                WITH AssetCTE AS ({sql})
-                SELECT *
-                FROM (
-                    SELECT *, ROW_NUMBER() OVER (ORDER BY AssetRecordID DESC) AS RowNum
-                    FROM AssetCTE
-                ) AS T
-                WHERE RowNum BETWEEN @StartRow AND @EndRow
-                ORDER BY AssetRecordID DESC";
-
-            DbCommand cmd = db.GetSqlStringCommand(sql);
-            db.AddInParameter(cmd, "@SearchTerm", DbType.String, searchTerm ?? string.Empty);
-
-            int startRow = (pageIndex - 1) * pageSize + 1;
-            int endRow = pageIndex * pageSize;
-
-            db.AddInParameter(cmd, "@StartRow", DbType.Int32, startRow);
-            db.AddInParameter(cmd, "@EndRow", DbType.Int32, endRow);
+            db.AddInParameter(cmd, "@PageIndex", DbType.Int32, pageIndex);
+            db.AddInParameter(cmd, "@PageSize", DbType.Int32, pageSize);
+            db.AddInParameter(cmd, "@SearchTerm", DbType.String, searchTerm ?? "");
+            db.AddInParameter(cmd, "@EmployeeID", DbType.Int32, empID);
 
             DataTable dt = db.ExecuteDataSet(cmd).Tables[0];
-            totalRecords = dt.Rows.Count > 0 ? Convert.ToInt32(dt.Rows[0]["TotalCount"]) : 0;
+
+            totalRecords = dt.Rows.Count > 0
+                ? Convert.ToInt32(dt.Rows[0]["TotalRecords"])
+                : 0;
 
             return dt;
         }

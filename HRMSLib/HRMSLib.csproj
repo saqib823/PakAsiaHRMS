@@ -189,6 +189,7 @@
     <Compile Include="DataLayer\DepartmentDAL.cs" />
     <Compile Include="DataLayer\DesignationDAL.cs" />
     <Compile Include="DataLayer\EmployeeMaster.cs" />
+    <Compile Include="DataLayer\ExpenseDAL.cs" />
     <Compile Include="DataLayer\KPIDAL.cs" />
     <Compile Include="DataLayer\LeaveDAL.cs" />
     <Compile Include="DataLayer\MenuDAL.cs" />

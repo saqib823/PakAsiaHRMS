@@ -12,25 +12,23 @@ namespace HRMSLib.DataLayer
 
         // SAVE KPI
         public static void SaveEmployeeKPI(
-            int employeeId, int year, int month,
+            int employeeId, DateTime From, DateTime To,
             decimal attendance, decimal punctuality,
             decimal taskCompletion, decimal overtime,
             decimal finalScore, string grade,
-            string periodType, int? quarter, int createdBy)
+             int createdBy)
         {
             DbCommand cmd = db.GetStoredProcCommand("SP_SaveEmployeeKPI");
 
             db.AddInParameter(cmd, "@EmployeeID", DbType.Int32, employeeId);
-            db.AddInParameter(cmd, "@KPIYear", DbType.Int32, year);
-            db.AddInParameter(cmd, "@KPIMonth", DbType.Int32, month);
+            db.AddInParameter(cmd, "@From", DbType.DateTime, From);
+            db.AddInParameter(cmd, "@To", DbType.DateTime, To);
             db.AddInParameter(cmd, "@AttendancePct", DbType.Decimal, attendance);
             db.AddInParameter(cmd, "@PunctualityPct", DbType.Decimal, punctuality);
             db.AddInParameter(cmd, "@TaskCompletion", DbType.Decimal, taskCompletion);
             db.AddInParameter(cmd, "@OvertimeHours", DbType.Decimal, overtime);
             db.AddInParameter(cmd, "@FinalScore", DbType.Decimal, finalScore);
             db.AddInParameter(cmd, "@Grade", DbType.String, grade);
-            db.AddInParameter(cmd, "@PeriodType", DbType.String, periodType);
-            db.AddInParameter(cmd, "@Quarter", DbType.Int32, quarter);
             db.AddInParameter(cmd, "@CreatedBy", DbType.Int32, createdBy);
 
             db.ExecuteNonQuery(cmd);

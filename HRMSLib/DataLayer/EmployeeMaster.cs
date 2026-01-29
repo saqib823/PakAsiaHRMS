@@ -328,6 +328,31 @@ namespace HRMSLib.DataLayer
                 return Convert.ToInt32(db.ExecuteScalar(cmd)) > 0;
             }
         }
+        public static bool UpdateProfilePicture(string empID, string profilePath)
+        {
+            if (string.IsNullOrWhiteSpace(empID))
+                return false;
+
+            if (string.IsNullOrWhiteSpace(profilePath))
+                return false;
+
+            Database db = new DatabaseProviderFactory().Create("defaultDB");
+
+            string sql = @"
+        UPDATE Employees 
+        SET PhotographPath = @ProfilePath
+        WHERE EmployeeID = @EmployeeID
+    ";
+
+            using (DbCommand cmd = db.GetSqlStringCommand(sql))
+            {
+                db.AddInParameter(cmd, "@EmployeeID", DbType.String, empID.Trim());
+                db.AddInParameter(cmd, "@ProfilePath", DbType.String, profilePath.Trim());
+
+                return db.ExecuteNonQuery(cmd) > 0;
+            }
+        }
+
 
     }
 }

@@ -22,22 +22,22 @@ namespace hrms_PakAsia.Pages.Performance {
         protected global::System.Web.UI.WebControls.DropDownList ddlEmployee;
         
         /// <summary>
-        /// ddlMonth control.
+        /// txtFrom control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlMonth;
+        protected global::System.Web.UI.WebControls.TextBox txtFrom;
         
         /// <summary>
-        /// ddlPeriodType control.
+        /// txtTo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlPeriodType;
+        protected global::System.Web.UI.WebControls.TextBox txtTo;
         
         /// <summary>
         /// txtGoal control.

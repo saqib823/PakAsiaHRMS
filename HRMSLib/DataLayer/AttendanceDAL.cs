@@ -39,6 +39,34 @@ namespace HRMSLib.DataLayer
 
             return data;
         }
+        public static DataTable GetAttendanceLogs_ForKPIs(string empNo, DateTime from, DateTime to)
+        {
+            Database db = new DatabaseProviderFactory().Create("defaultDB");
+            DbCommand cmd = db.GetStoredProcCommand("SP_GetAttendanceLogs");
+
+            db.AddInParameter(cmd, "@EmployeeNo", DbType.String, empNo);
+            db.AddInParameter(cmd, "@FromDate", DbType.Date, from.Date);
+            db.AddInParameter(cmd, "@ToDate", DbType.Date, to.Date);
+
+            return db.ExecuteDataSet(cmd).Tables[0];
+        }
+        public static DataRow GetEmployeeKPI(string employeeNo, DateTime fromDate, DateTime toDate)
+        {
+            Database db = new DatabaseProviderFactory().Create("defaultDB");
+            DbCommand cmd = db.GetStoredProcCommand("SP_CalculateEmployeeKPI");
+
+            db.AddInParameter(cmd, "@EmployeeNo", DbType.String, employeeNo);
+            db.AddInParameter(cmd, "@FromDate", DbType.Date, fromDate);
+            db.AddInParameter(cmd, "@ToDate", DbType.Date, toDate);
+
+            DataSet ds = db.ExecuteDataSet(cmd);
+
+            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                return ds.Tables[0].Rows[0];
+
+            return null;
+        }
+
         public static bool SaveAttendance(
            int mode,
            int? attendanceLogId,

@@ -103,6 +103,24 @@ namespace hrms_PakAsia {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl FullName;
         
         /// <summary>
+        /// fuProfilePicture control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload fuProfilePicture;
+        
+        /// <summary>
+        /// btnUploadProfile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnUploadProfile;
+        
+        /// <summary>
         /// lnkSignOut control.
         /// </summary>
         /// <remarks>
@@ -110,6 +128,15 @@ namespace hrms_PakAsia {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkSignOut;
+        
+        /// <summary>
+        /// phAlert control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder phAlert;
         
         /// <summary>
         /// MainContent control.

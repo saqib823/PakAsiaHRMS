@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Web;
+using System.Web.UI.WebControls;
 using HRMSLib.BusinessLogic;
 using HRMSLib.DataLayer;
 
@@ -29,7 +30,10 @@ namespace hrms_PakAsia.Pages.Asset
         {
             CheckSession();
             currentUser = GetSessionData();
-
+            if (currentUser.RoleId != 1)
+            {
+                formsection.Visible = false;
+            }
             if (!IsPostBack)
             {
                 LoadEmployees();
@@ -70,7 +74,19 @@ namespace hrms_PakAsia.Pages.Asset
             ddlAsset.Items.Insert(0, new System.Web.UI.WebControls.ListItem("-- Select --", "0"));
 
             int totalRecords;
-            rptAssets.DataSource = dal.GetAssetRecords(PageIndex, PageSize, SearchTerm, out totalRecords);
+            int? empID = null;
+
+            // RoleId = 1 → normal user → own records only
+            if (currentUser.RoleId != 1)
+                empID = currentUser.UserID;
+
+            rptAssets.DataSource = dal.GetAssetRecords(
+                PageIndex,
+                PageSize,
+                SearchTerm,
+                empID,
+                out totalRecords
+            );
             rptAssets.DataBind();
 
             lblPageInfo.Text = $"Page {PageIndex} of {Math.Ceiling((double)totalRecords / PageSize)}";
@@ -148,5 +164,28 @@ namespace hrms_PakAsia.Pages.Asset
             ddlCondition.SelectedIndex = 0;
             txtDeduction.Text = "";
         }
+
+        protected void rptAssets_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            // 🚫 Ignore Header / Footer / Separator
+            if (e.Item.ItemType != ListItemType.Item &&
+                e.Item.ItemType != ListItemType.AlternatingItem)
+                return;
+
+            // 🔒 Safety check
+            if (currentUser == null)
+                return;
+
+            LinkButton btnDelete = e.Item.FindControl("btnDelete") as LinkButton;
+            LinkButton btnEdit = e.Item.FindControl("btnEdit") as LinkButton;
+
+            // 🔐 Non-admin → no edit / delete
+            if (currentUser.RoleId != 1)
+            {
+                if (btnDelete != null) btnDelete.Visible = false;
+                if (btnEdit != null) btnEdit.Visible = false;
+            }
+        }
+
     }
 }

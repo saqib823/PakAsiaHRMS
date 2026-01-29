@@ -20,31 +20,26 @@
             AutoPostBack="true" data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'
             OnSelectedIndexChanged="ddlEmployee_SelectedIndexChanged"/>
     </div>
-
-    <div class="col-md-3">
-        <label>Month</label>
-        <asp:DropDownList ID="ddlMonth" runat="server" CssClass="form-select" 
-            data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'/>
+      <div class="col-md-3">
+        <label>From</label>
+        <asp:TextBox ID="txtFrom" runat="server" TextMode="Date" CssClass="form-control" />
     </div>
 
     <div class="col-md-3">
-        <label>Period</label>
-        <asp:DropDownList ID="ddlPeriodType" runat="server" CssClass="form-select"
-            data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'>
-            <asp:ListItem Text="Monthly" Value="M"/>
-            <asp:ListItem Text="Quarterly" Value="Q"/>
-        </asp:DropDownList>
+        <label>To</label>
+        <asp:TextBox ID="txtTo" runat="server" TextMode="Date" CssClass="form-control" />
     </div>
+
 
     <div class="col-md-3">
         <label>Goal Achievement</label>
-        <asp:TextBox ID="txtGoal" runat="server" CssClass="form-control" ReadOnly="true"/>
+        <asp:TextBox ID="txtGoal" runat="server" CssClass="form-control" />
     </div>
 
-    <div class="col-md-3"><label>Attendance %</label><asp:TextBox ID="txtAttendance" runat="server" CssClass="form-control"/></div>
-    <div class="col-md-3"><label>Punctuality %</label><asp:TextBox ID="txtPunctuality" runat="server" CssClass="form-control"/></div>
+    <div class="col-md-3"><label>Attendance %</label><asp:TextBox ID="txtAttendance" runat="server" CssClass="form-control" ReadOnly="true"/></div>
+    <div class="col-md-3"><label>Punctuality %</label><asp:TextBox ID="txtPunctuality" runat="server" CssClass="form-control"  ReadOnly="true"/></div>
     <div class="col-md-3"><label>Task Completion %</label><asp:TextBox ID="txtTaskCompletion" runat="server" CssClass="form-control"/></div>
-    <div class="col-md-3"><label>Overtime</label><asp:TextBox ID="txtOvertime" runat="server" CssClass="form-control"/></div>
+    <div class="col-md-3"><label>Overtime</label><asp:TextBox ID="txtOvertime" runat="server" CssClass="form-control"  ReadOnly="true"/></div>
 
     <div class="col-md-3">
         <label>Final Score</label>

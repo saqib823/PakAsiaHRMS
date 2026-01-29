@@ -267,5 +267,55 @@ namespace hrms_PakAsia
 
             return path;
         }
+
+        protected void btnUploadProfile_Click(object sender, EventArgs e)
+        {
+            if (!fuProfilePicture.HasFile)
+            {
+                ShowAlert("Please select an image", "warning");
+                return;
+            }
+
+            string ext = Path.GetExtension(fuProfilePicture.FileName).ToLower();
+            if (!new[] { ".jpg", ".jpeg", ".png" }.Contains(ext))
+            {
+                ShowAlert("Only JPG and PNG files are allowed", "danger");
+                return;
+            }
+
+            string uploadPath = Server.MapPath("~/Uploads/Profile/");
+            if (!Directory.Exists(uploadPath))
+                Directory.CreateDirectory(uploadPath);
+            currentUser = GetSessionData();
+            string fileName = $"{currentUser.UserID}_{Guid.NewGuid()}{ext}";
+            fuProfilePicture.SaveAs(Path.Combine(uploadPath, fileName));
+
+            string dbPath = "~/Uploads/Profile/" + fileName;
+
+            // 🔥 Update DB
+            EmployeeMaster.UpdateProfilePicture(currentUser.UserID.ToString(), dbPath);
+
+            ShowAlert("Profile picture updated successfully", "success");
+        }
+        private LoggedInUser GetSessionData()
+        {
+            return HttpContext.Current.Session["LoggedInUser"] as LoggedInUser;
+        }
+        private void ShowAlert(string message, string css)
+        {
+            phAlert.Controls.Clear();
+            phAlert.Controls.Add(new Literal
+            {
+                Text = $@"
+                    <div id='autoAlert' class='alert alert-{css} alert-dismissible fade show' role='alert'>{message}</div>
+                    <script>
+                        setTimeout(function() {{
+                            var a=document.getElementById('autoAlert');
+                            if(a){{a.classList.remove('show'); a.classList.add('hide');}}
+                        }}, 3000);
+                    </script>"
+            });
+        }
+
     }
 }

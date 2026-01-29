@@ -1,6 +1,7 @@
 ﻿using HRMSLib.BusinessLogic;
 using HRMSLib.DataLayer;
 using System;
+using System.Data;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -48,17 +49,13 @@ namespace hrms_PakAsia.Pages.Performance
 
         private void LoadDDLs()
         {
-            ddlEmployee.DataSource = CommonDAL.GetEmployees();
+            ddlEmployee.DataSource = CommonDAL.GetEmployeeswithEmployeeNumber();
             ddlEmployee.DataTextField = "Name";
             ddlEmployee.DataValueField = "ID";
             ddlEmployee.DataBind();
             ddlEmployee.Items.Insert(0, new ListItem("-- Select Employee --", "0"));
 
-            ddlMonth.DataSource = CommonDAL.GetMonths();
-            ddlMonth.DataTextField = "Name";
-            ddlMonth.DataValueField = "ID";
-            ddlMonth.DataBind();
-            ddlMonth.Items.Insert(0, new ListItem("-- Select Month --", "0"));
+            
         }
 
         private void LoadKPIList()
@@ -77,9 +74,6 @@ namespace hrms_PakAsia.Pages.Performance
         {
             if (ddlEmployee.SelectedValue == "0") return;
 
-            txtGoal.Text = KPIDAL
-                .GetGoalAchievement(Convert.ToInt32(ddlEmployee.SelectedValue), DateTime.Now.Year)
-                .ToString("0.00");
         }
 
         #endregion
@@ -99,47 +93,47 @@ namespace hrms_PakAsia.Pages.Performance
 
         protected void btnCalculate_Click(object sender, EventArgs e)
         {
-            decimal finalScore =
-                (ToDecimal(txtAttendance.Text) * 0.25m) +
-                (ToDecimal(txtPunctuality.Text) * 0.20m) +
-                (ToDecimal(txtTaskCompletion.Text) * 0.30m) +
-                (ToDecimal(txtGoal.Text) * 0.15m) +
-                (ToDecimal(txtOvertime.Text) * 0.10m);
+            if (!DateTime.TryParse(txtFrom.Text, out DateTime fromDate) ||
+                !DateTime.TryParse(txtTo.Text, out DateTime toDate))
+            {
+                ShowAlert("Invalid date range", "danger");
+                return;
+            }
 
-            txtFinalScore.Text = finalScore.ToString("0.00");
+            string employeeID = ddlEmployee.SelectedValue;
+
+            DataRow dr = AttendanceDAL.GetEmployeeKPI(employeeID, fromDate, toDate);
+
+            if (dr == null) return;
+
+            txtAttendance.Text = dr["AttendancePercentage"].ToString() + "%";
+            txtPunctuality.Text = dr["PunctualityPercentage"].ToString() + "%";
+            txtFinalScore.Text = dr["FinalScore"].ToString();
         }
+
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            if (ddlEmployee.SelectedValue == "0" || ddlMonth.SelectedValue == "0")
+            if (ddlEmployee.SelectedValue == "0" || txtFrom.Text == "" || txtTo.Text == "")
             {
-                ShowAlert("Please select Employee and Month", "warning");
+                ShowAlert("Select the employee and duration", "warning");
                 return;
             }
 
             decimal finalScore = ToDecimal(txtFinalScore.Text);
-            int month = Convert.ToInt32(ddlMonth.SelectedValue);
-            string periodType = ddlPeriodType.SelectedValue;
-
-            int? quarter = null;
-
-            if (periodType == "Q")
-            {
-                quarter = GetQuarter(month);
-            }
-
+            DateTime From = Convert.ToDateTime(txtFrom.Text);
+            DateTime To = Convert.ToDateTime(txtTo.Text);
+            
             KPIDAL.SaveEmployeeKPI(
                 employeeId: Convert.ToInt32(ddlEmployee.SelectedValue),
-                year: DateTime.Now.Year,
-                month: month,
+                From: From,
+                To: To,
                 attendance: ToDecimal(txtAttendance.Text),
                 punctuality: ToDecimal(txtPunctuality.Text),
                 taskCompletion: ToDecimal(txtTaskCompletion.Text),
                 overtime: ToDecimal(txtOvertime.Text),
                 finalScore: finalScore,
                 grade: GetGrade(finalScore),
-                periodType: periodType,
-                quarter: quarter,
                 createdBy: Convert.ToInt32(Session["UserID"])
             );
 

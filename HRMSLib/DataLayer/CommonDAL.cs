@@ -136,6 +136,32 @@ namespace HRMSLib.DataLayer
                 throw new Exception(ex.Message);
             }
         }
+        public static DataSet GetEmployeeswithEmployeeNumber()
+        {
+            try
+            {
+                Database db = new DatabaseProviderFactory().Create("defaultDB");
+                string query = "SELECT EmployeeNo ID, FullName Name,  FullName + ' - ' + EmployeeNo NameNumber FROM Employees ORDER BY FullName";
+                return db.ExecuteDataSet(CommandType.Text, query);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public static DataSet GetExpenseTypes()
+        {
+            try
+            {
+                Database db = new DatabaseProviderFactory().Create("defaultDB");
+                string query = "SELECT ExpenseID ID, [ExpenseType] Name FROM Expenses ORDER BY Name";
+                return db.ExecuteDataSet(CommandType.Text, query);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         public static DataSet GetEmployee(string employeeID)
         {
             try
