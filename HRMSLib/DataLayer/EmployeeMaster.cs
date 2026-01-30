@@ -18,7 +18,7 @@ namespace HRMSLib.DataLayer
             DateTime? empDoB, string empGender, string empCnic, DateTime? empCNICExpiry,
             string empMaritalStatus, string Nationality, string Religion, string empImagePath,
             string empBloodGroup, string empCreatedBy, string EmailAddress, string passsword, bool IsActive, 
-            long? roleId)
+            long? roleId, bool TwoFA)
         {
             try
             {
@@ -49,6 +49,7 @@ namespace HRMSLib.DataLayer
                 db.AddInParameter(cmd, "@RoleId", DbType.Int64,
                     roleId.HasValue ? (object)roleId.Value : DBNull.Value);
                 db.AddInParameter(cmd, "@Active", DbType.Boolean, IsActive);
+                db.AddInParameter(cmd, "@TwoFA", DbType.Boolean, TwoFA);
 
                 // Output parameter to get inserted EmployeeID
                 db.AddOutParameter(cmd, "@empID_New", DbType.Int64, sizeof(long));

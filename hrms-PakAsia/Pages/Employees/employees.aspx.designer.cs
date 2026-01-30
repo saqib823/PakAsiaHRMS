@@ -202,6 +202,15 @@ namespace hrms_PakAsia.Pages.Employees {
         protected global::System.Web.UI.WebControls.CheckBox chkActive;
         
         /// <summary>
+        /// chk2FA control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chk2FA;
+        
+        /// <summary>
         /// btnSubmitBasicInfo control.
         /// </summary>
         /// <remarks>

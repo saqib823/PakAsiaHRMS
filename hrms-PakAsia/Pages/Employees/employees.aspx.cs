@@ -476,7 +476,8 @@ namespace hrms_PakAsia.Pages.Employees
                 EmailAddress.Text.Trim(),
                 BCrypt.Net.BCrypt.HashPassword(Password.Text),
                 chkActive.Checked,
-                Convert.ToInt64(ddlRoleId.SelectedValue)
+                Convert.ToInt64(ddlRoleId.SelectedValue),
+                chk2FA.Checked
             );
 
         }
@@ -780,6 +781,7 @@ namespace hrms_PakAsia.Pages.Employees
 
             ddlRoleId.SelectedValue = GetInt(r["RoleId"]).ToString();
             chkActive.Checked = GetBool(r["Active"]);
+            chk2FA.Checked = GetBool(r["TwoFA"]);
 
             SetDropDownValue(ddlGender, r["GenderID"]);
             SetDropDownValue(ddlMaritalStatus, r["MaritalStatusID"]);
