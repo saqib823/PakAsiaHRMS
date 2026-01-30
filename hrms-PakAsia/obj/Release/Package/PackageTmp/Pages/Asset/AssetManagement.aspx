@@ -8,7 +8,7 @@
 <div class="container-fluid">
 
     <!-- Asset Issue / Return Form -->
-    <div class="row mt-10">
+    <div class="row mt-10" runat="server" id="formsection">
         <div class="col-12">
             <div class="card shadow-sm mb-4">
                 <div class="card-header text-white">
@@ -70,7 +70,7 @@
                         <asp:Button ID="btnSearch" runat="server" CssClass="btn btn-primary ms-2" Text="Search" OnClick="btnSearch_Click" />
                         
                     </div>
-                    <asp:Repeater ID="rptAssets" runat="server" OnItemCommand="rptAssets_ItemCommand">
+                    <asp:Repeater ID="rptAssets" runat="server" OnItemCommand="rptAssets_ItemCommand" OnItemDataBound="rptAssets_ItemDataBound">
                         <HeaderTemplate>
                             <table class="table table-striped table-hover align-middle">
                                 <thead>

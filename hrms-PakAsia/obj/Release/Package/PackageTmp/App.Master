@@ -694,11 +694,14 @@
                                     </div>
                                     <h6 runat="server" id="FullName" class="mt-2 text-body-emphasis"></h6>
                                 </div>
-                                <div class="mb-3 mx-3">
-                                    <input class="form-control form-control-sm" id="statusUpdateInput" type="text" placeholder="Update your status" />
-                                </div>
+                              <div class="mb-3 mx-3 d-flex align-items-center gap-2">
+    <asp:FileUpload ID="fuProfilePicture" runat="server" CssClass="form-control form-control-sm w-auto" accept=".jpg,.jpeg,.png" />
+    <asp:Button ID="btnUploadProfile" runat="server" Text="Upload" CssClass="btn btn-primary btn-sm" OnClick="btnUploadProfile_Click" />
+</div>
+
+
                             </div>
-                            <div class="overflow-auto scrollbar" style="height: 10rem;">
+                            <%--<div class="overflow-auto scrollbar" style="height: 10rem;">
                                 <ul class="nav d-flex flex-column mb-2 pb-1">
                                     <li class="nav-item"><a class="nav-link px-3 d-block" href="#!"><span class="me-2 text-body align-bottom" data-feather="user"></span><span>Profile</span></a></li>
                                     <li class="nav-item"><a class="nav-link px-3 d-block" href="#!"><span class="me-2 text-body align-bottom" data-feather="pie-chart"></span>Dashboard</a></li>
@@ -707,11 +710,11 @@
                                     <li class="nav-item"><a class="nav-link px-3 d-block" href="#!"><span class="me-2 text-body align-bottom" data-feather="help-circle"></span>Help Center</a></li>
                                     <li class="nav-item"><a class="nav-link px-3 d-block" href="#!"><span class="me-2 text-body align-bottom" data-feather="globe"></span>Language</a></li>
                                 </ul>
-                            </div>
+                            </div>--%>
                             <div class="card-footer p-0 border-top border-translucent">
-                                <ul class="nav d-flex flex-column my-3">
+                               <%-- <ul class="nav d-flex flex-column my-3">
                                     <li class="nav-item"><a class="nav-link px-3 d-block" href="#!"><span class="me-2 text-body align-bottom" data-feather="user-plus"></span>Add another account</a></li>
-                                </ul>
+                                </ul>--%>
                                 <hr />
                                     <div class="px-3">
                                         <asp:LinkButton
@@ -735,6 +738,8 @@
                 </li>
             </ul>
         </nav>
+                                <asp:PlaceHolder ID="phAlert" runat="server"></asp:PlaceHolder>
+
 
                 <asp:ContentPlaceHolder ID="MainContent" runat="server" />
 

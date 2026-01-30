@@ -141,8 +141,6 @@ C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\obj\Debug\hrms-
 C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\obj\Debug\hrms-PakAsia.pdb
 C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\obj\Debug\hrms-PakAsia.csprojAssemblyReference.cache
 C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\bin\HRMSLib.dll
-C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\bin\Microsoft.Practices.EnterpriseLibrary.Data.dll
-C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\bin\Microsoft.Practices.EnterpriseLibrary.Common.dll
 C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\bin\HRMSLib.pdb
 C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\bin\BCrypt.Net-Next.dll
 C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\bin\System.Buffers.dll
@@ -243,3 +241,4 @@ C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\bin\CrystalDeci
 C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\bin\CrystalDecisions.ReportAppServer.ObjectFactory.dll
 C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\bin\CrystalDecisions.ReportAppServer.CommonControls.dll
 C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\bin\stdole.dll
+C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\bin\Microsoft.Practices.ObjectBuilder2.dll

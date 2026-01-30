@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Employee KPI" Language="C#" MasterPageFile="~/App.Master"
+<%@ Page Title="Employee KPI" Language="C#" MasterPageFile="~/App.Master"
     AutoEventWireup="true" CodeBehind="kpi.aspx.cs"
     Inherits="hrms_PakAsia.Pages.Performance.kpi" %>
 
@@ -17,38 +17,45 @@
         <label>Employee</label>
         <asp:DropDownList ID="ddlEmployee" runat="server"
             CssClass="form-select"
-            AutoPostBack="true" data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'
+            data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'
             OnSelectedIndexChanged="ddlEmployee_SelectedIndexChanged"/>
     </div>
-
-    <div class="col-md-3">
-        <label>Month</label>
-        <asp:DropDownList ID="ddlMonth" runat="server" CssClass="form-select" 
-            data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'/>
+      <div class="col-md-3">
+        <label>From</label>
+        <asp:TextBox ID="txtFrom" runat="server" TextMode="Date" CssClass="form-control" />
     </div>
 
     <div class="col-md-3">
-        <label>Period</label>
-        <asp:DropDownList ID="ddlPeriodType" runat="server" CssClass="form-select"
-            data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'>
-            <asp:ListItem Text="Monthly" Value="M"/>
-            <asp:ListItem Text="Quarterly" Value="Q"/>
-        </asp:DropDownList>
+        <label>To</label>
+        <asp:TextBox ID="txtTo" runat="server" TextMode="Date" CssClass="form-control" OnTextChanged="txtTo_TextChanged" AutoPostBack="true" />
     </div>
+
 
     <div class="col-md-3">
         <label>Goal Achievement</label>
-        <asp:TextBox ID="txtGoal" runat="server" CssClass="form-control" ReadOnly="true"/>
+        <asp:TextBox ID="txtGoal" runat="server" MaxLength="2" TextMode="Number" CssClass="form-control" />
     </div>
 
-    <div class="col-md-3"><label>Attendance %</label><asp:TextBox ID="txtAttendance" runat="server" CssClass="form-control"/></div>
-    <div class="col-md-3"><label>Punctuality %</label><asp:TextBox ID="txtPunctuality" runat="server" CssClass="form-control"/></div>
-    <div class="col-md-3"><label>Task Completion %</label><asp:TextBox ID="txtTaskCompletion" runat="server" CssClass="form-control"/></div>
-    <div class="col-md-3"><label>Overtime</label><asp:TextBox ID="txtOvertime" runat="server" CssClass="form-control"/></div>
+    <div class="col-md-3"><label>Attendance %</label><asp:TextBox ID="txtAttendance" runat="server" CssClass="form-control" ReadOnly="true"/></div>
+    <div class="col-md-3"><label>Punctuality %</label><asp:TextBox ID="txtPunctuality" runat="server" CssClass="form-control"  ReadOnly="true"/></div>
+    <div class="col-md-3"><label>Task Completion %</label><asp:TextBox ID="txtTaskCompletion" MaxLength="2" TextMode="Number" runat="server" CssClass="form-control"/></div>
+    <div class="col-md-3"><label>Overtime</label><asp:TextBox ID="txtOvertime" runat="server" CssClass="form-control"  ReadOnly="true"/></div>
 
     <div class="col-md-3">
         <label>Final Score</label>
         <asp:TextBox ID="txtFinalScore" runat="server" CssClass="form-control fw-bold" ReadOnly="true"/>
+    </div>
+    <div class="col-md-3">
+        <label>Appraisal %</label>
+        <asp:TextBox ID="txtAppraisal" OnTextChanged="txtAppraisal_TextChanged" MaxLength="2" CssClass="form-control fw-bold" runat="server" TextMode="Number" AutoPostBack="true" />
+    </div>
+    <div class="col-md-3 mt-7">
+        <label>Current Basic Salary</label>
+        <asp:Literal ID="ltCurrentBasicSalary"   runat="server"  />
+    </div>
+    <div class="col-md-3 mt-7">
+        <label>Appraised Salary</label>
+        <asp:Literal ID="ltAppraisedSalary"   runat="server"  />
     </div>
 </div>
 
@@ -71,13 +78,16 @@
     <HeaderTemplate>
         <table class="table table-striped">
         <thead><tr>
-            <th>Employee</th><th>Month</th><th>Score</th><th>Action</th>
+            <th>Employee</th><th>From</th><th>To</th><th>Final Score</th><th>Action</th>
         </tr></thead><tbody>
     </HeaderTemplate>
     <ItemTemplate>
         <tr>
             <td><%# Eval("EmployeeName") %></td>
-            <td><%# Eval("MonthName") %></td>
+           <td><%# Eval("From", "{0:yyyy-MM-dd}") %></td>
+<td><%# Eval("To", "{0:yyyy-MM-dd}") %></td>
+
+
             <td><%# Eval("FinalScore") %></td>
             <td>
                 <asp:LinkButton runat="server" Text="Delete"
