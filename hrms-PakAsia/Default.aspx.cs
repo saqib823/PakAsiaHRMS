@@ -4,6 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
+using System.Security.Cryptography;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -39,7 +42,18 @@ namespace hrms_PakAsia
                     ShowAlert("Your Role has no rights! Contact with Admin", "danger");
                     return;
                 }
+                if (currentUser.TwoFA == true)
+                {
+                    string otp;
+                    bool sent = SendEmail(currentUser.EmailAddress, out otp);
 
+                    if (sent)
+                    {
+                        Response.Redirect("~/Pages/VerifyUser.aspx", true);
+                        return;
+                    }
+                    ShowAlert("Email Not Sent! try again later.","danger");
+                }
                 if (currentUser != null && currentRoleRights != null && currentRoleRights.Count > 0)
                 {
                     // Get allowed URLs (ignore '#')
@@ -85,6 +99,47 @@ namespace hrms_PakAsia
             
             }
         }
+        public bool SendEmail(string toEmail, out string otp)
+        {
+            otp = GenerateOTP(); // create 6-digit OTP
+            HttpContext.Current.Session["OTP"] = otp;
+            try
+            {
+                MailMessage mail = new MailMessage();
+                mail.From = new MailAddress("m.ahmad.amin112344@gmail.com");
+                mail.To.Add(toEmail);
+                mail.Subject = "Your OTP for 2FA";
+                mail.Body = $"Hello,\n\nYour OTP is: {otp}\n\nThis OTP is valid for 5 minutes.\n\nRegards";
+                mail.IsBodyHtml = false;
+
+                SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+                smtp.Credentials = new NetworkCredential(
+                    "m.ahmad.amin112344@gmail.com",
+                    "sjch kwbj tcki xzqi"   // App Password
+                );
+                smtp.EnableSsl = true;
+
+                smtp.Send(mail);   // void method
+                return true;
+            }
+            catch
+            {
+                otp = null;
+                return false;
+            }
+        }
+        private string GenerateOTP()
+        {
+            using (var rng = RandomNumberGenerator.Create())
+            {
+                byte[] bytes = new byte[4];
+                rng.GetBytes(bytes);
+                int otp = BitConverter.ToInt32(bytes, 0) % 1000000;
+                otp = Math.Abs(otp);
+                return otp.ToString("D6"); // always 6 digits
+            }
+        }
+
         private string NormalizeMenuUrl(string url)
         {
             if (string.IsNullOrWhiteSpace(url) || url == "#")

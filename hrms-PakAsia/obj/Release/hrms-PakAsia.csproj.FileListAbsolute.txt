@@ -172,3 +172,4 @@ C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\obj\Release\hrm
 C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\obj\Release\hrms-PakAsia.csproj.CopyComplete
 C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\obj\Release\hrms-PakAsia.dll
 C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\obj\Release\hrms-PakAsia.pdb
+C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\hrms-PakAsia\bin\Microsoft.Practices.ObjectBuilder2.dll

@@ -23,6 +23,7 @@ namespace HRMSLib.BusinessLogic
         public string Designation { get; set; } 
         public string filePath { get; set; } = "";
         public string ImageType { get; set; } = "";
+        public bool TwoFA { get; set; } = false;
     }
     public class RoleRights
     {

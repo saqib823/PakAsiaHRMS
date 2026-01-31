@@ -221,7 +221,8 @@ namespace HRMSLib.DataLayer
                     Cnic = dr["CNIC"].ToString(),
                     PhoneNumber = dr["MobileNumber"].ToString(),
                     Designation = dr["DesignationID"]?.ToString(),
-                    filePath = dr["PhotographPath"]?.ToString()
+                    filePath = dr["PhotographPath"]?.ToString(),
+                    TwoFA = Convert.ToBoolean(dr["TwoFA"])
                 };
             }
         }

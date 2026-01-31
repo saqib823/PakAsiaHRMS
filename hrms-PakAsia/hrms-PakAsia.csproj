@@ -1245,6 +1245,7 @@
     <Content Include="Pages\signup.aspx" />
     <Content Include="Pages\SubmitExpense.aspx" />
     <Content Include="Pages\UserDashboard.aspx" />
+    <Content Include="Pages\VerifyUser.aspx" />
     <Content Include="Site.Master" />
     <Content Include="unicons.iconscout.com\release\v4.0.8\css\line.css" />
     <Content Include="vendors\anchorjs\anchor.min.js" />
@@ -1558,6 +1559,13 @@
     </Compile>
     <Compile Include="Pages\UserDashboard.aspx.designer.cs">
       <DependentUpon>UserDashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\VerifyUser.aspx.cs">
+      <DependentUpon>VerifyUser.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\VerifyUser.aspx.designer.cs">
+      <DependentUpon>VerifyUser.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reports\BranchPayroll.cs">

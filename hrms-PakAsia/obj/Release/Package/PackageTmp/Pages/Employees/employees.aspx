@@ -183,6 +183,17 @@
                                                     </label>
                                                 </div>
                                             </div>
+                                            <div class="col-sm-3 mb-4">
+                                                <div class="form-check mt-4">
+                                                    <asp:CheckBox 
+                                                        ID="chk2FA"
+                                                        runat="server"
+                                                        CssClass="form-check-input" />
+                                                    <label class="form-check-label" for="chk2FA">
+                                                        2FA
+                                                    </label>
+                                                </div>
+                                            </div>
                                         </div>
                                         
                                         <!-- Save Basic Info Button -->
