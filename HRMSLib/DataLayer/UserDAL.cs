@@ -208,22 +208,23 @@ namespace HRMSLib.DataLayer
 
                 return new LoggedInUser
                 {
-                    UserID = Convert.ToInt32(dr["EmployeeID"]),
-                    RoleId = Convert.ToInt32(dr["RoleId"]),
-                    UserName = dr["FullName"].ToString(),
-                    FirstName = dr["FullName"].ToString(),
-                    LastName = dr["FatherOrSpouseName"].ToString(),
-                    EmailAddress = dr["EmailAddress"].ToString(),
-                    Active = Convert.ToBoolean(dr["Active"]),
-                    PrimaryDepartmentId = dr["DepartmentID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["DepartmentID"]),
-                    CreatedDate = Convert.ToDateTime(dr["CreatedDate"]),
-                    CreatedBy = dr["CreatedBy"].ToString(),
-                    Cnic = dr["CNIC"].ToString(),
-                    PhoneNumber = dr["MobileNumber"].ToString(),
-                    Designation = dr["DesignationID"]?.ToString(),
-                    filePath = dr["PhotographPath"]?.ToString(),
-                    TwoFA = Convert.ToBoolean(dr["TwoFA"])
+                    UserID = dr["EmployeeID"] != DBNull.Value ? Convert.ToInt32(dr["EmployeeID"]) : 0,
+                    RoleId = dr["RoleId"] != DBNull.Value ? Convert.ToInt32(dr["RoleId"]) : 0,
+                    UserName = dr["FullName"] != DBNull.Value ? dr["FullName"].ToString() : string.Empty,
+                    FirstName = dr["FullName"] != DBNull.Value ? dr["FullName"].ToString() : string.Empty,
+                    LastName = dr["FatherOrSpouseName"] != DBNull.Value ? dr["FatherOrSpouseName"].ToString() : string.Empty,
+                    EmailAddress = dr["EmailAddress"] != DBNull.Value ? dr["EmailAddress"].ToString() : string.Empty,
+                    Active = dr["Active"] != DBNull.Value ? Convert.ToBoolean(dr["Active"]) : false,
+                    PrimaryDepartmentId = dr["DepartmentID"] != DBNull.Value ? Convert.ToInt32(dr["DepartmentID"]) : 0,
+                    CreatedDate = dr["CreatedDate"] != DBNull.Value ? Convert.ToDateTime(dr["CreatedDate"]) : DateTime.MinValue,
+                    CreatedBy = dr["CreatedBy"] != DBNull.Value ? dr["CreatedBy"].ToString() : string.Empty,
+                    Cnic = dr["CNIC"] != DBNull.Value ? dr["CNIC"].ToString() : string.Empty,
+                    PhoneNumber = dr["MobileNumber"] != DBNull.Value ? dr["MobileNumber"].ToString() : string.Empty,
+                    Designation = dr["DesignationID"] != DBNull.Value ? dr["DesignationID"].ToString() : string.Empty,
+                    filePath = dr["PhotographPath"] != DBNull.Value ? dr["PhotographPath"].ToString() : string.Empty,
+                    TwoFA = dr["TwoFA"] != DBNull.Value ? Convert.ToBoolean(dr["TwoFA"]) : false
                 };
+
             }
         }
 

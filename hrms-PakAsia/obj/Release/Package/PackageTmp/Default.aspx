@@ -29,13 +29,7 @@
                             <span class="fas fa-key text-body fs-9 form-icon"></span>
                         </div>
                     </div>
-                    <div class="row flex-between-center mb-7">
-                        <div class="col-auto">
-                            <div class="form-check mb-0">
-                                <input class="form-check-input" id="basic-checkbox" type="checkbox" checked="checked" /><label class="form-check-label mb-0" for="basic-checkbox">Remember me</label></div>
-                        </div>
-                        <div class="col-auto"><a class="fs-9 fw-semibold" href="forgot-password.html">Forgot Password?</a></div>
-                    </div>
+                    
                     <asp:Button runat="server" ID="btnSignIn" OnClick="btnSignIn_Click" CssClass="btn btn-primary w-100 mb-3" Text="Sign In"/>
                 </div>
                                         <asp:PlaceHolder ID="phAlert" runat="server"></asp:PlaceHolder>
