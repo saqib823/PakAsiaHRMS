@@ -23,12 +23,17 @@ namespace hrms_PakAsia.Handler
 
             var jsonList = dt.AsEnumerable().Select(r => new
             {
-                FullName = r["FullName"],
-                VerifyModeName = r["VerifyModeName"],
-                PunchType = r["PunchType"],
-                OprtDateFormatted = Convert.ToDateTime(r["OprtDate"]).ToString("dd-MMM-yyyy"),
-                OprtTimeFormatted = Convert.ToDateTime(r["OprtDate"]).ToString("hh:mm tt")
+                FullName = r["FullName"].ToString(),
+                VerifyModeName = r["VerifyModeName"].ToString(),
+                PunchType = r["PunchType"].ToString(),
+
+                KQDate = Convert.ToDateTime(r["KQDate"])
+                    .ToString("dd-MMM-yyyy"),
+
+                KQTime = ((TimeSpan)r["KQTime"])
+                    .ToString(@"hh\:mm")
             }).ToList();
+
 
             string json = JsonConvert.SerializeObject(new
             {

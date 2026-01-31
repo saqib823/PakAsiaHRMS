@@ -34,8 +34,8 @@
                         html += "<td>" + row.FullName + "</td>";
                         html += "<td>" + row.VerifyModeName + "</td>";
                         html += "<td>" + row.PunchType + "</td>";
-                        html += "<td>" + row.OprtDateFormatted + "</td>";
-                        html += "<td>" + row.OprtTimeFormatted + "</td>";
+                        html += "<td>" + row.KQDate + "</td>";
+                        html += "<td>" + row.KQTime + "</td>";
                         html += "</tr>";
                     });
 
