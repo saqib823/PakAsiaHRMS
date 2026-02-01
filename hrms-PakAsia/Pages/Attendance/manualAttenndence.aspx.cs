@@ -3,7 +3,6 @@ using HRMSLib.DataLayer;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -15,21 +14,22 @@ namespace hrms_PakAsia.Pages.Attendance
 
         private int CurrentPage
         {
-            get { return ViewState["CurrentPage"] != null ? (int)ViewState["CurrentPage"] : 1; }
-            set { ViewState["CurrentPage"] = value; }
+            get => ViewState["CurrentPage"] != null ? (int)ViewState["CurrentPage"] : 1;
+            set => ViewState["CurrentPage"] = value;
         }
 
         private int TotalRecords
         {
-            get { return ViewState["TotalRecords"] != null ? (int)ViewState["TotalRecords"] : 0; }
-            set { ViewState["TotalRecords"] = value; }
+            get => ViewState["TotalRecords"] != null ? (int)ViewState["TotalRecords"] : 0;
+            set => ViewState["TotalRecords"] = value;
         }
 
-        LoggedInUser currentUser = null;
+        LoggedInUser currentUser;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            CheckSession();
+            currentUser = Session["LoggedInUser"] as LoggedInUser;
+            if (currentUser == null) Response.Redirect("~/Default.aspx");
 
             if (!IsPostBack)
             {
@@ -40,46 +40,71 @@ namespace hrms_PakAsia.Pages.Attendance
                 CurrentPage = 1;
                 BindAttendance();
             }
-
-            currentUser = GetSessionData();
         }
 
-        private void CheckSession()
-        {
-            if (Session["LoggedInUser"] == null)
-                Response.Redirect("~/Default.aspx");
-        }
-
-        private LoggedInUser GetSessionData()
-        {
-            return Session["LoggedInUser"] as LoggedInUser;
-        }
-
+        #region Save / Clear
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            int? attendanceId = ViewState["EditAttendanceID"] as int?;
+            try
+            {
+                // Get current attendance ID (null if adding new)
+                int? attendanceId = ViewState["EditAttendanceID"] as int?;
 
-            DateTime punchDateTime = DateTime.Parse(txtPunchDate.Text + " " + txtPunchTime.Text);
+                // Parse date and time inputs
+                if (!DateTime.TryParse(txtPunchDate.Text, out DateTime punchDate))
+                {
+                    ShowAlert("Invalid punch date.", "danger");
+                    return;
+                }
 
-            AttendanceDAL.SaveAttendance(
-                attendanceId.HasValue ? 2 : 1,
-                attendanceId,
-                ddlEmployees.SelectedValue.Trim(),
-                ddlEmployees.SelectedItem.Text.Trim(),
-                DateTime.Parse(txtPunchDate.Text),
-                punchDateTime,
-                ddlPunchType.SelectedValue,
-                "Manual Entry",
-                currentUser.UserID
-            );
+                if (!TimeSpan.TryParse(txtPunchTime.Text, out TimeSpan punchTime))
+                {
+                    ShowAlert("Invalid punch time.", "danger");
+                    return;
+                }
 
-            ViewState["EditAttendanceID"] = null;
+                // Determine mode: 1 = Insert, 2 = Update
+                int mode = attendanceId.HasValue ? 2 : 1;
 
-            ShowAlert(attendanceId.HasValue ? "Attendance updated successfully" : "Attendance added successfully", "success");
+                if (mode == 2 && !attendanceId.HasValue)
+                {
+                    ShowAlert("Cannot update: Attendance ID missing.", "danger");
+                    return;
+                }
 
-            ClearForm();
-            BindAttendance();
+                // Save attendance
+                bool success = AttendanceDAL.SaveAttendance(
+                    mode,
+                    attendanceId,
+                    ddlEmployees.SelectedValue,
+                    ddlEmployees.SelectedItem.Text,
+                    punchDate,
+                    punchTime,
+                    ddlPunchType.SelectedValue,
+                    "Manual Entry",
+                    currentUser.UserID
+                );
+
+                    ShowAlert(
+                        mode == 2 ? "Attendance updated successfully." : "Attendance added successfully.",
+                        "success"
+                    );
+                
+               
+                // Clear edit state and form
+                ViewState["EditAttendanceID"] = null;
+                ClearForm();
+
+                // Rebind the table
+                BindAttendance();
+            }
+            catch (Exception ex)
+            {
+                ShowAlert("Error: " + ex.Message, "danger");
+            }
         }
+
+        protected void btnClear_Click(object sender, EventArgs e) => ClearForm();
 
         private void ClearForm()
         {
@@ -88,22 +113,13 @@ namespace hrms_PakAsia.Pages.Attendance
             txtPunchTime.Text = "";
             ddlPunchType.SelectedIndex = 0;
         }
+        #endregion
 
-        protected void btnClear_Click(object sender, EventArgs e)
-        {
-            ClearForm();
-        }
-
+        #region Bind Attendance / Paging
         private void BindAttendance()
         {
             int total;
-            DataTable dt = AttendanceDAL.GetAttendancePaged(
-                CurrentPage,
-                PageSize,
-                txtSearch.Text.Trim(),
-                out total
-            );
-
+            DataTable dt = AttendanceDAL.GetAttendancePaged(CurrentPage, PageSize, txtSearch.Text.Trim(), out total);
             TotalRecords = total;
 
             rptAttendance.DataSource = dt;
@@ -121,17 +137,11 @@ namespace hrms_PakAsia.Pages.Attendance
         private void BindPager()
         {
             int totalPages = (int)Math.Ceiling((double)TotalRecords / PageSize);
-            List<object> pages = new List<object>();
-
+            var pages = new List<object>();
             for (int i = 1; i <= totalPages; i++)
             {
-                pages.Add(new
-                {
-                    PageNumber = i,
-                    IsCurrent = i == CurrentPage
-                });
+                pages.Add(new { PageNumber = i, IsCurrent = i == CurrentPage });
             }
-
             rptPager.DataSource = pages;
             rptPager.DataBind();
         }
@@ -144,11 +154,8 @@ namespace hrms_PakAsia.Pages.Attendance
 
         protected void btnPrev_Click(object sender, EventArgs e)
         {
-            if (CurrentPage > 1)
-            {
-                CurrentPage--;
-                BindAttendance();
-            }
+            if (CurrentPage > 1) CurrentPage--;
+            BindAttendance();
         }
 
         protected void btnNext_Click(object sender, EventArgs e)
@@ -165,7 +172,9 @@ namespace hrms_PakAsia.Pages.Attendance
                 BindAttendance();
             }
         }
+        #endregion
 
+        #region Repeater Edit / Delete
         protected void rptAttendance_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
             int id = Convert.ToInt32(e.CommandArgument);
@@ -173,12 +182,17 @@ namespace hrms_PakAsia.Pages.Attendance
             if (e.CommandName == "Edit")
             {
                 DataRow dr = AttendanceDAL.GetById(id);
+                if (dr == null) return;
 
                 ddlEmployees.SelectedValue = dr["EmpNo"].ToString();
                 txtPunchDate.Text = Convert.ToDateTime(dr["PunchDate"]).ToString("yyyy-MM-dd");
-                txtPunchTime.Text = Convert.ToDateTime(dr["PunchDateTime"]).ToString("HH:mm");
-                ddlPunchType.SelectedValue = dr["PunchType"].ToString();
 
+                // TimeSpan from SQL TIME(7)
+                txtPunchTime.Text = DateTime.Today
+                    .Add((TimeSpan)dr["PunchDateTime"])
+                    .ToString("HH:mm");
+
+                ddlPunchType.SelectedValue = dr["PunchType"].ToString();
                 ViewState["EditAttendanceID"] = id;
 
                 ShowAlert("Attendance loaded for editing", "info");
@@ -190,23 +204,26 @@ namespace hrms_PakAsia.Pages.Attendance
                 BindAttendance();
             }
         }
+        #endregion
 
+        #region Alert
         private void ShowAlert(string message, string css)
         {
             phAlert.Controls.Clear();
             phAlert.Controls.Add(new Literal
             {
                 Text = $@"
-                <div id='autoAlert' class='alert alert-{css} alert-dismissible fade show'>
-                    {message}
-                </div>
-                <script>
-                    setTimeout(function(){{
-                        var a=document.getElementById('autoAlert');
-                        if(a) a.remove();
-                    }},3000);
-                </script>"
+<div id='autoAlert' class='alert alert-{css} alert-dismissible fade show'>
+    {message}
+</div>
+<script>
+setTimeout(function(){{
+    var a=document.getElementById('autoAlert');
+    if(a) a.remove();
+}},3000);
+</script>"
             });
         }
+        #endregion
     }
 }
