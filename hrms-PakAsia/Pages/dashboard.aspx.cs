@@ -76,6 +76,8 @@ namespace hrms_PakAsia.Pages
                         litAssets.Text = row["TotalAssets"].ToString();
                         litIssuedAssets.Text = row["IssuedAssets"].ToString();
                         litReturnedAssets.Text = row["ReturnedAssets"].ToString();
+                        litNewJoiners.Text = row["NewJoiners"].ToString();
+                        litTurnover.Text = row["TurnoverRatePercent"].ToString() +"%";
 
                         // For Attendance Statistics section
                         typeTotalEmployees.Text = row["TotalEmployees"].ToString();

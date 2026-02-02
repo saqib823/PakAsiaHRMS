@@ -200,6 +200,7 @@
     <Compile Include="DataLayer\LoanDAL.cs" />
     <Compile Include="DataLayer\MenuDAL.cs" />
     <Compile Include="DataLayer\PayrollDAL.cs" />
+    <Compile Include="DataLayer\RecruitmentDAL.cs" />
     <Compile Include="DataLayer\RoleDAL.cs" />
     <Compile Include="DataLayer\ShiftDAL.cs" />
     <Compile Include="DataLayer\UserDAL.cs" />

@@ -148,21 +148,21 @@
                <!-- CANDIDATES -->
                <div class="col-12 col-sm-6 col-xl-3">
                    <div class="d-flex align-items-center">
-                       <span class="fs-4 lh-1 uil uil-file-alt text-warning-dark"></span>
+                       <span class="fs-4 lh-1 uil uil-user-minus text-danger-dark"></span>
                        <div class="ms-2">
-                           <h3 class="mb-0">40</h3>
-                           <p class="fs-9 mb-0 text-body-secondary">Candidates</p>
+                           <h3 class="mb-0"><asp:Literal ID="litTurnover" runat="server" /></h3>
+                           <p class="fs-9 mb-0 text-body-secondary">Turnover Rate Percent</p>
                        </div>
                    </div>
                </div>
 
-               <!-- ONBOARDINGS -->
+               <!-- New Joiners -->
                <div class="col-12 col-sm-6 col-xl-3">
                    <div class="d-flex align-items-center">
                        <span class="fs-4 lh-1 uil uil-user-plus text-success-dark"></span>
                        <div class="ms-2">
-                           <h3 class="mb-0">12</h3>
-                           <p class="fs-9 mb-0 text-body-secondary">On Boardings</p>
+                           <h3 class="mb-0"><asp:Literal ID="litNewJoiners" runat="server" /></h3>
+                           <p class="fs-9 mb-0 text-body-secondary">New Joiners</p>
                        </div>
                    </div>
                </div>
