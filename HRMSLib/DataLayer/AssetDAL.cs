@@ -71,7 +71,7 @@ namespace HRMSLib.DataLayer
         public DataRow GetAssetById(int assetRecordID)
         {
             DbCommand cmd = db.GetSqlStringCommand(@"
-                SELECT AR.AssetRecordID, AR.EmployeeID, E.FullName AS EmployeeName, A.AssetName,
+                SELECT AR.AssetRecordID, AR.EmployeeID, E.FullName AS EmployeeName, A.AssetName,A.AssetID,
                        AR.IssueDate, AR.ReturnDate, AR.Condition, AR.Deduction
                 FROM AssetRecords AR
                 INNER JOIN Employees E ON E.EmployeeID = AR.EmployeeID

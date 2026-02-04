@@ -580,6 +580,15 @@ namespace hrms_PakAsia.Pages.Employees {
         protected global::System.Web.UI.WebControls.TextBox txtHalfDayHours;
         
         /// <summary>
+        /// txtOvertimeAllowed control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtOvertimeAllowed;
+        
+        /// <summary>
         /// chkSandwichRule control.
         /// </summary>
         /// <remarks>
@@ -704,6 +713,15 @@ namespace hrms_PakAsia.Pages.Employees {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox OvertimeRate;
+        
+        /// <summary>
+        /// txtDeductionLateEarly control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtDeductionLateEarly;
         
         /// <summary>
         /// PayrollCycle control.

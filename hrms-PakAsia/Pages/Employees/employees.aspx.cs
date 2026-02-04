@@ -540,7 +540,8 @@ namespace hrms_PakAsia.Pages.Employees
                 ParseInt(txtAllowedLate.Text),
                 ParseInt(txtAllowedEarlyLeaveCont.Text),
                 txtBiometricID.Text.Trim(),
-                chkSandwichRule.Checked
+                chkSandwichRule.Checked,
+                txtOvertimeAllowed.Text
             );
         }
 
@@ -566,7 +567,8 @@ namespace hrms_PakAsia.Pages.Employees
                 overtimeRate, ParseInt(PayrollCycle.SelectedValue),
                 ddlPaymentMethod.SelectedValue, txtBankName.Text.Trim(),
                 txtSalaryAccount.Text.Trim(), TaxDeduction.Text.Trim(),
-                EOBIRegistered.Text.Trim(), SocialSecurity.Text.Trim()
+                EOBIRegistered.Text.Trim(), SocialSecurity.Text.Trim(),
+                txtDeductionLateEarly.Text
             );
         }
 

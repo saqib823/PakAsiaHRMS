@@ -455,9 +455,14 @@
                                                 <asp:TextBox CssClass="form-control" ID="txtHalfDayHours" runat="server" TextMode="Number" placeholder="4"></asp:TextBox>
                                             </div>
                                             <div class="col-md-3 mb-3">
+                                                <label class="form-label">Overtime Allowed</label>
+                                                <asp:TextBox CssClass="form-control" ID="txtOvertimeAllowed" runat="server" TextMode="Number" placeholder="4"></asp:TextBox>
+                                            </div>
+                                            <div class="col-md-3 mb-3">
                                                 <label class="form-label">Sandwich Rule</label>
                                                 <asp:CheckBox CssClass="form-control" ID="chkSandwichRule" Checked="true" runat="server" ></asp:CheckBox>
                                             </div>
+                                            
                                         </div>
                                         
                                         <!-- Save Attendance Button -->
@@ -550,6 +555,13 @@
                                                 <div class="input-group">
                                                     <span class="input-group-text">PKR</span>
                                                     <asp:TextBox CssClass="form-control" ID="OvertimeRate" TextMode="Number" runat="server" placeholder="0.00"></asp:TextBox>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 mb-3">
+                                                <label class="form-label">Late Deduction <span class="text-danger">*</span></label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text">PKR</span>
+                                                    <asp:TextBox CssClass="form-control" ID="txtDeductionLateEarly" runat="server" TextMode="Number" step="0.01" placeholder="0.00" required="true"></asp:TextBox>
                                                 </div>
                                             </div>
                                             <div class="col-md-3 mb-3">

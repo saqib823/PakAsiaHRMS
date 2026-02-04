@@ -145,7 +145,8 @@ namespace HRMSLib.DataLayer
         }
 
         public async Task<long> EmployeeAttendanceAsync(long EmployeeID, int ShiftID, List<string> WeeklyOffDays,
-    int AttendancePolicyID, int AllowedLateCount, int AllowedEarlyLeaveCount, string BiometricMachineUserID, bool SandwhichRule)
+    int AttendancePolicyID, int AllowedLateCount, int AllowedEarlyLeaveCount, string BiometricMachineUserID,
+    bool SandwhichRule, string OvertimeAllowed)
         {
             try
             {
@@ -167,6 +168,7 @@ namespace HRMSLib.DataLayer
                 db.AddInParameter(cmd, "@AllowedEarlyLeaveCount", DbType.Int32, AllowedEarlyLeaveCount);
                 db.AddInParameter(cmd, "@BiometricMachineUserID", DbType.String, BiometricMachineUserID);
                 db.AddInParameter(cmd, "@SandwhichRule", DbType.Boolean, SandwhichRule);
+                db.AddInParameter(cmd, "@OvertimeAllowed", DbType.Int32, Convert.ToInt32(OvertimeAllowed));
                 db.AddOutParameter(cmd, "@empID_New", DbType.Int64, sizeof(long));
 
                 await Task.Run(() => db.ExecuteNonQuery(cmd));
@@ -181,7 +183,7 @@ namespace HRMSLib.DataLayer
         public async Task<long> EmployeePayrollAsync(long employeeID, int salaryType, decimal basicSalary,
   decimal houseRent, decimal medicalAllowance, decimal transportAllowance, decimal otherAllowances, decimal grossSalary,
   decimal overtimeRate, int payrollCycle, string paymentMethod, string bankName, string bankAccount, string taxStatusOrNTN,
-  string eobiNumber, string socialSecurity)
+  string eobiNumber, string socialSecurity, string DeductionLateEarly)
         {
             try
             {
@@ -206,6 +208,7 @@ namespace HRMSLib.DataLayer
                 db.AddInParameter(cmd, "@TaxStatusOrNTN", DbType.String, taxStatusOrNTN);
                 db.AddInParameter(cmd, "@EOBINumber", DbType.String, eobiNumber);
                 db.AddInParameter(cmd, "@SocialSecurityNumber", DbType.String, socialSecurity);
+                db.AddInParameter(cmd, "@DeductionLateEarly", DbType.Decimal, Convert.ToDecimal(DeductionLateEarly));
                 db.AddOutParameter(cmd, "@empID_New", DbType.Int64, sizeof(long));
 
                 await Task.Run(() => db.ExecuteNonQuery(cmd));

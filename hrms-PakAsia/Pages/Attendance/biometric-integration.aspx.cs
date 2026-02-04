@@ -19,6 +19,18 @@ namespace hrms_PakAsia.Pages.Attendance
         {
             CheckSession();
             currentUser = GetSessionData();
+            if (!IsPostBack)
+            {
+                ddlBranch.DataSource = CommonDAL.GetBranches();
+                ddlBranch.DataTextField = "Name";
+                ddlBranch.DataValueField = "ID";
+                ddlBranch.DataBind();
+                ddlBranch.Items.Insert(0, new ListItem("Select One", ""));
+
+
+              
+
+            }
         }
         public LoggedInUser GetSessionData()
         {
@@ -35,6 +47,15 @@ namespace hrms_PakAsia.Pages.Attendance
             {
                 Response.Redirect("~/Default.aspx");
             }
+        }
+
+        protected void ddlBranch_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ddlDepartment.DataSource = CommonDAL.GetBranchDepartments(Convert.ToInt64(ddlBranch.SelectedValue));
+            ddlDepartment.DataTextField = "Name";
+            ddlDepartment.DataValueField = "ID";
+            ddlDepartment.DataBind();
+            ddlDepartment.Items.Insert(0, new ListItem("Select One", ""));
         }
     }
 }
