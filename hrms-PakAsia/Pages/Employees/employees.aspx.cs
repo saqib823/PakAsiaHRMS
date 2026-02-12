@@ -541,7 +541,8 @@ namespace hrms_PakAsia.Pages.Employees
                 ParseInt(txtAllowedEarlyLeaveCont.Text),
                 txtBiometricID.Text.Trim(),
                 chkSandwichRule.Checked,
-                txtOvertimeAllowed.Text
+                txtOvertimeAllowed.Text,
+                txtHalfDayHours.Text
             );
         }
 
@@ -772,7 +773,7 @@ namespace hrms_PakAsia.Pages.Employees
         {
             DataTable dt = EmployeeMaster.GetEmployeeProfile(employeeId);
             if (dt.Rows.Count == 0) return;
-
+            
             DataRow r = dt.Rows[0];
 
             /* ================= BASIC INFORMATION ================= */
@@ -817,6 +818,7 @@ namespace hrms_PakAsia.Pages.Employees
             txtCurrentCity.Text = GetString(r["City"]);
             txtCurrentState.Text = GetString(r["Province"]);
             txtCurrentPostalCode.Text = GetString(r["PostalCode"]);
+            chkSandwichRule.Checked= GetBool(r["SandwichRule"]);
 
 
             /* ================= EMPLOYMENT ================= */
@@ -832,13 +834,19 @@ namespace hrms_PakAsia.Pages.Employees
             SetDate(txtContractEndDate, r["ContractEndDate"]);
             SetDate(txtProbationEndDate, r["ProbationEndDate"]);
 
-            txtWorkLocation.Text = GetString(r["WorkLocation"]);
+            ddlBranch.SelectedValue = GetString(r["WorkLocation"]);
+            ddlDepartment.DataSource = CommonDAL.GetBranchDepartments(Convert.ToInt64(ddlBranch.SelectedValue));
+            ddlDepartment.DataTextField = "Name";
+            ddlDepartment.DataValueField = "ID";
+            ddlDepartment.DataBind();
+            ddlDepartment.Items.Insert(0, new ListItem("-- Select Department --", "0"));
             txtJobDescription.Text = GetString(r["EmployeeCategory"]);
 
 
             /* ================= ATTENDANCE ================= */
             SetDropDownValue(ddlShift, r["Shift"]);
-            SetDropDownValue(ddlWorkDays, r["WorkDays"]);
+           // SetDropDownValue(ddlWorkDays, r["WorkDays"]);
+           // ddlWorkDays.SelectedValue = r["WorkDays"].ToString();
             SetDropDownValue(ddlAttendanceMethod, r["AttendancePolicyID"]);
 
             txtBiometricID.Text = GetString(r["BiometricMachineUserID"]);
@@ -847,6 +855,7 @@ namespace hrms_PakAsia.Pages.Employees
             txtAllowedLate.Text = GetString(r["AllowedLateCount"]);
             txtAllowedEarlyLeaveCont.Text = GetString(r["AllowedEarlyLeaveCount"]);
             txtHalfDayHours.Text = GetString(r["HalfDayHours"]);
+            txtOvertimeAllowed.Text = GetString(r["OvertimeAllowed"]);
 
 
             /* ================= PAYROLL ================= */
@@ -867,6 +876,7 @@ namespace hrms_PakAsia.Pages.Employees
             SetDropDownValue(ddlSalaryType, r["SalaryTypeID"]);
 
             TaxDeduction.Text = GetString(r["TaxStatusOrNTN"]);
+            txtDeductionLateEarly.Text = GetString(r["DeductionLateEarly"]);
             EOBIRegistered.Text = GetString(r["EOBINumber"]);
             SocialSecurity.Text = GetString(r["SocialSecurityNumber"]);
 

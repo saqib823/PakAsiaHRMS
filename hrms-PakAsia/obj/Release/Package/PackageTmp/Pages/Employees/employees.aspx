@@ -277,7 +277,7 @@
                                         <div class="form-check mt-3">
                                             <asp:CheckBox ID="cbSameAsPermanent" runat="server" CssClass="form-check-input" AutoPostBack="true" OnCheckedChanged="cbSameAsPermanent_CheckedChanged" />
                                             <label class="form-check-label" for="<%= cbSameAsPermanent.ClientID %>">
-                                                <i class="uil uil-copy me-1"></i>Same as permanent address
+<%--                                                <i class="uil uil-copy me-1"></i>Same as permanent address--%>
                                             </label>
                                         </div>
                                         
@@ -380,7 +380,7 @@
                                                     <asp:ListItem>Terminated</asp:ListItem>
                                                     <asp:ListItem>Resigned</asp:ListItem></asp:DropDownList>
                                             </div>
-                                            <div class="col-md-3 mb-3">
+                                            <div class="col-md-3 mb-3" hidden>
                                                 <label class="form-label">Work Location</label>
                                                 <asp:TextBox CssClass="form-control" ID="txtWorkLocation" runat="server" placeholder="Office location"></asp:TextBox>
                                             </div>
@@ -423,7 +423,7 @@
                                                 <asp:DropDownList CssClass="form-select" ID="ddlShift" DataTextField="Name" DataValueField="ID" runat="server"
                                                     data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'></asp:DropDownList>
                                             </div>
-                                            <div class="col-md-3 mb-3">
+                                            <div class="col-md-3 mb-3" hidden>
                                                 <label class="form-label">Work Days</label>
                                                 <asp:DropDownList CssClass="form-select" ID="ddlWorkDays" DataTextField="Name" DataValueField="ID" runat="server"
                                                     data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'></asp:DropDownList>
@@ -433,15 +433,11 @@
                                                 <asp:DropDownList CssClass="form-select" ID="ddlAttendanceMethod" DataTextField="Name" DataValueField="ID" runat="server"
                                                     data-choices="data-choices" data-options='{"removeItemButton":true,"placeholder":true}'></asp:DropDownList>
                                             </div>
-                                            <div class="col-md-3 mb-3">
+                                            <div class="col-md-3 mb-3" hidden>
                                                 <label class="form-label">Biometric ID</label>
                                                 <asp:TextBox CssClass="form-control" ID="txtBiometricID" runat="server" placeholder="Biometric ID"></asp:TextBox>
                                             </div>
-                                            <div class="col-md-3 mb-3">
-                                                <label class="form-label">Weekly Off Days</label>
-                                                <asp:ListBox CssClass="form-control" ID="lbWeeklyOff" runat="server" DataTextField="Name" DataValueField="ID" SelectionMode="Multiple" Rows="3"></asp:ListBox>
-                                                <small class="form-text text-muted">Hold Ctrl to select multiple</small>
-                                            </div>
+                                            
                                             <div class="col-md-3 mb-3">
                                                 <label class="form-label">Allowed Late Minutes</label>
                                                 <asp:TextBox CssClass="form-control" ID="txtAllowedLate" runat="server" TextMode="Number" placeholder="15"></asp:TextBox>
@@ -462,7 +458,11 @@
                                                 <label class="form-label">Sandwich Rule</label>
                                                 <asp:CheckBox CssClass="form-control" ID="chkSandwichRule" Checked="true" runat="server" ></asp:CheckBox>
                                             </div>
-                                            
+                                            <div class="col-md-3 mb-3">
+                                                <label class="form-label">Weekly Off Days</label>
+                                                <asp:ListBox CssClass="form-control" ID="lbWeeklyOff" runat="server" DataTextField="Name" DataValueField="ID" SelectionMode="Multiple" Rows="3"></asp:ListBox>
+                                                <small class="form-text text-muted">Hold Ctrl to select multiple</small>
+                                            </div>
                                         </div>
                                         
                                         <!-- Save Attendance Button -->

@@ -111,17 +111,17 @@ namespace hrms_PakAsia.Pages.Employees
             BindFile(r["ExperienceLetters"], lblExperience, btnDownloadExperience);
             BindFile(r["OtherDocuments"], lblOtherDocs, btnDownloadOtherDocs);
 
-
             lblNDAStatus.Text = r["NDASigned"].ToString();
             lblTerms.Text = r["TermsAccepted"].ToString();
-            lblAppointmentIssued.Text = Convert.ToBoolean(r["AppointmentLetterIssued"]) ? "Issued" : "Not Issued";
 
-            lblContractStartDate.Text =
-                r["ContractStartDate"] == DBNull.Value
-                    ? "-"
-                    : Convert.ToDateTime(r["ContractStartDate"]).ToString("dd-MMM-yyyy");
+            // FIXED: Check for DBNull before conversion
+            lblAppointmentIssued.Text = r["AppointmentLetterIssued"] != DBNull.Value
+                ? (Convert.ToBoolean(r["AppointmentLetterIssued"]) ? "Issued" : "Not Issued")
+                : "Not Issued";
 
-
+            lblContractStartDate.Text = r["ContractStartDate"] == DBNull.Value
+                ? "-"
+                : Convert.ToDateTime(r["ContractStartDate"]).ToString("dd-MMM-yyyy");
         }
 
         private string FormatDate(object value)

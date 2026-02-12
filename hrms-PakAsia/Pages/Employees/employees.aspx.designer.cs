@@ -544,15 +544,6 @@ namespace hrms_PakAsia.Pages.Employees {
         protected global::System.Web.UI.WebControls.TextBox txtBiometricID;
         
         /// <summary>
-        /// lbWeeklyOff control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox lbWeeklyOff;
-        
-        /// <summary>
         /// txtAllowedLate control.
         /// </summary>
         /// <remarks>
@@ -596,6 +587,15 @@ namespace hrms_PakAsia.Pages.Employees {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkSandwichRule;
+        
+        /// <summary>
+        /// lbWeeklyOff control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListBox lbWeeklyOff;
         
         /// <summary>
         /// btnSubmitAttendanceInfo control.

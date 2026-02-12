@@ -146,7 +146,7 @@ namespace HRMSLib.DataLayer
 
         public async Task<long> EmployeeAttendanceAsync(long EmployeeID, int ShiftID, List<string> WeeklyOffDays,
     int AttendancePolicyID, int AllowedLateCount, int AllowedEarlyLeaveCount, string BiometricMachineUserID,
-    bool SandwhichRule, string OvertimeAllowed)
+    bool SandwhichRule, string OvertimeAllowed, string HalfDayHours)
         {
             try
             {
@@ -169,6 +169,7 @@ namespace HRMSLib.DataLayer
                 db.AddInParameter(cmd, "@BiometricMachineUserID", DbType.String, BiometricMachineUserID);
                 db.AddInParameter(cmd, "@SandwhichRule", DbType.Boolean, SandwhichRule);
                 db.AddInParameter(cmd, "@OvertimeAllowed", DbType.Int32, Convert.ToInt32(OvertimeAllowed));
+                db.AddInParameter(cmd, "@HalfDayHours", DbType.Int32, Convert.ToInt32(HalfDayHours));
                 db.AddOutParameter(cmd, "@empID_New", DbType.Int64, sizeof(long));
 
                 await Task.Run(() => db.ExecuteNonQuery(cmd));
