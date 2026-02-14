@@ -225,5 +225,12 @@ setTimeout(function(){{
             });
         }
         #endregion
+
+        protected void btnRefresh_Click(object sender, EventArgs e)
+        {
+            AttendanceDAL.DeleteAttendanceLogs();
+            CurrentPage = 1;
+            BindAttendance();
+        }
     }
 }

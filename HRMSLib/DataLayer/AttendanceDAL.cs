@@ -140,6 +140,19 @@ namespace HRMSLib.DataLayer
             db.AddInParameter(cmd, "@AttendanceLogID", DbType.Int32, id);
             db.ExecuteNonQuery(cmd);
         }
+        public static void DeleteAttendanceLogs()
+        {
+            try
+            {
+                DbCommand cmd = db.GetSqlStringCommand("DELETE FROM AttendanceLogs");
+                db.ExecuteNonQuery(cmd);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error deleting attendance logs.", ex);
+            }
+        }
+
     }
 
 }

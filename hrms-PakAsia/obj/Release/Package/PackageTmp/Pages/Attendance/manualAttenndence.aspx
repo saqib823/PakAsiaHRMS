@@ -53,6 +53,16 @@
 
 <div class="search-box mb-3">
     <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control form-control-sm" Placeholder="Search attendance..." AutoPostBack="true" OnTextChanged="txtSearch_TextChanged" />
+ 
+    <div class="input-group-append">
+        <asp:LinkButton 
+            ID="btnRefresh" 
+            runat="server" 
+            CssClass="btn btn-outline-secondary" 
+            OnClick="btnRefresh_Click">
+            <i class="fa fa-refresh"></i>
+        </asp:LinkButton>
+    </div>
 </div>
 
 <div class="table-responsive">

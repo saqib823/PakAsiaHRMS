@@ -94,6 +94,15 @@ namespace hrms_PakAsia.Pages.Attendance {
         protected global::System.Web.UI.WebControls.TextBox txtSearch;
         
         /// <summary>
+        /// btnRefresh control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnRefresh;
+        
+        /// <summary>
         /// rptAttendance control.
         /// </summary>
         /// <remarks>

@@ -118,6 +118,16 @@
                 <div class="col-md-3">
                     <input type="date" id="txtEndDate" class="form-control" />
                 </div>
+                <div class="col-md-3">
+<asp:LinkButton 
+            ID="btnRefresh" 
+            runat="server" 
+            CssClass="btn btn-outline-secondary" 
+            OnClick="btnRefresh_Click">
+            <i class="fa fa-refresh"></i>
+        </asp:LinkButton>
+
+                </div>
 
             </div>
         </div>

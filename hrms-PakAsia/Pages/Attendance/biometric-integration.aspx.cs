@@ -57,5 +57,11 @@ namespace hrms_PakAsia.Pages.Attendance
             ddlDepartment.DataBind();
             ddlDepartment.Items.Insert(0, new ListItem("Select One", ""));
         }
+
+        protected void btnRefresh_Click(object sender, EventArgs e)
+        {
+            AttendanceDAL.DeleteAttendanceLogs();
+            
+        }
     }
 }
