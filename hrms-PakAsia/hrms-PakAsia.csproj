@@ -1317,6 +1317,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BranchPayroll.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Dataset\Clearence.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Clearence.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Dataset\Payroll.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1590,6 +1595,12 @@
       <DependentUpon>BranchPayroll.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Reports\ClearanceReport.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ClearanceReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Reports\payroll.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1643,6 +1654,17 @@
     <Content Include="Dataset\BranchPayroll.xss">
       <DependentUpon>BranchPayroll.xsd</DependentUpon>
     </Content>
+    <Content Include="Dataset\Clearence.xsc">
+      <DependentUpon>Clearence.xsd</DependentUpon>
+    </Content>
+    <None Include="Dataset\Clearence.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>Clearence.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Dataset\Clearence.xss">
+      <DependentUpon>Clearence.xsd</DependentUpon>
+    </Content>
     <None Include="Dataset\Payroll.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
@@ -1681,6 +1703,10 @@
     <EmbeddedResource Include="Reports\BranchPayroll.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>BranchPayroll.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ClearanceReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ClearanceReport.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\payroll.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
