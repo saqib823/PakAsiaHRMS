@@ -1644,8 +1644,6 @@
     <Content Include="Dataset\BranchPayroll.xsc">
       <DependentUpon>BranchPayroll.xsd</DependentUpon>
     </Content>
-    <Content Include="App_Data\DB_Backup\PakAsia_HRMS" />
-    <Content Include="App_Data\DB_Backup\PakAsia_HRMS_Pro" />
     <None Include="Dataset\BranchPayroll.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
