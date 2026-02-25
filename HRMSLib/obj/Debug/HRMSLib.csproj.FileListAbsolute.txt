@@ -85,3 +85,4 @@ C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\HRMSLib\bin\Debug\EPPlus.xml
 C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\HRMSLib\bin\Debug\Microsoft.IO.RecyclableMemoryStream.xml
 C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\HRMSLib\bin\Debug\System.Drawing.Common.pdb
 C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\HRMSLib\bin\Debug\System.Drawing.Common.xml
+C:\Users\Administrator\Documents\GitHub\PakAsiaHRMS\HRMSLib\obj\Debug\HRMSLib.csprojAssemblyReference.cache
