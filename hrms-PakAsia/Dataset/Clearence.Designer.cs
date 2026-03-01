@@ -718,6 +718,10 @@ namespace hrms_PakAsia.Dataset {
             
             private global::System.Data.DataColumn columnFullName;
             
+            private global::System.Data.DataColumn columnAssetsDeduction;
+            
+            private global::System.Data.DataColumn columnLoanDeduction;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public dtSummaryDataTable() {
@@ -849,6 +853,22 @@ namespace hrms_PakAsia.Dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn AssetsDeductionColumn {
+                get {
+                    return this.columnAssetsDeduction;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn LoanDeductionColumn {
+                get {
+                    return this.columnLoanDeduction;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -884,7 +904,7 @@ namespace hrms_PakAsia.Dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public dtSummaryRow AdddtSummaryRow(string EmployeeNo, int EmployeeID, System.DateTime PayrollFrom, System.DateTime PayrollTo, decimal MonthlyGrossSalary, decimal PerDaySalary, decimal EarnedSalary, decimal TotalDeduction, decimal NetPayableSalary, System.DateTime FirstPunchIn, System.DateTime LastPunchOut, string FullName) {
+            public dtSummaryRow AdddtSummaryRow(string EmployeeNo, int EmployeeID, System.DateTime PayrollFrom, System.DateTime PayrollTo, decimal MonthlyGrossSalary, decimal PerDaySalary, decimal EarnedSalary, decimal TotalDeduction, decimal NetPayableSalary, System.DateTime FirstPunchIn, System.DateTime LastPunchOut, string FullName, decimal AssetsDeduction, decimal LoanDeduction) {
                 dtSummaryRow rowdtSummaryRow = ((dtSummaryRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         EmployeeNo,
@@ -898,7 +918,9 @@ namespace hrms_PakAsia.Dataset {
                         NetPayableSalary,
                         FirstPunchIn,
                         LastPunchOut,
-                        FullName};
+                        FullName,
+                        AssetsDeduction,
+                        LoanDeduction};
                 rowdtSummaryRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowdtSummaryRow);
                 return rowdtSummaryRow;
@@ -933,6 +955,8 @@ namespace hrms_PakAsia.Dataset {
                 this.columnFirstPunchIn = base.Columns["FirstPunchIn"];
                 this.columnLastPunchOut = base.Columns["LastPunchOut"];
                 this.columnFullName = base.Columns["FullName"];
+                this.columnAssetsDeduction = base.Columns["AssetsDeduction"];
+                this.columnLoanDeduction = base.Columns["LoanDeduction"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -962,6 +986,10 @@ namespace hrms_PakAsia.Dataset {
                 base.Columns.Add(this.columnLastPunchOut);
                 this.columnFullName = new global::System.Data.DataColumn("FullName", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnFullName);
+                this.columnAssetsDeduction = new global::System.Data.DataColumn("AssetsDeduction", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAssetsDeduction);
+                this.columnLoanDeduction = new global::System.Data.DataColumn("LoanDeduction", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLoanDeduction);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2068,6 +2096,38 @@ namespace hrms_PakAsia.Dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal AssetsDeduction {
+                get {
+                    try {
+                        return ((decimal)(this[this.tabledtSummary.AssetsDeductionColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'AssetsDeduction\' in table \'dtSummary\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabledtSummary.AssetsDeductionColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal LoanDeduction {
+                get {
+                    try {
+                        return ((decimal)(this[this.tabledtSummary.LoanDeductionColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'LoanDeduction\' in table \'dtSummary\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabledtSummary.LoanDeductionColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool IsEmployeeNoNull() {
                 return this.IsNull(this.tabledtSummary.EmployeeNoColumn);
             }
@@ -2208,6 +2268,30 @@ namespace hrms_PakAsia.Dataset {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetFullNameNull() {
                 this[this.tabledtSummary.FullNameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsAssetsDeductionNull() {
+                return this.IsNull(this.tabledtSummary.AssetsDeductionColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetAssetsDeductionNull() {
+                this[this.tabledtSummary.AssetsDeductionColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsLoanDeductionNull() {
+                return this.IsNull(this.tabledtSummary.LoanDeductionColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetLoanDeductionNull() {
+                this[this.tabledtSummary.LoanDeductionColumn] = global::System.Convert.DBNull;
             }
         }
         

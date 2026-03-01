@@ -291,7 +291,8 @@ namespace HRMSLib.DataLayer
         public void DeleteEmployee(long employeeID)
         {
             Database db = new DatabaseProviderFactory().Create("defaultDB");
-            string sql = "DELETE FROM [Employees] WHERE EmployeeID = @EmployeeID";
+            string sql = "DELETE FROM [LeaveBalance] WHERE EmployeeID = @EmployeeID " +
+                "DELETE FROM [Employees] WHERE EmployeeID = @EmployeeID";
 
             using (DbCommand cmd = db.GetSqlStringCommand(sql))
             {

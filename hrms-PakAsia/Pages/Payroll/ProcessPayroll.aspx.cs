@@ -178,13 +178,41 @@ namespace hrms_PakAsia.Pages.Payroll
 
             DataSet ds = dal.ProcessBranchPayroll(Convert.ToInt64(branchID), from, to, Convert.ToInt64(PayrollCycle));
 
+            DataTable finalTable = new DataTable();
+
+            // Clone structure from first table
+            if (ds.Tables.Count > 0)
+            {
+                finalTable = ds.Tables[0].Clone();
+
+                foreach (DataTable table in ds.Tables)
+                {
+                    foreach (DataRow row in table.Rows)
+                    {
+                        finalTable.ImportRow(row);
+                    }
+                }
+            }
+            decimal totalNetPayable = 0;
+
+            foreach (DataRow row in finalTable.Rows)
+            {
+                if (row["NetPayable"] != DBNull.Value)
+                    totalNetPayable += Convert.ToDecimal(row["NetPayable"]);
+            }
+
+            // Option A: Put total in every row
+            foreach (DataRow row in finalTable.Rows)
+            {
+                row["BranchCost"] = totalNetPayable;
+            }
             hrms_PakAsia.Dataset.BranchPayroll BranchPayroll = new hrms_PakAsia.Dataset.BranchPayroll();
 
             // ===== Summary Table =====
             if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
                 BranchPayroll.dtBranchPayroll.Clear();
-                BranchPayroll.dtBranchPayroll.Merge(ds.Tables[0]);
+                BranchPayroll.dtBranchPayroll.Merge(finalTable);
             }
             ReportDocument rpt = new ReportDocument();
 

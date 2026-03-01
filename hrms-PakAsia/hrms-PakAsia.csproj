@@ -1322,6 +1322,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Clearence.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Dataset\Payroll.cs">
+      <DependentUpon>Payroll.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Dataset\Payroll.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1644,7 +1647,6 @@
     <Content Include="Dataset\BranchPayroll.xsc">
       <DependentUpon>BranchPayroll.xsd</DependentUpon>
     </Content>
-    <Content Include="App_Data\DB_Backup\PakAsia_HRMS_Pro" />
     <Content Include="App_Data\DB_Backup\PakAsia_HRMS" />
     <None Include="Dataset\BranchPayroll.xsd">
       <SubType>Designer</SubType>

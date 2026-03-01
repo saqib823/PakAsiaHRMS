@@ -82,13 +82,21 @@
                 });
 
             // Export
-            $("#btnExport").click(function () {
-                window.location =
-                    "/Handler/ExportAttendance.ashx?BranchID=" +
-                    $("#<%= ddlBranch.ClientID %>").val() +
-                    "&DepartmentID=" +
-                    $("#<%= ddlDepartment.ClientID %>").val();
-            });
+          $("#btnExport").click(function () {
+
+    var branchID = $("#<%= ddlBranch.ClientID %>").val();
+    var departmentID = $("#<%= ddlDepartment.ClientID %>").val();
+    var startDate = $("#txtStartDate").val();
+    var endDate = $("#txtEndDate").val();
+
+    var url = "/Handler/GetLiveAttendance.ashx?export=1" +
+        "&BranchID=" + encodeURIComponent(branchID) +
+        "&DepartmentID=" + encodeURIComponent(departmentID) +
+        "&StartDate=" + encodeURIComponent(startDate) +
+        "&EndDate=" + encodeURIComponent(endDate);
+
+    window.location = url;
+});
         });
     </script>
 
