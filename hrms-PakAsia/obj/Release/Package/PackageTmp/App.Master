@@ -780,6 +780,7 @@
 
             </div>
         </div>
+        <asp:HiddenField ID="hfMachineName" runat="server" />
         <a class="card setting-toggle" href="#settings-offcanvas" data-bs-toggle="offcanvas">
             <div class="card-body d-flex align-items-center px-2 py-1">
                 <div class="position-relative rounded-start" style="height: 34px; width: 28px">
@@ -831,8 +832,16 @@
                     }, 500); // match the transition duration
                 }
             });
-        </script>
 
+        </script>
+        <script type="text/javascript">
+try {
+    var network = new ActiveXObject("WScript.Network");
+    document.getElementById('<%= hfMachineName.ClientID %>').value = network.ComputerName;
+} catch(e) {
+    document.getElementById('<%= hfMachineName.ClientID %>').value = "Unknown";
+}
+</script>
 
     </form>
 </body>

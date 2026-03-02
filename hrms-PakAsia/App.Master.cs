@@ -1,4 +1,4 @@
-﻿using HRMSLib.BusinessLogic;
+using HRMSLib.BusinessLogic;
 using HRMSLib.DataLayer;
 using System;
 using System.Collections.Generic;
@@ -29,7 +29,9 @@ namespace hrms_PakAsia
                     Response.Redirect("~/Default.aspx", true);
                     return;
                 }
-                Session["UserMachine"] = hfMachineName.Value.ToString();
+                // Safely capture client machine name from hidden field (may be empty/null in modern browsers)
+                var machineValue = (hfMachineName != null ? hfMachineName.Value : null);
+                Session["UserMachine"] = string.IsNullOrWhiteSpace(machineValue) ? "Unknown" : machineValue;
                 InitializeUserProfile();
                 BuildDynamicMenu();
             }

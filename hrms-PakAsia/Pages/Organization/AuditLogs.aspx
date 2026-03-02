@@ -46,6 +46,8 @@
                         <asp:BoundField DataField="UserName" HeaderText="User" />
                         <asp:BoundField DataField="ModuleName" HeaderText="Module" />
                         <asp:BoundField DataField="ActionType" HeaderText="Action" />
+                        <asp:BoundField DataField="OldData" HeaderText="Old Data" />
+                        <asp:BoundField DataField="NewData" HeaderText="New Data" />
                         <asp:BoundField DataField="RecordID" HeaderText="Record" />
                         <asp:BoundField DataField="IPAddress" HeaderText="IP" />
                         <asp:BoundField DataField="MachineName" HeaderText="Machine" />
