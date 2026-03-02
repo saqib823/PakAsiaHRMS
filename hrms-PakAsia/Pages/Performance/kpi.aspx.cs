@@ -1,4 +1,4 @@
-﻿using HRMSLib.BusinessLogic;
+using HRMSLib.BusinessLogic;
 using HRMSLib.DataLayer;
 using System;
 using System.Data;
@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 
 namespace hrms_PakAsia.Pages.Performance
 {
-    public partial class kpi : Page
+    public partial class kpi : hrms_PakAsia.BasePage
     {
         private const int PageSize = 10;
         LoggedInUser currentUser = null;
@@ -27,6 +27,7 @@ namespace hrms_PakAsia.Pages.Performance
             {
                 LoadDDLs();
                 LoadKPIList();
+                // landing logged by BasePage.OnLoad
             }
         }
         public LoggedInUser GetSessionData()
@@ -89,6 +90,7 @@ namespace hrms_PakAsia.Pages.Performance
         {
             PageIndex = 1;
             LoadKPIList();
+            LogAction("Search KPI", remarks: $"Search='{txtSearch.Text?.Trim()}'");
         }
 
         protected void btnCalculate_Click(object sender, EventArgs e)
@@ -144,6 +146,7 @@ namespace hrms_PakAsia.Pages.Performance
 
                 // 7️⃣ Display rounded score
                 txtFinalScore.Text = finalScore.ToString("0.00");
+                LogAction("Calculate KPI", recordId: ddlEmployee.SelectedValue, remarks: $"Calculated KPI from {txtFrom.Text} to {txtTo.Text}");
             }
             catch (Exception ex)
             {
@@ -185,6 +188,7 @@ namespace hrms_PakAsia.Pages.Performance
                 appraised : Convert.ToDecimal(ltAppraisedSalary.Text)
 
             );
+            LogAction("Save KPI", recordId: empID.ToString(), newData: $"From={From:yyyy-MM-dd};To={To:yyyy-MM-dd};FinalScore={finalScore:0.00};Grade={GetGrade(finalScore)}", remarks: "KPI saved");
             decimal appraisalPercentage = Convert.ToDecimal(txtAppraisal.Text);
             decimal basicSalary = KPIDAL.GetEmployeeBasicSalary(empID);
             decimal appraisalAmount = basicSalary * appraisalPercentage / 100;
@@ -199,7 +203,9 @@ namespace hrms_PakAsia.Pages.Performance
 
         protected void DeleteKPI(object sender, CommandEventArgs e)
         {
-            KPIDAL.DeleteKPI(Convert.ToInt32(e.CommandArgument));
+            int kpiId = Convert.ToInt32(e.CommandArgument);
+            KPIDAL.DeleteKPI(kpiId);
+            LogAction("Delete KPI", recordId: kpiId.ToString(), remarks: "KPI deleted");
             LoadKPIList();
         }
 

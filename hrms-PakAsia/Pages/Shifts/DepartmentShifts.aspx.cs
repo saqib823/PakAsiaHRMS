@@ -1,4 +1,4 @@
-﻿using HRMSLib.BusinessLogic;
+using HRMSLib.BusinessLogic;
 using HRMSLib.DataLayer;
 using System;
 using System.Data;
@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace hrms_PakAsia.Pages.Shifts
 {
-    public partial class DepartmentShifts : System.Web.UI.Page
+    public partial class DepartmentShifts : hrms_PakAsia.BasePage
     {
         LoggedInUser currentUser = null;
 
@@ -20,6 +20,7 @@ namespace hrms_PakAsia.Pages.Shifts
                 LoadDepartments();
                 LoadShifts();
                 LoadDepartmentShifts();
+                // landing logged by BasePage.OnLoad
             }
         }
         public LoggedInUser GetSessionData()
@@ -86,6 +87,7 @@ namespace hrms_PakAsia.Pages.Shifts
                     shiftId,
                     isDefault
                 );
+                LogAction("Update Department Shift", recordId: departmentShiftId.ToString(), newData: $"DepartmentID={departmentId};ShiftID={shiftId};IsDefault={isDefault}", remarks: "Department shift updated");
             }
             else
             {
@@ -95,6 +97,7 @@ namespace hrms_PakAsia.Pages.Shifts
                     shiftId,
                     isDefault
                 );
+                LogAction("Insert Department Shift", newData: $"DepartmentID={departmentId};ShiftID={shiftId};IsDefault={isDefault}", remarks: "Department shift created");
             }
 
             ClearForm();
@@ -128,6 +131,7 @@ namespace hrms_PakAsia.Pages.Shifts
             else if (e.CommandName == "DeleteRow")
             {
                 ShiftDAL.DeleteDepartmentShift(id);
+                LogAction("Delete Department Shift", recordId: id.ToString(), remarks: "Department shift deleted");
                 LoadDepartmentShifts();
             }
         }

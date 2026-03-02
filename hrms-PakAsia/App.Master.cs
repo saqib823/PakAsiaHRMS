@@ -29,7 +29,7 @@ namespace hrms_PakAsia
                     Response.Redirect("~/Default.aspx", true);
                     return;
                 }
-
+                Session["UserMachine"] = hfMachineName.Value.ToString();
                 InitializeUserProfile();
                 BuildDynamicMenu();
             }

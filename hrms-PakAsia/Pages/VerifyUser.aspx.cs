@@ -1,4 +1,4 @@
-﻿using HRMSLib.BusinessLogic;
+using HRMSLib.BusinessLogic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 
 namespace hrms_PakAsia.Pages
 {
-    public partial class VerifyUser : System.Web.UI.Page
+    public partial class VerifyUser : hrms_PakAsia.BasePage
     {
         LoggedInUser currentUser;
         List<RoleRights> currentRoleRights;
@@ -23,6 +23,7 @@ namespace hrms_PakAsia.Pages
 
             currentUser = null;
             currentRoleRights = null;
+            // landing logged by BasePage.OnLoad (if user is already in session)
         }
 
         protected void btnVerify_Click(object sender, EventArgs e)
@@ -33,6 +34,7 @@ namespace hrms_PakAsia.Pages
                 currentRoleRights = HttpContext.Current.Session["RoleRights"] as List<RoleRights>;
                 if (currentUser != null && currentRoleRights != null && currentRoleRights.Count > 0)
                 {
+                    LogAction("2FA OTP Verified", recordId: currentUser.UserID.ToString(), remarks: "OTP verification succeeded");
                     // Get allowed URLs (ignore '#')
                     var allowedUrls = currentRoleRights
                                         .Where(r => !string.IsNullOrEmpty(r.MenuHref) && r.MenuHref != "#")
@@ -70,6 +72,7 @@ namespace hrms_PakAsia.Pages
             }
             else
             {
+                LogAction("2FA OTP Failed", remarks: "OTP verification failed");
                 ShowAlert("Invalid OTP!", "danger");
             }
         }

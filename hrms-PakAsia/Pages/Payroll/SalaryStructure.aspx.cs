@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data;
 using System.IO;
 using System.Linq;
@@ -10,7 +10,7 @@ using HRMSLib.DataLayer;
 
 namespace hrms_PakAsia.Pages.Payroll
 {
-    public partial class SalaryStructure : System.Web.UI.Page
+    public partial class SalaryStructure : hrms_PakAsia.BasePage
     {
         PayrollDAL dal = new PayrollDAL();
         int PageSize = 10;
@@ -32,6 +32,7 @@ namespace hrms_PakAsia.Pages.Payroll
                 LoadPayrollPeriods();
                 LoadSalaryStructures();
                 SetDefaultDates();
+                // landing logged by BasePage.OnLoad
             }
         }
         public LoggedInUser GetSessionData()
@@ -127,6 +128,10 @@ namespace hrms_PakAsia.Pages.Payroll
                 };
 
                 int salaryId = dal.SaveSalaryStructure(model);
+                LogAction(model.SalaryID == 0 ? "Insert Salary Structure" : "Update Salary Structure",
+                    recordId: model.SalaryID == 0 ? salaryId.ToString() : model.SalaryID.ToString(),
+                    newData: $"EmployeeID={model.EmployeeID};EffectiveFrom={model.EffectiveFrom:yyyy-MM-dd};Gross={txtGrossSalary.Text};Active={model.IsActive}",
+                    remarks: "Salary structure saved");
 
                 ShowMessage("Salary structure saved successfully!", "success");
                 ClearForm();
@@ -175,6 +180,7 @@ namespace hrms_PakAsia.Pages.Payroll
                 if (periodId > 0)
                 {
                     string result = dal.ProcessPayroll(periodId, processedBy);
+                    LogAction("Process Payroll", recordId: periodId.ToString(), remarks: $"Payroll processed for PeriodID={periodId}");
                     ShowMessage(result, "success");
                     LoadPayrollPeriods();
                 }
@@ -217,6 +223,7 @@ namespace hrms_PakAsia.Pages.Payroll
                 }
 
                 DataSet ds = dal.GetPayrollReport(reportType, periodId, startDate, endDate, null);
+                LogAction("Generate Payroll Report", recordId: periodId.ToString(), remarks: $"ReportType={reportType};Start={startDate};End={endDate}");
 
                 if (ds.Tables[0].Rows.Count > 0)
                 {
@@ -243,6 +250,7 @@ namespace hrms_PakAsia.Pages.Payroll
                 if (periodId > 0)
                 {
                     DataSet ds = dal.GenerateBankFile(periodId);
+                    LogAction("Generate Bank File", recordId: periodId.ToString(), remarks: "Bank file generated");
 
                     if (ds.Tables[0].Rows.Count > 0)
                     {
@@ -270,6 +278,7 @@ namespace hrms_PakAsia.Pages.Payroll
             try
             {
                 var ds = dal.GetSalaryStructuresPaged(txtSearch.Text.Trim(), 1, 1000);
+                LogAction("Export Salary Structures Excel", remarks: $"Search='{txtSearch.Text?.Trim()}'");
 
                 if (ds.Tables[0].Rows.Count > 0)
                 {
@@ -293,12 +302,14 @@ namespace hrms_PakAsia.Pages.Payroll
             {
                 int salaryId = Convert.ToInt32(e.CommandArgument);
                 LoadSalaryForEdit(salaryId);
+                LogAction("Edit Salary Structure", recordId: salaryId.ToString(), remarks: "Salary structure loaded for edit");
             }
             else if (e.CommandName == "DeleteRecord")
             {
                 int salaryId = Convert.ToInt32(e.CommandArgument);
                 dal.DeleteSalary(salaryId);
                 ShowMessage("Salary structure deleted successfully!", "success");
+                LogAction("Delete Salary Structure", recordId: salaryId.ToString(), remarks: "Salary structure deleted");
                 LoadSalaryStructures();
             }
         }
@@ -313,6 +324,7 @@ namespace hrms_PakAsia.Pages.Payroll
         {
             PageIndex = 1;
             LoadSalaryStructures();
+            LogAction("Search Salary Structures", remarks: $"Search='{txtSearch.Text?.Trim()}'");
         }
 
         protected void btnPrev_Click(object sender, EventArgs e)

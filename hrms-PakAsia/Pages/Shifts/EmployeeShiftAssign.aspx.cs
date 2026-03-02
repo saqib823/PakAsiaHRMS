@@ -1,4 +1,4 @@
-﻿using HRMSLib.BusinessLogic;
+using HRMSLib.BusinessLogic;
 using HRMSLib.DataLayer;
 using System;
 using System.Data;
@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace hrms_PakAsia.Pages.Shifts
 {
-    public partial class EmployeeShiftAssign : System.Web.UI.Page
+    public partial class EmployeeShiftAssign : hrms_PakAsia.BasePage
     {
         private const int PageSize = 10;
 
@@ -27,6 +27,7 @@ namespace hrms_PakAsia.Pages.Shifts
                 LoadEmployees();
                 LoadShifts();
                 BindGrid();
+                // landing logged by BasePage.OnLoad
             }
         }
         public LoggedInUser GetSessionData()
@@ -76,13 +77,19 @@ namespace hrms_PakAsia.Pages.Shifts
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
+            int id = Convert.ToInt32(hfShiftID.Value);
             ShiftDAL.Save(
-                Convert.ToInt32(hfShiftID.Value),
+                id,
                 Convert.ToInt32(ddlEmployee.SelectedValue),
                 Convert.ToInt32(ddlShift.SelectedValue),
                 DateTime.Parse(txtFromDate.Text),
                 string.IsNullOrEmpty(txtToDate.Text) ? (DateTime?)null : DateTime.Parse(txtToDate.Text)
             );
+
+            LogAction(id == 0 ? "Insert Employee Shift Assignment" : "Update Employee Shift Assignment",
+                recordId: id.ToString(),
+                newData: $"EmployeeID={ddlEmployee.SelectedValue};ShiftID={ddlShift.SelectedValue};From={txtFromDate.Text};To={txtToDate.Text}",
+                remarks: "Employee shift assignment saved");
 
             hfShiftID.Value = "0";
             BindGrid();
@@ -104,6 +111,7 @@ namespace hrms_PakAsia.Pages.Shifts
             else if (e.CommandName == "Delete")
             {
                 ShiftDAL.Delete(id);
+                LogAction("Delete Employee Shift Assignment", recordId: id.ToString(), remarks: "Employee shift assignment deleted");
                 BindGrid();
             }
         }
@@ -112,12 +120,14 @@ namespace hrms_PakAsia.Pages.Shifts
         {
             if (PageIndex > 1) PageIndex--;
             BindGrid();
+            LogAction("Employee Shift Assign Paging Prev", remarks: $"Moved to page {PageIndex}");
         }
 
         protected void btnNext_Click(object sender, EventArgs e)
         {
             PageIndex++;
             BindGrid();
+            LogAction("Employee Shift Assign Paging Next", remarks: $"Moved to page {PageIndex}");
         }
     }
 }

@@ -1,14 +1,16 @@
-﻿using HRMSLib.BusinessLogic;
+using HRMSLib.BusinessLogic;
 using HRMSLib.DataLayer;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web;
+using System.Web.Script.Serialization;
 
 namespace hrms_PakAsia.Pages.Attendance
 {
-    public partial class manualAttenndence : System.Web.UI.Page
+    public partial class manualAttenndence : hrms_PakAsia.BasePage
     {
         private int PageSize => 10;
 
@@ -30,9 +32,10 @@ namespace hrms_PakAsia.Pages.Attendance
         {
             currentUser = Session["LoggedInUser"] as LoggedInUser;
             if (currentUser == null) Response.Redirect("~/Default.aspx");
-
+            
             if (!IsPostBack)
             {
+                // landing logged by BasePage.OnLoad
                 ddlEmployees.DataSource = CommonDAL.GetEmployees_EmpNO_DDL();
                 ddlEmployees.DataBind();
                 ddlEmployees.Items.Insert(0, new ListItem("Select One", "0"));
@@ -89,8 +92,46 @@ namespace hrms_PakAsia.Pages.Attendance
                         mode == 2 ? "Attendance updated successfully." : "Attendance added successfully.",
                         "success"
                     );
-                
-               
+
+                if (mode == 1)
+                {
+                    var attendanceData = new
+                    {
+                        Mode = mode,                             // INSERT = 1, UPDATE = 2
+                        AttendanceID = attendanceId,
+                        EmpNo = ddlEmployees.SelectedValue,
+                        FullName = ddlEmployees.SelectedItem.Text,
+                        PunchDate = punchDate.ToString("yyyy-MM-dd"),
+                        PunchTime = punchTime.ToString(@"hh\:mm\:ss"), // TimeSpan to HH:mm:ss
+                        PunchType = ddlPunchType.SelectedValue,
+                        VerifyModeName = "Manual Entry",
+                        CreatedBy = currentUser.UserID
+                    };
+
+                    // Convert to JSON string
+                    string attendanceJson = new JavaScriptSerializer().Serialize(attendanceData);
+                    LogAction("Insert Manual Punch", newData: attendanceJson, remarks: "Manual punch entry");
+                }
+                if (mode == 2)
+                {
+
+                    var attendanceData = new
+                    {
+                        Mode = mode,                             // INSERT = 1, UPDATE = 2
+                        AttendanceID = attendanceId,
+                        EmpNo = ddlEmployees.SelectedValue,
+                        FullName = ddlEmployees.SelectedItem.Text,
+                        PunchDate = punchDate.ToString("yyyy-MM-dd"),
+                        PunchTime = punchTime.ToString(@"hh\:mm\:ss"), // TimeSpan to HH:mm:ss
+                        PunchType = ddlPunchType.SelectedValue,
+                        VerifyModeName = "Manual Entry",
+                        CreatedBy = currentUser.UserID
+                    };
+
+                    // Convert to JSON string
+                    string attendanceJson = new JavaScriptSerializer().Serialize(attendanceData);
+                    LogAction("Update Manual Punch", recordId: attendanceId?.ToString() ?? string.Empty, newData: attendanceJson, remarks: "Manual punch entry");
+                }
                 // Clear edit state and form
                 ViewState["EditAttendanceID"] = null;
                 ClearForm();
@@ -148,19 +189,25 @@ namespace hrms_PakAsia.Pages.Attendance
 
         protected void txtSearch_TextChanged(object sender, EventArgs e)
         {
-            CurrentPage = 1;
+            LogAction("Search Manual Punches", remarks: $"Search='{txtSearch.Text?.Trim()}'");
+        
+        CurrentPage = 1;
             BindAttendance();
         }
 
         protected void btnPrev_Click(object sender, EventArgs e)
         {
+            int fromPage = CurrentPage;
             if (CurrentPage > 1) CurrentPage--;
+            LogAction("Manual Punches Paging Prev", remarks: $"From page {fromPage} to {CurrentPage}");
             BindAttendance();
         }
 
         protected void btnNext_Click(object sender, EventArgs e)
         {
+            int fromPage = CurrentPage;
             CurrentPage++;
+            LogAction("Manual Punches Paging Next", remarks: $"From page {fromPage} to {CurrentPage}");
             BindAttendance();
         }
 
@@ -178,23 +225,39 @@ namespace hrms_PakAsia.Pages.Attendance
         protected void rptAttendance_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
             int id = Convert.ToInt32(e.CommandArgument);
+            DataRow dr = AttendanceDAL.GetById(id);
+            if (dr == null) return;
 
+            ddlEmployees.SelectedValue = dr["EmpNo"].ToString();
+            txtPunchDate.Text = Convert.ToDateTime(dr["PunchDate"]).ToString("yyyy-MM-dd");
+
+            // TimeSpan from SQL TIME(7)
+            txtPunchTime.Text = DateTime.Today
+                .Add((TimeSpan)dr["PunchDateTime"])
+                .ToString("HH:mm");
+
+            ddlPunchType.SelectedValue = dr["PunchType"].ToString();
+            ViewState["EditAttendanceID"] = id;
+            TimeSpan punchTimeSpan = (TimeSpan)dr["PunchDateTime"];
             if (e.CommandName == "Edit")
             {
-                DataRow dr = AttendanceDAL.GetById(id);
-                if (dr == null) return;
+               
+                var attendanceData = new
+                {
+                    Mode = 2, // UPDATE
+                    AttendanceID = id,
+                    EmpNo = ddlEmployees.SelectedValue,
+                    FullName = ddlEmployees.SelectedItem.Text,
+                    PunchDate = ((DateTime)dr["PunchDate"]).ToString("yyyy-MM-dd"),
+                    PunchTime = DateTime.Today.Add(punchTimeSpan).ToString("HH:mm:ss"), // Include seconds
+                    PunchType = ddlPunchType.SelectedValue,
+                    VerifyModeName = "Manual Entry",
+                    CreatedBy = currentUser.UserID
+                };
 
-                ddlEmployees.SelectedValue = dr["EmpNo"].ToString();
-                txtPunchDate.Text = Convert.ToDateTime(dr["PunchDate"]).ToString("yyyy-MM-dd");
-
-                // TimeSpan from SQL TIME(7)
-                txtPunchTime.Text = DateTime.Today
-                    .Add((TimeSpan)dr["PunchDateTime"])
-                    .ToString("HH:mm");
-
-                ddlPunchType.SelectedValue = dr["PunchType"].ToString();
-                ViewState["EditAttendanceID"] = id;
-
+                // Convert to JSON string
+                string attendanceJson = new JavaScriptSerializer().Serialize(attendanceData);
+                LogAction("Edit Manual Punch", recordId: id.ToString(), oldData: attendanceJson, remarks: $"{currentUser.UserName} loaded record for editing");
                 ShowAlert("Attendance loaded for editing", "info");
             }
             else if (e.CommandName == "Delete")
@@ -202,6 +265,22 @@ namespace hrms_PakAsia.Pages.Attendance
                 AttendanceDAL.Delete(id);
                 ShowAlert("Attendance deleted successfully", "warning");
                 BindAttendance();
+                var attendanceData = new
+                {
+                    Mode = 2, // UPDATE
+                    AttendanceID = id,
+                    EmpNo = ddlEmployees.SelectedValue,
+                    FullName = ddlEmployees.SelectedItem.Text,
+                    PunchDate = ((DateTime)dr["PunchDate"]).ToString("yyyy-MM-dd"),
+                    PunchTime = DateTime.Today.Add(punchTimeSpan).ToString("HH:mm:ss"), // Include seconds
+                    PunchType = ddlPunchType.SelectedValue,
+                    VerifyModeName = "Manual Entry",
+                    CreatedBy = currentUser.UserID
+                };
+
+                // Convert to JSON string
+                string attendanceJson = new JavaScriptSerializer().Serialize(attendanceData);
+                LogAction("Delete Manual Punch", recordId: id.ToString(), oldData: attendanceJson, remarks: $"{currentUser.UserName} deleted manual punch");
             }
         }
         #endregion
@@ -231,6 +310,7 @@ setTimeout(function(){{
             AttendanceDAL.DeleteAttendanceLogs();
             CurrentPage = 1;
             BindAttendance();
+            LogAction("Hard Refresh Manual Punches", remarks: $"{currentUser.UserName} clicked hard refresh");
         }
     }
 }

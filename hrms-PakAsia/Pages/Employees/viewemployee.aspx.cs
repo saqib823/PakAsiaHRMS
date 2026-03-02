@@ -1,4 +1,4 @@
-﻿using HRMSLib.BusinessLogic;
+using HRMSLib.BusinessLogic;
 using HRMSLib.DataLayer;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 
 namespace hrms_PakAsia.Pages.Employees
 {
-    public partial class viewemployee : System.Web.UI.Page
+    public partial class viewemployee : hrms_PakAsia.BasePage
     {
         LoggedInUser currentUser = null;
 
@@ -22,6 +22,7 @@ namespace hrms_PakAsia.Pages.Employees
             {
                 long empId = Convert.ToInt64(Request.QueryString["id"]);
                 LoadEmployee(empId);
+                LogAction("View Employee Profile", recordId: empId.ToString(), remarks: $"Viewed employee profile #{empId}");
             }
             currentUser = GetSessionData();
 
@@ -154,6 +155,7 @@ namespace hrms_PakAsia.Pages.Employees
 
             if (System.IO.File.Exists(fullPath))
             {
+                LogAction("Download Employee Document", recordId: lblEmpNo.Text, remarks: $"Downloaded file {virtualPath}");
                 Response.Clear();
                 Response.ContentType = "application/octet-stream";
                 Response.AppendHeader(

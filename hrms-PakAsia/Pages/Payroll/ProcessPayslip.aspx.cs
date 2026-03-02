@@ -1,4 +1,4 @@
-﻿using CrystalDecisions.CrystalReports.Engine;
+using CrystalDecisions.CrystalReports.Engine;
 using CrystalDecisions.Shared;
 using HRMSLib.BusinessLogic;
 using HRMSLib.DataLayer;
@@ -11,7 +11,7 @@ using System.Web.UI.WebControls;
 
 namespace hrms_PakAsia.Pages.Payroll
 {
-    public partial class ProcessPayslip : System.Web.UI.Page
+    public partial class ProcessPayslip : hrms_PakAsia.BasePage
     {
         private readonly PayrollDAL dal = new PayrollDAL();
         LoggedInUser currentUser = null;
@@ -23,7 +23,7 @@ namespace hrms_PakAsia.Pages.Payroll
             if (!IsPostBack)
             {
                 LoadEmployees();
-                
+                // landing logged by BasePage.OnLoad
             }
         }
         public LoggedInUser GetSessionData()
@@ -68,6 +68,7 @@ namespace hrms_PakAsia.Pages.Payroll
             
 
             DataSet ds = dal.ProcessEmployeePayslip(empID);
+            LogAction("Export Payslip PDF", recordId: empID, remarks: $"Generated payslip PDF for employee {empID}");
 
             // Create typed dataset instance
             hrms_PakAsia.Dataset.Payslip dtPayslip = new hrms_PakAsia.Dataset.Payslip();
@@ -133,6 +134,7 @@ namespace hrms_PakAsia.Pages.Payroll
             // Get data
             DataSet dsPayroll = dal.ProcessEmployeePayroll(empID, from, to);
             DataSet dsPayslip = dal.ProcessEmployeePayslip(empID);
+            LogAction("Export Clearance Report PDF", recordId: empID, remarks: $"Generated clearance report for employee {empID} from {from:yyyy-MM-dd} to {to:yyyy-MM-dd}");
 
             // ===== Create ONE Typed Dataset =====
             hrms_PakAsia.Dataset.Clearence payrollDS = new hrms_PakAsia.Dataset.Clearence();

@@ -1,4 +1,4 @@
-﻿using HRMSLib.BusinessLogic;
+using HRMSLib.BusinessLogic;
 using HRMSLib.DataLayer;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 
 namespace hrms_PakAsia.Pages.Leaves
 {
-    public partial class leavemanagement : System.Web.UI.Page
+    public partial class leavemanagement : hrms_PakAsia.BasePage
     {
         private const int PageSize = 10;
         LoggedInUser currentUser = null;
@@ -130,6 +130,7 @@ namespace hrms_PakAsia.Pages.Leaves
         {
             CurrentPage = 1;
             BindLeaves();
+            LogAction("Search Leaves", remarks: $"Search='{txtSearchLeave.Text?.Trim()}'");
         }
 
         #endregion
@@ -145,19 +146,23 @@ namespace hrms_PakAsia.Pages.Leaves
             {
                 case "ApproveLeave":
                     LeaveDAL.ApproveRejectLeave(leaveId, approverId, "Approved");
+                    LogAction("Approve Leave", recordId: leaveId.ToString(), remarks: $"Approved by {approverId}");
                     break;
 
                 case "RejectLeave":
                     LeaveDAL.ApproveRejectLeave(leaveId, approverId, "Rejected");
+                    LogAction("Reject Leave", recordId: leaveId.ToString(), remarks: $"Rejected by {approverId}");
                     break;
 
                 case "EncashLeave":
                     LeaveDAL.EncashLeave(leaveId);
                     LeaveDAL.ApproveRejectLeave(leaveId, approverId, "Approved");
+                    LogAction("Encash Leave", recordId: leaveId.ToString(), remarks: $"Encashed and approved by {approverId}");
                     break;
                 case "CarryForward":
                     LeaveDAL.CarryForwardLeaves(DateTime.Now.Year, leaveId);
                     LeaveDAL.ApproveRejectLeave(leaveId, approverId, "Approved");
+                    LogAction("Carry Forward Leave", recordId: leaveId.ToString(), remarks: $"Carry-forward and approved by {approverId}");
                     break;
             }
 

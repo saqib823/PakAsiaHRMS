@@ -1,4 +1,4 @@
-﻿using HRMSLib.BusinessLogic;
+using HRMSLib.BusinessLogic;
 using HRMSLib.DataLayer;
 using System;
 using System.Data;
@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace hrms_PakAsia.Pages
 {
-    public partial class dashboard : System.Web.UI.Page
+    public partial class dashboard : hrms_PakAsia.BasePage
     {
         protected List<EmployeePerformance> EmployeePerformanceList = new List<EmployeePerformance>();
         LoggedInUser currentUser = null;
@@ -34,6 +34,7 @@ namespace hrms_PakAsia.Pages
             if (!IsPostBack)
             {
                 PopulateDashboardData();
+                // landing logged by BasePage.OnLoad
             }
         }
 

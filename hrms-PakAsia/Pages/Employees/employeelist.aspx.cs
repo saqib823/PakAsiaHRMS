@@ -1,4 +1,4 @@
-﻿using HRMSLib.BusinessLogic;
+using HRMSLib.BusinessLogic;
 using HRMSLib.DataLayer;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 
 namespace hrms_PakAsia.Pages.Employees
 {
-    public partial class employeelist : System.Web.UI.Page
+    public partial class employeelist : hrms_PakAsia.BasePage
     {
         private int PageSize = 10;
         private int TotalRecords = 0;
@@ -54,6 +54,7 @@ namespace hrms_PakAsia.Pages.Employees
             if (!IsPostBack)
             {
                 BindEmployees();
+                // landing logged by BasePage.OnLoad
             }
             currentUser = GetSessionData();
 
@@ -181,6 +182,7 @@ namespace hrms_PakAsia.Pages.Employees
             CurrentPage = 1;
             SearchText = txtSearchEmployee.Text.Trim();
             BindEmployees();
+            LogAction("Search Employees List", remarks: $"Search='{SearchText}'");
         }
 
         protected void rptPager_ItemCommand(object source, RepeaterCommandEventArgs e)
@@ -221,11 +223,13 @@ namespace hrms_PakAsia.Pages.Employees
                 switch (e.CommandName)
                 {
                     case "ViewEmployee":
+                        LogAction("View Employee (from list)", recordId: employeeID.ToString(), remarks: "Navigated to viewemployee");
                         Response.Redirect($"viewemployee.aspx?id={employeeID}", false);
                         Context.ApplicationInstance.CompleteRequest();
                         break;
 
                     case "EditEmployee":
+                        LogAction("Edit Employee (from list)", recordId: employeeID.ToString(), remarks: "Navigated to employees edit page");
                         Response.Redirect($"employees.aspx?id={employeeID}", false);
                         Context.ApplicationInstance.CompleteRequest();
                         break;
@@ -247,6 +251,7 @@ namespace hrms_PakAsia.Pages.Employees
             {
                 employeeDAL.DeleteEmployee(employeeID);
                 ShowAlert("Employee deleted succesfully!", "success");
+                LogAction("Delete Employee", recordId: employeeID.ToString(), remarks: "Employee deleted from list");
             }
             catch (Exception ex)
             {

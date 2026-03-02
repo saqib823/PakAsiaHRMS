@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 
 namespace hrms_PakAsia.Pages.Leaves
 {
-    public partial class applyleave : System.Web.UI.Page
+    public partial class applyleave : hrms_PakAsia.BasePage
     {
         LoggedInUser currentUser = null;
 
@@ -22,6 +22,7 @@ namespace hrms_PakAsia.Pages.Leaves
 
                 LoadLeaveTypes();
                 LoadEmployees();
+                // landing logged by BasePage.OnLoad
             }
         }
 
@@ -103,6 +104,9 @@ namespace hrms_PakAsia.Pages.Leaves
                 chkCarryForward.Checked,
                 chkEncash.Checked
             );
+
+            // audit
+            LogAction("Apply Leave", recordId: ddlEmployees.SelectedValue, newData: $"LeaveType={ddlLeaveType.SelectedValue};Start={startDate};End={endDate};Reason={txtReason.Text}", remarks: $"Apply leave attempted by {currentUser?.UserName}");
 
             ShowAlert(result.ResultMessage,
                 result.ResultCode > 0 ? "success" : "danger");

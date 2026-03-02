@@ -1,4 +1,4 @@
-﻿using HRMSLib.BusinessLogic;
+using HRMSLib.BusinessLogic;
 using HRMSLib.DataLayer;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 
 namespace hrms_PakAsia.Pages.Shifts
 {
-    public partial class Shifts : System.Web.UI.Page
+    public partial class Shifts : hrms_PakAsia.BasePage
     {
         private const int PageSize = 10;
         LoggedInUser currentUser = null;
@@ -34,6 +34,7 @@ namespace hrms_PakAsia.Pages.Shifts
             {
                 LoadShiftTypes();
                 LoadShiftsPaged();
+                // landing logged by BasePage.OnLoad
             }
         }
         public LoggedInUser GetSessionData()
@@ -82,12 +83,14 @@ namespace hrms_PakAsia.Pages.Shifts
         {
             CurrentPage--;
             LoadShiftsPaged();
+            LogAction("Shifts Paging Prev", remarks: $"Moved to page {CurrentPage}");
         }
 
         protected void btnNext_Click(object sender, EventArgs e)
         {
             CurrentPage++;
             LoadShiftsPaged();
+            LogAction("Shifts Paging Next", remarks: $"Moved to page {CurrentPage}");
         }
         protected void rptShifts_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
@@ -100,6 +103,7 @@ namespace hrms_PakAsia.Pages.Shifts
             else if (e.CommandName == "DeleteShift")
             {
                 ShiftDAL.DeleteShift(shiftId);
+                LogAction("Delete Shift", recordId: shiftId.ToString(), remarks: "Shift deleted");
 
                 if ((CurrentPage - 1) * PageSize >= TotalRecords - 1 && CurrentPage > 1)
                     CurrentPage--;
@@ -172,11 +176,13 @@ namespace hrms_PakAsia.Pages.Shifts
             {
                 // INSERT
                 ShiftDAL.InsertShift(shift);
+                LogAction("Insert Shift", newData: $"Name={shift.ShiftName};TypeID={shift.ShiftTypeID};Start={shift.StartTime};End={shift.EndTime}", remarks: "Shift created");
             }
             else
             {
                 // UPDATE
                 ShiftDAL.UpdateShift(shift);
+                LogAction("Update Shift", recordId: shift.ShiftID.ToString(), newData: $"Name={shift.ShiftName};TypeID={shift.ShiftTypeID};Start={shift.StartTime};End={shift.EndTime}", remarks: "Shift updated");
             }
 
             ResetForm();

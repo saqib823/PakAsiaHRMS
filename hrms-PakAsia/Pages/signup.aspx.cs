@@ -1,4 +1,4 @@
-﻿using HRMSLib.BusinessLogic;
+using HRMSLib.BusinessLogic;
 using HRMSLib.DataLayer;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 namespace hrms_PakAsia.Pages
 {
-    public partial class signup : System.Web.UI.Page
+    public partial class signup : hrms_PakAsia.BasePage
     {
         private int PageSize => 10;
 
@@ -34,6 +34,7 @@ namespace hrms_PakAsia.Pages
                 InitialDataBindings();
                 CurrentPage = 1;
                 BindUsers();
+                // landing logged by BasePage.OnLoad
             }
             currentUser = GetSessionData();
 
@@ -121,6 +122,8 @@ namespace hrms_PakAsia.Pages
             bool IsSaved = false;
             if (userId.HasValue)
             {
+                DataRow existing = dal.GetUserById(userId.Value);
+                string oldData = existing == null ? null : $"UserName={existing["UserName"]};Email={existing["EmailAddress"]};RoleID={existing["RoleID"]}";
                 // UPDATE
                 IsSaved = dal.SaveUserData(
                     2,
@@ -143,6 +146,7 @@ namespace hrms_PakAsia.Pages
 
                 ViewState["EditUserID"] = null;
                 ShowAlert("User updated successfully", "success");
+                LogAction("Update User", recordId: userId.Value.ToString(), oldData: oldData, newData: $"UserName={UserName.Text};Email={EmailAddress.Text};RoleID={ddlRole.SelectedValue}", remarks: "User updated from signup page");
             }
             else
             {
@@ -167,6 +171,7 @@ namespace hrms_PakAsia.Pages
                 );
 
                 ShowAlert("User created successfully", "success");
+                LogAction("Insert User", newData: $"UserName={UserName.Text};Email={EmailAddress.Text};RoleID={ddlRole.SelectedValue}", remarks: "User created from signup page");
             }
 
             ClearForm();
@@ -246,6 +251,7 @@ namespace hrms_PakAsia.Pages
         {
             CurrentPage = 1;
             BindUsers();
+            LogAction("Search Users", remarks: $"Search='{txtSearch.Text?.Trim()}'");
         }
         protected void rptPager_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
@@ -354,9 +360,12 @@ namespace hrms_PakAsia.Pages
         private void DeleteUser(int userId)
         {
             UserDAL dal = new UserDAL();
+            DataRow existing = dal.GetUserById(userId);
+            string oldData = existing == null ? null : $"UserName={existing["UserName"]};Email={existing["EmailAddress"]};RoleID={existing["RoleID"]}";
             dal.DeleteUser(userId);
 
             ShowAlert("User deleted successfully", "warning");
+            LogAction("Delete User", recordId: userId.ToString(), oldData: oldData, remarks: "User deleted from signup page");
             BindUsers();
         }
 

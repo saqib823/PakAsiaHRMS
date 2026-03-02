@@ -1,4 +1,4 @@
-﻿using HRMSLib.BusinessLogic;
+using HRMSLib.BusinessLogic;
 using HRMSLib.DataLayer;
 using System;
 using System.Data;
@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 
 namespace hrms_PakAsia.Pages.Shifts
 {
-    public partial class SplitShift : System.Web.UI.Page
+    public partial class SplitShift : hrms_PakAsia.BasePage
     {
         private const int PageSize = 10;
 
@@ -51,6 +51,7 @@ namespace hrms_PakAsia.Pages.Shifts
             {
                 LoadSplitShifts();
                 LoadSplitShiftTable();
+                // landing logged by BasePage.OnLoad
             }
         }
 
@@ -69,6 +70,7 @@ namespace hrms_PakAsia.Pages.Shifts
                 // Update existing split shift parts
                 ShiftDAL.UpdateSplitShift(EditingShiftID, p1Start, p1End, 1);
                 ShiftDAL.UpdateSplitShift(EditingShiftID, p2Start, p2End, 2);
+                LogAction("Update Split Shift", recordId: EditingShiftID.ToString(), newData: $"ShiftID={shiftId};P1={p1Start}-{p1End};P2={p2Start}-{p2End}", remarks: "Split shift updated");
 
                 EditingShiftID = 0;
                 btnSave.Text = "Save Split Shift";
@@ -77,6 +79,7 @@ namespace hrms_PakAsia.Pages.Shifts
             {
                 // Insert new split shift
                 ShiftDAL.InsertSplitShift(shiftId, p1Start, p1End, p2Start, p2End);
+                LogAction("Insert Split Shift", newData: $"ShiftID={shiftId};P1={p1Start}-{p1End};P2={p2Start}-{p2End}", remarks: "Split shift created");
             }
 
             ClearForm();
@@ -123,6 +126,7 @@ namespace hrms_PakAsia.Pages.Shifts
             else if (e.CommandName == "DeleteRow")
             {
                 ShiftDAL.DeleteSplitShift(id);
+                LogAction("Delete Split Shift", recordId: id.ToString(), remarks: "Split shift deleted");
                 LoadSplitShiftTable();
             }
         }
@@ -137,12 +141,14 @@ namespace hrms_PakAsia.Pages.Shifts
         {
             if (CurrentPage > 0) CurrentPage--;
             LoadSplitShiftTable();
+            LogAction("Split Shift Paging Prev", remarks: $"Moved to page {CurrentPage + 1}");
         }
 
         protected void btnNext_Click(object sender, EventArgs e)
         {
             if (CurrentPage < TotalPages - 1) CurrentPage++;
             LoadSplitShiftTable();
+            LogAction("Split Shift Paging Next", remarks: $"Moved to page {CurrentPage + 1}");
         }
 
         private void LoadSplitShiftTable()

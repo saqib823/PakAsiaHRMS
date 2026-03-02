@@ -1,4 +1,4 @@
-﻿using HRMSLib.DataLayer;
+using HRMSLib.DataLayer;
 using System;
 using System.Data;
 using System.Web.UI.WebControls;
@@ -6,10 +6,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Web;
 using System.Linq;
+using System.Web.Script.Serialization;
 
 namespace hrms_PakAsia.Pages
 {
-    public partial class Recruitment : System.Web.UI.Page
+    public partial class Recruitment : hrms_PakAsia.BasePage
     {
         // -------------------------
         // JobPosting paging
@@ -61,6 +62,7 @@ namespace hrms_PakAsia.Pages
                 BindJobs();
                 BindJobsDropdown();
                 BindCandidates();
+                // landing logged by BasePage.OnLoad
             }
         }
 
@@ -85,12 +87,18 @@ namespace hrms_PakAsia.Pages
 
             if (EditJobID.HasValue)
             {
+                var existing = RecruitmentDAL.GetJobPostingById(EditJobID.Value);
+                string oldData = existing == null ? null : new JavaScriptSerializer().Serialize(new { JobID = EditJobID.Value, Name = existing["Name"] });
                 RecruitmentDAL.SaveJobPosting(2, EditJobID.Value, jobName, 1, null, null);
+                string newData = new JavaScriptSerializer().Serialize(new { JobID = EditJobID.Value, Name = jobName });
+                LogAction("Update Job Posting", recordId: EditJobID.Value.ToString(), oldData: oldData, newData: newData, remarks: "Job posting updated");
                 EditJobID = null;
             }
             else
             {
                 RecruitmentDAL.SaveJobPosting(1, null, jobName, 1, DateTime.Now, 1);
+                string newData = new JavaScriptSerializer().Serialize(new { Name = jobName });
+                LogAction("Insert Job Posting", newData: newData, remarks: "Job posting created");
             }
 
             txtJobName.Text = "";
@@ -108,6 +116,7 @@ namespace hrms_PakAsia.Pages
         {
             JobCurrentPage = 1;
             BindJobs();
+            LogAction("Search Job Postings", remarks: $"Search='{txtSearchJob.Text?.Trim()}'");
         }
 
         protected void rptJobs_ItemCommand(object source, RepeaterCommandEventArgs e)
@@ -125,7 +134,10 @@ namespace hrms_PakAsia.Pages
             }
             else if (e.CommandName == "DeleteJob")
             {
+                DataRow dr = RecruitmentDAL.GetJobPostingById(jobId);
+                string oldData = dr == null ? null : new JavaScriptSerializer().Serialize(new { JobID = jobId, Name = dr["Name"] });
                 RecruitmentDAL.DeleteJobPosting(jobId);
+                LogAction("Delete Job Posting", recordId: jobId.ToString(), oldData: oldData, remarks: "Job posting deleted");
                 BindJobs();
                 BindJobsDropdown();
             }
@@ -179,12 +191,25 @@ namespace hrms_PakAsia.Pages
             }
             if (EditCandidateID.HasValue)
             {
+                var existing = RecruitmentDAL.GetCandidateById(EditCandidateID.Value);
+                string oldData = existing == null ? null : new JavaScriptSerializer().Serialize(new
+                {
+                    CandidateID = EditCandidateID.Value,
+                    JobID = existing["JobID"],
+                    Name = existing["Name"],
+                    Status = existing["Status"],
+                    CV = existing["CVPath"]
+                });
                 RecruitmentDAL.SaveCandidate(2, EditCandidateID.Value, jobId, name, status, null, null, CVPath);
+                string newData = new JavaScriptSerializer().Serialize(new { CandidateID = EditCandidateID.Value, JobID = jobId, Name = name, Status = status, CV = CVPath });
+                LogAction("Update Candidate", recordId: EditCandidateID.Value.ToString(), oldData: oldData, newData: newData, remarks: "Candidate updated");
                 EditCandidateID = null;
             }
             else
             {
                 RecruitmentDAL.SaveCandidate(1, null, jobId, name, status, DateTime.Now, 1, CVPath);
+                string newData = new JavaScriptSerializer().Serialize(new { JobID = jobId, Name = name, Status = status, CV = CVPath });
+                LogAction("Insert Candidate", newData: newData, remarks: "Candidate created");
             }
 
             ClearCandidateForm();
@@ -238,6 +263,7 @@ namespace hrms_PakAsia.Pages
         {
             CandidateCurrentPage = 1;
             BindCandidates();
+            LogAction("Search Candidates", remarks: $"Search='{txtSearchCandidate.Text?.Trim()}'");
         }
         protected void rptCandidates_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
@@ -256,7 +282,17 @@ namespace hrms_PakAsia.Pages
             }
             else if (e.CommandName == "DeleteCandidate")
             {
+                DataRow dr = RecruitmentDAL.GetCandidateById(candidateId);
+                string oldData = dr == null ? null : new JavaScriptSerializer().Serialize(new
+                {
+                    CandidateID = candidateId,
+                    JobID = dr["JobID"],
+                    Name = dr["Name"],
+                    Status = dr["Status"],
+                    CV = dr["CVPath"]
+                });
                 RecruitmentDAL.DeleteCandidate(candidateId);
+                LogAction("Delete Candidate", recordId: candidateId.ToString(), oldData: oldData, remarks: "Candidate deleted");
                 BindCandidates();
             }
             else if (e.CommandName == "ChangeStatus")
@@ -265,6 +301,7 @@ namespace hrms_PakAsia.Pages
                 int statusId = Convert.ToInt32(e.CommandArgument.ToString().Split(',')[1]);
                 // Update candidate status
                 RecruitmentDAL.UpdateCandidateStatus(candidateId, statusId);
+                LogAction("Update Candidate Status", recordId: candidateId.ToString(), newData: new JavaScriptSerializer().Serialize(new { CandidateID = candidateId, Status = statusId }), remarks: "Candidate status changed");
                 // Rebind Repeater
                 BindCandidates();
             }

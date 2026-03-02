@@ -185,6 +185,7 @@
     <Compile Include="DataLayer\AssetDAL.cs" />
     <Compile Include="DataLayer\AttendanceDAL.cs" />
     <Compile Include="DataLayer\AttendanceRulesDAL.cs" />
+    <Compile Include="DataLayer\AuditDAL.cs" />
     <Compile Include="DataLayer\BiometricDAL.cs" />
     <Compile Include="DataLayer\BiometricDeviceDAL.cs" />
     <Compile Include="DataLayer\BiometricUI_DAL.cs" />

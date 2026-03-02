@@ -2,22 +2,24 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Web;
+using System.Web.Script.Serialization;
 using HRMSLib.BusinessLogic;
 using HRMSLib.DataLayer;
 
 namespace hrms_PakAsia.Pages.Asset
 {
-    public partial class AddAsset : System.Web.UI.Page
+    public partial class AddAsset : hrms_PakAsia.BasePage
     {
         AssetDAL dal = new AssetDAL();
         LoggedInUser currentUser = null;
-        protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
         {
             CheckSession();
             currentUser = GetSessionData();
 
             if (!IsPostBack)
-                LoadAssets();
+        LoadAssets();
+            // landing logged by BasePage.OnLoad
         }
         public LoggedInUser GetSessionData()
         {
@@ -45,11 +47,34 @@ namespace hrms_PakAsia.Pages.Asset
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
+            // capture old data for update
+            string oldDataJson = null;
+            int assetId = Convert.ToInt32(hfAssetID.Value);
+            if (assetId != 0)
+            {
+                var existing = dal.GetAssetMasterById(assetId);
+                if (existing != null)
+                {
+                    var oldObj = new
+                    {
+                        AssetID = existing["AssetID"],
+                        AssetName = existing["AssetName"],
+                        IsActive = Convert.ToBoolean(existing["IsActive"]) ? 1 : 0
+                    };
+                    oldDataJson = new JavaScriptSerializer().Serialize(oldObj);
+                }
+            }
+
             dal.SaveAssetMaster(
-                Convert.ToInt32(hfAssetID.Value),
+                assetId,
                 txtAssetName.Text.Trim(),
                 ddlStatus.SelectedValue == "1"
             );
+
+            // audit - include oldData and newData JSON
+            var newObj = new { AssetID = hfAssetID.Value, AssetName = txtAssetName.Text.Trim(), IsActive = ddlStatus.SelectedValue == "1" ? 1 : 0 };
+            string newDataJson = new JavaScriptSerializer().Serialize(newObj);
+            LogAction(assetId == 0 ? "Insert Asset" : "Update Asset", recordId: assetId.ToString(), oldData: oldDataJson, newData: newDataJson, remarks: "Asset saved from UI");
 
             hfAssetID.Value = "0";
             txtAssetName.Text = "";
@@ -71,7 +96,23 @@ namespace hrms_PakAsia.Pages.Asset
 
             if (e.CommandName == "Delete")
             {
-                dal.DeleteAssetMaster(Convert.ToInt32(e.CommandArgument));
+                int id = Convert.ToInt32(e.CommandArgument);
+                // capture existing data before delete
+                string oldData = null;
+                var existing = dal.GetAssetMasterById(id);
+                if (existing != null)
+                {
+                    var oldObj = new
+                    {
+                        AssetID = existing["AssetID"],
+                        AssetName = existing["AssetName"],
+                        IsActive = Convert.ToBoolean(existing["IsActive"]) ? 1 : 0
+                    };
+                    oldData = new JavaScriptSerializer().Serialize(oldObj);
+                }
+
+                dal.DeleteAssetMaster(id);
+                LogAction("Delete Asset", recordId: id.ToString(), oldData: oldData, remarks: "Asset deleted from UI");
                 LoadAssets();
             }
         }

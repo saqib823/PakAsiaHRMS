@@ -1230,6 +1230,7 @@
     <Content Include="Pages\Organization\branches.aspx" />
     <Content Include="Pages\Organization\departments.aspx" />
     <Content Include="Pages\Organization\designation.aspx" />
+    <Content Include="Pages\Organization\AuditLogs.aspx" />
     <Content Include="Pages\Payroll\ProcessPayroll.aspx" />
     <Content Include="Pages\Payroll\ProcessPayslip.aspx" />
     <Content Include="Pages\Payroll\SalaryStructure.aspx" />
@@ -1364,6 +1365,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="BasePage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Handler\BiometricPush.ashx.cs">
       <DependentUpon>BiometricPush.ashx</DependentUpon>
     </Compile>
@@ -1450,6 +1454,13 @@
     </Compile>
     <Compile Include="Pages\Organization\branches.aspx.designer.cs">
       <DependentUpon>branches.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Organization\AuditLogs.aspx.cs">
+      <DependentUpon>AuditLogs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Organization\AuditLogs.aspx.designer.cs">
+      <DependentUpon>AuditLogs.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Organization\departments.aspx.cs">
       <DependentUpon>departments.aspx</DependentUpon>

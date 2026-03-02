@@ -1,13 +1,14 @@
-﻿using System;
+using System;
 using System.Data;
 using System.Web;
 using System.Web.UI.WebControls;
 using HRMSLib.BusinessLogic;
 using HRMSLib.DataLayer;
+using System.Web.Script.Serialization;
 
 namespace hrms_PakAsia.Pages.Asset
 {
-    public partial class AssetManagement : System.Web.UI.Page
+    public partial class AssetManagement : hrms_PakAsia.BasePage
     {
         LoggedInUser currentUser = null;
 
@@ -38,6 +39,7 @@ namespace hrms_PakAsia.Pages.Asset
             {
                 LoadEmployees();
                 LoadAssets();
+                // landing logged by BasePage.OnLoad
             }
         }
         public LoggedInUser GetSessionData()
@@ -98,12 +100,14 @@ namespace hrms_PakAsia.Pages.Asset
         {
             if (PageIndex > 1) PageIndex--;
             LoadAssets();
+            LogAction("Asset Records Paging Prev", remarks: $"Moved to page {PageIndex}");
         }
 
         protected void btnNext_Click(object sender, EventArgs e)
         {
             PageIndex++;
             LoadAssets();
+            LogAction("Asset Records Paging Next", remarks: $"Moved to page {PageIndex}");
         }
 
         protected void btnSearch_Click(object sender, EventArgs e)
@@ -111,12 +115,36 @@ namespace hrms_PakAsia.Pages.Asset
             SearchTerm = txtSearch.Text.Trim();
             PageIndex = 1;
             LoadAssets();
+            LogAction("Search Asset Records", remarks: $"SearchTerm='{SearchTerm}'");
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
+            int assetRecordId = Convert.ToInt32(hfAssetID.Value);
+
+            // capture old data for update
+            string oldDataJson = null;
+            if (assetRecordId != 0)
+            {
+                DataRow oldRow = dal.GetAssetById(assetRecordId);
+                if (oldRow != null)
+                {
+                    var oldObj = new
+                    {
+                        AssetRecordID = oldRow["AssetRecordID"],
+                        EmployeeID = oldRow["EmployeeID"],
+                        AssetID = oldRow["AssetID"],
+                        IssueDate = oldRow["IssueDate"],
+                        ReturnDate = oldRow["ReturnDate"],
+                        Condition = oldRow["Condition"],
+                        Deduction = oldRow["Deduction"]
+                    };
+                    oldDataJson = new JavaScriptSerializer().Serialize(oldObj);
+                }
+            }
+
             dal.SaveAsset(
-                Convert.ToInt32(hfAssetID.Value),
+                assetRecordId,
                 Convert.ToInt32(ddlEmployee.SelectedValue),
                 Convert.ToInt32(ddlAsset.SelectedValue),
                 Convert.ToDateTime(txtIssueDate.Text),
@@ -124,6 +152,19 @@ namespace hrms_PakAsia.Pages.Asset
                 ddlCondition.SelectedValue,
                 string.IsNullOrEmpty(txtDeduction.Text) ? 0 : Convert.ToDecimal(txtDeduction.Text)
             );
+
+            var newObj = new
+            {
+                AssetRecordID = assetRecordId,
+                EmployeeID = ddlEmployee.SelectedValue,
+                AssetID = ddlAsset.SelectedValue,
+                IssueDate = txtIssueDate.Text,
+                ReturnDate = txtReturnDate.Text,
+                Condition = ddlCondition.SelectedValue,
+                Deduction = txtDeduction.Text
+            };
+            string newDataJson = new JavaScriptSerializer().Serialize(newObj);
+            LogAction(assetRecordId == 0 ? "Insert Issued Asset" : "Update Issued Asset", recordId: assetRecordId.ToString(), oldData: oldDataJson, newData: newDataJson, remarks: "Asset record saved from UI");
 
             hfAssetID.Value = "0";
             ClearForm();
@@ -151,6 +192,7 @@ namespace hrms_PakAsia.Pages.Asset
             if (e.CommandName == "Delete")
             {
                 dal.DeleteAsset(assetRecordID);
+                LogAction("Delete Issued Asset", recordId: assetRecordID.ToString(), remarks: "Asset record deleted from UI");
                 LoadAssets();
             }
         }

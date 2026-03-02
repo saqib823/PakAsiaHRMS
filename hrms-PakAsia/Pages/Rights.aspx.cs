@@ -1,4 +1,4 @@
-﻿using HRMSLib.DataLayer;
+using HRMSLib.DataLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using MenuItem = HRMSLib.DataLayer.MenuItem;
 
 namespace hrms_PakAsia.Pages
 {
-    public partial class Rights : Page
+    public partial class Rights : hrms_PakAsia.BasePage
     {
         private readonly RoleDAL roleDAL = new RoleDAL();
 
@@ -18,6 +18,7 @@ namespace hrms_PakAsia.Pages
             {
                 BindRoles();
                 BindMenuTree();
+                // landing logged by BasePage.OnLoad
             }
         }
 
@@ -40,6 +41,7 @@ namespace hrms_PakAsia.Pages
             if (roleId == 0) return;
 
             List<int> assignedMenus = roleDAL.GetRoleMenuRights(roleId);
+            LogAction("Select Role for Rights", recordId: roleId.ToString(), remarks: $"Loaded rights for roleId={roleId}");
 
             foreach (TreeNode node in tvFolders.Nodes)
                 CheckNodeRecursive(node, assignedMenus);
@@ -137,6 +139,7 @@ namespace hrms_PakAsia.Pages
                 .ToList();
 
             roleDAL.SaveRoleMenuRights(roleId, selectedMenuIds);
+            LogAction("Save Role Rights", recordId: roleId.ToString(), newData: $"MenuIds={string.Join(",", selectedMenuIds)}", remarks: "Role rights saved");
 
             ShowMessage("Rights saved successfully");
         }

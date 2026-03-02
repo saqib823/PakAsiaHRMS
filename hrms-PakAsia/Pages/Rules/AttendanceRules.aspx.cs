@@ -1,4 +1,4 @@
-﻿using HRMSLib.BusinessLogic;
+using HRMSLib.BusinessLogic;
 using HRMSLib.DataLayer;
 using System;
 using System.Data;
@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 
 namespace hrms_PakAsia.Pages.Rules
 {
-    public partial class AttendanceRules : System.Web.UI.Page
+    public partial class AttendanceRules : hrms_PakAsia.BasePage
     {
         private AttendanceRulesDAL dal = new AttendanceRulesDAL();
         private int PageSize = 10;
@@ -33,6 +33,7 @@ namespace hrms_PakAsia.Pages.Rules
             if (!IsPostBack)
             {
                 BindRules();
+                // landing logged by BasePage.OnLoad
             }
         }
         public LoggedInUser GetSessionData()
@@ -107,6 +108,11 @@ namespace hrms_PakAsia.Pages.Rules
                 "CurrentUser"
             );
 
+            LogAction(ruleID == 0 ? "Insert Attendance Rule" : "Update Attendance Rule",
+                recordId: ruleID == 0 ? string.Empty : ruleID.ToString(),
+                newData: $"RuleType={ddlRuleType.SelectedValue};RuleName={txtRuleName.Text.Trim()}",
+                remarks: "Attendance rule saved");
+
             ClearForm();
             BindRules();
         }
@@ -139,11 +145,13 @@ namespace hrms_PakAsia.Pages.Rules
 
                     ddlWeeklyPattern.SelectedValue = dr["WeeklyOffPattern"]?.ToString() ?? "";
                     txtBranchHolidayID.Text = dr["BranchHolidayID"]?.ToString() ?? "";
+                    LogAction("Edit Attendance Rule", recordId: ruleID.ToString(), remarks: "Rule loaded for edit");
                 }
             }
             else if (e.CommandName == "DeleteRule")
             {
                 dal.DeleteRule(ruleID);
+                LogAction("Delete Attendance Rule", recordId: ruleID.ToString(), remarks: "Rule deleted");
                 BindRules();
             }
         }
@@ -178,6 +186,7 @@ namespace hrms_PakAsia.Pages.Rules
                 SearchText = eventArgument.Split('$')[1];
                 CurrentPage = 1;
                 BindRules();
+                LogAction("Search Attendance Rules", remarks: $"Search='{SearchText}'");
             }
 
             base.RaisePostBackEvent(source, eventArgument);

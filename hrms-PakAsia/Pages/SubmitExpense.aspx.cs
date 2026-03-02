@@ -1,4 +1,4 @@
-﻿using HRMSLib.BusinessLogic;
+using HRMSLib.BusinessLogic;
 using HRMSLib.DataLayer;
 using System;
 using System.Data;
@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 
 namespace hrms_PakAsia.Pages
 {
-    public partial class SubmitExpense : System.Web.UI.Page
+    public partial class SubmitExpense : hrms_PakAsia.BasePage
     {
         private int PageSize => 10;
         private int CurrentPage
@@ -33,6 +33,7 @@ namespace hrms_PakAsia.Pages
             {
                 BindInitialData();
                 BindExpenses();
+                // landing logged by BasePage.OnLoad
             }
         }
         private LoggedInUser GetSessionData()
@@ -101,6 +102,13 @@ namespace hrms_PakAsia.Pages
             );
 
             if (isSaved) ShowAlert(expenseId.HasValue ? "Expense updated successfully" : "Expense submitted successfully", "success");
+            if (isSaved)
+            {
+                LogAction(expenseId.HasValue ? "Update Expense" : "Submit Expense",
+                    recordId: expenseId?.ToString() ?? string.Empty,
+                    newData: $"EmployeeID={ddlEmployee.SelectedValue};Type={txtExpenseType.Text};Amount={txtAmount.Text};Date={txtDate.Text};Receipt={receiptPath}",
+                    remarks: "Expense saved from UI");
+            }
 
             ClearForm();
             BindExpenses();
@@ -144,6 +152,7 @@ namespace hrms_PakAsia.Pages
         {
             CurrentPage = 1;
             BindExpenses();
+            LogAction("Search Expenses", remarks: $"Search='{txtSearch.Text?.Trim()}'");
         }
 
         protected void rptExpenses_ItemCommand(object source, RepeaterCommandEventArgs e)
@@ -152,22 +161,26 @@ namespace hrms_PakAsia.Pages
             if (e.CommandName == "DeleteExpense")
             {
                 ExpenseDAL.DeleteExpense(expenseId);
+                LogAction("Delete Expense", recordId: expenseId.ToString(), remarks: "Expense deleted");
                 ShowAlert("Expense deleted successfully", "warning");
                 BindExpenses();
             }
             else if (e.CommandName == "EditExpense")
             {
                 LoadExpenseForEdit(expenseId);
+                LogAction("Edit Expense", recordId: expenseId.ToString(), remarks: "Expense loaded for edit");
             }
             else if (e.CommandName == "ApproveExpense")
             {
                 ExpenseDAL.UpdateExpenseStatus(expenseId, "Approved", 1); // Replace 1 with logged-in user ID
+                LogAction("Approve Expense", recordId: expenseId.ToString(), remarks: "Expense approved");
                 ShowAlert("Expense approved", "success");
                 BindExpenses();
             }
             else if (e.CommandName == "DisapproveExpense")
             {
                 ExpenseDAL.UpdateExpenseStatus(expenseId, "Disapproved", 1);
+                LogAction("Disapprove Expense", recordId: expenseId.ToString(), remarks: "Expense disapproved");
                 ShowAlert("Expense disapproved", "danger");
                 BindExpenses();
             }

@@ -1,4 +1,4 @@
-﻿using HRMSLib.BusinessLogic;
+using HRMSLib.BusinessLogic;
 using HRMSLib.DataLayer;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 
 namespace hrms_PakAsia.Pages.Organization
 {
-    public partial class branches : System.Web.UI.Page
+    public partial class branches : hrms_PakAsia.BasePage
     {
         private int PageSize => 10;
 
@@ -35,6 +35,7 @@ namespace hrms_PakAsia.Pages.Organization
             {
                 CurrentPage = 1;
                 BindBranches();
+                // landing logged by BasePage.OnLoad
             }
         }
         public LoggedInUser GetSessionData()
@@ -83,6 +84,7 @@ namespace hrms_PakAsia.Pages.Organization
 
                 ViewState["BranchID"] = null;
                 ShowAlert("Branch updated successfully", "success");
+                LogAction("Update Branch", recordId: BranchID.Value.ToString(), newData: $"Name={BranchName.Text};Location={Location.Text};Status={ddlActive.SelectedValue}", remarks: "Branch updated from UI");
             }
             else
             {
@@ -97,6 +99,7 @@ namespace hrms_PakAsia.Pages.Organization
                 );
 
                 ShowAlert("Branch created successfully", "success");
+                LogAction("Insert Branch", newData: $"Name={BranchName.Text};Location={Location.Text};Status={ddlActive.SelectedValue}", remarks: "Branch created from UI");
             }
 
             ClearForm();
@@ -145,6 +148,7 @@ namespace hrms_PakAsia.Pages.Organization
         {
             CurrentPage = 1;
             BindBranches();
+            LogAction("Search Branches", remarks: $"Search='{txtSearch.Text?.Trim()}'");
         }
 
         private void BindBranches()
@@ -216,6 +220,7 @@ namespace hrms_PakAsia.Pages.Organization
             dal.DeleteBranch(BranchID);
 
             ShowAlert("Branch deleted successfully", "warning");
+            LogAction("Delete Branch", recordId: BranchID.ToString(), remarks: "Branch deleted from UI");
             BindBranches();
         }
 

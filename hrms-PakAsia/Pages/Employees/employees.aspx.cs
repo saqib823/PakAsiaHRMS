@@ -13,7 +13,7 @@ using System.Web.UI.WebControls;
 
 namespace hrms_PakAsia.Pages.Employees
 {
-    public partial class employees : System.Web.UI.Page
+    public partial class employees : hrms_PakAsia.BasePage
     {
         private LoggedInUser _currentUser;
         private const string UPLOADS_FOLDER = "~/Uploads/";
@@ -21,13 +21,14 @@ namespace hrms_PakAsia.Pages.Employees
         private const string ALLOWED_DOCUMENT_EXTENSIONS = ".pdf,.doc,.docx";
         private long _currentEmployeeId = 0;
 
-        protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 CheckSession();
                 InitializePage();
                 _currentUser = GetSessionData();
+                // landing logged by BasePage.OnLoad
 
                 // Check if employee ID is passed in query string
                 if (!string.IsNullOrEmpty(Request.QueryString["id"]))
@@ -59,6 +60,7 @@ namespace hrms_PakAsia.Pages.Employees
                 _currentUser = GetSessionData();
                 BindEmployeesDropdown();
                 BindDropdowns();
+                LogAction("Initialized employee page data", remarks: "Dropdowns and lists populated");
             }
             catch (Exception ex)
             {

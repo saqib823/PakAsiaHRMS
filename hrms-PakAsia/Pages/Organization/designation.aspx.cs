@@ -1,4 +1,4 @@
-﻿using HRMSLib.BusinessLogic;
+using HRMSLib.BusinessLogic;
 using HRMSLib.DataLayer;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 
 namespace hrms_PakAsia.Pages.Organization
 {
-    public partial class designation : System.Web.UI.Page
+    public partial class designation : hrms_PakAsia.BasePage
     {
         private int PageSize => 10;
 
@@ -32,6 +32,7 @@ namespace hrms_PakAsia.Pages.Organization
             {
                 CurrentPage = 1;
                 BindDesignations();
+                // landing logged by BasePage.OnLoad
             }
         }
         public void CheckSession()
@@ -68,6 +69,7 @@ namespace hrms_PakAsia.Pages.Organization
 
                 ViewState["DepartmentID"] = null;
                 ShowAlert("Department updated successfully", "success");
+                LogAction("Update Designation", recordId: DesignationID.Value.ToString(), newData: $"Name={Designation.Text};Status={ddlActive.SelectedValue}", remarks: "Designation updated from UI");
             }
             else
             {
@@ -80,6 +82,7 @@ namespace hrms_PakAsia.Pages.Organization
                 );
 
                 ShowAlert("Department created successfully", "success");
+                LogAction("Insert Designation", newData: $"Name={Designation.Text};Status={ddlActive.SelectedValue}", remarks: "Designation created from UI");
             }
 
             ClearForm();
@@ -90,6 +93,7 @@ namespace hrms_PakAsia.Pages.Organization
         {
             CurrentPage = 1;
             BindDesignations();
+            LogAction("Search Designations", remarks: $"Search='{txtSearch.Text?.Trim()}'");
         }
 
         protected void rptDesignation_ItemCommand(object source, RepeaterCommandEventArgs e)
@@ -198,6 +202,7 @@ namespace hrms_PakAsia.Pages.Organization
             dal.DeleteDesignation(DesignationID);
 
             ShowAlert("Designation deleted successfully", "warning");
+            LogAction("Delete Designation", recordId: DesignationID.ToString(), remarks: "Designation deleted from UI");
             BindDesignations();
         }
         private void ShowAlert(string message, string css)

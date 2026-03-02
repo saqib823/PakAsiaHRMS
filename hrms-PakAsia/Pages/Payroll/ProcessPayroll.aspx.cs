@@ -11,7 +11,7 @@ using System.Web.UI.WebControls;
 
 namespace hrms_PakAsia.Pages.Payroll
 {
-    public partial class ProcessPayroll : System.Web.UI.Page
+    public partial class ProcessPayroll : hrms_PakAsia.BasePage
     {
         LoggedInUser currentUser = null;
 
@@ -26,6 +26,7 @@ namespace hrms_PakAsia.Pages.Payroll
                 LoadEmployees();
                 txtEffectiveFrom.Text = DateTime.Now.ToString("yyyy-MM-01");
                 txtEffectiveTo.Text = DateTime.Now.ToString("yyyy-MM-dd");
+                // landing logged by BasePage.OnLoad
             }
         }
         public LoggedInUser GetSessionData()
@@ -79,6 +80,7 @@ namespace hrms_PakAsia.Pages.Payroll
             DateTime to = Convert.ToDateTime(txtEffectiveTo.Text);
 
             DataSet ds = dal.ProcessEmployeePayroll(empID, from, to);
+            LogAction("Calculate Payroll", recordId: empID, remarks: $"Calculated payroll for {empID} from {from} to {to}");
 
             // Create typed dataset instance
             hrms_PakAsia.Dataset.Payroll payrollDS = new hrms_PakAsia.Dataset.Payroll();
@@ -247,6 +249,7 @@ namespace hrms_PakAsia.Pages.Payroll
                 rpt.Close();
                 rpt.Dispose();
             }
+                LogAction("Export Branch Payroll PDF", recordId: branchID, remarks: $"Exported branch payroll PDF for branch {branchID} from {from} to {to}");
 
 
             if (ds != null && ds.Tables.Count > 0)

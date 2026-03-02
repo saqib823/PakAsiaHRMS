@@ -1,4 +1,4 @@
-﻿using HRMSLib.BusinessLogic;
+using HRMSLib.BusinessLogic;
 using HRMSLib.DataLayer;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 
 namespace hrms_PakAsia.Pages
 {
-    public partial class roles : System.Web.UI.Page
+    public partial class roles : hrms_PakAsia.BasePage
     {
         private int PageSize => 10;
         LoggedInUser currentUser = null;
@@ -35,6 +35,7 @@ namespace hrms_PakAsia.Pages
             {
                 CurrentPage = 1;
                 BindRoles();
+                // landing logged by BasePage.OnLoad
             }
             currentUser = GetSessionData();
 
@@ -73,6 +74,7 @@ namespace hrms_PakAsia.Pages
 
                 ViewState["RoleID"] = null;
                 ShowAlert("Role updated successfully", "success");
+                LogAction("Update Role", recordId: RoleID.Value.ToString(), newData: $"RoleName={RoleName.Text};Status={ddlActive.SelectedValue}", remarks: "Role updated from UI");
             }
             else
             {
@@ -85,6 +87,7 @@ namespace hrms_PakAsia.Pages
                 );
 
                 ShowAlert("Role created successfully", "success");
+                LogAction("Insert Role", newData: $"RoleName={RoleName.Text};Status={ddlActive.SelectedValue}", remarks: "Role created from UI");
             }
 
             ClearForm();
@@ -136,6 +139,7 @@ namespace hrms_PakAsia.Pages
         {
             CurrentPage = 1;
             BindRoles();
+            LogAction("Search Roles", remarks: $"Search='{txtSearch.Text?.Trim()}'");
         }
         private void ClearForm()
         {
@@ -211,6 +215,7 @@ namespace hrms_PakAsia.Pages
             dal.DeleteRoles(RoleID);
 
             ShowAlert("Role deleted successfully", "warning");
+            LogAction("Delete Role", recordId: RoleID.ToString(), remarks: "Role deleted from UI");
             BindRoles();
         }
         private void ShowAlert(string message, string css)

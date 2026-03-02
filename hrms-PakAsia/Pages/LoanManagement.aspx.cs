@@ -1,4 +1,4 @@
-﻿using HRMSLib.BusinessLogic;
+using HRMSLib.BusinessLogic;
 using HRMSLib.DataLayer;
 using System;
 using System.Data;
@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 
 namespace hrms_PakAsia.Pages
 {
-    public partial class LoanManagement : System.Web.UI.Page
+    public partial class LoanManagement : hrms_PakAsia.BasePage
     {
         private int PageSize => 10;
         private int CurrentPage
@@ -33,6 +33,7 @@ namespace hrms_PakAsia.Pages
             {
                 BindEmployees();
                 BindLoans();
+                // landing logged by BasePage.OnLoad
             }
         }
 
@@ -81,6 +82,10 @@ namespace hrms_PakAsia.Pages
 
             if (isSaved)
             {
+                LogAction(loanId.HasValue ? "Update Loan" : "Apply Loan",
+                    recordId: loanId?.ToString() ?? string.Empty,
+                    newData: $"EmployeeID={ddlEmployee.SelectedValue};Type={txtLoanType.Text};Amount={txtLoanAmount.Text};Duration={txtDuration.Text};StartDate={txtStartDate.Text}",
+                    remarks: "Loan saved from UI");
                 ShowAlert(loanId.HasValue ? "Loan updated successfully" : "Loan applied successfully", "success");
                 ClearForm();
                 BindLoans();
@@ -117,6 +122,7 @@ namespace hrms_PakAsia.Pages
         {
             CurrentPage = 1;
             BindLoans();
+            LogAction("Search Loans", remarks: $"Search='{txtSearch.Text?.Trim()}'");
         }
 
         protected void rptLoans_ItemCommand(object source, RepeaterCommandEventArgs e)
@@ -130,16 +136,19 @@ namespace hrms_PakAsia.Pages
                     break;
                 case "Approve":
                     LoanDAL.UpdateLoanStatus(loanId, "Approved", currentUser.UserID);
+                    LogAction("Approve Loan", recordId: loanId.ToString(), remarks: "Loan approved");
                     ShowAlert("Loan approved", "success");
                     BindLoans();
                     break;
                 case "Reject":
                     LoanDAL.UpdateLoanStatus(loanId, "Rejected", currentUser.UserID);
+                    LogAction("Reject Loan", recordId: loanId.ToString(), remarks: "Loan rejected");
                     ShowAlert("Loan rejected", "danger");
                     BindLoans();
                     break;
                 case "DeleteLoan":
                     LoanDAL.DeleteLoan(loanId);
+                    LogAction("Delete Loan", recordId: loanId.ToString(), remarks: "Loan deleted");
                     ShowAlert("Loan deleted successfully", "warning");
                     BindLoans();
                     break;

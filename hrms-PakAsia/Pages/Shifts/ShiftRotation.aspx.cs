@@ -1,4 +1,4 @@
-﻿using HRMSLib.BusinessLogic;
+using HRMSLib.BusinessLogic;
 using HRMSLib.DataLayer;
 using System;
 using System.Data;
@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace hrms_PakAsia.Pages.Shifts
 {
-    public partial class ShiftRotation : System.Web.UI.Page
+    public partial class ShiftRotation : hrms_PakAsia.BasePage
     {
         private int PageSize = 10;
         private int CurrentPage
@@ -25,6 +25,7 @@ namespace hrms_PakAsia.Pages.Shifts
             {
                 LoadDropdowns();
                 BindRepeater();
+                // landing logged by BasePage.OnLoad
             }
         }
         public LoggedInUser GetSessionData()
@@ -86,11 +87,13 @@ namespace hrms_PakAsia.Pages.Shifts
             if (string.IsNullOrEmpty(hfRotationID.Value) || hfRotationID.Value == "0")
             {
                 ShiftDAL.InsertRotation(empId, shiftId, rotationDate);
+                LogAction("Insert Shift Rotation", newData: $"EmployeeID={empId};ShiftID={shiftId};Date={rotationDate:yyyy-MM-dd}", remarks: "Shift rotation created");
             }
             else
             {
                 int rotationId = Convert.ToInt32(hfRotationID.Value);
                 ShiftDAL.UpdateRotation(rotationId, empId, shiftId, rotationDate);
+                LogAction("Update Shift Rotation", recordId: rotationId.ToString(), newData: $"EmployeeID={empId};ShiftID={shiftId};Date={rotationDate:yyyy-MM-dd}", remarks: "Shift rotation updated");
             }
 
             ResetForm();
@@ -104,6 +107,7 @@ namespace hrms_PakAsia.Pages.Shifts
             if (e.CommandName == "Delete")
             {
                 ShiftDAL.DeleteRotation(rotationId);
+                LogAction("Delete Shift Rotation", recordId: rotationId.ToString(), remarks: "Shift rotation deleted");
                 BindRepeater();
             }
             else if (e.CommandName == "Edit")
@@ -115,6 +119,7 @@ namespace hrms_PakAsia.Pages.Shifts
                     ddlShift.SelectedValue = dr["ShiftID"].ToString();
                     txtDate.Text = Convert.ToDateTime(dr["RotationDate"]).ToString("yyyy-MM-dd");
                     hfRotationID.Value = rotationId.ToString();
+                    LogAction("Edit Shift Rotation", recordId: rotationId.ToString(), remarks: "Shift rotation loaded for edit");
                 }
             }
         }

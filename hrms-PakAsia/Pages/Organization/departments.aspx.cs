@@ -1,4 +1,4 @@
-﻿using HRMSLib.BusinessLogic;
+using HRMSLib.BusinessLogic;
 using HRMSLib.DataLayer;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 
 namespace hrms_PakAsia.Pages.Organization
 {
-    public partial class departments : System.Web.UI.Page
+    public partial class departments : hrms_PakAsia.BasePage
     {
         private int PageSize => 10;
          LoggedInUser currentUser = null;
@@ -37,6 +37,7 @@ namespace hrms_PakAsia.Pages.Organization
                 ddlBranch.DataSource = CommonDAL.GetBranches();
                 ddlBranch.DataBind();
                 ddlBranch.Items.Insert(0, new ListItem("Select One", "0"));
+                // landing logged by BasePage.OnLoad
             }
             currentUser = GetSessionData();
 
@@ -87,6 +88,7 @@ namespace hrms_PakAsia.Pages.Organization
 
                 ViewState["DepartmentID"] = null;
                 ShowAlert("Department updated successfully", "success");
+                LogAction("Update Department", recordId: DepartmentID.Value.ToString(), newData: $"Branch={ddlBranch.SelectedValue};Name={Department.Text};Status={ddlActive.SelectedValue}", remarks: "Department updated from UI");
             }
             else
             {
@@ -100,6 +102,7 @@ namespace hrms_PakAsia.Pages.Organization
                 );
 
                 ShowAlert("Department created successfully", "success");
+                LogAction("Insert Department", newData: $"Branch={ddlBranch.SelectedValue};Name={Department.Text};Status={ddlActive.SelectedValue}", remarks: "Department created from UI");
             }
 
             ClearForm();
@@ -148,6 +151,7 @@ namespace hrms_PakAsia.Pages.Organization
         {
             CurrentPage = 1;
             BindDepartments();
+            LogAction("Search Departments", remarks: $"Search='{txtSearch.Text?.Trim()}'");
         }
         private void BindDepartments()
         {
@@ -218,6 +222,7 @@ namespace hrms_PakAsia.Pages.Organization
             dal.DeleteDepartment(DepartmentID);
 
             ShowAlert("Department deleted successfully", "warning");
+            LogAction("Delete Department", recordId: DepartmentID.ToString(), remarks: "Department deleted from UI");
             BindDepartments();
         }
         private void ShowAlert(string message, string css)

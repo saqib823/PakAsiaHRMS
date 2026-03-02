@@ -1,4 +1,4 @@
-﻿using HRMSLib.DataLayer;
+using HRMSLib.DataLayer;
 using System;
 using System.Data;
 using System.Web.UI;
@@ -11,7 +11,7 @@ using System.Web;
 
 namespace hrms_PakAsia.Pages.Attendance
 {
-    public partial class biometric_integration : System.Web.UI.Page
+    public partial class biometric_integration : hrms_PakAsia.BasePage
     {
         LoggedInUser currentUser = null;
 
@@ -26,10 +26,7 @@ namespace hrms_PakAsia.Pages.Attendance
                 ddlBranch.DataValueField = "ID";
                 ddlBranch.DataBind();
                 ddlBranch.Items.Insert(0, new ListItem("Select One", ""));
-
-
-              
-
+                // landing logged by BasePage.OnLoad
             }
         }
         public LoggedInUser GetSessionData()
@@ -56,12 +53,13 @@ namespace hrms_PakAsia.Pages.Attendance
             ddlDepartment.DataValueField = "ID";
             ddlDepartment.DataBind();
             ddlDepartment.Items.Insert(0, new ListItem("Select One", ""));
+            LogAction("Select Branch for Biometric Integration", recordId: ddlBranch.SelectedValue, remarks: $"Branch changed to {ddlBranch.SelectedItem?.Text}");
         }
 
         protected void btnRefresh_Click(object sender, EventArgs e)
         {
             AttendanceDAL.DeleteAttendanceLogs();
-            
+            LogAction("Hard Refresh Biometric Logs", remarks: "Attendance logs deleted from biometric integration");
         }
     }
 }
