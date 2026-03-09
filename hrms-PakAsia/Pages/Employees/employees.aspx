@@ -447,7 +447,7 @@
                                                 <asp:TextBox CssClass="form-control" ID="txtAllowedEarlyLeaveCont" runat="server" TextMode="Number" placeholder="15"></asp:TextBox>
                                             </div>
                                             <div class="col-md-3 mb-3">
-                                                <label class="form-label">Half Day Hours</label>
+                                                <label class="form-label">Late Coming Days Threshold</label>
                                                 <asp:TextBox CssClass="form-control" ID="txtHalfDayHours" runat="server" TextMode="Number" placeholder="4"></asp:TextBox>
                                             </div>
                                             <div class="col-md-3 mb-3">
