@@ -47,7 +47,7 @@ namespace hrms_PakAsia.Pages.Leaves
         }
         private void LoadEmployees()
         {
-            if (currentUser.RoleId == 1)
+            if (currentUser.RoleId == 1 || currentUser.RoleId == 6)
             {
                 ddlEmployees.DataSource = CommonDAL.GetEmployees(); ;
                 ddlEmployees.DataTextField = "Name";

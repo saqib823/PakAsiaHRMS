@@ -4,6 +4,7 @@ using HRMSLib.BusinessLogic;
 using HRMSLib.DataLayer;
 using System;
 using System.Data;
+using System.Linq;
 using System.IO;
 using System.Web;
 using System.Web.UI;
@@ -194,7 +195,15 @@ namespace hrms_PakAsia.Pages.Payroll
                         finalTable.ImportRow(row);
                     }
                 }
+
+                // Remove duplicate rows (keep distinct by all columns)
+                if (finalTable.Rows.Count > 1)
+                {
+                    var columnNames = finalTable.Columns.Cast<DataColumn>().Select(c => c.ColumnName).ToArray();
+                    finalTable = finalTable.DefaultView.ToTable(true, columnNames);
+                }
             }
+
             decimal totalNetPayable = 0;
 
             foreach (DataRow row in finalTable.Rows)
