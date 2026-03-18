@@ -50,7 +50,7 @@ namespace hrms_PakAsia.Pages
 
         private void BindEmployees()
         {
-            if (currentUser.RoleId == 1)
+            if (currentUser.RoleId == 1 || currentUser.RoleId == 6)
             {
                 ddlEmployee.DataSource = CommonDAL.GetEmployees();
             }
@@ -134,6 +134,9 @@ namespace hrms_PakAsia.Pages
                 case "EditLoan":
                     LoadLoanForEdit(loanId);
                     break;
+                case "Print":
+                    PrintLoanDetails(loanId);
+                    break;
                 case "Approve":
                     LoanDAL.UpdateLoanStatus(loanId, "Approved", currentUser.UserID);
                     LogAction("Approve Loan", recordId: loanId.ToString(), remarks: "Loan approved");
@@ -181,12 +184,14 @@ namespace hrms_PakAsia.Pages
             LinkButton btnDelete = e.Item.FindControl("btnDelete") as LinkButton;
             LinkButton btnApprove = e.Item.FindControl("btnApprove") as LinkButton;
             LinkButton btnReject = e.Item.FindControl("btnReject") as LinkButton;
+            LinkButton btnPrint = e.Item.FindControl("btnPrint") as LinkButton;
 
             // Hide all buttons by default
             if (btnEdit != null) btnEdit.Visible = false;
             if (btnDelete != null) btnDelete.Visible = false;
             if (btnApprove != null) btnApprove.Visible = false;
             if (btnReject != null) btnReject.Visible = false;
+            if (btnPrint != null) btnPrint.Visible = true; // Print button is always visible
 
             // Normal user can edit/delete only pending loans
             if (currentUser.RoleId != 1)
@@ -237,6 +242,171 @@ namespace hrms_PakAsia.Pages
                         }}, 3000);
                     </script>"
             });
+        }
+
+        private void PrintLoanDetails(int loanId)
+        {
+            DataRow dr = LoanDAL.GetLoanById(loanId);
+            if (dr == null) return;
+
+            string printHtml = GeneratePrintHtml(dr);
+            
+            // Register startup script to open print dialog
+            string script = $@"
+                var printWindow = window.open('', '_blank');
+                printWindow.document.write(`{printHtml.Replace("`", "\\`").Replace("\r", "").Replace("\n", "\\n")}`);
+                printWindow.document.close();
+                printWindow.print();
+            ";
+            
+            ScriptManager.RegisterStartupScript(this, GetType(), "PrintLoan", script, true);
+            
+            LogAction("Print Loan", recordId: loanId.ToString(), remarks: "Loan details printed");
+        }
+
+        private string GeneratePrintHtml(DataRow loan)
+        {
+            string logoPath = ResolveUrl("~/assets/img/icons/logo.png"); // Correct logo path
+            string companyName = "PakAsia HRMS";
+            string printDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
+            
+            return $@"
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Loan Details - {loan["EmployeeNo"]} - {loan["LoanType"]}</title>
+    <style>
+        body {{
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }}
+        .header {{
+            text-align: center;
+            border-bottom: 2px solid #333;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }}
+        .logo {{
+            max-width: 150px;
+            margin-bottom: 10px;
+        }}
+        .company-name {{
+            font-size: 24px;
+            font-weight: bold;
+            margin: 10px 0;
+        }}
+        .document-title {{
+            font-size: 20px;
+            font-weight: bold;
+            color: #666;
+            margin: 10px 0;
+        }}
+        .loan-details {{
+            margin: 30px 0;
+        }}
+        .detail-row {{
+            margin: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #eee;
+            padding: 8px 0;
+        }}
+        .detail-label {{
+            font-weight: bold;
+            width: 40%;
+        }}
+        .detail-value {{
+            width: 60%;
+            text-align: right;
+        }}
+        .status-approved {{
+            color: #28a745;
+            font-weight: bold;
+        }}
+        .status-pending {{
+            color: #ffc107;
+            font-weight: bold;
+        }}
+        .status-rejected {{
+            color: #dc3545;
+            font-weight: bold;
+        }}
+        .footer {{
+            margin-top: 50px;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }}
+        @media print {{
+            body {{ margin: 0; }}
+            .no-print {{ display: none; }}
+        }}
+    </style>
+</head>
+<body>
+    <div class='header'>
+        <img src='{logoPath}' alt='Company Logo' class='logo' onerror=""this.style.display='none'"" />
+        <div class='company-name'>{companyName}</div>
+        <div class='document-title'>Loan Details</div>
+    </div>
+
+    <div class='loan-details'>
+        <div class='detail-row'>
+            <span class='detail-label'>Employee Name:</span>
+            <span class='detail-value'>{loan["EmployeeName"]}</span>
+        </div>
+        <div class='detail-row'>
+            <span class='detail-label'>Employee No:</span>
+            <span class='detail-value'>{loan["EmployeeNo"]}</span>
+        </div>
+        <div class='detail-row'>
+            <span class='detail-label'>Department:</span>
+            <span class='detail-value'>{loan["DepartmentName"] ?? "N/A"}</span>
+        </div>
+        <div class='detail-row'>
+            <span class='detail-label'>Designation:</span>
+            <span class='detail-value'>{loan["DesignationName"] ?? "N/A"}</span>
+        </div>
+        <div class='detail-row'>
+            <span class='detail-label'>Loan Type:</span>
+            <span class='detail-value'>{loan["LoanType"]}</span>
+        </div>
+        <div class='detail-row'>
+            <span class='detail-label'>Loan Amount:</span>
+            <span class='detail-value'>{Convert.ToDecimal(loan["LoanAmount"]):N2}</span>
+        </div>
+        <div class='detail-row'>
+            <span class='detail-label'>Duration (Months):</span>
+            <span class='detail-value'>{loan["DurationMonths"]}</span>
+        </div>
+        <div class='detail-row'>
+            <span class='detail-label'>Monthly Deduction:</span>
+            <span class='detail-value'>{Convert.ToDecimal(loan["MonthlyDeduction"]):N2}</span>
+        </div>
+        <div class='detail-row'>
+            <span class='detail-label'>Start Date:</span>
+            <span class='detail-value'>{Convert.ToDateTime(loan["StartDate"]):yyyy-MM-dd}</span>
+        </div>
+        <div class='detail-row'>
+            <span class='detail-label'>Status:</span>
+            <span class='detail-value status-{loan["Status"].ToString().ToLower()}'>{loan["Status"]}</span>
+        </div>
+        <div class='detail-row'>
+            <span class='detail-label'>Loan ID:</span>
+            <span class='detail-value'>{loan["LoanID"]}</span>
+        </div>
+    </div>
+
+    <div class='footer'>
+        <div>Printed on: {printDate}</div>
+        <div>This is a system-generated document</div>
+    </div>
+</body>
+</html>";
         }
 
         protected void btnClear_Click(object sender, EventArgs e)

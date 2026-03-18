@@ -47,7 +47,7 @@ namespace hrms_PakAsia.Pages
         }
         private void BindInitialData()
         {
-            if (currentUser.RoleId == 1)
+            if (currentUser.RoleId == 1 || currentUser.RoleId == 6)
             {
                 ddlEmployee.DataSource = CommonDAL.GetEmployees(); ;
                 ddlEmployee.DataTextField = "Name";

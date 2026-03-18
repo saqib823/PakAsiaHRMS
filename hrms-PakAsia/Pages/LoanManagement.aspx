@@ -99,6 +99,14 @@
                                             </span>
                                         </td>
                                         <td>
+                                            <asp:LinkButton ID="btnPrint" runat="server"
+                                                CommandName="Print"
+                                                CommandArgument='<%# Eval("LoanID") %>'
+                                                CssClass="text-primary me-2"
+                                                title="Print Loan Details">
+                                                <i class="uil uil-print"></i>
+                                            </asp:LinkButton>
+
                                             <asp:LinkButton ID="btnApprove" runat="server"
                                                 CommandName="Approve"
                                                 CommandArgument='<%# Eval("LoanID") %>'

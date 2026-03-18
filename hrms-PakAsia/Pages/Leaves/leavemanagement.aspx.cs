@@ -48,7 +48,7 @@ namespace hrms_PakAsia.Pages.Leaves
         private void BindLeaves()
         {
             DataSet ds = new DataSet();
-            if (currentUser.RoleId == 1)
+            if (currentUser.RoleId == 1 || currentUser.RoleId == 6)
             {
                 ds = LeaveDAL.GetLeaves(
                                txtSearchLeave.Text.Trim(),
