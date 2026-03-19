@@ -98,8 +98,9 @@ namespace hrms_PakAsia.Pages
 
         private void BindLoans()
         {
-            int? employeeId = currentUser.RoleId != 1 ? currentUser.UserID : (int?)null;
-
+            int? employeeId = (currentUser.RoleId != 1 && currentUser.RoleId != 6)
+                ? currentUser.UserID
+                : (int?)null;
             // Declare the out variable
             int totalRecords;
 
