@@ -341,7 +341,7 @@ namespace HRMSLib.DataLayer
             
             return db.ExecuteDataSet(cmd);
         }
-        public DataSet ProcessBranchPayroll(long branchID, DateTime from, DateTime to, long payrollCycle)
+        public DataSet ProcessBranchPayroll(long branchID, DateTime from, DateTime to, long payrollCycle, long? departmentID = null, long? gender = null)
         {
             DbCommand cmd = db.GetStoredProcCommand("dbo.usp_BranchPayrollSummary");
 
@@ -349,6 +349,16 @@ namespace HRMSLib.DataLayer
             db.AddInParameter(cmd, "@ToDate", DbType.Date, to.Date);
             db.AddInParameter(cmd, "@BranchID", DbType.Int64, branchID);
             db.AddInParameter(cmd, "@PayrollCycle", DbType.Int64, payrollCycle);
+            
+            if (departmentID.HasValue && departmentID.Value > 0)
+                db.AddInParameter(cmd, "@DepartmentID", DbType.Int64, departmentID.Value);
+            else
+                db.AddInParameter(cmd, "@DepartmentID", DbType.Int64, DBNull.Value);
+                
+            if (gender.HasValue && gender.Value > 0)
+                db.AddInParameter(cmd, "@Gender", DbType.Int64, gender.Value);
+            else
+                db.AddInParameter(cmd, "@Gender", DbType.Int64, DBNull.Value);
 
             return db.ExecuteDataSet(cmd);
         }

@@ -14,264 +14,191 @@ namespace hrms_PakAsia.Pages.Payroll
 {
     public partial class ProcessPayroll : hrms_PakAsia.BasePage
     {
-        LoggedInUser currentUser = null;
-
+        private LoggedInUser currentUser;
         private readonly PayrollDAL dal = new PayrollDAL();
 
         protected void Page_Load(object sender, EventArgs e)
         {
             CheckSession();
             currentUser = GetSessionData();
+
             if (!IsPostBack)
             {
                 LoadEmployees();
-                txtEffectiveFrom.Text = DateTime.Now.ToString("yyyy-MM-01");
-                txtEffectiveTo.Text = DateTime.Now.ToString("yyyy-MM-dd");
-                // landing logged by BasePage.OnLoad
+                InitializeDefaults();
             }
         }
-        public LoggedInUser GetSessionData()
-        {
-            LoggedInUser currentUser = HttpContext.Current.Session["LoggedInUser"] as LoggedInUser;
 
-            return currentUser;
+        private void InitializeDefaults()
+        {
+            txtEffectiveFrom.Text = DateTime.Now.ToString("yyyy-MM-01");
+            txtEffectiveTo.Text = DateTime.Now.ToString("yyyy-MM-dd");
+
+            dateFrom.Text = DateTime.Now.ToString("yyyy-MM-01");
+            dateTo.Text = DateTime.Now.ToString("yyyy-MM-dd");
+
+            ddlBranch.SelectedIndex = 0;
+            ddlPayrollCycle.SelectedIndex = 0;
+            ddlGender.SelectedIndex = 0;
+
+            ddlDepartment.Items.Clear();
+            ddlDepartment.Items.Insert(0, new ListItem("-- Select Branch First --", "0"));
         }
 
-        public void CheckSession()
+        private LoggedInUser GetSessionData()
         {
-            LoggedInUser currentUser = HttpContext.Current.Session["LoggedInUser"] as LoggedInUser;
+            return HttpContext.Current.Session["LoggedInUser"] as LoggedInUser;
+        }
 
-            if (currentUser == null)
-            {
+        private void CheckSession()
+        {
+            if (GetSessionData() == null)
                 Response.Redirect("~/Default.aspx");
-            }
         }
+
         private void LoadEmployees()
         {
-            var employees = CommonDAL.GetEmployees();
-            if (employees != null)
-            {
-                ddlEmployee.DataSource = employees;
-                ddlEmployee.DataTextField = "Name";
-                ddlEmployee.DataValueField = "ID";
-                ddlEmployee.DataBind();
-                ddlEmployee.Items.Insert(0, new ListItem("-- Select Employee --", "0"));
-            }
+            ddlEmployee.DataSource = CommonDAL.GetEmployees();
+            ddlEmployee.DataTextField = "Name";
+            ddlEmployee.DataValueField = "ID";
+            ddlEmployee.DataBind();
+            ddlEmployee.Items.Insert(0, new ListItem("-- All Employee --", "0"));
 
-            var branches = CommonDAL.GetBranches();
-            if (branches != null)
-            {
-                ddlBranch.DataSource = branches;
-                ddlBranch.DataTextField = "Name";
-                ddlBranch.DataValueField = "ID";
-                ddlBranch.DataBind();
-            }
+            ddlBranch.DataSource = CommonDAL.GetBranches();
+            ddlBranch.DataTextField = "Name";
+            ddlBranch.DataValueField = "ID";
+            ddlBranch.DataBind();
+            ddlBranch.Items.Insert(0, new ListItem("-- All Branch --", "0"));
 
             ddlPayrollCycle.Items.Clear();
-            ddlPayrollCycle.Items.Insert(0, new ListItem("Monthly", "2"));
-            ddlPayrollCycle.Items.Insert(1, new ListItem("Wagges", "1"));
+            ddlPayrollCycle.Items.Add(new ListItem("Monthly", "2"));
+            ddlPayrollCycle.Items.Add(new ListItem("Wages", "1"));
+            ddlPayrollCycle.Items.Insert(0, new ListItem("-- All Cycles --", "0"));
+
+            ddlGender.DataSource = CommonDAL.GetGender();
+            ddlGender.DataTextField = "Name";
+            ddlGender.DataValueField = "ID";
+            ddlGender.DataBind();
+            ddlGender.Items.Insert(0, new ListItem("-- All Genders --", "0"));
+        }
+
+        protected void ddlBranch_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ddlDepartment.Items.Clear();
+
+            if (ddlBranch.SelectedValue == "0")
+            {
+                ddlDepartment.Items.Insert(0, new ListItem("-- Select Branch First --", "0"));
+                return;
+            }
+
+            var departments = CommonDAL.GetBranchDepartments(Convert.ToInt64(ddlBranch.SelectedValue));
+
+            if (departments != null)
+            {
+                ddlDepartment.DataSource = departments;
+                ddlDepartment.DataTextField = "Name";
+                ddlDepartment.DataValueField = "ID";
+                ddlDepartment.DataBind();
+                ddlDepartment.Items.Insert(0, new ListItem("-- All Departments --", "0"));
+            }
+            else
+            {
+                ddlDepartment.Items.Insert(0, new ListItem("-- No Departments Found --", "0"));
+            }
         }
 
         protected void btnCalculate_Click(object sender, EventArgs e)
         {
-            if (ddlEmployee.SelectedValue == "0") return;
+            if (ddlEmployee.SelectedValue == "0")
+                return;
 
-            string empID = ddlEmployee.SelectedValue;
-            DateTime from = Convert.ToDateTime(txtEffectiveFrom.Text);
-            DateTime to = Convert.ToDateTime(txtEffectiveTo.Text);
+            DateTime from, to;
+            if (!DateTime.TryParse(txtEffectiveFrom.Text, out from) ||
+                !DateTime.TryParse(txtEffectiveTo.Text, out to))
+                return;
 
-            DataSet ds = dal.ProcessEmployeePayroll(empID, from, to);
-            LogAction("Calculate Payroll", recordId: empID, remarks: $"Calculated payroll for {empID} from {from} to {to}");
+            DataSet ds = dal.ProcessEmployeePayroll(ddlEmployee.SelectedValue, from, to);
 
-            // Create typed dataset instance
-            hrms_PakAsia.Dataset.Payroll payrollDS = new hrms_PakAsia.Dataset.Payroll();
+            if (ds == null || ds.Tables.Count == 0)
+                return;
 
-            // ===== Summary Table =====
-            if (ds.Tables.Count > 1 && ds.Tables[0].Rows.Count > 0)
-            {
-                payrollDS.dtMonthlyAttendance.Clear();
+            var payrollDS = new hrms_PakAsia.Dataset.Payroll();
+
+            if (ds.Tables.Count > 0)
                 payrollDS.dtMonthlyAttendance.Merge(ds.Tables[0]);
-            }
 
-            // ===== Monthly Attendance Table =====
-            if (ds.Tables.Count > 0 && ds.Tables[1].Rows.Count > 0)
-            {
-                payrollDS.dtSummary.Clear();
+            if (ds.Tables.Count > 1)
                 payrollDS.dtSummary.Merge(ds.Tables[1]);
-            }
-            // ================= EXPORT TO PDF =================
-            ReportDocument rpt = new ReportDocument();
 
-            try
-            {
-                rpt.PrintOptions.PaperOrientation = PaperOrientation.Portrait;
-                rpt.PrintOptions.PaperSize = PaperSize.PaperA4;
-                rpt.Load(Server.MapPath("~/Reports/PayrollReport.rpt"));
+            ExportToPdf("~/Reports/PayrollReport.rpt", payrollDS, "PayrollSlip.pdf");
 
-                // VERY IMPORTANT: Typed DataSet
-                rpt.SetDataSource(payrollDS);
-
-                // Prevent DB login prompt
-                rpt.DataSourceConnections.Clear();
-
-                using (Stream pdfStream = rpt.ExportToStream(ExportFormatType.PortableDocFormat))
-                {
-                    Response.Clear();
-                    Response.Buffer = true;
-                    Response.ContentType = "application/pdf";
-                    Response.AddHeader("Content-Disposition", "inline; filename=PayrollSlip.pdf");
-
-                    pdfStream.CopyTo(Response.OutputStream);
-                    Response.Flush();
-
-                    // IMPORTANT: Complete request safely
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                }
-            }
-            finally
-            {
-                rpt.Close();
-                rpt.Dispose();
-            }
-
-
-            if (ds != null && ds.Tables.Count > 0)
-            {
-                //gvAttendance.DataSource = ds.Tables[0];
-                //gvAttendance.DataBind();
-
-                //if (ds.Tables.Count > 1)
-                //{
-                //    lblGross.Text = Convert.ToDecimal(ds.Tables[1].Rows[0]["MonthlyGrossSalary"]).ToString("N2");
-                //    lblEarned.Text = Convert.ToDecimal(ds.Tables[1].Rows[0]["EarnedSalary"]).ToString("N2");
-                //    lblNet.Text = Convert.ToDecimal(ds.Tables[1].Rows[0]["NetPayableSalary"]).ToString("N2");
-                //}
-            }
-        }
-
-        // Optional: color code rows based on Status
-        protected void gvAttendance_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-                string status = e.Row.Cells[2].Text; // Status column
-                switch (status)
-                {
-                    case "OFF":
-                        e.Row.BackColor = System.Drawing.Color.LightGray;
-                        break;
-                    case "ABSENT":
-                        e.Row.BackColor = System.Drawing.Color.LightCoral;
-                        break;
-                    case "WORKED_OFF":
-                        e.Row.BackColor = System.Drawing.Color.LightGreen;
-                        break;
-                }
-            }
+            LogAction("Calculate Payroll", ddlEmployee.SelectedValue,
+                $"Payroll calculated from {from} to {to}");
         }
 
         protected void btnBranchPayroll_Click(object sender, EventArgs e)
         {
-            if (ddlBranch.SelectedValue == "0" || ddlBranch.SelectedValue == "") return;
-            if (ddlPayrollCycle.SelectedValue == "0" || ddlPayrollCycle.SelectedValue == "") return;
-            string branchID = ddlBranch.SelectedValue;
-            string PayrollCycle = ddlPayrollCycle.SelectedValue;
-            DateTime from = Convert.ToDateTime(dateFrom.Text);
-            DateTime to = Convert.ToDateTime(dateTo.Text);
+            if (ddlBranch.SelectedValue == "0" || ddlPayrollCycle.SelectedValue == "0")
+                return;
 
-            DataSet ds = dal.ProcessBranchPayroll(Convert.ToInt64(branchID), from, to, Convert.ToInt64(PayrollCycle));
+            DateTime from, to;
+            if (!DateTime.TryParse(dateFrom.Text, out from) ||
+                !DateTime.TryParse(dateTo.Text, out to))
+                return;
 
-            DataTable finalTable = new DataTable();
+            long branchID = Convert.ToInt64(ddlBranch.SelectedValue);
+            long payrollCycle = Convert.ToInt64(ddlPayrollCycle.SelectedValue);
 
-            // Clone structure from first table
-            if (ds.Tables.Count > 0)
-            {
-                finalTable = ds.Tables[0].Clone();
+            long? departmentID = ddlDepartment.SelectedValue == "0" ? (long?)null : Convert.ToInt64(ddlDepartment.SelectedValue);
+            long? gender = ddlGender.SelectedValue == "0" ? (long?)null : Convert.ToInt64(ddlGender.SelectedValue);
 
-                foreach (DataTable table in ds.Tables)
-                {
-                    foreach (DataRow row in table.Rows)
-                    {
-                        finalTable.ImportRow(row);
-                    }
-                }
+            DataSet ds = dal.ProcessBranchPayroll(branchID, from, to, payrollCycle, departmentID, gender);
 
-                // Remove duplicate rows (keep distinct by all columns)
-                if (finalTable.Rows.Count > 1)
-                {
-                    var columnNames = finalTable.Columns.Cast<DataColumn>().Select(c => c.ColumnName).ToArray();
-                    finalTable = finalTable.DefaultView.ToTable(true, columnNames);
-                }
-            }
+            if (ds == null || ds.Tables.Count == 0)
+                return;
 
-            decimal totalNetPayable = 0;
+            DataTable finalTable = ds.Tables[0].Clone();
+
+            foreach (DataTable table in ds.Tables)
+                foreach (DataRow row in table.Rows)
+                    finalTable.ImportRow(row);
+
+            finalTable = finalTable.DefaultView.ToTable(true);
+
+            decimal totalNet = finalTable.AsEnumerable()
+                .Where(r => r["NetPayable"] != DBNull.Value)
+                .Sum(r => Convert.ToDecimal(r["NetPayable"]));
 
             foreach (DataRow row in finalTable.Rows)
+                row["BranchCost"] = totalNet;
+
+            var branchDS = new hrms_PakAsia.Dataset.BranchPayroll();
+            branchDS.dtBranchPayroll.Merge(finalTable);
+
+            ExportToPdf("~/Reports/BranchPayroll.rpt", branchDS, "Branch_PayrollSlip.pdf");
+
+            LogAction("Export Branch Payroll", branchID.ToString(),
+                $"From {from} to {to}");
+        }
+
+        private void ExportToPdf(string reportPath, object dataSource, string fileName)
+        {
+            using (ReportDocument rpt = new ReportDocument())
             {
-                if (row["NetPayable"] != DBNull.Value)
-                    totalNetPayable += Convert.ToDecimal(row["NetPayable"]);
-            }
-
-            // Option A: Put total in every row
-            foreach (DataRow row in finalTable.Rows)
-            {
-                row["BranchCost"] = totalNetPayable;
-            }
-            hrms_PakAsia.Dataset.BranchPayroll BranchPayroll = new hrms_PakAsia.Dataset.BranchPayroll();
-
-            // ===== Summary Table =====
-            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
-            {
-                BranchPayroll.dtBranchPayroll.Clear();
-                BranchPayroll.dtBranchPayroll.Merge(finalTable);
-            }
-            ReportDocument rpt = new ReportDocument();
-
-            try
-            {
-                rpt.PrintOptions.PaperOrientation = PaperOrientation.Portrait;
-                rpt.PrintOptions.PaperSize = PaperSize.PaperA4;
-                rpt.Load(Server.MapPath("~/Reports/BranchPayroll.rpt"));
-
-                // VERY IMPORTANT: Typed DataSet
-                rpt.SetDataSource(BranchPayroll);
-
-                // Prevent DB login prompt
+                rpt.Load(Server.MapPath(reportPath));
+                rpt.SetDataSource(dataSource);
                 rpt.DataSourceConnections.Clear();
 
-                using (Stream pdfStream = rpt.ExportToStream(ExportFormatType.PortableDocFormat))
+                using (Stream stream = rpt.ExportToStream(ExportFormatType.PortableDocFormat))
                 {
                     Response.Clear();
-                    Response.Buffer = true;
                     Response.ContentType = "application/pdf";
-                    Response.AddHeader("Content-Disposition", "inline; filename=Branch_PayrollSlip.pdf");
-
-                    pdfStream.CopyTo(Response.OutputStream);
+                    Response.AddHeader("Content-Disposition", $"inline; filename={fileName}");
+                    stream.CopyTo(Response.OutputStream);
                     Response.Flush();
-
-                    // IMPORTANT: Complete request safely
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                 }
-            }
-            finally
-            {
-                rpt.Close();
-                rpt.Dispose();
-            }
-                LogAction("Export Branch Payroll PDF", recordId: branchID, remarks: $"Exported branch payroll PDF for branch {branchID} from {from} to {to}");
-
-
-            if (ds != null && ds.Tables.Count > 0)
-            {
-                //gvAttendance.DataSource = ds.Tables[0];
-                //gvAttendance.DataBind();
-
-                //if (ds.Tables.Count > 1)
-                //{
-                //    lblGross.Text = Convert.ToDecimal(ds.Tables[1].Rows[0]["MonthlyGrossSalary"]).ToString("N2");
-                //    lblEarned.Text = Convert.ToDecimal(ds.Tables[1].Rows[0]["EarnedSalary"]).ToString("N2");
-                //    lblNet.Text = Convert.ToDecimal(ds.Tables[1].Rows[0]["NetPayableSalary"]).ToString("N2");
-                //}
             }
         }
     }
