@@ -131,6 +131,50 @@
 
                             </asp:Repeater>
                         </div>
+
+                        <!-- Pagination Controls -->
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <div class="text-muted">
+                                Showing 
+                                <asp:Label ID="lblStartRecord" runat="server" Text="0"></asp:Label> - 
+                                <asp:Label ID="lblEndRecord" runat="server" Text="0"></asp:Label> 
+                                of <asp:Label ID="lblTotalRecords" runat="server" Text="0"></asp:Label> records
+                            </div>
+                            <div class="btn-group" role="group">
+                                <asp:LinkButton ID="btnFirst" runat="server" 
+                                    CssClass="btn btn-outline-primary btn-sm" 
+                                    OnClick="btnPagination_Click" 
+                                    CommandArgument="First" 
+                                    ToolTip="First Page">
+                                    <i class="uil uil-angle-double-left"></i>
+                                </asp:LinkButton>
+                                <asp:LinkButton ID="btnPrevious" runat="server" 
+                                    CssClass="btn btn-outline-primary btn-sm" 
+                                    OnClick="btnPagination_Click" 
+                                    CommandArgument="Previous" 
+                                    ToolTip="Previous Page">
+                                    <i class="uil uil-angle-left"></i>
+                                </asp:LinkButton>
+                                <span class="btn btn-outline-secondary btn-sm disabled">
+                                    Page <asp:Label ID="lblCurrentPage" runat="server" Text="1"></asp:Label> 
+                                    of <asp:Label ID="lblTotalPages" runat="server" Text="1"></asp:Label>
+                                </span>
+                                <asp:LinkButton ID="btnNext" runat="server" 
+                                    CssClass="btn btn-outline-primary btn-sm" 
+                                    OnClick="btnPagination_Click" 
+                                    CommandArgument="Next" 
+                                    ToolTip="Next Page">
+                                    <i class="uil uil-angle-right"></i>
+                                </asp:LinkButton>
+                                <asp:LinkButton ID="btnLast" runat="server" 
+                                    CssClass="btn btn-outline-primary btn-sm" 
+                                    OnClick="btnPagination_Click" 
+                                    CommandArgument="Last" 
+                                    ToolTip="Last Page">
+                                    <i class="uil uil-angle-double-right"></i>
+                                </asp:LinkButton>
+                            </div>
+                        </div>
                     </div>
 
                 </div>

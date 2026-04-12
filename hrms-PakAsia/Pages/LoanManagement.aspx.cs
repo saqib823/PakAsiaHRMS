@@ -116,6 +116,9 @@ namespace hrms_PakAsia.Pages
             TotalRecords = totalRecords;
             rptLoans.DataSource = dt;
             rptLoans.DataBind();
+            
+            // Update pagination labels
+            UpdatePaginationLabels();
         }
 
 
@@ -408,6 +411,52 @@ namespace hrms_PakAsia.Pages
     </div>
 </body>
 </html>";
+        }
+
+        protected void btnPagination_Click(object sender, EventArgs e)
+        {
+            LinkButton btn = (LinkButton)sender;
+            string command = btn.CommandArgument;
+            int totalPages = (int)Math.Ceiling((double)TotalRecords / PageSize);
+
+            switch (command)
+            {
+                case "First":
+                    CurrentPage = 1;
+                    break;
+                case "Previous":
+                    if (CurrentPage > 1)
+                        CurrentPage--;
+                    break;
+                case "Next":
+                    if (CurrentPage < totalPages)
+                        CurrentPage++;
+                    break;
+                case "Last":
+                    CurrentPage = totalPages;
+                    break;
+            }
+
+            BindLoans();
+        }
+
+        private void UpdatePaginationLabels()
+        {
+            int totalPages = (int)Math.Ceiling((double)TotalRecords / PageSize);
+            int startRecord = TotalRecords == 0 ? 0 : ((CurrentPage - 1) * PageSize) + 1;
+            int endRecord = Math.Min(CurrentPage * PageSize, TotalRecords);
+
+            lblCurrentPage.Text = CurrentPage.ToString();
+            lblTotalPages.Text = totalPages.ToString();
+            lblTotalRecords.Text = TotalRecords.ToString();
+            lblStartRecord.Text = startRecord.ToString();
+            lblEndRecord.Text = endRecord.ToString();
+
+            // Enable/disable pagination buttons
+            btnFirst.Enabled = CurrentPage > 1;
+            btnPrevious.Enabled = CurrentPage > 1;
+            btnNext.Enabled = CurrentPage < totalPages;
+            btnLast.Enabled = CurrentPage < totalPages;
         }
 
         protected void btnClear_Click(object sender, EventArgs e)
