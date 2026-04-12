@@ -155,7 +155,7 @@
                                     ToolTip="Previous Page">
                                     <i class="uil uil-angle-left"></i>
                                 </asp:LinkButton>
-                                <span class="btn btn-outline-secondary btn-sm disabled">
+                                <span class="btn btn-outline-secondary btn-sm">
                                     Page <asp:Label ID="lblCurrentPage" runat="server" Text="1"></asp:Label> 
                                     of <asp:Label ID="lblTotalPages" runat="server" Text="1"></asp:Label>
                                 </span>
